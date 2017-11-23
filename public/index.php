@@ -1,5 +1,7 @@
 <?php
 
+/*PATATE*/
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
