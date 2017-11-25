@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/emploi', function () {
+    return view('emploi');
+});
+
+Route::get("/etudiants", function() {
+   return App\Etudiant::all();
+});

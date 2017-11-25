@@ -1,0 +1,36 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.bg-second {
+    background: #FF5522;
+}
+
+.navbar-nav {
+    justify-content: flex-end;
+    width: 100%;
+}
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.shadow {
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.21), 0 0px 4px 0 rgba(0, 0, 0, 0.51), 0 0 20px 0 hsla(0, 0%, 0%, 0.1) !important;
+}
+#connexion a{
+    padding: 0;
+}
+#connexion i {
+    font-size: 40px;
+    margin-left: 20px;
+}
+.padding-10 {
+    padding: 10px;
+}
+
+.btn-change {
+    height: 40px;
+    width: 40px;
+    line-height: 48px;
+}
