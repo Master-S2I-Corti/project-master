@@ -20,23 +20,33 @@ body {
 .shadow {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.21), 0 0px 4px 0 rgba(0, 0, 0, 0.51), 0 0 20px 0 hsla(0, 0%, 0%, 0.1) !important;
 }
-#connexion a{
-    padding: 0;
-}
-#connexion i {
-    font-size: 40px;
-    margin-left: 20px;
-}
+
 .padding-10 {
     padding: 10px;
 }
+.padding-0 {
+    padding: 0;
+}
 
+.background-none {
+    background: none;
+}
+
+.icon_account {
+    font-size: 40px;
+    margin-left: 20px;
+}
 .btn-change {
     height: 40px;
     width: 40px;
     line-height: 48px;
 }
 label i {
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+
+.icon_left {
     vertical-align: bottom;
     margin-right: 10px;
 }

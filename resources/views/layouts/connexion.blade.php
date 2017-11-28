@@ -2,13 +2,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Connexion</h5>
+                <h5 class="modal-title"><strong>Authentification</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form class="form-horizontal" method="POST" action="{{ url('login') }}">
+
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="{{ url('login') }}">
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
                         <div>
@@ -23,24 +24,25 @@
                             <input id="password-input" type="password" class="form-control" placeholder="Mot de passe" name="password"
                                    required>
                             @if ($errors->has('identifiant'))
-                                <span class="help-block">
+                                <span class="help-block text-danger">
                                         <strong>{{ $errors->first('identifiant') }}</strong>
                                     </span>
                             @endif
 
                             @if ($errors->has('password'))
-                                <span class="help-block">
+                                <span class="help-block text-danger">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                             @endif
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary">Valider</button>
-                    </div>
-                </form>
+
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+            </form>
 
         </div>
     </div>

@@ -11,15 +11,27 @@
 |
 */
 
-Route::get('/', function () {
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+
+Route::get('/', function (){
     return view('welcome');
 });
-
 
 Route::get('/emploi', function () {
     return view('emploi');
 });
 
 Route::get("/etudiants", function() {
-   return App\Etudiant::all();
+   return App\Personnes::all();
 });
+
+Route::get("/crypt" , function () {
+    return bcrypt("salades") . "  ".str_random(10);
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

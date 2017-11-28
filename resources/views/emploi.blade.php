@@ -1,20 +1,15 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
+@extends('layouts.app')
 
-    @include('import')
+@section('css')
     <style>
 
         .nav-item:nth-child(1) a {
             color: white !important;
         }
     </style>
+@endsection
 
-</head>
-<body>
-@include('header')
-
-
+@section('content')
     <div class="padding-10 d-flex justify-content-between">
         <div class="">
             <h2>Semaine 51</h2>
@@ -39,15 +34,11 @@
         </thead>
         <tbody>
 
-            <tr>
+        <tr>
 
-            </tr>
+        </tr>
         </tbody>
 
 
     </table>
-
-
-@include('footer')
-</body>
-</html>
+@endsection
