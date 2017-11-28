@@ -17,7 +17,7 @@
             <a class="nav-link" href="#">Item 3</a>
         </li>
         <li class="nav-item" id="connexion">
-            <a class="nav-link" href="#"><i class="material-icons">account_circle</i></a>
+            <a class="nav-link" data-toggle="modal" data-target="#connexionModal" href="#"><i class="material-icons">account_circle</i></a>
         </li>
 
     </ul>

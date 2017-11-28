@@ -2,6 +2,8 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
+
+
 .bg-second {
     background: #FF5522;
 }
@@ -33,4 +35,8 @@ body {
     height: 40px;
     width: 40px;
     line-height: 48px;
+}
+label i {
+    vertical-align: bottom;
+    margin-right: 10px;
 }
