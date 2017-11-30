@@ -19,28 +19,29 @@
 
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>ENT - Université de Corse</title>
     @yield('css')
 </head>
 <body>
 @include('layouts.header')
 
-
-@include('layouts.connexion')
-
+@guest
+    @include('layouts.connexion')
+@endguest
 
 @yield('content')
 @include('layouts.footer')
 
 @yield('script')
 
+@if ($errors->any())
+
 <script>
     $(function () {
-        @if ($errors->any())
-            $('#connexionModal').modal('show');
-        @endif
-})
+        $('#connexionModal').modal('show');
+    });
 </script>
+@endif
 
 </body>
 </html>

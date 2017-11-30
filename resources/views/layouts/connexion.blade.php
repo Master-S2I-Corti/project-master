@@ -1,3 +1,5 @@
+@if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  == "register")
+@else
 <div class="modal fade" id="connexionModal" tabindex="-1" role="dialog" aria-labelledby="connexionModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -47,3 +49,4 @@
         </div>
     </div>
 </div>
+@endif

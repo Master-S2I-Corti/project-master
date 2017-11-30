@@ -7,20 +7,26 @@
 
     <!-- Links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="{{URL::to("/emploi")}}">Emploi du temps</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Note</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Item 3</a>
-        </li>
-        <li class="nav-item" id="connexion">
+
         @guest
-            <a class="nav-link padding-0" data-toggle="modal" href="{{ url('login')}}" data-target="#connexionModal"><i class="icon_account material-icons">account_circle</i></a>
+            @if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  != "register")
+            <li class="nav-item">
+                <a class="nav-link padding-0 align-items-center d-inline-flex"  data-toggle="modal" href="{{ url('login')}}" data-target="#connexionModal">Connexion <i class="icon_account material-icons">account_circle</i></a>
+            </li>
+            @endif
         @else
-            <div class="dropdown">
+            <li class="nav-item">
+                <a class="nav-link" href="{{URL::to("/emploi")}}">Emploi du temps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Note</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Item 3</a>
+            </li>
+            <li class="nav-item" id="connexion">
+
+                <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Compte
                 </button>
@@ -36,10 +42,9 @@
                     </a>
                 </div>
             </div>
+            </li>
 
         @endguest
-
-        </li>
     </ul>
     </div>
 </nav>
