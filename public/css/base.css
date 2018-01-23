@@ -3,7 +3,6 @@ body {
 }
 
 
-
 .bg-second {
     background: #FF5522;
 }
@@ -19,13 +18,6 @@ body {
 
 .shadow {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.21), 0 0px 4px 0 rgba(0, 0, 0, 0.51), 0 0 20px 0 hsla(0, 0%, 0%, 0.1) !important;
-}
-
-.padding-10 {
-    padding: 10px;
-}
-.padding-0 {
-    padding: 0;
 }
 
 .background-none {

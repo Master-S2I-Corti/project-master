@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
 @section('css')
-    <style>
 
+    <style>
+        .nav-item:nth-child(2) a {
+            color: white !important;
+        }
         .dropdown {
             position: relative;
             display: inline-block;

@@ -2,7 +2,6 @@
 
 @section('css')
     <style>
-
         .nav-item:nth-child(1) a {
             color: white !important;
         }

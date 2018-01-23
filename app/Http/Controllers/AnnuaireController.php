@@ -3,11 +3,11 @@ namespace App\Http\Controllers;
 
 
 
-class EDTController extends Controller
+class AnnuaireController extends Controller
 {
-    
+
     public function index() {
-        return view("emploi");
+        return "PAGE ANNUAIRE";
     }
 
 }

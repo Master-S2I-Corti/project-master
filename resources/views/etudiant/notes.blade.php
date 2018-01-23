@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
-
+@section('css')
+    <style>
+        .nav-item:nth-child(2) a {
+            color: white !important;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="">

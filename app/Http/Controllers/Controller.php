@@ -13,6 +13,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $redirectTo = '/';
+
     public function __construct() {
         $this->middleware('auth');
     }

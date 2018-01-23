@@ -11,7 +11,7 @@
         @guest
             @if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  != "register")
             <li class="nav-item">
-                <a class="nav-link padding-0 align-items-center d-inline-flex"  data-toggle="modal" href="{{ url('login')}}" data-target="#connexionModal">Connexion <i class="icon_account material-icons">account_circle</i></a>
+                <a class="nav-link p-0 align-items-center d-inline-flex"  data-toggle="modal" href="{{ url('login')}}" data-target="#connexionModal">Connexion <i class="icon_account material-icons">account_circle</i></a>
             </li>
             @endif
         @else
@@ -22,13 +22,13 @@
                 <a class="nav-link" href="{{URL::to("/notes")}}">Note</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Item 3</a>
+                <a class="nav-link" href="{{URL::to("/annuaire")}}">Annuaire</a>
             </li>
-            <li class="nav-item" id="connexion">
+            <li class="nav-item ml-3" id="connexion">
 
                 <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Compte
+                    <i class="material-icons d-inline align-middle mr-2">account_circle</i> Compte
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Profil</a>
