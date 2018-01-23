@@ -24,4 +24,13 @@ class Personne extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isEtudiant() {
+        return $this->code_etudiant != null;
+    }
+
+    public function getPath() {
+        return $this->isEtudiant() ? "/etudiant" : "/enseignant";
+    }
+
 }

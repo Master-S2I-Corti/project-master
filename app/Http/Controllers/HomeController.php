@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,23 +8,19 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 
 
-class Controller extends BaseController
+class HomeController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     public function index() {
-        if(Auth::user()->isEtudiant()) {
-            return $this->etudiant();
+        if(Auth::guest()) {
+            return view("welcome");
         } else {
-            return $this->enseignant();
+            return view($this->path().".home");
         }
     }
 
-    public function path() {
+    private function path() {
         return Auth::user()->getPath();
     }
 

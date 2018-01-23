@@ -19,7 +19,7 @@
                 <a class="nav-link" href="{{URL::to("/emploi")}}">Emploi du temps</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Note</a>
+                <a class="nav-link" href="{{URL::to("/notes")}}">Note</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Item 3</a>
@@ -31,8 +31,8 @@
                     Compte
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Profil</a>
+                    <a class="dropdown-item" href="#">Contact</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
                         <form id="logout-form" action="{{url("/logout")}}" method="POST" class="hide">

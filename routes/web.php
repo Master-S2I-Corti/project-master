@@ -15,23 +15,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function (){
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
-Route::get('/emploi', function () {
-    return view('emploi');
-});
+Route::get('/emploi', 'EDTController@index');
 
 Route::get("/etudiants", function() {
-   return App\Personnes::all();
+   return App\Personne::all();
 });
 
-Route::get("/crypt" , function () {
-    return bcrypt("salades") . "  ".str_random(10);
+
+Route::get('notes', 'NotesController@index');
+
+Route::post('deleteEval','GestionNotesController@deleteEvalById');
+
+Route::middleware(['checkEtudiant'])->group(function () {
+    //SEULEMENT ETUDIANT
 });
+
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
