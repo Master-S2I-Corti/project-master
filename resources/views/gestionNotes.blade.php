@@ -46,7 +46,7 @@
 @section('content')
     <div class="container" id="couco" style="left: 10px; z-index:1; width:100%; top:60px; display:none ">
         <div class="alert alert-success alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Success!</strong> This alert box could indicate a successful or positive action.
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Succès!</strong> Une nouvelle évaluation à été créée.
         </div>
     </div>
     <div class="">
@@ -92,15 +92,15 @@
 
                         </div>
                         <div class="col-md-2">
-                            <button  data-target="#modal_tdtpcc"  data-toggle="modal" class="btn btn-primary d-flex align-items-center" type="button"> <i class="material-icons">add</i> TD TP CC</button>
+                            <button  data-target="#modal_tdtpcc"  data-toggle="modal" class="btn btn-primary d-flex align-items-center" type="button"> <i class="fa fa-plus"></i> TD TP CC</button>
                         </div>
 
 
 
                         <div class="col-md-4  p-0">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="" aria-label="Search for...">
-                                <button class="btn btn-primary d-flex align-content-center" type="button"> <i class="material-icons">search</i></button>
+                                <input type="text" class="form-control" placeholder="Recherche..." aria-label="Search for...">
+                                <button class="btn btn-primary d-flex align-content-center" type="button"> <i class="fa fa-search"></i></button>
                             </div>
                         </div>
 
@@ -121,56 +121,56 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>12.80</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr style="color:red">
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>---</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td class="">Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             </tbody>
                         </table>
@@ -188,7 +188,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="material-icons">account_circle</i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;"> Web Semantique</span>
+                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="mr-2 fa fa-user-circle"></i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;"> Web Semantique</span>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
@@ -371,7 +371,7 @@
         });
         $('document').ready(function(){
             $('.insertLine').click(function(){
-                $('#cTable').prepend('<tr><td class="w-25"><select name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class=" d-inline removeLine materiel-icons text-danger">delete</i></td></tr>');
+                $('#cTable').prepend('<tr><td class="w-25"><select class="form-control" name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
             });
 
             $('body').on('click','.removeLine',function(){

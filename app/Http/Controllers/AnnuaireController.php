@@ -7,7 +7,7 @@ class AnnuaireController extends Controller
 {
 
     public function index() {
-        return "PAGE ANNUAIRE";
+        return view("annuaire");
     }
 
 }

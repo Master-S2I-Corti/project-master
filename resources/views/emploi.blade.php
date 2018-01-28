@@ -14,8 +14,8 @@
             <h2>Semaine 51</h2>
         </div>
         <div class="">
-            <button class="rounded-circle border-0 bg-second text-white btn-change"><i class="material-icons">chevron_left</i></button>
-            <button class="rounded-circle border-0 bg-second text-white btn-change"><i class="material-icons">chevron_right</i></button>
+            <button class="rounded-circle border-0 bg-second text-white btn-change"><i class="d-inline fa fa-angle-left fa-lg" ></i></button>
+            <button class="rounded-circle border-0 bg-second text-white btn-change"><i class="d-inline fa fa-angle-right fa-lg"></i></button>
         </div>
     </div>
 

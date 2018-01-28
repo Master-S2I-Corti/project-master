@@ -16,12 +16,8 @@ class HomeController extends BaseController
         if(Auth::guest()) {
             return view("welcome");
         } else {
-            return view($this->path().".home");
+            return view("home");
         }
-    }
-
-    private function path() {
-        return Auth::user()->getPath();
     }
 
 }

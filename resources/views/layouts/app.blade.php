@@ -9,8 +9,6 @@
     <link rel="shortcut icon" href="https://studia.universita.corsica/template/template_portails/css/favicon.ico"
           type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js')}}"></script>
@@ -18,30 +16,69 @@
     <script src="{{ asset('js/popper.min.js')}}"></script>
 
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
+    <script src="https://use.fontawesome.com/1844c64849.js"></script>
+
 
     <title>ENT - Université de Corse</title>
     @yield('css')
 </head>
-<body>
-@include('layouts.header')
+<body style="overflow: hidden">
 
-@guest
-    @include('layouts.connexion')
-@endguest
+<div>
+    @auth()
+        <div id="menu">
+            <div>
+                <div class="d-flex align-items-center">
+                    <button class="toggleMenu btn background-none btn-lg m-2"><i class="fa fa-bars fa-lg "></i> </button>
+                    <h4 class="m-0">Menu</h4>
+                </div>
+                <div>
+                @if(Auth::user()->isAdmin())
+                    @include("home.admin_menu")
+                @endif
 
-@yield('content')
-@include('layouts.footer')
+                @if(Auth::user()->isEtudiant())
+                    @include("home.etudiant_menu")
+                @endif
+                @if(Auth::user()->isEnseignant())
+                    @include("home.enseignant_menu")
+                @endif
+                </div>
+            </div>
+        </div>
+    @endauth
+
+    <div >
+        @include('layouts.header')
+
+        @guest
+            @include('layouts.connexion')
+        @endguest
+        <div id="conteneur" style="overflow: auto; height: calc(100vh - 66px)">
+            @yield('content')
+            @include('layouts.footer')
+        </div>
+    </div>
+</div>
 
 @yield('script')
 
-@if ($errors->any())
-
 <script>
     $(function () {
-        $('#connexionModal').modal('show');
+
+    $(".toggleMenu").click(function (e) {
+        $("#menu").toggleClass("openMenu")
+
     });
+    $("#conteneur").click(function () {
+        $("#menu").removeClass("openMenu")
+    });
+    @if ($errors->any())
+        $('#connexionModal').modal('show');
+    @endif
+    });
+
 </script>
-@endif
 
 </body>
 </html>

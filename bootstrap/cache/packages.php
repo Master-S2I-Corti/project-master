@@ -6,13 +6,6 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
-  'laravel/tinker' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    ),
-  ),
   'laravelcollective/html' => 
   array (
     'providers' => 
@@ -23,6 +16,13 @@
     array (
       'Form' => 'Collective\\Html\\FormFacade',
       'Html' => 'Collective\\Html\\HtmlFacade',
+    ),
+  ),
+  'laravel/tinker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
 );

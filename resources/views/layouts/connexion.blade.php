@@ -15,14 +15,14 @@
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
                         <div>
-                            <label for="login-input" class="form-control-label"><i class="material-icons">perm_identity</i>Identifiant</label>
+                            <label for="login-input" class="form-control-label"><i class="fa fa-user d-inline fa-lg"></i>Identifiant</label>
                             <input id="login-input" type="text" placeholder="Identifiant" class="form-control" name="identifiant"
                                    value="{{ old('identifiant') }}" required autofocus>
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <div>
-                            <label for="password-input" class="form-control-label"><i class="material-icons">lock_outline</i>Mot de passe</label>
+                            <label for="password-input" class="form-control-label"><i class="fa d-inline fa-lock fa-lg"></i>Mot de passe</label>
                             <input id="password-input" type="password" class="form-control" placeholder="Mot de passe" name="password"
                                    required>
                             @if ($errors->has('identifiant'))
