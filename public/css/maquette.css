@@ -1,0 +1,57 @@
+.titleRow{
+	
+			background-color: azure;
+	
+}
+.header {
+			background-color: azure ;
+			border : 2px solid black;
+		}
+table,tr,td
+{
+	border : 1px solid black;
+	margin :0px;
+
+}
+
+.nSemestre {  text-align: center;
+}
+td{
+	white-space:nowrap
+}
+input[type=number]
+{
+	width: 100%;
+}
+input{
+	border : 1px solid black;
+	width: 100%;
+}
+table button
+{
+	width: 100%;
+}
+.Uerow
+{
+	border: 2px solid black;
+}
+#overlay {
+    display:none;    
+    position:fixed;  
+    left:0px;        
+    top:0px;         
+    width:100%;      
+    height:100%;     
+    background:rgba(0,0,0,0.5); 
+       
+    z-index:9;   
+}
+
+
+textarea { resize:both; }
+	
+	.description{
+		height:79px;
+		width: 150px; 
+		resize:none;
+	}
