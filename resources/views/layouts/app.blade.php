@@ -30,9 +30,10 @@
             <div>
                 <div class="d-flex align-items-center">
                     <button class="toggleMenu btn background-none btn-lg m-2"><i class="fa fa-bars fa-lg "></i> </button>
-                    <h4 class="m-0">Menu</h4>
+                    <a class="navbar-brand" href="{{URL::to("/")}}"><img class="logo img-fluid" src="{{asset("img/logo.png")}}">Università di Corsica</a>
+
                 </div>
-                <div>
+                <div id="items-menu">
                 @if(Auth::user()->isAdmin())
                     @include("home.admin_menu")
                 @endif

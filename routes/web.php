@@ -27,17 +27,19 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
     Route::get('/gestion/notes','GestionNotesController@index');
 });
 
-Route::get('listeProf/{user}','ListeProfController@index');
-Route::post('listeProf/{user}/search','ListeProfController@search');
+
+
+Route::get('annuaire/professeurs','ListeProfController@index');
+Route::post('listeProf/search','ListeProfController@search');
 //Route::get('editProf/{id}','ListeProfController@edit');
 Route::get('deleteProf/{id}','ListeProfController@destroy');
 //Route::get('createProf','ListeProfController@create');
 Route::post('saveProf','ListeProfController@store');
 Route::post('updateProf','ListeProfController@update');
 
-Route::get('listeEtudiant/{user}','ListeEtudiantController@index');
+Route::get('annuaire/etudiants','ListeEtudiantController@index');
 
-Route::post('listeEtudiant/{user}/search','ListeEtudiantController@search');
+Route::post('listeEtudiant/search','ListeEtudiantController@search');
 
 //Route::get('editEtudiant/{id}','ListeEtudiantController@edit');
 Route::get('deleteEtudiant/{id}','ListeEtudiantController@destroy');

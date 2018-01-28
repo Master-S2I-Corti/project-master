@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
 class ListeEtudiantController extends Controller
 {
     // Accès à la page Liste etudiant
-    public function index($user)
+    public function index()
     {
         $recherche = null;
-        $etudiants = Etudiant::get();
+        $etudiants = Personne::get();
         return view('listeEtudiant', compact('etudiants','user','recherche'));
     }
 

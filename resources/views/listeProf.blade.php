@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
+    <link href="{{ asset('annuaire.css') }}" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
     <script src="{{ asset('js/jquery.js') }}"></script>

@@ -1,219 +1,211 @@
-<!doctype html>
+@extends('layouts.app')
 
-<html lang="fr">
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/annuaire.css') }}"/>
+    <style>
+        .nav-item:nth-child(3) a {
+            color: white !important;
+        }
+    </style>
+@endsection
 
-<head>
+@section('content')
+    <div class="w-75 m-auto pt-5">
+        <div class="d-flex justify-content-between mb-5">
+            <h2>Liste des étudiants</h2>
+        @if(Auth::user()->isAdmin())
+                <button class="add btn btn-primary" >Ajouter d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+            @endif
+        </div>
 
-    <meta charset="UTF-8"> 
-    
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/jquery2.js') }}"></script>
+        <table class="table table-bordered ">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Filière</th>
+                @if(Auth::user()->isAdmin())
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                @endif
+            </tr>
+            </thead>
+            <tbody>
 
-   
+           @foreach ( $etudiants as $etudiant)
 
-    <title>Liste d'Etudiants</title> 
+            @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
+
+            <tr >
+                <th >{{ $etudiant->id }}</th>
+                <th class="opener" >{{ $etudiant->nom }}</th>
+                <th class="opener">{{ $etudiant->prenom }}</th>
+                <th class="opener">{{ $etudiant->filiere }}</th>
+                @if(Auth::user()->isAdmin())
+
+                <th class="modifier"><i class="fa fa-edit fa-2x"></i></th>
+                <th class="del">
+                    <a >
+                        <i class="fa fa-trash fa-2x"></i>
+                    </a>
+                </th>
+                @endif
+            </tr>
+            @endif
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <!-- POPUP D'AFFICHAGE -->
+    <div id="dialog" title="Profil de l' Etudiant" class="modal fade" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nom">Détails étudiant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <p id="email"> Email: Aucun mail</p>
+                        </div>
+                        <div class="col">
+                            <p id="fil"> Filière: Aucune filiere</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- POPUP DE MODIFICATON -->
+    <div id="modif" title="Modification de l' Etudiant" class="modal fade" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="{!! url('updateEtudiant') !!}" accept-charset="UTF-8">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col">
+                                    <input id="id2" type="hidden" name="id"  value="" />
+                                    <p> Email: <br /></p>
+                                </div>
+                                <div class="col">
+                                    <p> Filière: <input type="text" name="filiere" id="fil2" value=''/><br /></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary"> Modifier</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP D'AJOUT -->
+    <div id="ajout" title="Ajouter de l' Etudiant" class="modal fade">
+        <form class="modal-dialog" method="post" action="{!! url('saveEtudiant') !!}" accept-charset="UTF-8">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajouter nouvel étudiant</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                {{ csrf_field() }}
+
+                                <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
+                                <p> Filière: <input type="text" id="fil3" name="filiere" value=''/><br/></p>
+                                <p> Email: <br/></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Ajouter</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- POPUP DE SUPRESSION -->
+    <div id="sup" title="Suppression de l' Etudiant" class="modal fade" >
+        <div class="container">
+            <h4> Êtes-vous sûr de supprimer cet étudiant ?</h4>
+            <div class="row">
+                <div class="col">
+                    <form method="get" action="{{ url('deleteEtudiant') }}">
+                        <button class="btn btn-danger">Confirmer</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <button>Annuler</button>
+                </div>
+            </div>
+        </div>
+@endsection
+
+@section('script')
 
     <script>
         $( function() {
             //AFFICHAGE POPUP
-            $( "#dialog" ).dialog({
-                width: 750,
-                autoOpen: false,
 
-            });
+
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("th")
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.querySelector("#fil").innerHTML ="Filière: "+ elements.item(3).innerHTML
-                $( "#dialog" ).dialog( "open" );
+                $( "#dialog" ).modal('show');
             });
 
-            //MODIFICATION POPUP
-            $( "#modif" ).dialog({
-                width: 750,
-                autoOpen: false,
-
-            });
             $( ".modifier" ).on( "click", function(e) {
                 var elements = e.target.parentElement.parentElement.querySelectorAll("th")
                 document.getElementById("id2").value = elements.item(0).innerHTML
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
                 document.getElementById("fil2").value = elements.item(3).innerHTML;
-                $( "#modif" ).dialog( "open" );
+                $( "#modif" ).modal( "show" );
             });
 
-            //AJOUT POPUP
-            $( "#ajout" ).dialog({
-                width: 550,
-                autoOpen: false,
-
-            });
             $( ".add" ).on( "click", function(e) {
                 /*var elements = e.target.parentElement.parentElement.querySelectorAll("th")
                 document.querySelector("#nom3").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.getElementById("fil2").value = elements.item(3).innerHTML;*/
-                $( "#ajout" ).dialog( "open" );
+                $( "#ajout" ).modal( "show" );
             });
 
-            //DELETE POPUP
-            $( "#sup" ).dialog({
-                width: 550,
-                autoOpen: false,
-
-            });
             $( ".del" ).on( "click", function(e) {
-                $( "#sup" ).dialog( "open" );
+                $( "#sup" ).modal( "show" );
             });
         } );
 
     </script>
-</head>
-
-<body>
-@include('base/header')
-    <div id="dimGest">
-        <div class="row">
-                <div class="col">
-                    <?php 
-                        if ( $user== 'admin')
-                        {
-                    ?>
-                        <button class="add" >Ajouter d'un étudiant : <img src="{{ asset('img/png/plus-4x.png') }}"/></button>
-                    <?php
-                        }     
-                    ?>
-                </div>
-                
-        </div>
-        </br>
-        <table class="table table-bordered ">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Filière</th>
-                <?php 
-                if ( $user== 'admin'||$user == 'chef')
-                    {
-                    ?>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-                <?php
-                    }
-                    ?>
-            </tr>
-            </thead>
-            <tbody>
-           
-            <?php foreach ( $etudiants as $etudiant): 
-                
-                if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
-                {  
-                    
-            ?>
-                <tr>
-                    <th  >{{$etudiant->id}}</th>
-                    <th  class="opener">{{$etudiant->nom}}</th>
-                    <th  class="opener">{{$etudiant->prenom}}</th>
-                    <th  class="opener">{{$etudiant->filiere}}</th>
-                <?php 
-                    if ( $user == 'admin'||$user == 'chef')
-                    {
-                    ?>
-                    
-                    <th ><button class="modifier"><img src="{{ asset('img/png/brush-4x.png') }}"/></button></th> 
-                    <th class="del">
-                        <a >
-                            <img src="{{ asset('img/png/trash-4x.png') }}"/>
-                        </a>
-                    </th>
-                    <?php
-                    }
-                }
-                    ?>
-                </tr> 
-            <?php endforeach;?>
-            </tbody>
-        </table>
-    </div>
-
-        <!-- POPUP D'AFFICHAGE -->
-        <div id="dialog" title="Profil de l' Etudiant">
-            <div class="container">
-                <h1 id="nom">Etudiant</h1>
-                    <div class="row">
-                        <div class="col">
-                            <p id="email"> Email: </p>
-                        </div>
-                        <div class="col">
-                            <p id="fil"> Filière: </p>
-                        </div>
-                    </div>
-            </div>
-        </div>
- <!-- POPUP DE MODIFICATON -->
- <div id="modif" title="Modification de l' Etudiant">
-     <div class="container">
-        <form method="post" action="{!! url('updateEtudiant') !!}" accept-charset="UTF-8">
-            {{ csrf_field() }}
-            <h1><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h1>
-            <div class="row">
-                <div class="col">
-                    <input id="id2" type="hidden" name="id"  value="" />
-                    <p> Email: <br /></p>
-                </div>
-                <div class="col">
-                    
-                    <p> Filière: <input type="text" name="filiere" id="fil2" value=''/><br /></p>
-                </div>
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary"> Modifier</button>
-                </div>
-            </div>
-        </form>
-     </div>
-</div>
-
- <!-- POPUP D'AJOUT -->
- <div id="ajout" title="Ajouter de l' Etudiant">
-     <div class="container">
-        <div class="row">
-            <div class="col">
-                <form method="post" action="{!! url('saveEtudiant') !!}" accept-charset="UTF-8">
-                    {{ csrf_field() }}
-                    <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
-                    <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
-                    <p> Filière: <input type="text" id="fil3" name="filiere" value=''/><br/></p>
-                    <p> Email: <br /></p>
-                    <button class="btn btn-primary">Ajouter</button>
-                </form>  
-            </div>
-        </div>
-     </div>
-</div>
-
- <!-- POPUP DE SUPRESSION -->
- <div id="sup" title="Suppression de l' Etudiant">
-     <div class="container">
-        <h4> Êtes-vous sûr de supprimer cet étudiant ?</h4> 
-        <div class="row">
-            <div class="col">
-                <form method="get" action="{{ url('deleteEtudiant/'.$etudiant->id) }}">
-                    <button class="btn btn-danger">Confirmer</button>
-                </form>     
-            </div>
-            <div class="col">
-                <button>Annuler</button>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
+@endsection
