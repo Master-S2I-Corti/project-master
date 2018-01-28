@@ -11,7 +11,7 @@
 </a>
 
 <a class="d-flex align-items-center p-3" href="{{ URL::to('/gestion/salles') }}">
-    <i class="fa fa-clock-o text-dark" ></i>
+    <i class="fa fa-map-signs text-dark" ></i>
     <p>Salles</p>
 </a>
 
