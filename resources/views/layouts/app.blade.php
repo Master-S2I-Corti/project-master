@@ -22,32 +22,63 @@
     <title>ENT - Université de Corse</title>
     @yield('css')
 </head>
-<body>
+<body style="overflow: hidden">
 
 <div>
-    <div></div>
-    <div>
-    @include('layouts.header')
+    @auth()
+        <div id="menu">
+            <div>
+                <div class="d-flex align-items-center">
+                    <button class="toggleMenu btn background-none btn-lg m-2"><i class="fa fa-bars fa-lg "></i> </button>
+                    <h4 class="m-0">Menu</h4>
+                </div>
+                <div>
+                @if(Auth::user()->isAdmin())
+                    @include("home.admin_menu")
+                @endif
 
-    @guest
-        @include('layouts.connexion')
-    @endguest
+                @if(Auth::user()->isEtudiant())
+                    @include("home.etudiant_menu")
+                @endif
+                @if(Auth::user()->isEnseignant())
+                    @include("home.enseignant_menu")
+                @endif
+                </div>
+            </div>
+        </div>
+    @endauth
 
-    @yield('content')
-    @include('layouts.footer')
+    <div >
+        @include('layouts.header')
+
+        @guest
+            @include('layouts.connexion')
+        @endguest
+        <div id="conteneur" style="overflow: auto; height: calc(100vh - 66px)">
+            @yield('content')
+            @include('layouts.footer')
+        </div>
     </div>
 </div>
 
 @yield('script')
 
-@if ($errors->any())
-
 <script>
     $(function () {
-        $('#connexionModal').modal('show');
+
+    $(".toggleMenu").click(function (e) {
+        $("#menu").toggleClass("openMenu")
+
     });
+    $("#conteneur").click(function () {
+        $("#menu").removeClass("openMenu")
+    });
+    @if ($errors->any())
+        $('#connexionModal').modal('show');
+    @endif
+    });
+
 </script>
-@endif
 
 </body>
 </html>

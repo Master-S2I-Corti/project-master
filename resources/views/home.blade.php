@@ -9,7 +9,6 @@
             @if(Auth::user()->isAdmin())
                 @include("home.admin")
             @endif
-
             @if(Auth::user()->isEtudiant())
                 @include("home.etudiant")
             @endif

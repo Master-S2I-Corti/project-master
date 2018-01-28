@@ -1,12 +1,11 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark shadow" >
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-sm flex-nowrap justify-content-between bg-dark navbar-dark shadow" >
+    @auth()
+        <button class="toggleMenu btn background-none btn-lg text-white"><i class="fa fa-bars fa-lg "></i> </button>
+    @endauth
     <a class="navbar-brand" href="{{URL::to("/")}}"><img class="logo img-fluid" src="{{asset("img/logo.png")}}">Università di Corsica</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-
+    <div class="navbar-collapse" id="navbarNav">
     <!-- Links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav flex-row" >
 
         @guest
             @if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  != "register")
@@ -24,9 +23,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{URL::to("/annuaire")}}">Annuaire</a>
-            </li>
-
-            -->
+            </li>-->
             <li class="nav-item ml-3" id="connexion">
 
                 <div class="dropdown">
