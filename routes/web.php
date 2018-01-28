@@ -31,3 +31,6 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 
 Auth::routes();
 
+Route::get('maquette','MaquetteController@index');
+Route::post('save','MaquetteController@save')->name('save');
+Route::get('maquette/affichage','MaquetteController@aff');
