@@ -12,18 +12,21 @@ Route::get("/etudiants", function() {
    return App\Personne::all();
 });
 
-Route::middleware(['checkEnseignant'])->group(function () {
-    Route::get('/gestion/notes','GestionNotesController@index');
-    Route::post('deleteEval','GestionNotesController@deleteEvalById');
-});
 
 
-Route::middleware(['checkEtudiant'])->group(function () {
+Route::middleware(['roles:etudiant'])->group(function () {
     Route::get('/notes', 'NotesController@index');
     Route::get('/edt', 'EDTController@index');
     Route::get('/annuaire/professeur', 'AnnuaireController@index');
     Route::get('/annuaire/etudiant', 'AnnuaireController@index');
+    Route::get('/annuaire', 'AnnuaireController@index');
 });
+
+Route::middleware(['roles:enseignant,admin'])->group(function () {
+    Route::post('/deleteEval','GestionNotesController@deleteEvalById');
+    Route::get('/gestion/notes','GestionNotesController@index');
+});
+
 
 
 Auth::routes();

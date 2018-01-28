@@ -83,7 +83,7 @@
                             <legend style="font-size: 20px;color: #000; padding-top: 5px;">
                                 Moyenne Générale : 10.97 ( / 20.00)
                             </legend>
-                            <button class="btn btn-primary d-flex align-items-center">Télécharger un bulletin <i class="fa fa-download"></i></button>
+                            <button class="btn btn-primary d-flex align-items-center">Télécharger un bulletin <i class="ml-2 fa fa-download"></i></button>
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title"
                             style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i
-                                    class="fa fa-graduation-cap "></i>Etudiant</h5> <span
+                                    class="fa fa-graduation-cap mr-2"></i>Etudiant</h5> <span
                                 style="margin-left:20px; color: #007bff;"
                                 class="text-muted"> Fondamentaux web mobile</span>
                         <button type="button" class="close" data-dismiss="modal">×</button>

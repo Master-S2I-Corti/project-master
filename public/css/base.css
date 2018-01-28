@@ -42,3 +42,19 @@ label i {
     vertical-align: bottom;
     margin-right: 10px;
 }
+
+.openMenu {
+    transform: translateX(0rem) !important;
+}
+
+#menu {
+    transition: transform 0.5s;
+    transform: translateX(-17rem);
+    width: 17rem ;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+    z-index: 5;
+}

@@ -22,32 +22,47 @@
     <title>ENT - Université de Corse</title>
     @yield('css')
 </head>
-<body>
+<body style="overflow: hidden">
 
 <div>
-    <div></div>
+    <div id="menu">
+
+        <button class="toggleMenu" class=" btn-dark">OPEN</button>
+        <div>
+
+            <p>sdsdsdd</p>
+        </div>
+    </div>
     <div>
-    @include('layouts.header')
+        @include('layouts.header0')
 
-    @guest
-        @include('layouts.connexion')
-    @endguest
-
-    @yield('content')
-    @include('layouts.footer')
+        @guest
+            @include('layouts.connexion')
+        @endguest
+        <div style="overflow: auto; height: calc(100vh - 66px)">
+            @yield('content')
+            @include('layouts.footer')
+        </div>
     </div>
 </div>
 
 @yield('script')
 
-@if ($errors->any())
-
 <script>
     $(function () {
+
+    $(".toggleMenu").click(function (e) {
+        console.log("sala")
+        $("#menu").toggleClass("openMenu")
+
+
+    })
+    @if ($errors->any())
         $('#connexionModal').modal('show');
+    @endif
     });
+
 </script>
-@endif
 
 </body>
 </html>
