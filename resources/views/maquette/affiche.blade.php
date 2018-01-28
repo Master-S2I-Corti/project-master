@@ -26,7 +26,7 @@ var get='<?php echo route("charge");?>';
  var table = document.getElementById("previsio");
  
  var test= '{!! addslashes(json_encode($data))!!}';
-//alert(JSON.parse(prof)[0].nom);
+////alert(JSON.parse(prof)[0].nom);
  	/*for(i in test)
 	{
 alert(i.code_professeur);

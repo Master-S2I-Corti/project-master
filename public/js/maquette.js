@@ -2,7 +2,7 @@ var tabdes=[];
 var placedes;
 function getSemestre(filiere) // affiche les matiere et ue et semestre d'un diplome sur le tableau
 {
-	//alert(filiere);
+
 	var filiere=JSON.parse(filiere);
 	
 	
