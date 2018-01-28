@@ -9,6 +9,6 @@ class Etudiant extends Personne
      *
      * @var array
      */
-    protected $table = "Etudiants";
+    protected $table = "Etudiant";
 
 }

@@ -39,7 +39,7 @@
                                 <td class="w-25">Fondamentaux web mobile</td>
                                 <td> NACQ</td>
                                 <td>9.90</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">open_in_new</i>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
                                 </td>
                             </tr>
                             <tr>
@@ -47,7 +47,7 @@
                                 <td>Android</td>
                                 <td>ABI</td>
                                 <td>---</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">open_in_new</i>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
                                 </td>
                             </tr>
                             <tr>
@@ -55,7 +55,7 @@
                                 <td>Programmation Orientee objet</td>
                                 <td>INDISPO</td>
                                 <td>INDISPO</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">open_in_new</i>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
                                 </td>
                             </tr>
                             <tr>
@@ -63,7 +63,7 @@
                                 <td class="">Conception agile, base données</td>
                                 <td>ACQ</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">open_in_new</i>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
                                 </td>
                             </tr>
                             <tr style="color:red">
@@ -71,7 +71,7 @@
                                 <td>Pvp</td>
                                 <td>NACQ</td>
                                 <td>8.20</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">open_in_new</i>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
                                 </td>
                             </tr>
                             </tbody>
@@ -83,7 +83,7 @@
                             <legend style="font-size: 20px;color: #000; padding-top: 5px;">
                                 Moyenne Générale : 10.97 ( / 20.00)
                             </legend>
-                            <button class="btn btn-primary d-flex align-items-center">Télécharger un bulletin <i class="material-icons">file_download</i></button>
+                            <button class="btn btn-primary d-flex align-items-center">Télécharger un bulletin <i class="fa fa-download"></i></button>
                         </div>
                     </div>
 

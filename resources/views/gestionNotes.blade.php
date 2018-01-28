@@ -92,7 +92,7 @@
 
                         </div>
                         <div class="col-md-2">
-                            <button  data-target="#modal_tdtpcc"  data-toggle="modal" class="btn btn-primary d-flex align-items-center" type="button"> <i class="material-icons">add</i> TD TP CC</button>
+                            <button  data-target="#modal_tdtpcc"  data-toggle="modal" class="btn btn-primary d-flex align-items-center" type="button"> <i class="fa fa-plus"></i> TD TP CC</button>
                         </div>
 
 
@@ -121,56 +121,56 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>12.80</td>
-                                <td><i class="material-icons" data-target="#myModal" data-toggle="modal">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr style="color:red">
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>---</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td class="">Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Larry</td>
                                 <td>the Bird</td>
                                 <td>15.12</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>10.50</td>
-                                <td><i class="material-icons">edit</i></td>
+                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
                             </tr>
                             </tbody>
                         </table>
@@ -371,7 +371,7 @@
         });
         $('document').ready(function(){
             $('.insertLine').click(function(){
-                $('#cTable').prepend('<tr><td class="w-25"><select name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class=" d-inline removeLine materiel-icons text-danger">delete</i></td></tr>');
+                $('#cTable').prepend('<tr><td class="w-25"><select name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
             });
 
             $('body').on('click','.removeLine',function(){

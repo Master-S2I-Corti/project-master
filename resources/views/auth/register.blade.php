@@ -11,7 +11,7 @@
 
                         <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
                             <div >
-                                <label for="login-input" class="form-control-label"><i class="material-icons">perm_identity</i>Identifiant</label>
+                                <label for="login-input" class="form-control-label"><i class="fa fa-user d-inline fa-lg"></i>Identifiant</label>
                                 <input id="login-input" type="text" class="form-control" name="identifiant" value="{{ old('identifiant') }}" required>
 
                                 @if ($errors->has('identifiant'))
@@ -25,7 +25,7 @@
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
                             <div >
-                                <label for="password-input" class="form-control-label"><i class="material-icons">lock_outline</i>Mot de passe</label>
+                                <label for="password-input" class="form-control-label"><i class="fa fa-lock d-inline fa-lg"></i>Mot de passe</label>
                                 <input id="password" type="password" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="form-control-label"><i class="material-icons">lock</i>Confirmer mot de passe</label>
+                            <label for="password-confirm" class="form-control-label"><i class="fa fa-lock d-inline fa-lg"></i>Confirmer mot de passe</label>
                             <div>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>

@@ -10,9 +10,7 @@ class CheckEnseignant
 
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->isEtudiant()) {
-            return redirect('/');
-        }
+
         return $next($request);
     }
 }

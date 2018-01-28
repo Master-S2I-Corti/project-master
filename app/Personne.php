@@ -11,7 +11,7 @@ class Personne extends Authenticatable
      *
      * @var array
      */
-    protected $table = "Personnes";
+    protected $table = "Personne";
 
     protected $fillable = [
         'identifiant', 'password',
@@ -28,6 +28,14 @@ class Personne extends Authenticatable
     public function isEtudiant() {
         return $this->code_etudiant != null;
     }
+    public function isEnseignant() {
+        return $this->code_professeur != null;
+    }
+
+    public function isAdmin() {
+        return $this->admin == 1;
+    }
+
 
     public function getPath() {
         return $this->isEtudiant() ? "/etudiant" : "/enseignant";

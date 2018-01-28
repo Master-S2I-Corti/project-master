@@ -19,14 +19,6 @@ class Controller extends BaseController
         $this->middleware('auth');
     }
 
-    public function index() {
-        if(Auth::user()->isEtudiant()) {
-            return $this->etudiant();
-        } else {
-            return $this->enseignant();
-        }
-    }
-
     public function path() {
         return Auth::user()->getPath();
     }

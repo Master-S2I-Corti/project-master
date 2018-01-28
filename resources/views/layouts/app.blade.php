@@ -9,8 +9,6 @@
     <link rel="shortcut icon" href="https://studia.universita.corsica/template/template_portails/css/favicon.ico"
           type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js')}}"></script>
@@ -18,6 +16,8 @@
     <script src="{{ asset('js/popper.min.js')}}"></script>
 
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
+    <script src="https://use.fontawesome.com/1844c64849.js"></script>
+
 
     <title>ENT - Université de Corse</title>
     @yield('css')
