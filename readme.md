@@ -6,11 +6,11 @@ Node.JS, Composer, PhpMyAdmin, MySQL, Php7
 
 git clone https://github.com/Master-S2I-Corti/project-master.git
 
-Aller sur PhpMyAdmin : localhost/phpMyAdmin
-Creer une base de donnée : projet
-Executer le fichier Projer.sql dans phpMyAdmin
-Exécuter:
- CREATE USER 'projet-master'@'localhost' IDENTIFIED BY 'dptinfo';
- GRANT ALL PRIVILEGES ON projet TO 'projet-master'@'localhost';
+ - Aller sur PhpMyAdmin : localhost/phpMyAdmin <br />
+ - Creer une base de donnée : projet <br />
+ - Executer le fichier Projer.sql dans phpMyAdmin <br />
+ - Exécuter:<br />
+    CREATE USER 'projet-master'@'localhost' IDENTIFIED BY 'dptinfo';<br />
+    GRANT ALL PRIVILEGES ON projet TO 'projet-master'@'localhost';<br />
 
-Aller sur le site localhost/public/register
+Aller sur le site localhost/public/register<br />
