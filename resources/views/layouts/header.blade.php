@@ -15,6 +15,7 @@
             </li>
             @endif
         @else
+            <!--
             <li class="nav-item">
                 <a class="nav-link" href="{{URL::to("/edt")}}">Emploi du temps</a>
             </li>
@@ -24,6 +25,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{URL::to("/annuaire")}}">Annuaire</a>
             </li>
+
+            -->
             <li class="nav-item ml-3" id="connexion">
 
                 <div class="dropdown">
