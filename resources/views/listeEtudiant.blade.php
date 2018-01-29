@@ -13,7 +13,7 @@
     <div class="w-75 m-auto pt-5">
         <div class="d-flex justify-content-between mb-5">
             <h2>Liste des étudiants</h2>
-        @if(Auth::user()->isAdmin())
+            @if(Auth::user()->isAdmin())
                 <button class="add btn btn-primary" >Ajouter d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>

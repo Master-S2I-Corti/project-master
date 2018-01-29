@@ -10,7 +10,7 @@
     </div>
 </a>
 
-<a class="col-md-4" href="{{ URL::to('/edt') }}">
+<a class="col-md-4" href="{{ URL::to('/enseignant/edt') }}">
     <div class="row my-4">
         <div class="col-3"><i class="fa fa-clock-o fa-4x text-dark" ></i></div>
         <div class="col-8">

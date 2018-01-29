@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Enseignant;
 use Illuminate\Http\Request;
-use App\Prof;
+
 class ListeProfController extends Controller
 {
     // Accès à la page Liste Prof
-    public function index($user)
+    public function index()
     {
         $recherche = null;
-        $profs = Prof::get();
-        return view('listeProf', compact('profs','user','recherche'));
+        $profs = Enseignant::get();
+        return view('listeEnseignant', compact('profs','user','recherche'));
     }
 
 
@@ -22,7 +23,7 @@ class ListeProfController extends Controller
 
     //Enregistrement d'un nouveau prof
     public function store(Request $request){
-       $prof=Prof::create($request->all());
+       $prof=Enseignant::create($request->all());
        $user = 'admin';
         return redirect()->action('ListeProfController@index', compact('user'));
     }
@@ -30,14 +31,14 @@ class ListeProfController extends Controller
     //Accès à la page de modification d'un prof                                     un prof peut modifier sa fiche
     public function edit($id) 
     {
-        $profs = Prof::findOrFail($id);
+        $profs = Enseignant::findOrFail($id);
         return view('test/editProf', compact('profs'));
     }
 
     //Enregistrement de la modification du prof 
     public function update( Request $request)
     {
-        $prof = Prof::findOrFail($request->id);
+        $prof = Enseignant::findOrFail($request->id);
         $prof->update($request->all());
         $user = 'admin';
         return redirect()->action('ListeProfController@index', compact('user'));
@@ -46,7 +47,7 @@ class ListeProfController extends Controller
     //Suppression du prof
     public function destroy($id)
     {
-        $prof = Prof::findOrFail($id);
+        $prof = Enseignant::findOrFail($id);
         $prof->delete();
         $user = 'admin';
         return redirect()->action('ListeProfController@index', compact('user'));

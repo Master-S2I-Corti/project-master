@@ -61,7 +61,7 @@
     </div>
 </a>
 
-<a class="col-md-4" href="{{ URL::to('/gestion/annuaire/professeurs') }}">
+<a class="col-md-4" href="{{ URL::to('/annuaire/professeurs') }}">
     <div class="row my-4">
         <div class="col-3"><img src="{{ asset('img/prof.png') }}"/></div>
         <div class="col-8">
@@ -71,7 +71,7 @@
     </div>
 </a>
 
-<a class="col-md-4" href="{{ URL::to('/gestion/annuaire/etudiants') }}">
+<a class="col-md-4" href="{{ URL::to('/annuaire/etudiants') }}">
     <div class="row my-4">
         <div class="col-3"><img src="{{ asset('img/etu.png') }}"/></div>
         <div class="col-8">

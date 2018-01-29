@@ -55,6 +55,7 @@ label i {
     transition: transform 0.2s;
     transform: translateX(-20rem);
     width: 20rem ;
+    overflow: auto;
     height: 100vh;
     position: absolute;
     left: 0;
