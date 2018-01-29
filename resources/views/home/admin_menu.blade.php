@@ -21,7 +21,7 @@
 </a>
 
 <a class="d-flex align-items-center p-3" href="{{ URL::to('/gestion/filiere') }}">
-    <i class="fa fa-pencil" ></i>
+    <i class="fa fa-university" ></i>
     <p>Filières</p>
 </a>
 
@@ -30,12 +30,12 @@
     <p>Semestres</p>
 </a>
 
-<a class="d-flex align-items-center p-3" href="{{ URL::to('/gestion/annuaire/professeurs') }}">
+<a class="d-flex align-items-center p-3" href="{{ URL::to('/annuaire/professeurs') }}">
     <i class="fa fa-address-card" ></i>
     <p>Annuaire professeurs</p>
 </a>
 
-<a class="d-flex align-items-center p-3" href="{{ URL::to('/gestion/annuaire/etudiants') }}">
+<a class="d-flex align-items-center p-3" href="{{ URL::to('/annuaire/etudiants') }}">
     <i class="fa fa-graduation-cap" ></i>
     <p>Annuaire étudiants</p>
 </a>

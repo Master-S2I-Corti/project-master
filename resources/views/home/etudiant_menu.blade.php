@@ -1,8 +1,7 @@
 <h6 class="p-3">Etudiant</h6>
 
 
-
-<a class="d-flex align-items-center p-3 selected" href="{{ URL::to('/edt') }}">
+<a class="d-flex align-items-center p-3 selected" href="{{ URL::to('/etudiant/edt') }}">
     <i class="fa fa-clock-o" ></i>
     <p>Emploi du temps</p>
 </a>
