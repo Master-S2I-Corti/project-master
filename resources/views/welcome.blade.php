@@ -33,3 +33,4 @@
         <h1>Bienvenue sur votre espace</h1>
     @endguest
 @endsection
+

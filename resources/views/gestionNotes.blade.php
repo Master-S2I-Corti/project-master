@@ -363,6 +363,7 @@
 @endsection
 
 @section('script')
+    <script src="dxdd"></script>
     <script>
         $.ajaxSetup({
             headers: {
