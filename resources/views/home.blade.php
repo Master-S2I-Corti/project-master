@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
+@section("css")
+    <style>
+        .jumbotron img {
+            width: 100%;
+        }
+    </style>
 
+@endsection
 
 @section('content')
 

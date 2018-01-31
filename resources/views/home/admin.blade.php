@@ -22,7 +22,7 @@
 
 <a class="col-md-4" href="{{ URL::to('/gestion/salles') }}">
     <div class="row my-4">
-        <div class="col-3"><img src="{{ asset('img/salle.png') }}"/></div>
+        <div class="col-3"><img src="{{ asset('img/salle.svg') }}"/></div>
         <div class="col-8">
             <h4>Gestion des salles</h4>
             <p>Ajout,suppression ou modification des salles</p>
@@ -43,7 +43,7 @@
 
 <a class="col-md-4 " href="{{ URL::to('/gestion/filiere') }}">
     <div class="row my-4">
-        <div class="col-3"><img src="{{ asset('img/filiere.png') }}"/></div>
+        <div class="col-3"><img src="{{ asset('img/filiere.svg') }}"/></div>
         <div class="col-8">
             <h4>Gestion des filières</h4>
             <p>Ajout,suppression ou modification des filières</p>
@@ -63,7 +63,7 @@
 
 <a class="col-md-4" href="{{ URL::to('/annuaire/professeurs') }}">
     <div class="row my-4">
-        <div class="col-3"><img src="{{ asset('img/prof.png') }}"/></div>
+        <div class="col-3"><img src="{{ asset('img/prof.svg') }}"/></div>
         <div class="col-8">
             <h4>Liste des professeurs</h4>
             <p>Ajout,suppression ou modification des professeurs</p>
@@ -73,7 +73,7 @@
 
 <a class="col-md-4" href="{{ URL::to('/annuaire/etudiants') }}">
     <div class="row my-4">
-        <div class="col-3"><img src="{{ asset('img/etu.png') }}"/></div>
+        <div class="col-3"><img src="{{ asset('img/etu.svg') }}"/></div>
         <div class="col-8">
             <h4>Liste des étudiants</h4>
             <p>Ajout,suppression ou modification des étudiants</p>

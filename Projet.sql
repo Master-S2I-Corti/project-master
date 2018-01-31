@@ -67,7 +67,8 @@ CREATE TABLE `Contrainte` (
 
 CREATE TABLE `Departement` (
   `id_departement` int(11) NOT NULL,
-  `libelle` varchar(255) DEFAULT NULL
+  `libelle` varchar(255) DEFAULT NULL,
+  `code_professeur` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -91,7 +92,8 @@ CREATE TABLE `Diplome` (
   `id_diplome` int(11) NOT NULL,
   `libelle` varchar(255) DEFAULT NULL,
   `maquetteEtat` int(11) DEFAULT NULL,
-  `id_filiere` int(11) DEFAULT NULL
+  `id_filiere` int(11) DEFAULT NULL,
+  `code_professeur` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -103,6 +105,7 @@ CREATE TABLE `Diplome` (
 CREATE TABLE `Enseignant` (
   `code_professeur` int(11) NOT NULL,
   `id_annee` int(11) DEFAULT NULL,
+  `id_diplome` int(11) DEFAULT NULL,
   `id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -110,8 +113,8 @@ CREATE TABLE `Enseignant` (
 -- Contenu de la table `Enseignant`
 --
 
-INSERT INTO `Enseignant` (`code_professeur`, `id_annee`, `id`) VALUES
-(1, NULL, 3);
+INSERT INTO `Enseignant` (`code_professeur`, `id_annee`, `id_diplome`, `id`) VALUES
+(1, NULL, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -206,6 +209,9 @@ CREATE TABLE `Matiere` (
   `description` varchar(25) DEFAULT NULL,
   `plan` text,
   `coeff` int(11) DEFAULT NULL,
+  `cours` int(11) DEFAULT NULL,
+  `td` int(11) DEFAULT NULL,
+  `tp` int(11) DEFAULT NULL,
   `id_ue` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -385,7 +391,9 @@ ALTER TABLE `Detient`
 --
 ALTER TABLE `Diplome`
   ADD PRIMARY KEY (`id_diplome`),
-  ADD KEY `FK_Diplome_id_filiere` (`id_filiere`);
+  ADD KEY `FK_Diplome_id_filiere` (`id_filiere`),
+  ADD KEY `FK_Diplome_code_professeur` (`code_professeur`);
+
 
 --
 -- Index pour la table `Enseignant`
@@ -393,6 +401,7 @@ ALTER TABLE `Diplome`
 ALTER TABLE `Enseignant`
   ADD PRIMARY KEY (`code_professeur`),
   ADD KEY `FK_Enseignant_id_annee` (`id_annee`),
+  ADD KEY `FK_Enseignant_id_diplome` (`id_diplome`),
   ADD KEY `FK_Enseignant_id` (`id`);
 
 --
@@ -592,14 +601,17 @@ ALTER TABLE `Detient`
 -- Contraintes pour la table `Diplome`
 --
 ALTER TABLE `Diplome`
-  ADD CONSTRAINT `FK_Diplome_id_filiere` FOREIGN KEY (`id_filiere`) REFERENCES `Filiere` (`id_filiere`);
+  ADD CONSTRAINT `FK_Diplome_id_filiere` FOREIGN KEY (`id_filiere`) REFERENCES `Filiere` (`id_filiere`),
+  ADD CONSTRAINT `FK_Diplome_code_professeur` FOREIGN KEY (`code_professeur`) REFERENCES `Enseignant` (`code_professeur`);
+
 
 --
 -- Contraintes pour la table `Enseignant`
 --
 ALTER TABLE `Enseignant`
   ADD CONSTRAINT `FK_Enseignant_id` FOREIGN KEY (`id`) REFERENCES `Personne` (`id`),
-  ADD CONSTRAINT `FK_Enseignant_id_annee` FOREIGN KEY (`id_annee`) REFERENCES `Annee` (`id_annee`);
+  ADD CONSTRAINT `FK_Enseignant_id_annee` FOREIGN KEY (`id_annee`) REFERENCES `Annee` (`id_annee`),
+  ADD CONSTRAINT `FK_Enseignant_id_diplome` FOREIGN KEY (`id_diplome`) REFERENCES `Diplome` (`id_diplome`);
 
 --
 -- Contraintes pour la table `Etudiant`
