@@ -569,7 +569,16 @@ ALTER TABLE `Materiel`
 --
 ALTER TABLE `Personne`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
+ALTER TABLE `Etudiant`
+  MODIFY `code_etudiant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+ALTER TABLE `Enseignant`
+  MODIFY `code_professeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+
+
 -- AUTO_INCREMENT pour la table `Salle`
 --
 ALTER TABLE `Salle`
