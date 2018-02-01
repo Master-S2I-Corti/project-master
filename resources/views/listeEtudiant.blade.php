@@ -32,28 +32,24 @@
             </tr>
             </thead>
             <tbody>
+            @if ( isset($listesEtudiant))
+            @foreach ( $listesEtudiant as $etudiant)
 
-           @foreach ( $etudiants as $etudiant)
+                @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
 
-            @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
-
-            <tr >
-                <th >{{ $etudiant->id }}</th>
-                <th class="opener" >{{ $etudiant->nom }}</th>
-                <th class="opener">{{ $etudiant->prenom }}</th>
-                <th class="opener">{{ $etudiant->filiere }}</th>
-                @if(Auth::user()->isAdmin())
-
-                <th class="modifier"><i class="fa fa-edit fa-2x"></i></th>
-                <th class="del">
-                    <a >
-                        <i class="fa fa-trash fa-2x"></i>
-                    </a>
-                </th>
+                    <tr>
+                            <th>{{$etudiant->id}}</th>
+                            <th  class="opener">{{$etudiant->nom}}</th>
+                            <th  class="opener">{{$etudiant->prenom}}</th>
+                            <th  class="opener">{{$etudiant->filiere}}</th>
+                            @if(Auth::user()->isAdmin())
+                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
+                            <th class="del"><a ><i class="fa fa-trash fa-2x"></i></a></th>
+                            @endif
+                    </tr>
                 @endif
-            </tr>
-            @endif
             @endforeach
+        @endif
             </tbody>
         </table>
         <?php echo $etudiants->render(); ?> <!-- Nombres de page et redirection de la pagination -->
