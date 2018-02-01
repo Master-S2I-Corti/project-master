@@ -56,6 +56,7 @@
             @endforeach
             </tbody>
         </table>
+        <?php echo $etudiants->render(); ?> <!-- Nombres de page et redirection de la pagination -->
     </div>
 
     <!-- POPUP D'AFFICHAGE -->

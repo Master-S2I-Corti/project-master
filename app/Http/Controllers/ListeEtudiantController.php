@@ -11,7 +11,7 @@ class ListeEtudiantController extends Controller
     public function index()
     {
         $recherche = null;
-        $etudiants = Personne::get();
+        $etudiants = Personne::paginate(7); //Pagination de 7
         return view('listeEtudiant', compact('etudiants','user','recherche'));
     }
 

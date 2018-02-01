@@ -11,7 +11,7 @@ class ListeProfController extends Controller
     public function index()
     {
         $recherche = null;
-        $profs = Enseignant::get();
+        $profs = Enseignant::paginate(7); // Pagination de 7
         return view('listeEnseignant', compact('profs','user','recherche'));
     }
 
@@ -28,7 +28,7 @@ class ListeProfController extends Controller
         return redirect()->action('ListeProfController@index', compact('user'));
     }
 
-    //Accès à la page de modification d'un prof                                     un prof peut modifier sa fiche
+    //Accès à la page de modification d'un profun prof peut modifier sa fiche
     public function edit($id) 
     {
         $profs = Enseignant::findOrFail($id);

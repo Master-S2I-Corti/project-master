@@ -46,7 +46,10 @@
              @endforeach
             </tbody>
         </table>
+       <?php echo $profs->render(); ?> <!-- Nombres de page et redirection de la pagination -->
     </div>
+
+    <!-- POPUP Affichage -->
     <div id="dialog" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -67,8 +70,8 @@
                                 </div>
                                 <div class="col">
                                     <p> Professeur pédagogique : </p>
-                                    <p> Email: </p>
-                                    <p id="dep"> Département: </p>
+                                    <p> Email: </p> 
+                                    <!--<p id="dep"> Département: </p> -->
                                     <p> Bureau N°: </p></div>
                             </div>
                         </div>
@@ -101,10 +104,10 @@
                                     </div>
                                     <div class="col">
                                         <p> Professeur pédagogique : </p>
-                                        <p> Email: </p>
+                                        <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
                                         <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
                                         </p>
-                                        <p> Bureau N°: </p></div>
+                                        <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -134,7 +137,8 @@
                                 {{ csrf_field() }}
                                 <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
                                 <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
-                                <p> Département: <input type="text" id="dep3" name="departement" value=''/><br/></p>
+                                
+                                <!--<p> Département: <input type="text" id="dep3" name="departement" value=''/><br/></p>-->
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-primary">Ajouter</button>
