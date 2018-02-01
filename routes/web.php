@@ -42,6 +42,7 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 
 });
 
+Route::get('profil','ProfilController@index');
 
 
 Route::get('annuaire/professeurs','ListeProfController@index');
