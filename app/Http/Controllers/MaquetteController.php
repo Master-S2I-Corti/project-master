@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \App\semestre;
-class WelcomeController extends Controller
+class MaquetteController extends Controller
 {
 	public function index()///////Permet de faire la maquette des semestre
 	{
@@ -27,9 +27,9 @@ class WelcomeController extends Controller
 	{
 		$semComp=array();
 		$ue=DB::table('ue')->//je recupére toute les donnée et l'id ,nom et prenom du prof qui  gérent les ue d'un semestre 
-		join('enseignant','ue.responsable_ue','enseignant.code_professeur')->
+		/*join('enseignant','ue.responsable_ue','enseignant.code_professeur')->
 		join('personne','enseignant.id','personne.id')->
-		select('ue.*','nom','prenom')->
+		select('ue.*','nom','prenom')->*/
 		where('id_semestre',$thisSem->id_semestre)->
 		get();
 		
@@ -81,7 +81,7 @@ chaque matiere contient les donnée des matiere
  
 	
 //	print_r($data);
-		return view('test')->with('data',$data);
+		return view('maquette/creation')->with('data',$data);
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function save(Request $request)//////insert la maquete dans la bdd
