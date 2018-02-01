@@ -52,7 +52,7 @@
         @endif
             </tbody>
         </table>
-        <?php echo $etudiants->render(); ?> <!-- Nombres de page et redirection de la pagination -->
+        <?php echo $listesEtudiant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
     </div>
 
     <!-- POPUP D'AFFICHAGE -->
@@ -134,11 +134,10 @@
                         <div class="row">
                             <div class="col">
                                 {{ csrf_field() }}
-
-                                <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
-                                <p> Filière: <input type="text" id="fil3" name="filiere" value=''/><br/></p>
-                                <p> Email: <br/></p>
+                                <p> Nom: <input type="text" id="nom3" name="nom" value=''/><br/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/><br/></p>
+                                <p> Email: <input type="text" id="email3" name="email" value=''/><br/></p>
+                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value=''/><br/></p>
                             </div>
                         </div>
                     </div>

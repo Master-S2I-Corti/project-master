@@ -28,25 +28,27 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ( $profs as $prof)
+            @if ( isset($listesEnseignant))
+            @foreach ( $listesEnseignant as $enseignant)
 
-                @if (  $recherche == null ||  stristr( $prof->prenom ,$recherche  ) ||   stristr( $prof->nom ,$recherche ) )
+                @if (  $recherche == null ||  stristr( $enseignant->prenom ,$recherche  ) ||   stristr( $enseignant->nom ,$recherche ) )
 
                     <tr>
-                            <th>{{$prof->id}}</th>
-                            <th  class="opener">{{$prof->nom}}</th>
-                            <th  class="opener">{{$prof->prenom}}</th>
-                            <th  class="opener">{{$prof->departement}}</th>
+                            <th>{{$enseignant->id}}</th>
+                            <th  class="opener">{{$enseignant->nom}}</th>
+                            <th  class="opener">{{$enseignant->prenom}}</th>
+                            <th  class="opener">{{$enseignant->departement}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                             <th class="del"><a ><i class="fa fa-trash fa-2x"></i></a></th>
                             @endif
                     </tr>
                 @endif
-             @endforeach
+            @endforeach
+        @endif
             </tbody>
         </table>
-       <?php echo $profs->render(); ?> <!-- Nombres de page et redirection de la pagination -->
+       <?php echo $listesEnseignant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
     </div>
 
     <!-- POPUP Affichage -->
@@ -135,10 +137,10 @@
                         <div class="container">
                             <form method="post" action="{!! url('saveProf') !!}" accept-charset="UTF-8">
                                 {{ csrf_field() }}
-                                <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
-                                
-                                <!--<p> Département: <input type="text" id="dep3" name="departement" value=''/><br/></p>-->
+                                <p> Nom: <input type="text" id="nom3" name="nom" value=''/><br/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/><br/></p>
+                                <p> Email: <input type="text" id="email3" name="email" value=''/><br/></p>
+                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value=''/><br/></p>
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-primary">Ajouter</button>

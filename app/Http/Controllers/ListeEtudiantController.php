@@ -13,20 +13,8 @@ class ListeEtudiantController extends Controller
     public function index()
     {
         $recherche = null;
-        $listesEtudiant = null;
-        $personnes = Personne::get();
-        if( isset($personnes) )
-        {
-            $conteur = 0;
-            foreach ( $personnes as $personne): 
-                if ($personne->code_etudiant !=null)
-                {
-                    $listesEtudiant[$conteur] = $personne;
-                    $conteur++;
-                }
-
-            endforeach;
-        }
+        $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
+        
         return view('listeEtudiant', compact('listesEtudiant','recherche'));
     }
 
