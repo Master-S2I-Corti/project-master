@@ -2,29 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Etudiant;
 use App\Personne;
 use Illuminate\Http\Request;
-use App\Etudiant;
+use Illuminate\Support\Facades\Hash;
+
 class ListeEtudiantController extends Controller
 {
     // Accès à la page Liste etudiant
     public function index()
     {
         $recherche = null;
-        $etudiants = Personne::get();
-        return view('listeEtudiant', compact('etudiants','user','recherche'));
-    }
+        $listesEtudiant = null;
+        $personnes = Personne::get();
+        if( isset($personnes) )
+        {
+            $conteur = 0;
+            foreach ( $personnes as $personne): 
+                if ($personne->code_etudiant !=null)
+                {
+                    $listesEtudiant[$conteur] = $personne;
+                    $conteur++;
+                }
 
-    //Accès au formulaire pour créer un etudiant
-    public function create(){
-        return view('test/newEtudiant');
+            endforeach;
+        }
+        return view('listeEtudiant', compact('listesEtudiant','recherche'));
     }
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
-       $etudiants=Etudiant::create($request->all());
-       $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+       $personne = Personne::firstOrCreate([
+        'identifiant' => $request->nom,
+        'nom' => $request->nom,
+        'prenom' => $request->prenom,
+        'mail' => $request->email,
+        'password' =>  Hash::make(str_replace("-","",$request->dateNaissance))
+        ]);
+    
+        $personne->where('identifiant', $personne['identifiant'])->first();
+        $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+        $etudiant = $etudiant->where('id', $personne->id)->first();
+        $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+
+        return redirect()->action('ListeEtudiantController@index');
     }
 
     //Accès à la page de modification d'un etudiant

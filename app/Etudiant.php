@@ -11,4 +11,9 @@ class Etudiant extends Personne
      */
     protected $table = "Etudiant";
 
+    protected $fillable = [
+        'id'
+    ];
+
+    public $timestamps = false;
 }
