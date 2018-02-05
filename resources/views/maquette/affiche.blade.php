@@ -1,28 +1,42 @@
-<html Content-Type: text/html; >
+@extends('layouts.app')
 
 
-<head>
- <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> </head>
-  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
+@section('css')
+	<link rel="stylesheet" href="{{ URL::asset('css/maquette.css') }}" />
+@endsection
 
-  </head>
-
-<body onload="myFunction()">
-<style>
-
-</style>
+@section('content')
+<br>
 <div id="semestre">
 
 </div>
 
 
+
+	
+
+</form>
+
+
+
+
+
+<div id='overlay'>
+<button onclick='closeBox()' >Fermer</button>
+<br>
+<textarea disabled cols='100' rows='20' id='desbox'>test</textarea>
+</div>
+@endsection
+	
+	
+
+
+
+@section('script')
+<script type="text/javascript" src="{{ URL::asset('js/maquette.js') }}"></script>
 <script>
-var get='<?php echo route("charge");?>';
+
  var table = document.getElementById("previsio");
  
  var test= '{!! addslashes(json_encode($data))!!}';
@@ -39,26 +53,5 @@ alert(i.code_professeur);
 
 document.body.addEventListener("load",myFunction());
 </script>	
-	
-
-</form>
-
-
-
-
-
-<div id='overlay'>
-<button onclick='closeBox()' >Fermer</button>
-<br>
-<textarea disabled cols='100' rows='20' id='desbox'>test</textarea>
-</div>
-
-	<script type="text/javascript" src="{{ URL::asset('js/maquette.js') }}"></script>
-	<link rel="stylesheet" href="{{ URL::asset('css/maquette.css') }}" />
-
-
-
-</body>
-
-
+@endsection
 </html>

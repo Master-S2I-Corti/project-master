@@ -3,6 +3,7 @@
 
 
 @section('content')
+<br>
 <button onclick="delAll()">Suprimer toute les Ue et matiere </button>
 <div id="semestre"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
 

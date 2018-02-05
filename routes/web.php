@@ -68,5 +68,5 @@ Route::post('updateEtudiant','ListeEtudiantController@update');
 Auth::routes();
 
 Route::get('maquette','MaquetteController@index');
-Route::post('save','MaquetteController@save')->name('save');
+Route::post('maquette/save','MaquetteController@save')->name('save');
 Route::get('maquette/affichage','MaquetteController@aff');

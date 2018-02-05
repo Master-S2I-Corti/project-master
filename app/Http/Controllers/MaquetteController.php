@@ -27,9 +27,9 @@ class MaquetteController extends Controller
 	{
 		$semComp=array();
 		$ue=DB::table('ue')->//je recupére toute les donnée et l'id ,nom et prenom du prof qui  gérent les ue d'un semestre 
-		/*join('enseignant','ue.responsable_ue','enseignant.code_professeur')->
+		join('enseignant','ue.code_professeur','enseignant.code_professeur')->
 		join('personne','enseignant.id','personne.id')->
-		select('ue.*','nom','prenom')->*/
+		select('ue.*','nom','prenom')->
 		where('id_semestre',$thisSem->id_semestre)->
 		get();
 		
@@ -86,7 +86,7 @@ chaque matiere contient les donnée des matiere
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function save(Request $request)//////insert la maquete dans la bdd
 {
-	$diplome=$request->diplome;
+	$diplome=$request->filiere;
 	$diplome=json_decode($diplome);
 	
 	
@@ -102,7 +102,7 @@ chaque matiere contient les donnée des matiere
 			join('semestre','ue.id_semestre','semestre.id_semestre')->
 			where('semestre.id_semestre', $Nsem)->/////
 			pluck('id_matiere');
-			
+		echo"test";	
 		DB::table('matiere')->/////////////et les efface
 		wherein('id_matiere',$tabmat)->
 		delete();
@@ -118,7 +118,7 @@ chaque matiere contient les donnée des matiere
 			$ue=$arrue[0];/////////ue contient les détail de cette ue 
 			//print_r($ue);
 			//echo $sem;
-			DB::table('ue')->insert(['id_ue'=>$Nsem.'ue'.$sem,'libelle'=>$ue[0],'id_semestre'=>$Nsem,'coeff'=>$ue[1],'description'=>$ue[2],'responsable_ue'=>$ue[3]]);
+			DB::table('ue')->insert(['id_ue'=>$Nsem.'ue'.$sem,'libelle'=>$ue[0],'id_semestre'=>$Nsem,'coeff'=>$ue[1],'description'=>$ue[2],'code_professeur'=>$ue[3]]);
 			$nmat=0;
 			
 			
@@ -141,7 +141,7 @@ public function aff()///sert a afficher les détail d'un diplome,le code est plu
 {
 	  $annee = DB::table('diplome')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
 			join('annee','annee.id_diplome','diplome.id_diplome')->////annee c'est le année de ma bdd
-			where('diplome.responsable_diplome', '1')->/////
+			where('diplome.id_diplome','1')->/////
 			pluck('id_annee');
 	
 	$semestre=DB::table('semestre')->
@@ -153,7 +153,7 @@ public function aff()///sert a afficher les détail d'un diplome,le code est plu
 	{
 		$semComp=array();
 		$ue=DB::table('ue')->
-		join('enseignant','ue.responsable_ue','enseignant.code_professeur')->
+		join('enseignant','ue.code_professeur','enseignant.code_professeur')->
 		join('personne','enseignant.id','personne.id')->
 		select('ue.*','nom','prenom')->
 		where('id_semestre',$thisSem->id_semestre)->
@@ -181,7 +181,7 @@ public function aff()///sert a afficher les détail d'un diplome,le code est plu
 		array_push($semarray,$semComp);
 		
 	}
-		return view('affiche')->with('data',$semarray);
+		return view('maquette/affiche')->with('data',$semarray);
 
 	/*	semarray ressemble a ca
 	///le tableau contient des tableau de semestre

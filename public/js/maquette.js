@@ -300,7 +300,7 @@ function newue(prof,semestre) {// cree une nouvelle ue
 	
 	cell5.innerHTML="<select class='responsable'></select>";
 	cell5.className="ue";
-	
+	//row.getElementsByClassName('responsable').style.width='100%';
 	
 	for(i in prof)
 	{

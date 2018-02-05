@@ -11,9 +11,9 @@ DELETE FROM Departement;
 START TRANSACTION;
 
 INSERT INTO `Personne` (`id`, `identifiant`, `password`, `nom`, `prenom`, `tel`, `mail`, `code_postal`, `ville`, `adresse`, `remember_token`, `created_at`, `updated_at`, `admin`, `code_professeur`, `code_etudiant`) VALUES
-  (1, 'etu', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ZMJx9PiZSOeEsU6sWBdyOpyTPtJ0gA5bRRXHu5kXElT4qVxHMwB6utplZyK3', '2018-01-28 16:00:17', '2018-01-28 16:00:17', 0, NULL, 1),
+  (1, 'etu', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ZMJx9PiZSOeEsU6sWBdyOpyTPtJ0gA5bRRXHu5kXElT4qVxHMwB6utplZyK3', '2018-01-28 16:00:17', '2018-01-28 16:00:17', 0, NULL, NULL),
   (2, 'admin', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rwVdvEgmC6jvkA5ku7DiRXC7GmuPOwSZ6J4tfZZVFT8OLoau1n8cQa05zMAl', '2018-01-28 15:01:07', '2018-01-28 15:01:07', 1, NULL, NULL),
-  (3, 'ens', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-01-28 16:03:17', '2018-01-28 16:03:17', 0, 1, NULL);
+  (3, 'ens', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-01-28 16:03:17', '2018-01-28 16:03:17', 0, NULL, NULL);
 
 
 INSERT INTO `Enseignant` (`code_professeur`, `id_annee`, `id_diplome`, `id`) VALUES
@@ -34,7 +34,7 @@ INSERT INTO Annee (libelle, id_diplome) VALUE ('2', 1);
 INSERT INTO Annee (libelle, id_diplome) VALUE ('1', 2);
 INSERT INTO Annee (libelle, id_diplome) VALUE ('2', 2);
 INSERT INTO Annee (libelle, id_diplome) VALUE ('3', 2);
-
+INSERT INTO `semestre` (`id_semestre`, `libelle`, `id_annee`) VALUES ('s1', 'master s2i semestre 1', '1');
 COMMIT ;
 
 SET foreign_key_checks = 1;
