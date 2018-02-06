@@ -11,9 +11,5 @@ class Diplome extends Model
      */
     protected $table = "Diplome";
     protected $fillable = ["libelle"];
-    
-    public function annee()
-    {
-        return $this->belongsTo(('App\Annee'));
-    }
+
 }

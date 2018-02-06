@@ -11,8 +11,9 @@ class Annee extends Model
      */
     protected $table = "Annee";
     
-    public function diplome()
-        {
-            return $this->hasOne('App\Diplome', "id_diplome")->withDefault();
-        }
+    public function diplome() {
+        return $this->hasOne('App\Diplome', "id_diplome", "id_diplome")->withDefault(
+            ["libelle" => "HIDDEN"]
+        );
+    }
 }

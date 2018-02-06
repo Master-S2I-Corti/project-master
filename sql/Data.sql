@@ -28,12 +28,12 @@ INSERT INTO Departement (libelle) VALUE ('Science et technique');
 INSERT INTO Filiere (libelle, id_departement) VALUE  ('Informatique', 1);
 INSERT INTO Diplome (libelle, id_filiere) VALUE ('MASTER S2I', 1);
 INSERT INTO Diplome (libelle, id_filiere) VALUE ('LICENCE', 1);
-INSERT INTO Annee (libelle, id_diplome) VALUE ('1', 1);
-INSERT INTO Annee (libelle, id_diplome) VALUE ('2', 1);
+INSERT INTO Annee (libelle, id_diplome) VALUE ('1ere', 1);
+INSERT INTO Annee (libelle, id_diplome) VALUE ('2eme', 1);
 
-INSERT INTO Annee (libelle, id_diplome) VALUE ('1', 2);
-INSERT INTO Annee (libelle, id_diplome) VALUE ('2', 2);
-INSERT INTO Annee (libelle, id_diplome) VALUE ('3', 2);
+INSERT INTO Annee (libelle, id_diplome) VALUE ('1ere', 2);
+INSERT INTO Annee (libelle, id_diplome) VALUE ('2eme', 2);
+INSERT INTO Annee (libelle, id_diplome) VALUE ('3eme', 2);
 
 COMMIT ;
 

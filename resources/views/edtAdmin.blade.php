@@ -14,9 +14,7 @@
                         <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Classe</button>
                         <div class="dropdown-menu">
                             @foreach ($classes as $classe)
-                            
-                            <a class="dropdown-item" href="#"> {{$classe->libelle}} {{$classe->diplome()->libelle}}</a>
-                            
+                                <a class="dropdown-item" href="#">{{$classe->diplome->libelle}}  {{$classe->libelle}} </a>
                             @endforeach 
                         </div>
                     </div>
