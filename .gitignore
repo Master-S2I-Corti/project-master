@@ -6,4 +6,8 @@
 /.vagrant
 npm-debug.log
 yarn-error.log
+<<<<<<< HEAD
+=======
+/nbproject/private/
+>>>>>>> 255f52706df1ef23dfc18712dd11ca02c4fd6fe8
 .env
