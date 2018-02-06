@@ -293,6 +293,7 @@ CREATE TABLE Detient(
 #------------------------------------------------------------
 
 CREATE TABLE Note(
+        note          Int ,
         code_etudiant Int NOT NULL ,
         id_evaluation Int NOT NULL ,
         PRIMARY KEY (code_etudiant ,id_evaluation )
