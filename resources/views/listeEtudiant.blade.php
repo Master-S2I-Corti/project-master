@@ -32,28 +32,24 @@
             </tr>
             </thead>
             <tbody>
+            @if ( isset($listesEtudiant))
+            @foreach ( $listesEtudiant as $etudiant)
 
-           @foreach ( $etudiants as $etudiant)
+                @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
 
-            @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
-
-            <tr >
-                <th >{{ $etudiant->id }}</th>
-                <th class="opener" >{{ $etudiant->nom }}</th>
-                <th class="opener">{{ $etudiant->prenom }}</th>
-                <th class="opener">{{ $etudiant->filiere }}</th>
-                @if(Auth::user()->isAdmin())
-
-                <th class="modifier"><i class="fa fa-edit fa-2x"></i></th>
-                <th class="del">
-                    <a >
-                        <i class="fa fa-trash fa-2x"></i>
-                    </a>
-                </th>
+                    <tr>
+                            <th>{{$etudiant->id}}</th>
+                            <th  class="opener">{{$etudiant->nom}}</th>
+                            <th  class="opener">{{$etudiant->prenom}}</th>
+                            <th  class="opener">{{$etudiant->filiere}}</th>
+                            @if(Auth::user()->isAdmin())
+                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
+                            <th class="del"><a ><i class="fa fa-trash fa-2x"></i></a></th>
+                            @endif
+                    </tr>
                 @endif
-            </tr>
-            @endif
             @endforeach
+        @endif
             </tbody>
         </table>
     </div>
@@ -137,11 +133,10 @@
                         <div class="row">
                             <div class="col">
                                 {{ csrf_field() }}
-
-                                <p>Nom: <input type="text" id="nom3" name="nom" value=''/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/></p>
-                                <p> Filière: <input type="text" id="fil3" name="filiere" value=''/><br/></p>
-                                <p> Email: <br/></p>
+                                <p> Nom: <input type="text" id="nom3" name="nom" value=''/><br/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/><br/></p>
+                                <p> Email: <input type="text" id="email3" name="email" value=''/><br/></p>
+                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value=''/><br/></p>
                             </div>
                         </div>
                     </div>
