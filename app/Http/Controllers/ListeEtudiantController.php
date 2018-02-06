@@ -18,11 +18,6 @@ class ListeEtudiantController extends Controller
         return view('listeEtudiant', compact('listesEtudiant','recherche'));
     }
 
-    //Accès au formulaire pour créer un etudiant
-    public function create(){
-        return view('test/newEtudiant');
-    }
-
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
         $personne = Personne::firstOrCreate([
@@ -58,12 +53,17 @@ class ListeEtudiantController extends Controller
     }
 
     //Suppression du etudiant
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($id);
-        $etudiants->delete();
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $test = [ 'code_etudiant' => null];
+        $personne->update($test);
+        $etudiant = Etudiant::findOrFail($request->id);
+        $test = [ 'id' => null];
+        $etudiant->update($test);
+        $personne->delete();
+        $etudiant->delete();
+        return redirect()->action('ListeEtudiantController@index');
     }
     
 

@@ -40,7 +40,7 @@
                             <th  class="opener">{{$enseignant->departement}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><a ><i class="fa fa-trash fa-2x"></i></a></th>
+                            <th class="del"><i class="fa fa-trash fa-2x"></i></th>
                             @endif
                     </tr>
                 @endif
@@ -128,19 +128,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nom">Ajouter du Professeur</h5>
+                    <h5 class="modal-title" id="nom">Ajouter de l'enseignant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                         <div class="container">
-                            <form method="post" action="{!! url('saveProf') !!}" accept-charset="UTF-8">
+                            <form method="post" action="{!! url('annuaire/professeurs/saveProf') !!}" accept-charset="UTF-8">
                                 {{ csrf_field() }}
-                                <p> Nom: <input type="text" id="nom3" name="nom" value=''/><br/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/><br/></p>
-                                <p> Email: <input type="text" id="email3" name="email" value=''/><br/></p>
-                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value=''/><br/></p>
+                                <p> Nom: <input type="text" id="nom3" name="nom" value='' required/><br/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value='' required/><br/><br/></p>
+                                <p> Email: <input type="email" id="email3" name="email" value='' required/><br/></p>
+                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value='' required/><br/></p>
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-primary">Ajouter</button>
@@ -154,21 +154,23 @@
     </div>
 
  <!-- POPUP DE SUPRESSION -->
-    <div id="sup" title="Profil de l' Etudiant" class="modal fade">
+    <div id="sup" title="Profil de l'enseignant" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nom">Suppression du professeur</h5>
+                    <h5 class="modal-title" id="nom">Suppression de l'enseignant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                         <div class="container">
-                            <h4> Êtes-vous sûr de supprimer ce professeur ?</h4>
+                            <h4> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet enseignant </span> ?</h4>
                             <div class="row">
                                 <div class="col">
-                                    <form method="get" action="{{ url('deleteProf/') }}">
+                                    <form method="post" action="{{ url('annuaire/professeurs/deleteProf') }}">
+                                        {{ csrf_field() }}
+                                        <input id="idS" type="hidden" name="id" value=""/>
                                         <button class="btn btn-danger">Confirmer</button>
                                     </form>
                                 </div>
@@ -211,6 +213,9 @@
             });
 
             $( ".del" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+                document.getElementById("idS").value = elements.item(0).innerHTML
+                document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );
             });
 

@@ -44,7 +44,7 @@
                             <th  class="opener">{{$etudiant->filiere}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><a ><i class="fa fa-trash fa-2x"></i></a></th>
+                            <th class="del"><i class="fa fa-trash fa-2x"></i></th>
                             @endif
                     </tr>
                 @endif
@@ -119,7 +119,7 @@
 
     <!-- POPUP D'AJOUT -->
     <div id="ajout" title="Ajouter de l' Etudiant" class="modal fade">
-        <form class="modal-dialog" method="post" action="{!! url('saveEtudiant') !!}" accept-charset="UTF-8">
+        <form class="modal-dialog" method="post" action="{!! url('annuaire/etudiants/saveEtudiant') !!}" accept-charset="UTF-8">
             <div class="modal-content">
 
                 <div class="modal-header">
@@ -134,10 +134,10 @@
                         <div class="row">
                             <div class="col">
                                 {{ csrf_field() }}
-                                <p> Nom: <input type="text" id="nom3" name="nom" value=''/><br/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value=''/><br/><br/></p>
-                                <p> Email: <input type="text" id="email3" name="email" value=''/><br/></p>
-                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value=''/><br/></p>
+                                <p> Nom: <input type="text" id="nom3" name="nom" value='' required/><br/><br/></p>
+                                <p> Prénom: <input type="text" id="pre3" name="prenom" value='' required/><br/><br/></p>
+                                <p> Email: <input type="email" id="email3" name="email" value='' required/><br/></p>
+                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value='' required/><br/></p>
                             </div>
                         </div>
                     </div>
@@ -152,20 +152,35 @@
     </div>
 
     <!-- POPUP DE SUPRESSION -->
-    <div id="sup" title="Suppression de l' Etudiant" class="modal fade" >
-        <div class="container">
-            <h4> Êtes-vous sûr de supprimer cet étudiant ?</h4>
-            <div class="row">
-                <div class="col">
-                    <form method="get" action="{{ url('deleteEtudiant') }}">
-                        <button class="btn btn-danger">Confirmer</button>
-                    </form>
+        <div id="sup" title="Profil de l'etudiant" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nom">Suppression de l'Etudiant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="col">
-                    <button>Annuler</button>
+                <div class="modal-body">
+                        <div class="container">
+                            <h4> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet étudiant </span> ?</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <form method="post" action="{{ url('annuaire/etudiants/deleteEtudiant') }}">
+                                        {{ csrf_field() }}
+                                        <input id="idS" type="hidden" name="id" value=""/>
+                                        <button class="btn btn-danger">Confirmer</button>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <button>Annuler</button>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 
 @section('script')
@@ -199,6 +214,9 @@
             });
 
             $( ".del" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+                document.getElementById("idS").value = elements.item(0).innerHTML
+                document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );
             });
         } );

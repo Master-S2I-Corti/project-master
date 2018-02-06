@@ -55,12 +55,17 @@ class ListeProfController extends Controller
     }
 
     //Suppression du prof
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $prof = Enseignant::findOrFail($id);
+        $personne = Personne::findOrFail($request->id);
+        $test = [ 'code_professeur' => null];
+        $personne->update($test);
+        $prof = Enseignant::findOrFail($request->id);
+        $test = [ 'id' => null];
+        $prof->update($test);
+        $personne->delete();
         $prof->delete();
-        $user = 'admin';
-        return redirect()->action('ListeProfController@index', compact('user'));
+        return redirect()->action('ListeProfController@index');
     }
     
 
