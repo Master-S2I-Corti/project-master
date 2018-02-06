@@ -64,6 +64,5 @@ Route::post('saveEtudiant','ListeEtudiantController@store');
 Route::post('updateEtudiant','ListeEtudiantController@update');
 
 
-
 Auth::routes();
 

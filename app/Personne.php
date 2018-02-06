@@ -36,9 +36,16 @@ class Personne extends Authenticatable
         return $this->admin == 1;
     }
 
-
     public function getPath() {
         return $this->isEtudiant() ? "/etudiant" : "/enseignant";
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function getNom(){
+        return $this->nom;
     }
 
 }

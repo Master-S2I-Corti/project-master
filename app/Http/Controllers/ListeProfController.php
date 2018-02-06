@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enseignant;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class ListeProfController extends Controller
 {
