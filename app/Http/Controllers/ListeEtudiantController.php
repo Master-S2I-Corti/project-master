@@ -5,26 +5,35 @@ namespace App\Http\Controllers;
 use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
+use Illuminate\Support\Facades\Hash;
+
 class ListeEtudiantController extends Controller
 {
     // Accès à la page Liste etudiant
     public function index()
     {
         $recherche = null;
-        $etudiants = Personne::paginate(7); //Pagination de 7
-        return view('listeEtudiant', compact('etudiants','user','recherche'));
-    }
-
-    //Accès au formulaire pour créer un etudiant
-    public function create(){
-        return view('test/newEtudiant');
+        $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
+        
+        return view('listeEtudiant', compact('listesEtudiant','recherche'));
     }
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
-       $etudiants=Etudiant::create($request->all());
-       $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::firstOrCreate([
+            'identifiant' => $request->nom,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'mail' => $request->email,
+            'password' =>  Hash::make(str_replace("-","",$request->dateNaissance))
+            ]);
+        
+            $personne->where('identifiant', $personne['identifiant'])->first();
+            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+            $etudiant = $etudiant->where('id', $personne->id)->first();
+            $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+    
+            return redirect()->action('ListeEtudiantController@index');
     }
 
     //Accès à la page de modification d'un etudiant
@@ -44,12 +53,17 @@ class ListeEtudiantController extends Controller
     }
 
     //Suppression du etudiant
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($id);
-        $etudiants->delete();
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $test = [ 'code_etudiant' => null];
+        $personne->update($test);
+        $etudiant = Etudiant::findOrFail($request->id);
+        $test = [ 'id' => null];
+        $etudiant->update($test);
+        $personne->delete();
+        $etudiant->delete();
+        return redirect()->action('ListeEtudiantController@index');
     }
     
 
