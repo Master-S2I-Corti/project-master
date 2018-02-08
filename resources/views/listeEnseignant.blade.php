@@ -18,7 +18,7 @@
                     <th></th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Département</th> <!--Faire forme de tag -->
+                    <th>Département</th>
                     @if(Auth::user()->isAdmin())
                         <th>Modifier</th>
                         <th>Supprimer</th>
@@ -27,23 +27,21 @@
             </thead>
             <tbody>
             @if ( isset($listesEnseignant))
-            @foreach ( $listesEnseignant as $enseignant)
+                @foreach ( $listesEnseignant as $enseignant)
 
-                @if (  $recherche == null ||  stristr( $enseignant->prenom ,$recherche  ) ||   stristr( $enseignant->nom ,$recherche ) )
-
-                    <tr>
-                            <th>{{$enseignant->id}}</th>
-                            <th  class="opener">{{$enseignant->nom}}</th>
-                            <th  class="opener">{{$enseignant->prenom}}</th>
-                            <th  class="opener">{{$enseignant->departement}}</th>
-                            @if(Auth::user()->isAdmin())
-                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><i class="fa fa-trash fa-2x"></i></th>
-                            @endif
-                    </tr>
-                @endif
-            @endforeach
-        @endif
+                        <tr>
+                                <th>{{$enseignant->id}}</th>
+                                <th  class="opener">{{$enseignant->nom}}</th>
+                                <th  class="opener">{{$enseignant->prenom}}</th>
+                                <th  class="opener">{{$enseignant->departement}}</th>
+                                @if(Auth::user()->isAdmin())
+                                <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
+                                <th class="del"><i class="fa fa-trash fa-2x"></i></th>
+                                @endif
+                        </tr>
+                
+                @endforeach
+            @endif
             </tbody>
         </table>
        <?php echo $listesEnseignant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
@@ -123,7 +121,7 @@
 
  <!-- POPUP D'AJOUT -->
     <div id="ajout" class="modal fade">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="nom">Ajouter de l'enseignant</h5>
@@ -135,10 +133,76 @@
                         <div class="container">
                             <form method="post" action="{!! url('annuaire/professeurs/saveProf') !!}" accept-charset="UTF-8">
                                 {{ csrf_field() }}
-                                <p> Nom: <input type="text" id="nom3" name="nom" value='' required/><br/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value='' required/><br/><br/></p>
-                                <p> Email: <input type="email" id="email3" name="email" value='' required/><br/></p>
-                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value='' required/><br/></p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ csrf_field() }}
+                                        <p> Nom: <input type="text" name="nom" value='' required/><br/></p>
+                                        <p> Date de Naissance :  <input type="date" name="naissance" value='' required/><br></p>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p> Prénom: <input type="text" name="prenom" value='' required/><br/><br/><br></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p> Adresse : <input type="text" name="adresse" value='' required/><br/></p>
+                                        <p> Code Postal :  <input type="text" name="codePostal" value='' required/><br/></p>
+                                        <p> Ville :  <input type="text" name="ville" value='' required/><br/></p>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        
+                                        <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
+                                        <p> Email: <input type="email"  name="email" value='' required/><br/></p>
+                                        <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <p> Fonction :
+                                        <select name="fonction">
+                                                <option value="Professeur">Professeur</option>
+                                                <option value="Maitre de Conferences">Maitre de Conférences</option>
+                                                <option value="ATER">ATER</option>
+                                                <option value="1/2 ATER">1/2 ATER</option>
+                                                <option value="PAST">PAST</option>
+                                                <option value="PRAG">PRAG</option>
+                                                <option value="Vacataire">Vacataire</option>
+                                        </select> 
+                                    </p> 
+                                    <p> Responsablité :
+                                        <select class="Responsabilie" name="Responsabilie">
+                                            <option value="0">Aucune</option>
+                                        @if ( isset($listeResponsabilite))
+                                            @foreach ( $listeResponsabilite as $respo)
+                                                    <option value="{{$respo->id_reponsabilite}}">{{$respo->libellle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                    </p> 
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p> Département :
+                                            <select class="departement" name="departement">
+                                            @if ( isset($listeDepartement))
+                                                @foreach ( $listeDepartement as $departement)
+                                                        <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                                @endforeach
+                                            @endif
+                                            </select> 
+                                        </p> 
+                                        
+                                        <p> Bureau N°: <input type="text" name="numeroBureau" value='' /><br/> </p>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-primary">Ajouter</button>
@@ -204,9 +268,6 @@
             });
 
             $( ".add" ).on( "click", function(e) {
-                //var elements = e.target.querySelectorAll("button")
-                //document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                // document.getElementById("dep2").value = elements.item(3).innerHTML;
                 $( "#ajout" ).modal( "show" );
             });
 
@@ -216,7 +277,6 @@
                 document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );
             });
-
         } );
 
     </script>
