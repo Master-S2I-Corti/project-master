@@ -31,9 +31,9 @@
 
                         <tr>
                                 <th>{{$enseignant->id}}</th>
-                                <th  class="opener">{{$enseignant->nom}}</th>
-                                <th  class="opener">{{$enseignant->prenom}}</th>
-                                <th  class="opener">{{$enseignant->departement}}</th>
+                                <th  class="opener" data-target="#affichage">{{$enseignant->nom}}</th>
+                                <th  class="opener" data-target="#affichage">{{$enseignant->prenom}}</th>
+                                <th  class="opener" data-target="#affichage">{{$enseignant->departement}}</th>
                                 @if(Auth::user()->isAdmin())
                                 <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                                 <th class="del"><i class="fa fa-trash fa-2x"></i></th>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- POPUP Affichage -->
-    <div id="dialog" class="modal fade">
+    <div id="affichage" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -252,18 +252,12 @@
         $( function() {
 
             $( ".opener" ).on( "click", function(e) {
-                var elements = e.target.parentElement.querySelectorAll("th")
-                document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#dep").innerHTML ="Département: "+ elements.item(3).innerHTML
-                $( "#dialog" ).modal( "show" );
+               
+                $( "#affichage" ).modal( "show" );
             });
 
             $( ".modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-                document.getElementById("id2").value = elements.item(0).innerHTML
-                document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
-                document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.getElementById("dep2").value = elements.item(3).innerHTML;
+                
                 $( "#modif" ).modal( "show" );
             });
 

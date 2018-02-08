@@ -14,11 +14,11 @@
         <div class="row">
             <div class="col-8">
                 <!-- this personne-->
-                <h4> Mail Univ : default </h4>
-                <h4> Mail Perso :  {{ $log->mail }} </h4>
+                <h4> Mail Univ : {{ $log->email }} </h4>
+                <h4> Mail Perso :  {{ $log->email_sos }} </h4>
                 <h4> Telephone : {{ $log->tel }} </h4>
-                <h4> Adresse : {{ $log->adresse }} </h4>
-                <h4> Date de naissance : default</h4>
+                <h4> Adresse : {{ $log->ville }}, {{ $log->adresse }} </h4>
+                <h4> Date de naissance : {{ $log->naissance }}</h4>
                 @if($log->isEtudiant())
                 <h4> Filière : default </h4>
                 <h4> INE : default </h4>
@@ -35,7 +35,7 @@
             <img src="{{ asset('img/whot.jpg') }}">
             </div>
         </div>
-    
+ 
        <!-- POPUP DE MODIFICATON MOT DE PASSE -->
     <div  class="modal fade" aria-labelledby="exampleModalLabel" id="exampleModal">
     <div class="modal-dialog" role="document">
@@ -64,7 +64,8 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
+</div>  
 @endsection
 @section('script')
     <script>
