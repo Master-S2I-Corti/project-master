@@ -22,15 +22,22 @@ class GestionNotesController extends Controller
         // A Adapter
 
         $moduleFilter=1;
+
         $matiere=Matiere::all();
         $evaluation = DB::table('Evaluations')->where('id_matiere',$moduleFilter)->get();
         $semestre = DB::table('Semestre')->get();
 
         // Recuperation des semestre
 
+    
+
+        echo'<pre>';
+        print_r(Auth::user()->id);
+        echo'</pre>';
 
 
-        //echo '<pre>'; print_r($evaluation); echo'</pre>';
+
+        // Toutes les donnée a envoyé a la vues
         $data = array(
             'matiere'  => $matiere,
             'evaluation'   => $evaluation,
