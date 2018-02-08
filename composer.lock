@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e4617b155ad0e6c663b25a807858e552",
-    "content-hash": "30838bc0162b3a40f7e9111464c8f65c",
+    "hash": "b900fd066e6a6e318dff939f07b6a917",
+    "content-hash": "3474fa2f801c46b01d75ab8f8f07fa61",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1321,6 +1321,51 @@
                 "uuid"
             ],
             "time": "2018-01-20 00:28:24"
+        },
+        {
+            "name": "stechstudio/laravel-ssh-tunnel",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stechstudio/laravel-ssh-tunnel.git",
+                "reference": "233dfc867fde748f32901c2a53078a240f256ffb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stechstudio/laravel-ssh-tunnel/zipball/233dfc867fde748f32901c2a53078a240f256ffb",
+                "reference": "233dfc867fde748f32901c2a53078a240f256ffb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.2.x|5.3.x|5.4.x|5.5.x"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [],
+                "psr-4": {
+                    "STS\\Tunneler\\": "src"
+                },
+                "files": []
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bubba Hines",
+                    "email": "rob@stechstudio.com"
+                }
+            ],
+            "description": "Easy creation & maintenance of an SSH Tunnel for Laravel/Lumen",
+            "keywords": [
+                "laravel",
+                "lumen",
+                "mysql",
+                "ssh",
+                "tunnel"
+            ],
+            "time": "2017-09-13 12:22:29"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -11,6 +11,7 @@ CREATE TABLE Enseignant(
         code_professeur int (11) Auto_increment  NOT NULL ,
         type            Varchar (25) ,
         heure           Int ,
+        nbBureau        Int ,
         id_annee        Int ,
         id              Int ,
         id_diplome      Int ,
@@ -62,7 +63,7 @@ CREATE TABLE Filiere(
 #------------------------------------------------------------
 
 CREATE TABLE Matiere(
-        id_matiere  Varchar (25) NOT NULL ,
+        id_matiere  int (11) Auto_increment  NOT NULL ,
         libelle     Varchar (50) ,
         description Varchar (25) ,
         plan        Text ,
@@ -152,7 +153,8 @@ CREATE TABLE Seance(
         heure_debut     Datetime ,
         heure_fin       Datetime ,
         date_seance     Date ,
-        id_matiere      Varchar (25) ,
+        remarque        Text ,
+        id_matiere      Int ,
         id_salle        Int ,
         code_professeur Int ,
         PRIMARY KEY (id_seance )
@@ -257,7 +259,7 @@ CREATE TABLE Evaluations(
         coeff           Int ,
         type            Varchar (25) ,
         code_professeur Int ,
-        id_matiere      Varchar (25) ,
+        id_matiere      Int ,
         PRIMARY KEY (id_evaluation )
 )ENGINE=InnoDB;
 
@@ -283,6 +285,19 @@ CREATE TABLE Password_resets(
         token      Varchar (255) NOT NULL ,
         created_at TimeStamp ,
         PRIMARY KEY (email )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Archive_maquette
+#------------------------------------------------------------
+
+CREATE TABLE Archive_maquette(
+        id_archive int (11) Auto_increment  NOT NULL ,
+        annee      Int ,
+        contenu    Text ,
+        id_diplome Int ,
+        PRIMARY KEY (id_archive )
 )ENGINE=InnoDB;
 
 
@@ -349,7 +364,8 @@ CREATE TABLE Possede(
 CREATE TABLE Est_Responsable(
         code_professeur  Int NOT NULL ,
         id_reponsabilite Int NOT NULL ,
-        PRIMARY KEY (code_professeur ,id_reponsabilite )
+        id_filiere       Int NOT NULL ,
+        PRIMARY KEY (code_professeur ,id_reponsabilite ,id_filiere )
 )ENGINE=InnoDB;
 
 ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
@@ -377,6 +393,7 @@ ALTER TABLE Personne ADD CONSTRAINT FK_Personne_code_professeur FOREIGN KEY (cod
 ALTER TABLE Personne ADD CONSTRAINT FK_Personne_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
 ALTER TABLE Evaluations ADD CONSTRAINT FK_Evaluations_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Evaluations ADD CONSTRAINT FK_Evaluations_id_matiere FOREIGN KEY (id_matiere) REFERENCES Matiere(id_matiere);
+ALTER TABLE Archive_maquette ADD CONSTRAINT FK_Archive_maquette_id_diplome FOREIGN KEY (id_diplome) REFERENCES Diplome(id_diplome);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_logiciel FOREIGN KEY (id_logiciel) REFERENCES Logiciel(id_logiciel);
 ALTER TABLE Possede_Salle ADD CONSTRAINT FK_Possede_Salle_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
@@ -389,3 +406,4 @@ ALTER TABLE Possede ADD CONSTRAINT FK_Possede_id_contrainte FOREIGN KEY (id_cont
 ALTER TABLE Possede ADD CONSTRAINT FK_Possede_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_id_reponsabilite FOREIGN KEY (id_reponsabilite) REFERENCES Responsabilite(id_reponsabilite);
+ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_id_filiere FOREIGN KEY (id_filiere) REFERENCES Filiere(id_filiere);
