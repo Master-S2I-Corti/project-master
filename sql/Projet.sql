@@ -11,6 +11,7 @@ CREATE TABLE Enseignant(
         code_professeur int (11) Auto_increment  NOT NULL ,
         type            Varchar (25) ,
         heure           Int ,
+        nbBureau        Int,
         id_annee        Int ,
         id              Int ,
         id_diplome      Int ,

@@ -43,7 +43,8 @@ class ListeProfController extends Controller
         $personne->where('identifiant', $personne['identifiant'])->first();
         $enseignant = Enseignant::firstOrCreate([
             'id'=>$personne->id,
-            'type'=>$request->fonction
+            'type'=>$request->fonction,
+            'nbBureau'=>$request->numeroBureau
             ]);
         $enseignant = $enseignant->where('id', $personne->id)->first();
         $personne->where('identifiant', $personne['identifiant'])->update(['code_professeur' =>$enseignant->code_professeur]);
