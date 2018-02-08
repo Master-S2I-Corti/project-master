@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluation extends Model
+class Ue extends Model
 {
-    protected $table = 'Evaluations';
+    protected $table = 'Ue';
     public $timestamps = false;
-
 }
