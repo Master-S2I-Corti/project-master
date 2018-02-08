@@ -12,7 +12,6 @@
                 <button class="add btn btn-primary" >Ajouter d'un professeur : <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>
-
         <table class="table table-bordered ">
             <thead>
             <tr>

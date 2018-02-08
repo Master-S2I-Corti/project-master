@@ -8,7 +8,7 @@
             <p>
             <button class="add btn btn-primary" >Modifier le profil<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             <br/><br/>
-            <button class="add btn btn-primary" ><span class="modifier">Changer de mot de passe<i class="ml-2 d-inline fa fa-plus fa-lg"></i></span></button>
+            <span class="modifier"><button class="add btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Changer de mot de passe<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button></span>
             </p>
         </div>
         <div class="row">
@@ -35,9 +35,9 @@
             <img src="{{ asset('img/whot.jpg') }}">
             </div>
         </div>
-
+    
        <!-- POPUP DE MODIFICATON MOT DE PASSE -->
-    <div id="modif"  class="modal fade">
+    <div  class="modal fade" aria-labelledby="exampleModalLabel" id="exampleModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -48,20 +48,12 @@
             </div>
             <div class="modal-body">
                     <div class="container">
-                        <form method="post" action="{!! url('updateProf') !!}" accept-charset="UTF-8">
+                        <form method="post" action="#" accept-charset="UTF-8">
                             {{ csrf_field() }}
-                            <h1><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h1>
                             <div class="row">
                                 <div class="col">
-                                    <input type="libelle"
+                                    <p>Nouveau mot de passe: <input type="password" name="psw"/> </p>
                                 </div>
-                                <div class="col">
-                                    <p> Professeur pédagogique : </p>
-                                    <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
-                                    <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
-                                    </p>
-                                    <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
-                            </div>
                             <div class="row">
                                 <div class="col">
                                     <button class="btn btn-primary"> Modifier</button>
