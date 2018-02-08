@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
+use App\Departement;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -12,10 +13,10 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $recherche = null;
         $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
-        
-        return view('listeEtudiant', compact('listesEtudiant','recherche'));
+        $listeDepartement = Departement::get();
+
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement'));
     }
 
     //Enregistrement d'un nouveau etudiant
@@ -25,7 +26,14 @@ class ListeEtudiantController extends Controller
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'mail' => $request->email,
-            'password' =>  Hash::make(str_replace("-","",$request->dateNaissance))
+            'mail_sos' => $request->emailSos,
+            'naissance'=> $request->naissance,
+            'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+            'tel' => $request->tel,
+            'adresse' =>$request->adresse,
+            'code_postal' =>$request->codePostal,
+            'ville' =>$request->ville,
+            'admin' =>0
             ]);
         
             $personne->where('identifiant', $personne['identifiant'])->first();

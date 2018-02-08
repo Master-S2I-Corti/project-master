@@ -14,9 +14,10 @@ class Personne extends Authenticatable
     protected $table = "Personne";
 
     protected $fillable = [
-        'identifiant', 'password','nom','prenom','mail','code_professeur','code_etudiant'
+        'identifiant','nom','prenom','mail','mail_sos','naissance','password','tel','adresse','code_postal','ville','admin','code_professeur','code_etudiant'
     ];
-    /**
+    
+        /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

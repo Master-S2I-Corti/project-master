@@ -33,9 +33,7 @@
             </thead>
             <tbody>
             @if ( isset($listesEtudiant))
-            @foreach ( $listesEtudiant as $etudiant)
-
-                @if (  $recherche == null ||  stristr( $etudiant->prenom ,$recherche  ) ||   stristr( $etudiant->nom ,$recherche ) )
+                @foreach ( $listesEtudiant as $etudiant)
 
                     <tr>
                             <th>{{$etudiant->id}}</th>
@@ -47,9 +45,9 @@
                             <th class="del"><i class="fa fa-trash fa-2x"></i></th>
                             @endif
                     </tr>
-                @endif
-            @endforeach
-        @endif
+                
+                @endforeach
+            @endif
             </tbody>
         </table>
         <?php echo $listesEtudiant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
@@ -68,7 +66,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <p id="email"> Email: Aucun mail</p>
+                            <p id="email"> Email: Aucun email</p>
                         </div>
                         <div class="col">
                             <p id="fil"> Filière: Aucune filiere</p>
@@ -118,8 +116,8 @@
     </div>
 
     <!-- POPUP D'AJOUT -->
-    <div id="ajout" title="Ajouter de l' Etudiant" class="modal fade">
-        <form class="modal-dialog" method="post" action="{!! url('annuaire/etudiants/saveEtudiant') !!}" accept-charset="UTF-8">
+    <div id="ajout" title="Ajouter de l' Etudiant" class="modal fade" >
+        <form class="modal-dialog modal-lg" method="post" action="{!! url('annuaire/etudiants/saveEtudiant') !!}" accept-charset="UTF-8">
             <div class="modal-content">
 
                 <div class="modal-header">
@@ -132,12 +130,50 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-md-4">
                                 {{ csrf_field() }}
-                                <p> Nom: <input type="text" id="nom3" name="nom" value='' required/><br/><br/></p>
-                                <p> Prénom: <input type="text" id="pre3" name="prenom" value='' required/><br/><br/></p>
-                                <p> Email: <input type="email" id="email3" name="email" value='' required/><br/></p>
-                                <p> Date de Naissance :  <input type="date" id="dn3" name="dateNaissance" value='' required/><br/></p>
+                                <p> Nom: <input type="text" name="nom" value='' required/><br/></p>
+                                <p> Date de Naissance :  <input type="date" name="naissance" value='' required/><br></p>
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
+                                <p> Prénom: <input type="text" name="prenom" value='' required/><br/><br/><br></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p> Adresse : <input type="text" name="adresse" value='' required/><br/></p>
+                                <p> Code Postal :  <input type="text" name="codePostal" value='' required/><br/></p>
+                                <p> Ville :  <input type="text" name="ville" value='' required/><br/></p>
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
+                                
+                                <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
+                                <p> Email: <input type="email"  name="email" value='' required/><br/></p>
+                                <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
+                            </div>
+                        </div>
+                        <div class="rows">
+                            <div class="col-md-4">
+                                <p> Département :
+                                        <select class="departement" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p> 
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
                             </div>
                         </div>
                     </div>
@@ -192,8 +228,19 @@
 
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("th")
+                var id_personne = elements.item(0).innerHTML
+                var num = 0
+                var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
+                for (var i = 0; i < personnes.length; i++) {
+                    if ( id_personne == personnes[i]['id'])
+                    {
+                        num = i;
+                    }
+                }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#fil").innerHTML ="Filière: "+ elements.item(3).innerHTML
+                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['mail']
+                
+                
                 $( "#dialog" ).modal('show');
             });
 

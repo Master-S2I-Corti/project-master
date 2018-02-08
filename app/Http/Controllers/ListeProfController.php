@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enseignant;
 use App\Personne;
+use App\Responsabilite;
+use App\Departement;
+use App\Est_responsable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,11 +16,12 @@ class ListeProfController extends Controller
     // Accès à la page Liste Prof
     public function index()
     {
-        $recherche = null;
         $listesEnseignant = Personne::where('code_professeur','!=',0)
                             ->paginate(7);
+        $listeResponsabilite = Responsabilite::get();
+        $listeDepartement = Departement::get();
         
-        return view('listeEnseignant', compact('listesEnseignant','recherche'));
+        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement'));
     }
 
     //Enregistrement d'un nouveau prof
@@ -27,13 +31,30 @@ class ListeProfController extends Controller
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'mail' => $request->email,
-            'password' =>  Hash::make(str_replace("-","",$request->dateNaissance))
+            'mail_sos' => $request->emailSos,
+            'naissance'=> $request->naissance,
+            'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+            'tel' => $request->tel,
+            'adresse' =>$request->adresse,
+            'code_postal' =>$request->codePostal,
+            'ville' =>$request->ville,
+            'admin' =>0
         ]);
-        
         $personne->where('identifiant', $personne['identifiant'])->first();
-        $enseignant = Enseignant::firstOrCreate(['id'=>$personne->id]);
+        $enseignant = Enseignant::firstOrCreate([
+            'id'=>$personne->id,
+            'type'=>$request->fonction
+            ]);
         $enseignant = $enseignant->where('id', $personne->id)->first();
         $personne->where('identifiant', $personne['identifiant'])->update(['code_professeur' =>$enseignant->code_professeur]);
+        if ( $request->Responsabilie != 0)
+        {
+             $responsabilite = Est_responsable::firstOrCreate([
+            'code_professeur' =>$enseignant->code_professeur,
+            'id_reponsabilite' =>$request->Responsabilie
+            ]);
+        }
+       
 
         return redirect()->action('ListeProfController@index');
     
@@ -59,11 +80,14 @@ class ListeProfController extends Controller
     public function destroy(Request $request)
     {
         $personne = Personne::findOrFail($request->id);
-        $test = [ 'code_professeur' => null];
-        $personne->update($test);
+        $personne->update([ 'code_professeur' => null]);
+
         $prof = Enseignant::findOrFail($request->id);
-        $test = [ 'id' => null];
-        $prof->update($test);
+        $prof->update([ 'id' => null]);
+
+        //A vérifier et a discuter
+        $responsabilite = Est_responsable::where('code_professeur',$prof->code_professeur)->delete();
+
         $personne->delete();
         $prof->delete();
         return redirect()->action('ListeProfController@index');
