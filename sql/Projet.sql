@@ -10,6 +10,7 @@
 CREATE TABLE Enseignant(
         code_professeur int (11) Auto_increment  NOT NULL ,
         type            Varchar (25) ,
+        heure           Int ,
         id_annee        Int ,
         id              Int ,
         id_diplome      Int ,
@@ -232,8 +233,8 @@ CREATE TABLE Personne(
         prenom          Varchar (25) ,
         tel             Varchar (25) ,
         naissance       Date ,
-        mail            Varchar (25) ,
-        mail_sos        Varchar (25) ,
+        email           Varchar (25) ,
+        email_sos       Varchar (25) ,
         code_postal     Varchar (25) ,
         ville           Varchar (25) ,
         adresse         Varchar (25) ,
@@ -270,6 +271,18 @@ CREATE TABLE Responsabilite(
         libellle         Varchar (25) ,
         heureReducable   Int ,
         PRIMARY KEY (id_reponsabilite )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Password_reset
+#------------------------------------------------------------
+
+CREATE TABLE Password_reset(
+        email      Varchar (25) NOT NULL ,
+        token      Varchar (255) NOT NULL ,
+        created_at TimeStamp ,
+        PRIMARY KEY (email )
 )ENGINE=InnoDB;
 
 
