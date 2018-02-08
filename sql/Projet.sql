@@ -9,8 +9,6 @@
 
 CREATE TABLE Enseignant(
         code_professeur int (11) Auto_increment  NOT NULL ,
-        type            Varchar (25) ,
-        heure           Int ,
         id_annee        Int ,
         id              Int ,
         id_diplome      Int ,
@@ -36,8 +34,6 @@ CREATE TABLE Departement(
 
 CREATE TABLE Etudiant(
         code_etudiant int (11) Auto_increment  NOT NULL ,
-        INE           Varchar (25) ,
-        numSecu       Varchar (25) ,
         code_groupe   Int ,
         id_annee      Int ,
         id            Int ,
@@ -84,7 +80,6 @@ CREATE TABLE UE(
         libelle         Varchar (25) ,
         description     Text ,
         coeff           Int ,
-        edts            Int ,
         id_semestre     Varchar (25) ,
         code_professeur Int ,
         PRIMARY KEY (id_ue )
@@ -232,9 +227,7 @@ CREATE TABLE Personne(
         nom             Varchar (25) ,
         prenom          Varchar (25) ,
         tel             Varchar (25) ,
-        naissance       Date ,
-        email           Varchar (25) ,
-        email_sos       Varchar (25) ,
+        mail            Varchar (25) ,
         code_postal     Varchar (25) ,
         ville           Varchar (25) ,
         adresse         Varchar (25) ,
@@ -259,30 +252,6 @@ CREATE TABLE Evaluations(
         code_professeur Int ,
         id_matiere      Varchar (25) ,
         PRIMARY KEY (id_evaluation )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Responsabilite
-#------------------------------------------------------------
-
-CREATE TABLE Responsabilite(
-        id_reponsabilite int (11) Auto_increment  NOT NULL ,
-        libellle         Varchar (25) ,
-        heureReducable   Int ,
-        PRIMARY KEY (id_reponsabilite )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Password_resets
-#------------------------------------------------------------
-
-CREATE TABLE Password_resets(
-        email      Varchar (25) NOT NULL ,
-        token      Varchar (255) NOT NULL ,
-        created_at TimeStamp ,
-        PRIMARY KEY (email )
 )ENGINE=InnoDB;
 
 
@@ -324,7 +293,6 @@ CREATE TABLE Detient(
 #------------------------------------------------------------
 
 CREATE TABLE Note(
-        note          Int ,
         code_etudiant Int NOT NULL ,
         id_evaluation Int NOT NULL ,
         PRIMARY KEY (code_etudiant ,id_evaluation )
@@ -339,17 +307,6 @@ CREATE TABLE Possede(
         id_contrainte   Int NOT NULL ,
         code_professeur Int NOT NULL ,
         PRIMARY KEY (id_contrainte ,code_professeur )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Est_Responsable
-#------------------------------------------------------------
-
-CREATE TABLE Est_Responsable(
-        code_professeur  Int NOT NULL ,
-        id_reponsabilite Int NOT NULL ,
-        PRIMARY KEY (code_professeur ,id_reponsabilite )
 )ENGINE=InnoDB;
 
 ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
@@ -387,5 +344,3 @@ ALTER TABLE Note ADD CONSTRAINT FK_Note_code_etudiant FOREIGN KEY (code_etudiant
 ALTER TABLE Note ADD CONSTRAINT FK_Note_id_evaluation FOREIGN KEY (id_evaluation) REFERENCES Evaluations(id_evaluation);
 ALTER TABLE Possede ADD CONSTRAINT FK_Possede_id_contrainte FOREIGN KEY (id_contrainte) REFERENCES Contrainte(id_contrainte);
 ALTER TABLE Possede ADD CONSTRAINT FK_Possede_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_id_reponsabilite FOREIGN KEY (id_reponsabilite) REFERENCES Responsabilite(id_reponsabilite);

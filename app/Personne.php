@@ -14,7 +14,7 @@ class Personne extends Authenticatable
     protected $table = "Personne";
 
     protected $fillable = [
-        'identifiant','nom','prenom','email','email_sos','naissance','password','tel','adresse','code_postal','ville','admin','code_professeur','code_etudiant'
+        'identifiant','nom','prenom','mail','mail_sos','naissance','password','tel','adresse','code_postal','ville','admin','code_professeur','code_etudiant'
     ];
     
         /**
