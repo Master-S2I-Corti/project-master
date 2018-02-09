@@ -52,7 +52,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nom">Profil de l' Etudiant</h5>
+                    <h5 class="modal-title" >Profil de l'enseignant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col">
                                     <p> Professeur pédagogique : </p>
-                                    <p> Email: </p> 
+                                    <p id="email"> Email: <br/></p>
                                     <!--<p id="dep"> Département: </p> -->
                                     <p> Bureau N°: </p></div>
                             </div>
@@ -252,7 +252,18 @@
         $( function() {
 
             $( ".opener" ).on( "click", function(e) {
-               
+                var elements = e.target.parentElement.querySelectorAll("th")
+                var id_personne = elements.item(0).innerHTML
+                var num = 0
+                var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
+                for (var i = 0; i < personnes.length; i++) {
+                    if ( id_personne == personnes[i]['id'])
+                    {
+                        num = i;
+                    }
+                }
+                document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
+                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['email']
                 $( "#affichage" ).modal( "show" );
             });
 

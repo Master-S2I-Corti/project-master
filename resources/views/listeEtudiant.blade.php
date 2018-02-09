@@ -238,7 +238,7 @@
                     }
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['mail']
+                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['email']
                 
                 
                 $( "#dialog" ).modal('show');
