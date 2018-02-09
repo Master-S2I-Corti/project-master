@@ -22,7 +22,8 @@ INSERT INTO `Enseignant` (`code_professeur`, `id_annee`, `id_diplome`, `id`) VAL
 INSERT INTO `Etudiant` (`code_etudiant`, `code_groupe`, `id_annee`, `id`) VALUES
 (1, NULL, NULL, 1);
 
-
+INSERT INTO `responsabilite` (`id_reponsabilite`, `libellle`, `heureReducable`) VALUES
+(1, 'Presidence', 192),(2, 'Vice Presidence', null),(3, 'Directeur Laboratoire', 96),(4,'Doyen', 96),(5,'Responsable Filiere', 12);
 
 INSERT INTO Departement (libelle) VALUE ('Science et technique');
 INSERT INTO Filiere (libelle, id_departement) VALUE  ('Informatique', 1);
