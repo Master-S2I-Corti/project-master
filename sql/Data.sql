@@ -38,4 +38,3 @@ INSERT INTO Annee (libelle, id_diplome) VALUE ('3', 2);
 COMMIT ;
 
 SET foreign_key_checks = 1;
-
