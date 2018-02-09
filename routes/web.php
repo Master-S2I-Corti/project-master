@@ -38,7 +38,8 @@ Route::middleware(['roles:admin'])->group(function () {
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
-    Route::post('/deleteEval','GestionNotesController@deleteEvalById');
+    Route::post('/gestion/deleteEval','GestionNotesController@deleteEvalById');
+    Route::post('/gestion/changeMatiere','GestionNotesController@onChangeMatiere');
     Route::get('/gestion/notes','GestionNotesController@index');
     Route::get('/ue', 'UEController@index');
     Route::get('/salles', 'SalleController@liste');

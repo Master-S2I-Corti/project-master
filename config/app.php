@@ -165,8 +165,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+<<<<<<< HEAD
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
+=======
+>>>>>>> 60412d0071728207ff8547295abcabdc263217ec
         /*
          * Package Service Providers...
          */

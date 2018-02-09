@@ -4145,6 +4145,7 @@
         ]
     },
     {
+<<<<<<< HEAD
         "name": "greggilbert/recaptcha",
         "version": "2.2.0",
         "version_normalized": "2.2.0.0",
@@ -4178,6 +4179,34 @@
             "psr-4": {
                 "Greggilbert\\Recaptcha\\": "src/"
             }
+=======
+        "name": "stechstudio/laravel-ssh-tunnel",
+        "version": "1.1.4",
+        "version_normalized": "1.1.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stechstudio/laravel-ssh-tunnel.git",
+            "reference": "233dfc867fde748f32901c2a53078a240f256ffb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stechstudio/laravel-ssh-tunnel/zipball/233dfc867fde748f32901c2a53078a240f256ffb",
+            "reference": "233dfc867fde748f32901c2a53078a240f256ffb",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "5.2.x|5.3.x|5.4.x|5.5.x"
+        },
+        "time": "2017-09-13 12:22:29",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [],
+            "psr-4": {
+                "STS\\Tunneler\\": "src"
+            },
+            "files": []
+>>>>>>> 60412d0071728207ff8547295abcabdc263217ec
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -4185,6 +4214,7 @@
         ],
         "authors": [
             {
+<<<<<<< HEAD
                 "name": "Greg Gilbert",
                 "email": "greg@greg-gilbert.com"
             }
@@ -4196,6 +4226,19 @@
             "laravel",
             "laravel5",
             "recaptcha"
+=======
+                "name": "Bubba Hines",
+                "email": "rob@stechstudio.com"
+            }
+        ],
+        "description": "Easy creation & maintenance of an SSH Tunnel for Laravel/Lumen",
+        "keywords": [
+            "laravel",
+            "lumen",
+            "mysql",
+            "ssh",
+            "tunnel"
+>>>>>>> 60412d0071728207ff8547295abcabdc263217ec
         ]
     }
 ]
