@@ -52,7 +52,7 @@ class ListeEtudiantController extends Controller
     }
 
     //Modification du etudiant 
-    public function update( Request $request)
+    public function update(Request $request)
     {
         $etudiants = Etudiant::findOrFail($request->id);
         $etudiants->update($request->all());

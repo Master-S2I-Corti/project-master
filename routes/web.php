@@ -49,6 +49,7 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 Route::get('profil','ProfilController@index');
 Route::get('annuaire/professeurs','ListeProfController@index');
 Route::get('annuaire/etudiants','ListeEtudiantController@index');
+Route::post('updateProfil','ProfilController@update');
 
 
 Route::post('listeProf/search','ListeProfController@search');

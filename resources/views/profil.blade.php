@@ -79,17 +79,17 @@
             </div>
             <div class="modal-body">
                     <div class="container">
-                        <form method="post" action="#" accept-charset="UTF-8">
+                        <form method="post" action="{!! url('updateProfil') !!}" accept-charset="UTF-8">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col">
-                                    <p>Mail Perso : <input type="text" name="mail" value="{{ $log->email_sos }}"/> </p>
+                                    <p>Mail Perso : <input type="text" name="email_sos" value="{{ $log->email_sos }}"/> </p>
                                     <p>Telephone : <input type="text" name="tel" value="{{ $log->tel }}"/> </p>
                                     <p>Adresse : <input type="text" name="adresse" value="{{ $log->adresse }}"/> </p>
-                                    <p>code postal: <input type="text" name="code" value="{{ $log->code_postal }}"/> </p>
+                                    <p>code postal: <input type="text" name="code_postal" value="{{ $log->code_postal }}"/> </p>
                                     <p>ville : <input type="text" name="ville" value="{{ $log->ville }}"/> </p>
                                     @if($log->isEnseignant())
-                                    <p>n°Bureau : <input type="text" name="bureau" value="{{ $enseignant->nbBureau }}"/> </p>
+                                    <p>n°Bureau : <input type="text" name="nbBureau" value="{{ $enseignant->nbBureau }}"/> </p>
                                     @endif
                                     <button class="btn btn-primary"> Modifier</button>
                                 </div>
