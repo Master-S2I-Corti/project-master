@@ -278,7 +278,7 @@ CREATE TABLE Responsabilite(
 # Table: Password_reset
 #------------------------------------------------------------
 
-CREATE TABLE Password_reset(
+CREATE TABLE Password_resets(
         email      Varchar (25) NOT NULL ,
         token      Varchar (255) NOT NULL ,
         created_at TimeStamp ,

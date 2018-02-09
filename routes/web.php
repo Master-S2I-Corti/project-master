@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
-
-
+Route::get('password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('/changePassword','ChangePasswordController@showChangePasswordForm');
+Route::post('/changePassword','ChangePasswordController@changePassword')->name('changePassword');
 
 Route::get("/etudiants", function() {
    return App\Personne::all();

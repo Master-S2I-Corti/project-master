@@ -38,8 +38,26 @@
                             @endif
                         </div>
                     </div>
-
-            </div>
+                    <div class="form-group">
+                        <a href="{{ route('password.request') }}">
+                                    Mot de passe oublié ?
+                        </a>
+                    </div>
+                    
+                    <div class="form-group">
+                            <label for="captcha" class="form-control-label">Captcha</label>
+                            <div>
+                                {!! Recaptcha::render()!!}
+                                
+                                @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                    </div>
+                    
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 <button type="submit" class="btn btn-primary">Valider</button>
