@@ -17,14 +17,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                                        Nom_Cours
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        @foreach ($matieres as $matiere)
-                                            <a class="dropdown-item" href="#">{{$matiere->libelle}} </a>
-                                        @endforeach 
-                                    </div>
+                                        <select>
+                                            <option value="selection_cours" selected>Veuillez sélectionner un cours</option>
+                                            @foreach ($matieres as $matiere)
+                                                <option class="dropdown-item" href="#">{{$matiere->libelle}} </option>
+                                            @endforeach 
+                                        </select>
                                 </div>
                             </div>
                         </div>
