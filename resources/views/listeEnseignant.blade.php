@@ -175,6 +175,7 @@
                                                 <option value="Vacataire">Vacataire</option>
                                         </select> 
                                     </p> 
+                                    <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
                                     <p> Responsablité :
                                         <select class="Responsabilie" name="Responsabilie">
                                             <option value="0">Aucune</option>

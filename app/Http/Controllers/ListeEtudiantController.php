@@ -74,6 +74,18 @@ class ListeEtudiantController extends Controller
         return redirect()->action('ListeEtudiantController@index');
     }
     
+    //Ajout des étudiants grâce à un fichier .csv
+    public function multipleStore(){ //Request $request
+        if(($handle = fopen("test.csv","r"))!== FALSE){
+            while(($data = fgetcsv($handle,1000,",")) !== FALSE){
+                $num = count($data);
+                for($sc=0; $sc<$num;$sc++){
+                    echo $data[$sc]."<br/>\n";
+                }
+                echo " NOUVELLE PERSONNE<br/>";
+                //store A FAIRE
+            }
+        }
+    }
 
-    
 }
