@@ -78,12 +78,16 @@ class ListeEtudiantController extends Controller
     public function multipleStore(){ //Request $request
         if(($handle = fopen("test.csv","r"))!== FALSE){
             while(($data = fgetcsv($handle,1000,",")) !== FALSE){
-                $num = count($data);
-                for($sc=0; $sc<$num;$sc++){
-                    echo $data[$sc]."<br/>\n";
-                }
-                echo " NOUVELLE PERSONNE<br/>";
-                //store A FAIRE
+                $personne = Personne::firstOrCreate([
+                    'identifiant' => $data[2],
+                    'nom' => $data[2],
+                    'prenom' => $data[1],
+                    'email_sos' => $data[3],
+                    'naissance'=> $data[5],
+                    'password' =>  Hash::make(str_replace("-","",$data[5])),
+                    'tel' => $data[4],
+                    'admin' =>0
+                    ]);
             }
         }
     }
