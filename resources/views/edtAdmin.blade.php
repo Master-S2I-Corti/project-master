@@ -3,8 +3,14 @@
 
 @extends('layouts.app')
 
-
+@section('css')
+<style>
+    .custom-select {border: 1px solid blue; color: blue}
+    .custom-select:focus {color: blue}
+</style>
+@endsection
 @section('content')
+
 
     <div class="py-5">
         <div class="container">

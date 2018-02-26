@@ -17,12 +17,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                        <select>
-                                            <option value="selection_cours" selected>Veuillez sélectionner un cours</option>
-                                            @foreach ($matieres as $matiere)
-                                                <option class="dropdown-item" href="#">{{$matiere->libelle}} </option>
-                                            @endforeach 
-                                        </select>
+                                    <select class= "form-control custom-select" required="">
+                                            <option value="" selected>Veuillez sélectionner un cours</option>
+                                                @foreach ($matieres as $matiere)
+                                                <option value="1" class="dropdown-item" href="#">{{$matiere->libelle}} </option>
+                                                @endforeach 
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -32,14 +32,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                                        Type
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Cours</a>
-                                        <a class="dropdown-item" href="#">TD</a>
-                                        <a class="dropdown-item" href="#">TP</a>
-                                    </div>
+                                    <select class= "form-control custom-select" required="">
+                                            <option value="" selected>Veuillez sélectionner un type de cours</option>
+                                            <option value=""> Cours</option> 
+                                            <option value=""> TD</option>
+                                            <option value=""> TP</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -49,14 +47,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                                        Nom_Enseignant
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        @foreach ($enseignants as $enseignant)
-                                            <a class="dropdown-item" href="#">{{$enseignant->personne->prenom}} {{$enseignant->personne->nom}}</a>
-                                        @endforeach
-                                    </div>
+                                    <select class= "form-control custom-select" required="">
+                                            <option value="" selected>Veuillez sélectionner un nom d'enseignant</option>
+                                                @foreach ($enseignants as $enseignant)
+                                                   <option value="1" class="dropdown-item" href="#">{{$enseignant->personne->prenom}} {{$enseignant->personne->nom}}</option>
+                                                @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -66,13 +62,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                                        Salle
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">informatique</a>
-                                        <a class="dropdown-item" href="#">classique</a>
-                                    </div>
+                                    <select class= "form-control custom-select" required="">
+                                            <option value="" selected>Veuillez sélectionner une salle</option>
+                                            <option value=""> Informatique</option> 
+                                            <option value=""> Classique</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +87,7 @@
                             <div class="col-md-6">
                                 <form class="form-inline" method="post" action="https://formspree.io/">
                                     <input type="heure_debut" name="heure_debut" class="form-control"
-                                           placeholder="heure_debut"></form>
+                                           placeholder="Heure début ex: 08h00"></form>
                             </div>
                         </div>
                         <div class="row">
@@ -103,7 +97,7 @@
                             <div class="col-md-6">
                                 <form class="form-inline" method="post" action="https://formspree.io/">
                                     <input type="heure_fin" name="heure_fin" class="form-control"
-                                           placeholder="heure_fin"></form>
+                                           placeholder="Heure fin ex: 18h00"></form>
                             </div>
                         </div>
                         <div class="row">
