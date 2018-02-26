@@ -15,6 +15,11 @@
             <h2>Liste des étudiants</h2>
             @if(Auth::user()->isAdmin())
                 <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="file" name="fichier" accept=".csv"/>
+                    <button class="btn btn-primary">Ajout d'un étudiant avec le fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                </form>
             @endif
         </div>
 

@@ -75,8 +75,10 @@ class ListeEtudiantController extends Controller
     }
     
     //Ajout des étudiants grâce à un fichier .csv
-    public function multipleStore(){ //Request $request
-        if(($handle = fopen("test.csv","r"))!== FALSE){
+    public function multipleStore(Request $request){ 
+        $info = $request->fichier;
+
+        if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
             while(($data = fgetcsv($handle,1000,",")) !== FALSE){
                 $personne = Personne::firstOrCreate([
                     'identifiant' => $data[2],
@@ -88,8 +90,14 @@ class ListeEtudiantController extends Controller
                     'tel' => $data[4],
                     'admin' =>0
                     ]);
+
+                    $personne->where('identifiant', $personne['identifiant'])->first();
+                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+                    $etudiant = $etudiant->where('id', $personne->id)->first();
+                    $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
             }
         }
+        return redirect()->action('ListeEtudiantController@index');
     }
 
 }
