@@ -92,7 +92,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{!! url('updateEtudiant') !!}" accept-charset="UTF-8">
+                <form method="post" action="{!! url('annuaire/etudiants/updateEtudiant') !!}" accept-charset="UTF-8">
                     <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="row">
