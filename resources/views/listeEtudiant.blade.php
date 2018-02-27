@@ -18,7 +18,7 @@
                 <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="file" name="fichier" accept=".csv"/>
-                    <button class="btn btn-primary">Ajout d'un étudiant avec le fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
                 </form>
             @endif
         </div>
@@ -188,7 +188,6 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
-
         </form>
     </div>
 
