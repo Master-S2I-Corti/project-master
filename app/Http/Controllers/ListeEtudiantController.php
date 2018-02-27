@@ -44,20 +44,16 @@ class ListeEtudiantController extends Controller
             return redirect()->action('ListeEtudiantController@index');
     }
 
-    //Accès à la page de modification d'un etudiant
-    public function edit($id) 
-    {
-        $etudiants = Etudiant::findOrFail($id);
-        return view('test/editEtudiant', compact('etudiants'));
-    }
-
     //Modification du etudiant 
     public function update(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($request->id);
-        $etudiants->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $personne->update([
+            'email' => $request->email
+            ]);
+
+
+        return redirect()->action('ListeEtudiantController@index');
     }
 
     //Suppression du etudiant

@@ -36,6 +36,8 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
     Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
+    Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+    Route::post('updateProf','ListeProfController@update');
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -55,11 +57,11 @@ Route::post('updateProfil','ProfilController@update');
 Route::post('listeProf/search','ListeProfController@search');
 Route::post('listeEtudiant/search','ListeEtudiantController@search');
 
-Route::post('updateProf','ListeProfController@update');
+
 Route::post('updateEtudiant','ListeEtudiantController@update');
 
 
-Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+
 
 Auth::routes();
 
