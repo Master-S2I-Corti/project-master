@@ -90,6 +90,7 @@ class ListeEtudiantController extends Controller
                     ]);
             }
         }
+        return redirect()->action('ListeEtudiantController@index');
     }
 
 }
