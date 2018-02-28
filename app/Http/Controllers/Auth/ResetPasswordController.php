@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
+
 
 class ResetPasswordController extends Controller
 {
@@ -26,6 +30,13 @@ class ResetPasswordController extends Controller
      * @var string
      */
     
+    protected function resetPassword($user, $password)
+    {
+        $user->password = Hash::make($password);
+        $user->setRememberToken(Str::random(60));
+        $user->save();
+        event(new PasswordReset($user));
+    }
     
     
     protected $redirectTo = '/';
