@@ -36,10 +36,16 @@ class ListeEtudiantController extends Controller
             'admin' =>0
             ]);
         
-            $personne->where('identifiant', $personne['identifiant'])->first();
+            
+        $personne->where([
+            ['nom', $personne['nom']],
+            ['prenom', $personne['prenom']],
+            ['naissance', $personne['naissance']],
+        ])->first();
+
             $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
-            $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+            $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
     
             return redirect()->action('ListeEtudiantController@index');
     }
@@ -88,10 +94,15 @@ class ListeEtudiantController extends Controller
                         'admin' =>0
                         ]);
 
-                    $personne->where('identifiant', $personne['identifiant'])->first();
+                    $personne->where([
+                                ['nom', '=', $personne['nom']],
+                                ['prenom', '=', $personne['prenom']],
+                                ['naissance', '=', $personne['naissance']],
+                            ])->first();
+
                     $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
                     $etudiant = $etudiant->where('id', $personne->id)->first();
-                    $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+                    $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
                 }
             } 
         }

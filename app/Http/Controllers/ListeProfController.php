@@ -40,14 +40,19 @@ class ListeProfController extends Controller
             'ville' =>$request->ville,
             'admin' =>0
         ]);
-        $personne->where('identifiant', $personne['identifiant'])->first();
+        $personne->where([
+            ['nom', '=', $personne['nom']],
+            ['prenom', '=', $personne['prenom']],
+            ['naissance', '=', $personne['naissance']],
+        ])->first();
+
         $enseignant = Enseignant::firstOrCreate([
             'id'=>$personne->id,
             'type'=>$request->fonction,
             'nbBureau'=>$request->numeroBureau
             ]);
         $enseignant = $enseignant->where('id', $personne->id)->first();
-        $personne->where('identifiant', $personne['identifiant'])->update(['code_professeur' =>$enseignant->code_professeur]);
+        $personne->update(['code_professeur' =>$enseignant->code_professeur]);
         if ( $request->Responsabilie != 0)
         {
              $responsabilite = Est_responsable::firstOrCreate([
