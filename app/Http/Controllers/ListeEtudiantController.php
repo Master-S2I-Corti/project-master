@@ -76,11 +76,23 @@ class ListeEtudiantController extends Controller
     
     //Ajout des étudiants grâce à un fichier .csv
     public function multipleStore(Request $request){ 
+        
         if(count($request->all()) != 1)
         {
             $info = $request->fichier;
             if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
                 while(($data = fgetcsv($handle,1000,",")) !== FALSE){
+                    //Gestion du tableau de formation A UTILISER PLUS TARD
+                    /*echo "\neleve: ";
+                    if ((strpos($data[6], '-'))){
+                      $tabFormation = explode('-', $data[6]);
+                      for($n = 0; $n < count($tabFormation); $n++){
+                          echo $tabFormation[$n] . " ";
+                      }
+                    } else {
+                        echo $data[6];
+                    }*/
+
                     $personne = Personne::firstOrCreate([
                         'identifiant' => $data[2],
                         'nom' => $data[2],
@@ -90,7 +102,7 @@ class ListeEtudiantController extends Controller
                         'password' =>  Hash::make(str_replace("-","",$data[5])),
                         'tel' => $data[4],
                         'admin' =>0
-                        ]);
+                        ]); //'commentaire' => $data[7],
 
                     $personne->where('identifiant', $personne['identifiant'])->first();
                     $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);

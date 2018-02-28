@@ -177,6 +177,7 @@
                                     </p> 
                                     <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
                                     <p> Responsablité :
+                                    <span id='resp'>
                                         <select class="Responsabilie" name="Responsabilie">
                                             <option value="0">Aucune</option>
                                         @if ( isset($listeResponsabilite))
@@ -185,6 +186,7 @@
                                             @endforeach
                                         @endif
                                         </select> 
+                                        </span>
                                     </p> 
                                     </div>
                                     <div class="col-md-2">
@@ -251,6 +253,18 @@
 @section('script')
     <script>
         $( function() {
+            //TEST
+            $( ".Responsabilie" ).on( "change", function(e) {
+               
+               // document.getElementById("resp").appendChild(cln);
+                var newDiv = document.getElementById("resp");
+                var selectList = document.createElement("select"); 
+                //var cln = newDiv.cloneNode(true);
+                selectList.class = "Responsabilie";
+                newDiv.appendChild(selectList);
+                //var currentDiv = document.getElementById("resp");
+                //document.body.insertAfter(newDiv, currentDiv);
+            });
 
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("th")
