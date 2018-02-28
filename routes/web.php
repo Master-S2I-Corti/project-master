@@ -59,7 +59,7 @@ Route::post('updateProf','ListeProfController@update');
 Route::post('updateEtudiant','ListeEtudiantController@update');
 
 
-Route::get('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
 
 Auth::routes();
 
