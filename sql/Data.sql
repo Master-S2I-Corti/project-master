@@ -27,7 +27,7 @@ INSERT INTO `Etudiant` (`code_etudiant`, `id_annee`, `id`) VALUES
 
 
 UPDATE Personne SET code_etudiant = 1 WHERE id = 1;
-UPDATE Personne SET code_professeur = 1 WHERE id = 2;
+UPDATE Personne SET code_professeur = 1 WHERE id = 3;
 
 
 INSERT INTO UFR (libelle) VALUE ('Science et technique');
