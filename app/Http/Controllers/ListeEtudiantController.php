@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
-use App\Departement;
+//use App\Departement;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -14,7 +14,7 @@ class ListeEtudiantController extends Controller
     public function index()
     {
         $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
-        $listeDepartement = Departement::get();
+       // $listeDepartement = Departement::get();
 
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement'));
     }

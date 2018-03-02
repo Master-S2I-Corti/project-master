@@ -14,7 +14,7 @@ class Personne extends Authenticatable
     protected $table = "Personne";
 
     protected $fillable = [
-        'identifiant','nom','prenom','email','email_sos','naissance','password','tel','adresse','code_postal','ville','admin','code_professeur','code_etudiant'
+        'identifiant', 'password','nom','prenom','mail','code_professeur','code_etudiant'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +36,9 @@ class Personne extends Authenticatable
         return $this->admin == 1;
     }
 
+
     public function getPath() {
         return $this->isEtudiant() ? "/etudiant" : "/enseignant";
     }
+
 }
