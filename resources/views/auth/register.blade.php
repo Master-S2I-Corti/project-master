@@ -6,7 +6,7 @@
                 <div class="panel-heading" style="margin-bottom: 20px"><h1>Inscription</h1></div>
 
                 <div class="panel-body" style="width: 500px">
-                    <form class="form-horizontal" method="POST" action="{{ url('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
@@ -40,18 +40,6 @@
                             <label for="password-confirm" class="form-control-label"><i class="fa fa-lock d-inline fa-lg"></i>Confirmer mot de passe</label>
                             <div>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="captcha" class="form-control-label">Captcha</label>
-                            <div>
-                                {!! Recaptcha::render()!!}
-                                
-                                @if ($errors->has('g-recaptcha-response'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 

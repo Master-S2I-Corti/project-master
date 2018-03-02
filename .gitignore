@@ -7,4 +7,4 @@
 npm-debug.log
 yarn-error.log
 .env
-/storage/logs
+/storage/logs/laravel.log

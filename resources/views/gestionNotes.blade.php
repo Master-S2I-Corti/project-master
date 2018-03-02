@@ -73,12 +73,13 @@
                                 </div>
 
                                 <div class="form-group col-md-4 p-0">
-                                    <select class="form-control" id="sel_matiere">
+                                    <select class="form-control" id="sel1">
+                                        <option value="">Fondamentaux web mobile</option>
 
                                         @if(count($data['matiere'])>=1)
 
                                             @foreach($data['matiere'] as $matiere)
-                                                <option value="{{$matiere->id_matiere}}">{{$matiere->libelle}}</option>
+                                                <option value="">{{$matiere->matiere}}</option>
                                             @endforeach
 
                                         @endif
@@ -187,7 +188,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="mr-2 fa fa-user-circle"></i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;" class="tltMat"> Web Semantique</span>
+                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="mr-2 fa fa-user-circle"></i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;"> Web Semantique</span>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
@@ -262,7 +263,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                     <h5 class="tltMat"></h5>
+                        <h5 class="modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="fa fa-graduation-cap "></i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;"> Web Semantique</span>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
@@ -284,15 +285,15 @@
 
                                 @foreach($data['evaluation'] as $evaluation)
 
-                                    <tr id="ligne_{{$evaluation->id_evaluation}}">
-                                        <input type="hidden" name="" value="{{$evaluation->id_evaluation}}">
+                                    <tr id="ligne_{{$evaluation->id_eval}}">
+                                        <input type="hidden" name="" value="{{$evaluation->id_eval}}">
                                         <td class="w-25">{{$evaluation->type}}</td>
 
                                         <td>
-                                            <input type="number" value="{{$evaluation->coeff}}" min="0" max="5" class="form-control form-control-sm w-25">
+                                            <input type="number" value="{{$evaluation->coef}}" min="0" max="5" class="form-control form-control-sm w-25">
                                         </td>
 
-                                        <td><i class="fa fa-lg d-inline removeLine dbRemoveEval text-danger fa-trash-o" id="{{$evaluation->id_evaluation}}"></i></td>
+                                        <td><i class="fa fa-lg d-inline removeLine dbRemoveEval text-danger fa-trash-o" id="{{$evaluation->id_eval}}"></i></td>
 
                                     </tr>
 
@@ -374,15 +375,12 @@
                 $('#cTable').prepend('<tr><td class="w-25"><select class="form-control" name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
             });
 
-            // SUPRESSION EVALUATION
-
             $('body').on('click','.removeLine',function(){
                 if (confirm("Êtes-vous sûr de vouloir supprimer la ligne ?") == true) {
                     if($(this).hasClass("dbRemoveEval"))
                     {
                         // Traitement Ajx Supression Evaluation Base
                         var idTodelete=$(this).attr("id");
-                        alert(idTodelete);
                         $.post('deleteEval',{idEvalTodelete:idTodelete},function($data){
                             $('#ligne_'+idTodelete).remove();
                         });
@@ -393,31 +391,5 @@
                 }
             });
         });
-
-
-
-        $('body').on('change','#sel_matiere', function(){
-
-         
-         var selectedId=$(this).val();
-         var name_mat=$("#sel_matiere option:selected").text();
-
-           $.post('changeMatiere',
-                  {selectedId:selectedId},
-                  function(data){
-                          console.log(data);
-
-                            // $('#mat1').html(data[0].matiere);
-
-                            $('#cTable').html(data);
-                            $('.tltMat').html(name_mat);
-
-                          },
-
-                            'html'
-                          );
-
-      });
-
     </script>
 @endsection

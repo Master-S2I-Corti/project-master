@@ -1,6 +1,6 @@
 <?php
 
-/*PATATEDOUCE*/
+/*PATATE*/
 
 /**
  * Laravel - A PHP Framework For Web Artisans

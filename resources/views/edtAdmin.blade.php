@@ -13,9 +13,9 @@
                     <div class="btn-group">
                         <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Classe</button>
                         <div class="dropdown-menu">
-                            @foreach ($classes as $classe)
-                                <a class="dropdown-item" href="#">{{$classe->diplome->libelle}}  {{$classe->libelle}} </a>
-                            @endforeach 
+                            <a class="dropdown-item" href="#">licence 3</a>
+                            <a class="dropdown-item" href="#">master 1</a>
+                            <a class="dropdown-item" href="#">master 2</a>
                         </div>
                     </div>
                 </div>

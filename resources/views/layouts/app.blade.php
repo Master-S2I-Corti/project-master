@@ -54,7 +54,6 @@
 
         @guest
             @include('layouts.connexion')
-            
         @endguest
         <div id="conteneur" style="overflow: auto; height: calc(100vh - 66px)">
             @yield('content')

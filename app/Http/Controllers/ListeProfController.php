@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enseignant;
 use App\Personne;
-//use App\Responsabilite;
-//use App\Departement;
-//use App\Est_responsable;
+use App\Responsabilite;
+use App\Departement;
+use App\Est_responsable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,8 +18,8 @@ class ListeProfController extends Controller
     {
         $listesEnseignant = Personne::where('code_professeur','!=',0)
                             ->paginate(7);
-        //$listeResponsabilite = Responsabilite::get();
-        //$listeDepartement = Departement::get();
+        $listeResponsabilite = Responsabilite::get();
+        $listeDepartement = Departement::get();
         
         return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement'));
     }

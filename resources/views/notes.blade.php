@@ -5,28 +5,6 @@
         .nav-item:nth-child(2) a {
             color: white !important;
         }
-
-        .headliste
-        {
-            background-color: #c0c0c038;
-            cursor:pointer;
-        }
-
-        .noValideUE
-        {
-            color:red !important;
-        }
-
-        .tlt_mat
-        {
-            padding-left:30px !important;
-        }
-
-        #topdown i
-        {
-            font-weight:bold; font-size:25px;
-        }
-
     </style>
 @endsection
 
@@ -38,89 +16,64 @@
                     <div class="row">
                         <div class="d-flex justify-content-between w-100">
                             <h1 class="">Mark Otto</h1>
-                            <div class="form-group col-md-6 pull-right">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <select class="form-control" id="sel2">
-                                            <option value="">M1 S2I</option>
-                                         
-                                        </select>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <select class="form-control" id="sel2">
-                                            <option value="">Semestre 1</option>
-                                            <option value="">Semestre 2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
+                            <div class="form-group col-md-4 p-0 align-items-center">
+                                <select class="form-control" id="sel1">
+                                    <option value="">Semestre 1</option>
+                                    <option value="">Semestre 2</option>
+                                </select>
                             </div>
                         </div>
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th  id="topdown"><i class="fa fa-angle-down"></i> <i class="fa fa-angle-up"></i></th>
-                                <th class="w-50">UE</th>
-                                <th >Coef</th>
-                                <th >Note</th>
-                                <th >Resultat</th>
-                                
-                            
+                                <th class="w-25">#</th>
+                                <th class="w-25">UE</th>
+                                <th class="w-25">Resultat</th>
+                                <th class="w-25">Moyenne</th>
+                                <th class="w-20" style="width:20px;">Consulter</th>
                             </tr>
                             </thead>
                             <tbody>
-
-                             @if(count($data['ue'])>=1)
-
-                                @foreach($data['ue'] as $ue)
-
-                                     <tr id="{{$ue->id_ue}}" class=" headliste clk_tgl"> <!-- class noValideUE -->
-                                        
-                                        <td class="iconTgl"><i class="fa fa-plus"></i> <i class="fa fa-minus"></i></td>
-                                        <td class="w-25">{{$ue->libelle}}</td>
-                                        <td>{{$ue->coeff}}</td>
-                                        <td>9.90</td> 
-                                        <td> NACQ</td>
-                                  
-                                    </tr>
-                                    
-                                    @foreach($data['matiere'] as $matiere)
-
-                                        @if($ue->id_ue==$matiere->id_ue)
-                                            <tr class="tbl_tgl_{{$ue->id_ue}} default_hide">
-                                                <td>
-                                                    
-                                                </td>
-                                                <td class="tlt_mat">
-                                                    {{$matiere->libelle}} 
-                                                </td>
-                                                <td>
-                                                    {{$matiere->coeff}} 
-                                                </td>
-                                                <td>
-                                                    10
-                                                </td>
-                                                 <td>
-                                                    /
-                                                </td>
-                                                
-                                            </tr>
-                                            
-
-
-                                        @endif
-                                        
-
-                                    @endforeach
-                                    
-
-                                @endforeach
-
-                            @endif
-
-            
-            
+                            <tr style="color:red">
+                                <td>1</td>
+                                <td class="w-25">Fondamentaux web mobile</td>
+                                <td> NACQ</td>
+                                <td>9.90</td>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Android</td>
+                                <td>ABI</td>
+                                <td>---</td>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Programmation Orientee objet</td>
+                                <td>INDISPO</td>
+                                <td>INDISPO</td>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="">Conception agile, base données</td>
+                                <td>ACQ</td>
+                                <td>15.12</td>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
+                                </td>
+                            </tr>
+                            <tr style="color:red">
+                                <td>5</td>
+                                <td>Pvp</td>
+                                <td>NACQ</td>
+                                <td>8.20</td>
+                                <td><i class="fa fa-fw fa fa-eye fa-lg" data-target="#myModal" data-toggle="modal"></i>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -140,40 +93,59 @@
 
 
         </div>
-
-@endsection
-
-
-@section('script')
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('document').ready(function(){
-            // Cacher les filliers par defaut
-            $('.default_hide').hide();
-            $('.fa-minus').hide();
-            $('.fa-angle-up').hide();
-
-            $('.clk_tgl').on('click', function(){
-
-                var idHeadLine=$(this).attr('id');
-                
-                $(this).find(".fa-plus,.fa-minus").toggle();
-                $('.tbl_tgl_'+idHeadLine).toggle();
-
-            });
-
-            $('#topdown').on('click',function(){
-
-                 $('.default_hide').toggle();
-                 $(".fa-plus,.fa-minus").toggle();
-                 $(this).find(".fa-angle-down,.fa-angle-up").toggle();
-
-            });
-
-        });
-    </script>
+        <!-- Modal -->
+        <div class="modal" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"
+                            style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i
+                                    class="fa fa-graduation-cap mr-2"></i>Etudiant</h5> <span
+                                style="margin-left:20px; color: #007bff;"
+                                class="text-muted"> Fondamentaux web mobile</span>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Coef</th>
+                                <th>Note</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Archi et techo</td>
+                                <td>1</td>
+                                <td> 10.25</td>
+                            </tr>
+                            <tr>
+                                <td>Programmation PHP</td>
+                                <td>2</td>
+                                <td> 10.25</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <font color="red">Projet developpement site</font>
+                                </td>
+                                <td>
+                                    <font color="red">3</font>
+                                </td>
+                                <td>
+                                    <font color="red">9 </font>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h5 style="padding:5px;float:right;">Moyenne : 9.90</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default w-25 btn-secondary" data-dismiss="modal">Fermer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection

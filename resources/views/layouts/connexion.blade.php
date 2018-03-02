@@ -13,11 +13,11 @@
 
             <div class="modal-body">
                     {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
                         <div>
                             <label for="login-input" class="form-control-label"><i class="fa fa-user d-inline fa-lg"></i>Identifiant</label>
-                            <input id="login-input" type="text" placeholder="Identifiant" class="form-control" name="login"
-                                   value="{{ old('login') }}" required autofocus>
+                            <input id="login-input" type="text" placeholder="Identifiant" class="form-control" name="identifiant"
+                                   value="{{ old('identifiant') }}" required autofocus>
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -25,7 +25,7 @@
                             <label for="password-input" class="form-control-label"><i class="fa d-inline fa-lock fa-lg"></i>Mot de passe</label>
                             <input id="password-input" type="password" class="form-control" placeholder="Mot de passe" name="password"
                                    required>
-                            @if ($errors->has('login'))
+                            @if ($errors->has('identifiant'))
                                 <span class="help-block text-danger">
                                         <strong>{{ $errors->first('identifiant') }}</strong>
                                     </span>
@@ -38,26 +38,8 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group">
-                        <a href="{{ route('password.request') }}">
-                                    Mot de passe oublié ?
-                        </a>
-                    </div>
-                    
-                    <div class="form-group">
-                            <label for="captcha" class="form-control-label">Captcha</label>
-                            <div>
-                                {!! Recaptcha::render()!!}
-                                
-                                @if ($errors->has('g-recaptcha-response'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                    </div>
-                    
-                </div>
+
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 <button type="submit" class="btn btn-primary">Valider</button>

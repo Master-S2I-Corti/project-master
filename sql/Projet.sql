@@ -11,12 +11,11 @@ CREATE TABLE Enseignant(
         code_professeur int (11) Auto_increment  NOT NULL ,
         type            Varchar (25) ,
         heure           Int ,
-        batiment        Varchar (25) ,
-        etage           Varchar (25) ,
-        numero_privee   Varchar (10) ,
+        nbBureau        Int,
+        id_annee        Int ,
         id              Int ,
-        id_status       Int ,
-        id_departement  Int ,
+        id_diplome      Int ,
+        id_ue           Varchar (25) ,
         PRIMARY KEY (code_professeur )
 )ENGINE=InnoDB;
 
@@ -28,7 +27,6 @@ CREATE TABLE Enseignant(
 CREATE TABLE Departement(
         id_departement int (11) Auto_increment  NOT NULL ,
         libelle        Varchar (255) ,
-        id_ufr         Int ,
         PRIMARY KEY (id_departement )
 )ENGINE=InnoDB;
 
@@ -41,6 +39,7 @@ CREATE TABLE Etudiant(
         code_etudiant int (11) Auto_increment  NOT NULL ,
         INE           Varchar (25) ,
         numSecu       Varchar (25) ,
+        code_groupe   Int ,
         id_annee      Int ,
         id            Int ,
         PRIMARY KEY (code_etudiant )
@@ -48,18 +47,30 @@ CREATE TABLE Etudiant(
 
 
 #------------------------------------------------------------
-# Table: Element_Constitutif
+# Table: Filiere
 #------------------------------------------------------------
 
-CREATE TABLE Element_Constitutif(
-        id_matiere  int (11) Auto_increment  NOT NULL ,
+CREATE TABLE Filiere(
+        id_filiere     int (11) Auto_increment  NOT NULL ,
+        libelle        Varchar (255) ,
+        id_departement Int ,
+        PRIMARY KEY (id_filiere )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Matiere
+#------------------------------------------------------------
+
+CREATE TABLE Matiere(
+        id_matiere  Varchar (25) NOT NULL ,
         libelle     Varchar (50) ,
         description Varchar (25) ,
         plan        Text ,
         coeff       Int ,
-        cours       Double ,
-        tp          Double ,
-        td          Double ,
+        cours       Int ,
+        tp          Int ,
+        td          Int ,
         id_ue       Varchar (25) ,
         PRIMARY KEY (id_matiere )
 )ENGINE=InnoDB;
@@ -70,12 +81,13 @@ CREATE TABLE Element_Constitutif(
 #------------------------------------------------------------
 
 CREATE TABLE UE(
-        id_ue       Varchar (25) NOT NULL ,
-        libelle     Varchar (25) ,
-        description Text ,
-        coeff       Int ,
-        edts        Int ,
-        id_semestre Varchar (25) ,
+        id_ue           Varchar (25) NOT NULL ,
+        libelle         Varchar (25) ,
+        description     Text ,
+        coeff           Int ,
+        edts            Int ,
+        id_semestre     Varchar (25) ,
+        code_professeur Int ,
         PRIMARY KEY (id_ue )
 )ENGINE=InnoDB;
 
@@ -97,9 +109,10 @@ CREATE TABLE Semestre(
 #------------------------------------------------------------
 
 CREATE TABLE Annee(
-        id_annee   int (11) Auto_increment  NOT NULL ,
-        libelle    Varchar (25) ,
-        id_diplome Int ,
+        id_annee        int (11) Auto_increment  NOT NULL ,
+        libelle         Varchar (25) ,
+        id_diplome      Int ,
+        code_professeur Int ,
         PRIMARY KEY (id_annee )
 )ENGINE=InnoDB;
 
@@ -111,6 +124,7 @@ CREATE TABLE Annee(
 CREATE TABLE Groupe(
         code_groupe int (11) Auto_increment  NOT NULL ,
         lib         Varchar (25) ,
+        id_annee    Int ,
         PRIMARY KEY (code_groupe )
 )ENGINE=InnoDB;
 
@@ -120,10 +134,11 @@ CREATE TABLE Groupe(
 #------------------------------------------------------------
 
 CREATE TABLE Diplome(
-        id_diplome     int (11) Auto_increment  NOT NULL ,
-        libelle        Varchar (255) ,
-        maquetteEtat   Int ,
-        id_departement Int ,
+        id_diplome      int (11) Auto_increment  NOT NULL ,
+        libelle         Varchar (255) ,
+        maquetteEtat    Int ,
+        id_filiere      Int ,
+        code_professeur Int ,
         PRIMARY KEY (id_diplome )
 )ENGINE=InnoDB;
 
@@ -138,8 +153,7 @@ CREATE TABLE Seance(
         heure_debut     Datetime ,
         heure_fin       Datetime ,
         date_seance     Date ,
-        remarque        Text ,
-        id_matiere      Int ,
+        id_matiere      Varchar (25) ,
         id_salle        Int ,
         code_professeur Int ,
         PRIMARY KEY (id_seance )
@@ -151,12 +165,10 @@ CREATE TABLE Seance(
 #------------------------------------------------------------
 
 CREATE TABLE Salle(
-        id_salle    int (11) Auto_increment  NOT NULL ,
-        location    Varchar (25) ,
-        capacite    Int ,
-        type        Varchar (255) ,
-        num_salle   Int ,
-        num_machine Int ,
+        id_salle  int (11) Auto_increment  NOT NULL ,
+        location  Varchar (25) ,
+        capacite  Int ,
+        id_seance Int ,
         PRIMARY KEY (id_salle )
 )ENGINE=InnoDB;
 
@@ -166,10 +178,9 @@ CREATE TABLE Salle(
 #------------------------------------------------------------
 
 CREATE TABLE Logiciel(
-        id_logiciel      int (11) Auto_increment  NOT NULL ,
-        libelle          Varchar (255) ,
-        licence          Date ,
-        personne_contact Text ,
+        id_logiciel int (11) Auto_increment  NOT NULL ,
+        libelle     Varchar (255) ,
+        licence     Date ,
         PRIMARY KEY (id_logiciel )
 )ENGINE=InnoDB;
 
@@ -197,20 +208,17 @@ CREATE TABLE Competence(
 
 
 #------------------------------------------------------------
-# Table: Disponibilite
+# Table: Contrainte
 #------------------------------------------------------------
 
-CREATE TABLE Disponibilite(
-        id_dispo        int (11) Auto_increment  NOT NULL ,
-        libelle         Varchar (25) ,
-        jour_semaine    Int ,
-        m1              Varchar (25) ,
-        m2              Varchar (25) ,
-        m3              Varchar (25) ,
-        m4              Varchar (25) ,
-        m5              Varchar (25) ,
-        code_professeur Int ,
-        PRIMARY KEY (id_dispo )
+CREATE TABLE Contrainte(
+        id_contrainte          Int NOT NULL ,
+        libelle                Varchar (25) ,
+        jour_contrainte        Date ,
+        heure_debut_contrainte Time ,
+        heure_fin_contrainte   Time ,
+        commentaire            Text ,
+        PRIMARY KEY (id_contrainte )
 )ENGINE=InnoDB;
 
 
@@ -220,14 +228,14 @@ CREATE TABLE Disponibilite(
 
 CREATE TABLE Personne(
         id              int (11) Auto_increment  NOT NULL ,
-        login           Varchar (25) ,
+        identifiant     Varchar (25) ,
         password        Varchar (255) ,
         nom             Varchar (25) ,
         prenom          Varchar (25) ,
         tel             Varchar (25) ,
         naissance       Date ,
-        email           Varchar (50) ,
-        email_sos       Varchar (50) ,
+        email           Varchar (25) ,
+        email_sos       Varchar (25) ,
         code_postal     Varchar (25) ,
         ville           Varchar (25) ,
         adresse         Varchar (25) ,
@@ -249,10 +257,8 @@ CREATE TABLE Evaluations(
         id_evaluation   int (11) Auto_increment  NOT NULL ,
         coeff           Int ,
         type            Varchar (25) ,
-        libelle         Varchar (50) ,
-        dateEval        Date ,
         code_professeur Int ,
-        id_matiere      Int ,
+        id_matiere      Varchar (25) ,
         PRIMARY KEY (id_evaluation )
 )ENGINE=InnoDB;
 
@@ -264,7 +270,7 @@ CREATE TABLE Evaluations(
 CREATE TABLE Responsabilite(
         id_reponsabilite int (11) Auto_increment  NOT NULL ,
         libellle         Varchar (25) ,
-        decharge         Int ,
+        heureReducable   Int ,
         PRIMARY KEY (id_reponsabilite )
 )ENGINE=InnoDB;
 
@@ -282,66 +288,6 @@ CREATE TABLE Password_resets(
 
 
 #------------------------------------------------------------
-# Table: Archive_maquette
-#------------------------------------------------------------
-
-CREATE TABLE Archive_maquette(
-        id_archive int (11) Auto_increment  NOT NULL ,
-        annee      Int ,
-        file       Varchar (255) ,
-        id_diplome Int ,
-        PRIMARY KEY (id_archive )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Indisponibilite
-#------------------------------------------------------------
-
-CREATE TABLE Indisponibilite(
-        id_indispo      int (11) Auto_increment  NOT NULL ,
-        debut           TimeStamp ,
-        fin             TimeStamp ,
-        code_professeur Int ,
-        PRIMARY KEY (id_indispo )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: UFR
-#------------------------------------------------------------
-
-CREATE TABLE UFR(
-        id_ufr  int (11) Auto_increment  NOT NULL ,
-        libelle Varchar (100) ,
-        PRIMARY KEY (id_ufr )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Status
-#------------------------------------------------------------
-
-CREATE TABLE Status(
-        id_status     int (11) Auto_increment  NOT NULL ,
-        type          Varchar (25) ,
-        volumeHoraire Int ,
-        PRIMARY KEY (id_status )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: AppartientGroupe
-#------------------------------------------------------------
-
-CREATE TABLE AppartientGroupe(
-        code_groupe   Int NOT NULL ,
-        code_etudiant Int NOT NULL ,
-        PRIMARY KEY (code_groupe ,code_etudiant )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
 # Table: Possede_Logiciel
 #------------------------------------------------------------
 
@@ -353,10 +299,10 @@ CREATE TABLE Possede_Logiciel(
 
 
 #------------------------------------------------------------
-# Table: Possede_Materiel
+# Table: Possede_Salle
 #------------------------------------------------------------
 
-CREATE TABLE Possede_Materiel(
+CREATE TABLE Possede_Salle(
         id_salle    Int NOT NULL ,
         id_materiel Int NOT NULL ,
         PRIMARY KEY (id_salle ,id_materiel )
@@ -379,7 +325,7 @@ CREATE TABLE Detient(
 #------------------------------------------------------------
 
 CREATE TABLE Note(
-        note          Double ,
+        note          Int ,
         code_etudiant Int NOT NULL ,
         id_evaluation Int NOT NULL ,
         PRIMARY KEY (code_etudiant ,id_evaluation )
@@ -387,24 +333,13 @@ CREATE TABLE Note(
 
 
 #------------------------------------------------------------
-# Table: Responsable_Diplome
+# Table:     Possede
 #------------------------------------------------------------
 
-CREATE TABLE Responsable_Diplome(
-        id_diplome      Int NOT NULL ,
+CREATE TABLE Possede(
+        id_contrainte   Int NOT NULL ,
         code_professeur Int NOT NULL ,
-        PRIMARY KEY (id_diplome ,code_professeur )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Responsable_UE
-#------------------------------------------------------------
-
-CREATE TABLE Responsable_UE(
-        id_ue           Varchar (25) NOT NULL ,
-        code_professeur Int NOT NULL ,
-        PRIMARY KEY (id_ue ,code_professeur )
+        PRIMARY KEY (id_contrainte ,code_professeur )
 )ENGINE=InnoDB;
 
 
@@ -418,66 +353,40 @@ CREATE TABLE Est_Responsable(
         PRIMARY KEY (code_professeur ,id_reponsabilite )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: Realise_Matiere
-#------------------------------------------------------------
-
-CREATE TABLE Realise_Matiere(
-        id_matiere      Int NOT NULL ,
-        code_professeur Int NOT NULL ,
-        PRIMARY KEY (id_matiere ,code_professeur )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Participe
-#------------------------------------------------------------
-
-CREATE TABLE Participe(
-        id_seance   Int NOT NULL ,
-        code_groupe Int NOT NULL ,
-        PRIMARY KEY (id_seance ,code_groupe )
-)ENGINE=InnoDB;
-
+ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
 ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id FOREIGN KEY (id) REFERENCES Personne(id);
-ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_status FOREIGN KEY (id_status) REFERENCES Status(id_status);
-ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_departement FOREIGN KEY (id_departement) REFERENCES Departement(id_departement);
-ALTER TABLE Departement ADD CONSTRAINT FK_Departement_id_ufr FOREIGN KEY (id_ufr) REFERENCES UFR(id_ufr);
+ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_diplome FOREIGN KEY (id_diplome) REFERENCES Diplome(id_diplome);
+ALTER TABLE Enseignant ADD CONSTRAINT FK_Enseignant_id_ue FOREIGN KEY (id_ue) REFERENCES UE(id_ue);
+ALTER TABLE Etudiant ADD CONSTRAINT FK_Etudiant_code_groupe FOREIGN KEY (code_groupe) REFERENCES Groupe(code_groupe);
 ALTER TABLE Etudiant ADD CONSTRAINT FK_Etudiant_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
 ALTER TABLE Etudiant ADD CONSTRAINT FK_Etudiant_id FOREIGN KEY (id) REFERENCES Personne(id);
-ALTER TABLE Element_Constitutif ADD CONSTRAINT FK_Element_Constitutif_id_ue FOREIGN KEY (id_ue) REFERENCES UE(id_ue);
+ALTER TABLE Filiere ADD CONSTRAINT FK_Filiere_id_departement FOREIGN KEY (id_departement) REFERENCES Departement(id_departement);
+ALTER TABLE Matiere ADD CONSTRAINT FK_Matiere_id_ue FOREIGN KEY (id_ue) REFERENCES UE(id_ue);
 ALTER TABLE UE ADD CONSTRAINT FK_UE_id_semestre FOREIGN KEY (id_semestre) REFERENCES Semestre(id_semestre);
+ALTER TABLE UE ADD CONSTRAINT FK_UE_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Semestre ADD CONSTRAINT FK_Semestre_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
 ALTER TABLE Annee ADD CONSTRAINT FK_Annee_id_diplome FOREIGN KEY (id_diplome) REFERENCES Diplome(id_diplome);
-ALTER TABLE Diplome ADD CONSTRAINT FK_Diplome_id_departement FOREIGN KEY (id_departement) REFERENCES Departement(id_departement);
-ALTER TABLE Seance ADD CONSTRAINT FK_Seance_id_matiere FOREIGN KEY (id_matiere) REFERENCES Element_Constitutif(id_matiere);
+ALTER TABLE Annee ADD CONSTRAINT FK_Annee_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
+ALTER TABLE Groupe ADD CONSTRAINT FK_Groupe_id_annee FOREIGN KEY (id_annee) REFERENCES Annee(id_annee);
+ALTER TABLE Diplome ADD CONSTRAINT FK_Diplome_id_filiere FOREIGN KEY (id_filiere) REFERENCES Filiere(id_filiere);
+ALTER TABLE Diplome ADD CONSTRAINT FK_Diplome_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
+ALTER TABLE Seance ADD CONSTRAINT FK_Seance_id_matiere FOREIGN KEY (id_matiere) REFERENCES Matiere(id_matiere);
 ALTER TABLE Seance ADD CONSTRAINT FK_Seance_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
 ALTER TABLE Seance ADD CONSTRAINT FK_Seance_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Disponibilite ADD CONSTRAINT FK_Disponibilite_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
+ALTER TABLE Salle ADD CONSTRAINT FK_Salle_id_seance FOREIGN KEY (id_seance) REFERENCES Seance(id_seance);
 ALTER TABLE Personne ADD CONSTRAINT FK_Personne_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Personne ADD CONSTRAINT FK_Personne_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
 ALTER TABLE Evaluations ADD CONSTRAINT FK_Evaluations_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Evaluations ADD CONSTRAINT FK_Evaluations_id_matiere FOREIGN KEY (id_matiere) REFERENCES Element_Constitutif(id_matiere);
-ALTER TABLE Archive_maquette ADD CONSTRAINT FK_Archive_maquette_id_diplome FOREIGN KEY (id_diplome) REFERENCES Diplome(id_diplome);
-ALTER TABLE Indisponibilite ADD CONSTRAINT FK_Indisponibilite_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE AppartientGroupe ADD CONSTRAINT FK_AppartientGroupe_code_groupe FOREIGN KEY (code_groupe) REFERENCES Groupe(code_groupe);
-ALTER TABLE AppartientGroupe ADD CONSTRAINT FK_AppartientGroupe_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
+ALTER TABLE Evaluations ADD CONSTRAINT FK_Evaluations_id_matiere FOREIGN KEY (id_matiere) REFERENCES Matiere(id_matiere);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_logiciel FOREIGN KEY (id_logiciel) REFERENCES Logiciel(id_logiciel);
-ALTER TABLE Possede_Materiel ADD CONSTRAINT FK_Possede_Materiel_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
-ALTER TABLE Possede_Materiel ADD CONSTRAINT FK_Possede_Materiel_id_materiel FOREIGN KEY (id_materiel) REFERENCES Materiel(id_materiel);
+ALTER TABLE Possede_Salle ADD CONSTRAINT FK_Possede_Salle_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
+ALTER TABLE Possede_Salle ADD CONSTRAINT FK_Possede_Salle_id_materiel FOREIGN KEY (id_materiel) REFERENCES Materiel(id_materiel);
 ALTER TABLE Detient ADD CONSTRAINT FK_Detient_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Detient ADD CONSTRAINT FK_Detient_id_competence FOREIGN KEY (id_competence) REFERENCES Competence(id_competence);
 ALTER TABLE Note ADD CONSTRAINT FK_Note_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
 ALTER TABLE Note ADD CONSTRAINT FK_Note_id_evaluation FOREIGN KEY (id_evaluation) REFERENCES Evaluations(id_evaluation);
-ALTER TABLE Responsable_Diplome ADD CONSTRAINT FK_Responsable_Diplome_id_diplome FOREIGN KEY (id_diplome) REFERENCES Diplome(id_diplome);
-ALTER TABLE Responsable_Diplome ADD CONSTRAINT FK_Responsable_Diplome_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Responsable_UE ADD CONSTRAINT FK_Responsable_UE_id_ue FOREIGN KEY (id_ue) REFERENCES UE(id_ue);
-ALTER TABLE Responsable_UE ADD CONSTRAINT FK_Responsable_UE_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
+ALTER TABLE Possede ADD CONSTRAINT FK_Possede_id_contrainte FOREIGN KEY (id_contrainte) REFERENCES Contrainte(id_contrainte);
+ALTER TABLE Possede ADD CONSTRAINT FK_Possede_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Est_Responsable ADD CONSTRAINT FK_Est_Responsable_id_reponsabilite FOREIGN KEY (id_reponsabilite) REFERENCES Responsabilite(id_reponsabilite);
-ALTER TABLE Realise_Matiere ADD CONSTRAINT FK_Realise_Matiere_id_matiere FOREIGN KEY (id_matiere) REFERENCES Element_Constitutif(id_matiere);
-ALTER TABLE Realise_Matiere ADD CONSTRAINT FK_Realise_Matiere_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
-ALTER TABLE Participe ADD CONSTRAINT FK_Participe_id_seance FOREIGN KEY (id_seance) REFERENCES Seance(id_seance);
-ALTER TABLE Participe ADD CONSTRAINT FK_Participe_code_groupe FOREIGN KEY (code_groupe) REFERENCES Groupe(code_groupe);
