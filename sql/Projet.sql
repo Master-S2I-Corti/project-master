@@ -151,9 +151,12 @@ CREATE TABLE Seance(
 #------------------------------------------------------------
 
 CREATE TABLE Salle(
-        id_salle int (11) Auto_increment  NOT NULL ,
-        location Varchar (25) ,
-        capacite Int ,
+        id_salle    int (11) Auto_increment  NOT NULL ,
+        location    Varchar (25) ,
+        capacite    Int ,
+        type        Varchar (255) ,
+        num_salle   Int ,
+        num_machine Int ,
         PRIMARY KEY (id_salle )
 )ENGINE=InnoDB;
 
@@ -350,10 +353,10 @@ CREATE TABLE Possede_Logiciel(
 
 
 #------------------------------------------------------------
-# Table: Possede_Salle
+# Table: Possede_Materiel
 #------------------------------------------------------------
 
-CREATE TABLE Possede_Salle(
+CREATE TABLE Possede_Materiel(
         id_salle    Int NOT NULL ,
         id_materiel Int NOT NULL ,
         PRIMARY KEY (id_salle ,id_materiel )
@@ -462,8 +465,8 @@ ALTER TABLE AppartientGroupe ADD CONSTRAINT FK_AppartientGroupe_code_groupe FORE
 ALTER TABLE AppartientGroupe ADD CONSTRAINT FK_AppartientGroupe_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
 ALTER TABLE Possede_Logiciel ADD CONSTRAINT FK_Possede_Logiciel_id_logiciel FOREIGN KEY (id_logiciel) REFERENCES Logiciel(id_logiciel);
-ALTER TABLE Possede_Salle ADD CONSTRAINT FK_Possede_Salle_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
-ALTER TABLE Possede_Salle ADD CONSTRAINT FK_Possede_Salle_id_materiel FOREIGN KEY (id_materiel) REFERENCES Materiel(id_materiel);
+ALTER TABLE Possede_Materiel ADD CONSTRAINT FK_Possede_Materiel_id_salle FOREIGN KEY (id_salle) REFERENCES Salle(id_salle);
+ALTER TABLE Possede_Materiel ADD CONSTRAINT FK_Possede_Materiel_id_materiel FOREIGN KEY (id_materiel) REFERENCES Materiel(id_materiel);
 ALTER TABLE Detient ADD CONSTRAINT FK_Detient_code_professeur FOREIGN KEY (code_professeur) REFERENCES Enseignant(code_professeur);
 ALTER TABLE Detient ADD CONSTRAINT FK_Detient_id_competence FOREIGN KEY (id_competence) REFERENCES Competence(id_competence);
 ALTER TABLE Note ADD CONSTRAINT FK_Note_code_etudiant FOREIGN KEY (code_etudiant) REFERENCES Etudiant(code_etudiant);
