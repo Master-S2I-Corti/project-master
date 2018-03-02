@@ -35,6 +35,11 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
+    Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
+    Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
+    Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
+    Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -47,7 +52,7 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 });
 
 Route::get('profil','ProfilController@index');
-
+Route::get('annuaire/etudiants','ListeEtudiantController@index');
 
 Route::get('annuaire/professeurs','ListeProfController@index');
 Route::post('listeProf/search','ListeProfController@search');
@@ -57,15 +62,14 @@ Route::get('deleteProf/{id}','ListeProfController@destroy');
 Route::post('saveProf','ListeProfController@store');
 Route::post('updateProf','ListeProfController@update');
 
-Route::get('annuaire/etudiants','ListeEtudiantController@index');
+
 
 Route::post('listeEtudiant/search','ListeEtudiantController@search');
 
 //Route::get('editEtudiant/{id}','ListeEtudiantController@edit');
-Route::get('deleteEtudiant/{id}','ListeEtudiantController@destroy');
 //Route::get('createEtudiant','ListeEtudiantController@create');
-Route::post('saveEtudiant','ListeEtudiantController@store');
-Route::post('updateEtudiant','ListeEtudiantController@update');
+
+
 
 
 

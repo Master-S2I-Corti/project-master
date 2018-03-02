@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
-//use App\Departement;
+use App\Departement;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -14,7 +14,7 @@ class ListeEtudiantController extends Controller
     public function index()
     {
         $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
-       // $listeDepartement = Departement::get();
+        $listeDepartement = Departement::get();
 
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement'));
     }
@@ -22,10 +22,10 @@ class ListeEtudiantController extends Controller
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
         $personne = Personne::firstOrCreate([
-            'identifiant' => $request->nom,
+            'login'=>$request->nom,
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'email' => $request->email,
+            'email'=>$request->nom .'@webmail.universita.corsica',
             'email_sos' => $request->emailSos,
             'naissance'=> $request->naissance,
             'password' =>  Hash::make(str_replace("-","",$request->naissance)),
@@ -35,29 +35,26 @@ class ListeEtudiantController extends Controller
             'ville' =>$request->ville,
             'admin' =>0
             ]);
-        
-            $personne->where('identifiant', $personne['identifiant'])->first();
+            
+            $personne->where([
+                                ['nom', '=', $request->nom],
+                                ['prenom', '=', $request->prenom],
+                                ['naissance', '=', $request->naissance],
+                            ])->first();
+
             $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
-            $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+            $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
     
             return redirect()->action('ListeEtudiantController@index');
-    }
-
-    //Accès à la page de modification d'un etudiant
-    public function edit($id) 
-    {
-        $etudiants = Etudiant::findOrFail($id);
-        return view('test/editEtudiant', compact('etudiants'));
     }
 
     //Modification du etudiant 
     public function update(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($request->id);
-        $etudiants->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $personne->update(['email' =>$request->email]);
+        return redirect()->action('ListeEtudiantController@index');
     }
 
     //Suppression du etudiant
@@ -104,7 +101,11 @@ class ListeEtudiantController extends Controller
                         'admin' =>0
                         ]); //'commentaire' => $data[7],
 
-                    $personne->where('identifiant', $personne['identifiant'])->first();
+                    $personne->where([
+                                ['nom', '=', $data[2]],
+                                ['prenom', '=', $data[1]],
+                                ['naissance', '=', $data[5]],
+                            ])->first();
                     $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
                     $etudiant = $etudiant->where('id', $personne->id)->first();
                     $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);

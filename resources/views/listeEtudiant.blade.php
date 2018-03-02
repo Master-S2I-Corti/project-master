@@ -55,7 +55,7 @@
             @endif
             </tbody>
         </table>
-        <?php echo $listesEtudiant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
+        {{ $listesEtudiant->render() }} <!-- Nombres de page et redirection de la pagination -->
     </div>
 
     <!-- POPUP D'AFFICHAGE -->
@@ -157,13 +157,12 @@
                             <div class="col-md-4">
                                 
                                 <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
-                                <p> Email: <input type="email"  name="email" value='' required/><br/></p>
                                 <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
                             </div>
                         </div>
                         <div class="rows">
                             <div class="col-md-4">
-                                <p> Département :
+                                <p>Département :
                                         <select class="departement" name="departement">
                                         @if ( isset($listeDepartement))
                                             @foreach ( $listeDepartement as $departement)
