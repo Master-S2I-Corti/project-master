@@ -36,28 +36,30 @@ class ListeEtudiantController extends Controller
             'admin' =>0
             ]);
         
-            $personne->where('identifiant', $personne['identifiant'])->first();
+            
+        $personne->where([
+            ['nom', $personne['nom']],
+            ['prenom', $personne['prenom']],
+            ['naissance', $personne['naissance']],
+        ])->first();
+
             $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
-            $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+            $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
     
             return redirect()->action('ListeEtudiantController@index');
-    }
-
-    //Accès à la page de modification d'un etudiant
-    public function edit($id) 
-    {
-        $etudiants = Etudiant::findOrFail($id);
-        return view('test/editEtudiant', compact('etudiants'));
     }
 
     //Modification du etudiant 
     public function update(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($request->id);
-        $etudiants->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $personne->update([
+            'email' => $request->email
+            ]);
+
+
+        return redirect()->action('ListeEtudiantController@index');
     }
 
     //Suppression du etudiant
@@ -74,6 +76,37 @@ class ListeEtudiantController extends Controller
         return redirect()->action('ListeEtudiantController@index');
     }
     
+    //Ajout des étudiants grâce à un fichier .csv
+    public function multipleStore(Request $request){ 
+        if(count($request->all()) != 1)
+        {
+            $info = $request->fichier;
+            if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
+                while(($data = fgetcsv($handle,1000,",")) !== FALSE){
+                    $personne = Personne::firstOrCreate([
+                        'identifiant' => $data[2],
+                        'nom' => $data[2],
+                        'prenom' => $data[1],
+                        'email_sos' => $data[3],
+                        'naissance'=> $data[5],
+                        'password' =>  Hash::make(str_replace("-","",$data[5])),
+                        'tel' => $data[4],
+                        'admin' =>0
+                        ]);
 
-    
+                    $personne->where([
+                                ['nom', '=', $personne['nom']],
+                                ['prenom', '=', $personne['prenom']],
+                                ['naissance', '=', $personne['naissance']],
+                            ])->first();
+
+                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+                    $etudiant = $etudiant->where('id', $personne->id)->first();
+                    $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
+                }
+            } 
+        }
+        return redirect()->action('ListeEtudiantController@index');
+    }
+
 }

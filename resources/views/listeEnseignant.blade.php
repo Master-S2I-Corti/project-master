@@ -49,7 +49,7 @@
 
     <!-- POPUP Affichage -->
     <div id="affichage" class="modal fade">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" >Profil de l'enseignant</h5>
@@ -79,42 +79,38 @@
     </div>
 
  <!-- POPUP DE MODIFICATON -->
-    <div id="modif"  class="modal fade">
-        <div class="modal-dialog" role="document">
+ <div id="modif" title="Modification de l'enseignant " class="modal fade" >
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nom">Profil de l' Etudiant</h5>
+                    <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                        <div class="container">
-                            <form method="post" action="{!! url('updateProf') !!}" accept-charset="UTF-8">
-                                {{ csrf_field() }}
-                                <h1><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h1>
-                                <div class="row">
-                                    <div class="col">
-                                        <input id="id2" type="hidden" name="id" value=""/>
-                                        <p> Compétences: </p>
-                                        <p> - Modules en charges : </p>
-                                        <p> - Matières enseignées: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p> Professeur pédagogique : </p>
-                                        <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
-                                        <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
-                                        </p>
-                                        <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
+                <form method="post" action="{!! url('annuaire/professeurs/updateProf') !!}" accept-charset="UTF-8">
+                    <div class="modal-body">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input id="id2" type="hidden" name="id" value="" />
+                                    <p> Email: <input type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <button class="btn btn-primary"> Modifier</button>
-                                    </div>
+                                <div class="col-md-2">
+                                    
                                 </div>
-                            </form>
-                        </div>
-                </div>
+                                <div class="col-md-4">
+                                    
+                                </div>
+                            </div>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary"> Modifier</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -175,6 +171,7 @@
                                                 <option value="Vacataire">Vacataire</option>
                                         </select> 
                                     </p> 
+                                    <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
                                     <p> Responsablité :
                                         <select class="Responsabilie" name="Responsabilie">
                                             <option value="0">Aucune</option>
@@ -268,7 +265,20 @@
             });
 
             $( ".modifier" ).on( "click", function(e) {
-                
+                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+                var id_personne = elements.item(0).innerHTML
+                var num = 0
+                var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
+                for (var i = 0; i < personnes.length; i++) {
+                    if ( id_personne == personnes[i]['id'])
+                    {
+                        num = i;
+                    }
+                }
+                document.getElementById("id2").value = id_personne
+                document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
+                document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
+                document.querySelector("#email2").value = personnes[num]['email']
                 $( "#modif" ).modal( "show" );
             });
 

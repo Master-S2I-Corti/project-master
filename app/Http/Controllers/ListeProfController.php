@@ -40,14 +40,19 @@ class ListeProfController extends Controller
             'ville' =>$request->ville,
             'admin' =>0
         ]);
-        $personne->where('identifiant', $personne['identifiant'])->first();
+        $personne->where([
+            ['nom', '=', $personne['nom']],
+            ['prenom', '=', $personne['prenom']],
+            ['naissance', '=', $personne['naissance']],
+        ])->first();
+
         $enseignant = Enseignant::firstOrCreate([
             'id'=>$personne->id,
             'type'=>$request->fonction,
             'nbBureau'=>$request->numeroBureau
             ]);
         $enseignant = $enseignant->where('id', $personne->id)->first();
-        $personne->where('identifiant', $personne['identifiant'])->update(['code_professeur' =>$enseignant->code_professeur]);
+        $personne->update(['code_professeur' =>$enseignant->code_professeur]);
         if ( $request->Responsabilie != 0)
         {
              $responsabilite = Est_responsable::firstOrCreate([
@@ -61,20 +66,14 @@ class ListeProfController extends Controller
     
     }
 
-    //Accès à la page de modification d'un profun prof peut modifier sa fiche
-    public function edit($id) 
-    {
-        $profs = Enseignant::findOrFail($id);
-        return view('test/editProf', compact('profs'));
-    }
-
     //Enregistrement de la modification du prof 
     public function update( Request $request)
     {
-        $prof = Enseignant::findOrFail($request->id);
-        $prof->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeProfController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $personne->update([
+            'email' => $request->email
+            ]);
+        return redirect()->action('ListeProfController@index');
     }
 
     //Suppression du prof

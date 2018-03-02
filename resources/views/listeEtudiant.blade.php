@@ -14,7 +14,12 @@
         <div class="d-flex justify-content-between mb-5">
             <h2>Liste des étudiants</h2>
             @if(Auth::user()->isAdmin())
-                <button class="add btn btn-primary" >Ajouter d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="file" name="fichier" accept=".csv"/>
+                    <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                </form>
             @endif
         </div>
 
@@ -55,7 +60,7 @@
 
     <!-- POPUP D'AFFICHAGE -->
     <div id="dialog" title="Profil de l' Etudiant" class="modal fade" >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="nom">Détails étudiant</h5>
@@ -78,39 +83,37 @@
     </div>
     <!-- POPUP DE MODIFICATON -->
     <div id="modif" title="Modification de l' Etudiant" class="modal fade" >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form method="post" action="{!! url('updateEtudiant') !!}" accept-charset="UTF-8">
+                <div class="modal-header">
+                    <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{!! url('annuaire/etudiants/updateEtudiant') !!}" accept-charset="UTF-8">
                     <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col">
-                                    <input id="id2" type="hidden" name="id"  value="" />
-                                    <p> Email: <br /></p>
+                                <div class="col-md-4">
+                                    <input id="id2" type="hidden" name="id" value="" />
+                                    <p> Email: <input type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
-                                <div class="col">
-                                    <p> Filière: <input type="text" name="filiere" id="fil2" value=''/><br /></p>
+                                <div class="col-md-2">
+                                    
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                    </div>
+                                <div class="col-md-4">
+                                    <p> Filière: <input type="text" name="filiere" id="fil2" value='' /><br /></p>
                                 </div>
                             </div>
-                        </form>
+                       
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary"> Modifier</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -183,7 +186,6 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
-
         </form>
     </div>
 
@@ -224,8 +226,6 @@
     <script>
         $( function() {
             //AFFICHAGE POPUP
-
-
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("th")
                 var id_personne = elements.item(0).innerHTML
@@ -238,25 +238,30 @@
                     }
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['email']
-                
-                
+                document.querySelector("#email").innerHTML = "Email : "+ personnes[num]['email']
                 $( "#dialog" ).modal('show');
             });
 
             $( ".modifier" ).on( "click", function(e) {
                 var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-                document.getElementById("id2").value = elements.item(0).innerHTML
+                var id_personne = elements.item(0).innerHTML
+                var num = 0
+                var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
+                for (var i = 0; i < personnes.length; i++) {
+                    if ( id_personne == personnes[i]['id'])
+                    {
+                        num = i;
+                    }
+                }
+                document.getElementById("id2").value = id_personne
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.getElementById("fil2").value = elements.item(3).innerHTML;
+                document.querySelector("#fil2").value = elements.item(3).innerHTML
+                document.querySelector("#email2").value = personnes[num]['email']
                 $( "#modif" ).modal( "show" );
             });
 
             $( ".add" ).on( "click", function(e) {
-                /*var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-                document.querySelector("#nom3").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.getElementById("fil2").value = elements.item(3).innerHTML;*/
                 $( "#ajout" ).modal( "show" );
             });
 
