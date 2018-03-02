@@ -44,7 +44,7 @@
             @endif
             </tbody>
         </table>
-       <?php echo $listesEnseignant->render(); ?> <!-- Nombres de page et redirection de la pagination -->
+        {{$listesEnseignant->render()}} <!-- Nombres de page et redirection de la pagination -->
     </div>
 
     <!-- POPUP Affichage -->
@@ -70,7 +70,8 @@
                                     <p> Professeur pédagogique : </p>
                                     <p id="email"> Email: <br/></p>
                                     <!--<p id="dep"> Département: </p> -->
-                                    <p> Bureau N°: </p></div>
+                                    
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -154,7 +155,7 @@
                                     <div class="col-md-4">
                                         
                                         <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
-                                        <p> Email: <input type="email"  name="email" value='' required/><br/></p>
+                                        
                                         <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
                                     </div>
                                 </div>
@@ -199,7 +200,7 @@
                                             </select> 
                                         </p> 
                                         
-                                        <p> Bureau N°: <input type="text" name="numeroBureau" value='' /><br/> </p>
+                                        
                                     </div>
                                 </div>
                                 <div class="row">

@@ -12,7 +12,7 @@ class Enseignant extends Personne
     protected $table = "Enseignant";
 
     protected $fillable = [
-        'id'
+        'id','type','heure'
     ];
 
     public $timestamps = false;
