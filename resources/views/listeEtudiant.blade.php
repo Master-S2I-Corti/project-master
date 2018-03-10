@@ -37,14 +37,13 @@
             </tr>
             </thead>
             <tbody>
-            @if ( isset($listesEtudiant))
-                @foreach ( $listesEtudiant as $etudiant)
-
+           @if ( isset($contenuEtudiant))
+                @foreach ( $contenuEtudiant as $etudiant)
                     <tr>
-                            <th>{{$etudiant->id}}</th>
-                            <th  class="opener">{{$etudiant->nom}}</th>
-                            <th  class="opener">{{$etudiant->prenom}}</th>
-                            <th  class="opener">{{$etudiant->filiere}}</th>
+                            <th>{{$etudiant['id']}}</th>
+                            <th  class="opener">{{$etudiant['nom']}}</th>
+                            <th  class="opener">{{$etudiant['prenom']}}</th>
+                            <th  class="opener">{{$etudiant['filiere']}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                             <th class="del"><i class="fa fa-trash fa-2x"></i></th>
@@ -52,7 +51,7 @@
                     </tr>
                 
                 @endforeach
-            @endif
+           @endif
             </tbody>
         </table>
         {{ $listesEtudiant->render() }} <!-- Nombres de page et redirection de la pagination -->
@@ -176,6 +175,15 @@
 
                             </div>
                             <div class="col-md-4">
+                                <p>Filière :
+                                        <select class="diplome" name="diplome">
+                                        @if ( isset($listDiplome))
+                                            @foreach ( $listDiplome as $diplome)
+                                                    <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p> 
                             </div>
                         </div>
                     </div>
@@ -238,6 +246,7 @@
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num]['email']
+                document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
                 $( "#dialog" ).modal('show');
             });
 

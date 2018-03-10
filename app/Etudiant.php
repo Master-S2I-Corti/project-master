@@ -12,7 +12,7 @@ class Etudiant extends Personne
     protected $table = "Etudiant";
 
     protected $fillable = [
-        'id'
+        'id','id_annee'
     ];
 
     public $timestamps = false;

@@ -6,6 +6,8 @@ use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
 use App\Departement;
+use App\Annee;
+use App\Diplome;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -14,13 +16,58 @@ class ListeEtudiantController extends Controller
     public function index()
     {
         $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
+        $max= count($listesEtudiant);
+        $contenu = Etudiant::where('id', '<>', [ $listesEtudiant[0]->id -1 ,$listesEtudiant[$max-1]->id ] )
+                            ->get();
         $listeDepartement = Departement::get();
+        $annee = Annee::get();
+        $diplome = Diplome::get();
 
-        return view('listeEtudiant', compact('listesEtudiant','listeDepartement'));
+        for ($i = 1 ; $i <= count($annee) ; $i++ )
+        {
+            foreach($diplome as &$value)
+            {
+                $j = $i -1;
+                if($annee[$j]->id_diplome == $value->id_diplome)
+                {
+                    foreach($listeDepartement as &$val)
+                    {
+                        if($val->id_departement == $value->id_departement)
+                        {
+                            $listDiplome[$j] = [
+                                                    'id'=>$annee[$j]->id_annee,
+                                                    'libelle'=>$annee[$j]->libelle.'  '.$value->libelle.'  '.$val->libelle
+                                                ];
+                        }
+                    }
+                }
+            }
+        }
+
+        for ($i = 1 ; $i <= count($contenu) ; $i++ )
+        {
+            $j = $i -1;
+            foreach($listDiplome as &$val)
+            {
+                if ( $contenu[$j]->id_annee == $val['id'] )
+                {
+                    $contenuEtudiant[$j] = [
+                                                'id'=> $listesEtudiant[$j]->id,
+                                                'nom'=> $listesEtudiant[$j]->nom,
+                                                'prenom'=> $listesEtudiant[$j]->prenom,
+                                                'email'=> $listesEtudiant[$j]->email,
+                                                'filiere'=> $val['libelle']
+                                            ];
+                }
+            }
+        }
+       
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','contenuEtudiant'));
     }
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
+        
         $personne = Personne::firstOrCreate([
             'login'=>$request->nom,
             'nom' => $request->nom,
@@ -42,7 +89,7 @@ class ListeEtudiantController extends Controller
                                 ['naissance', '=', $request->naissance],
                             ])->first();
 
-            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
             $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
     
