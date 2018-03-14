@@ -59,7 +59,7 @@ Route::get('annuaire/etudiants','ListeEtudiantController@index');
 Route::get('annuaire/professeurs','ListeProfController@index');
 
 Route::post('listeProf/search','ListeProfController@search');
-Route::post('listeEtudiant/search','ListeEtudiantController@search');
+Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
 
 
 

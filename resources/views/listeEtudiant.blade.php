@@ -12,17 +12,68 @@
 @section('content')
     <div class="w-75 m-auto pt-5">
         <div class="d-flex justify-content-between mb-5">
-            <h2>Liste des étudiants</h2>
-            @if(Auth::user()->isAdmin())
-                <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <input type="file" name="fichier" accept=".csv"/>
-                    <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                </form>
-            @endif
-        </div>
+                <h2>Liste des étudiants</h2>
+                @if(Auth::user()->isAdmin())
+                    <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="file" name="fichier" accept=".csv"/>
+                        <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    </form>
+                @endif
+            </div>
 
+            <div class="card">
+                <h3>Recherche de l'étudiant</h3>
+                <form method="post" action="{!! url('annuaire/etudiants/search') !!}" accept-charset="UTF-8">
+                    <div class="modal-body">
+                            <div class="row">
+                            {{ csrf_field() }}
+                                <div class="col-md">
+                                    <p> Nom : <input class="form-control form-control-sm" type="text" name="nom" value='' /><br/></p>
+                                    </div>
+                                <div class="col-md">
+                                    <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
+                                </div>
+                                <div class="col-md">
+                                <label>Filière : </label>
+                                <input type="checkbox" id="DUT" name="Choix6" value="DUT">
+                                    <label for="DUT">DUT</label>
+                                    <input type="checkbox" id="l1" name="Choix1" value="LICENCE 1">
+                                    <label for="LICENCE 1">L1</label>
+                                    <input type="checkbox" id="l2" name="Choix2" value="LICENCE 2">
+                                    <label for="LICENCE 2">L2</label>
+                                    <input type="checkbox" id="l3" name="Choix3" value="LICENCE 3">
+                                    <label for="LICENCE 3">L3</label></br>
+                                    <input type="checkbox" id="M1" name="Choix4" value="MASTER 1">
+                                    <label for="MASTER 1">M1</label>
+                                    <input type="checkbox" id="M2" name="Choix5" value="MASTER 2">
+                                    <label for="MASTER 2">M2</label>
+                                    
+                                    <input type="checkbox" id="Doc" name="Choix7" value="DOCTORAT">
+                                    <label for="Doc">DOCTORAT</label>
+                                </div>
+                                <div class="col-md">
+                                <p>Département :
+                                        <select class="form-control form-control-sm" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p>
+                                </div>
+                                <div class="col-md">
+                                </br>
+                                    <button class="btn btn-primary">Rechercher </button>
+                                </div>
+                            </div>
+                    </div>
+                </form>
+            </div>
+        
+        
         <table class="table table-bordered ">
             <thead>
             <tr>
@@ -97,13 +148,13 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <input id="id2" type="hidden" name="id" value="" />
-                                    <p> Email: <input type="email"  name="email" id="email2" value='' required/><br /></p>
+                                    <p> Email: <input class="form-control form-control-md" type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
                                 <div class="col-md-2">
                                     
                                 </div>
                                 <div class="col-md-4">
-                                    <p> Filière: <input type="text" name="filiere" id="fil2" value='' /><br /></p>
+                                    <p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>
                                 </div>
                             </div>
                        
@@ -134,35 +185,35 @@
                         <div class="row">
                             <div class="col-md-4">
                                 {{ csrf_field() }}
-                                <p> Nom: <input type="text" name="nom" value='' required/><br/></p>
-                                <p> Date de Naissance :  <input type="date" name="naissance" value='' required/><br></p>
+                                <p> Nom: <input class="form-control form-control-sm" type="text" name="nom" value='' required/><br/></p>
+                                <p> Date de Naissance :  <input class="form-control form-control-sm" type="date" name="naissance" value='' required/><br></p>
                             </div>
                             <div class="col-md-2">
 
                             </div>
                             <div class="col-md-4">
-                                <p> Prénom: <input type="text" name="prenom" value='' required/><br/><br/><br></p>
+                                <p> Prénom: <input class="form-control form-control-sm" type="text" name="prenom" value='' required/><br/><br/><br></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <p> Adresse : <input type="text" name="adresse" value='' required/><br/></p>
-                                <p> Code Postal :  <input type="text" name="codePostal" value='' required/><br/></p>
-                                <p> Ville :  <input type="text" name="ville" value='' required/><br/></p>
+                                <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
+                                <p> Code Postal :  <input class="form-control form-control-sm" type="text" name="codePostal" value='' required/><br/></p>
+                                <p> Ville :  <input class="form-control form-control-sm" type="text" name="ville" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
 
                             </div>
                             <div class="col-md-4">
                                 
-                                <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
-                                <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
+                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="text" name="tel" value='' required/><br/></p>
+                                <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
                             </div>
                         </div>
                         <div class="rows">
                             <div class="col-md-4">
                                 <p>Département :
-                                        <select class="departement" name="departement">
+                                        <select class="form-control form-control-sm" name="departement">
                                         @if ( isset($listeDepartement))
                                             @foreach ( $listeDepartement as $departement)
                                                     <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
@@ -171,12 +222,9 @@
                                         </select> 
                                 </p> 
                             </div>
-                            <div class="col-md-2">
-
-                            </div>
                             <div class="col-md-4">
                                 <p>Filière :
-                                        <select class="diplome" name="diplome">
+                                        <select class="form-control form-control-sm" name="diplome">
                                         @if ( isset($listDiplome))
                                             @foreach ( $listDiplome as $diplome)
                                                     <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
@@ -218,7 +266,7 @@
                                     </form>
                                 </div>
                                 <div class="col">
-                                    <button>Annuler</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                                 </div>
                             </div>
                         </div>

@@ -30,16 +30,10 @@ class ListeEtudiantController extends Controller
                 $j = $i -1;
                 if($annee[$j]->id_diplome == $value->id_diplome)
                 {
-                    foreach($listeDepartement as &$val)
-                    {
-                        if($val->id_departement == $value->id_departement)
-                        {
                             $listDiplome[$j] = [
                                                     'id'=>$annee[$j]->id_annee,
-                                                    'libelle'=>$annee[$j]->libelle.'  '.$value->libelle.'  '.$val->libelle
+                                                    'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
                                                 ];
-                        }
-                    }
                 }
             }
         }
@@ -120,7 +114,25 @@ class ListeEtudiantController extends Controller
     
     //Ajout des étudiants grâce à un fichier .csv
     public function multipleStore(Request $request){ 
-        
+        $annee = Annee::get();
+        $diplome = Diplome::get();
+
+        for ($i = 1 ; $i <= count($annee) ; $i++ )
+        {
+            foreach($diplome as &$value)
+            {
+                $j = $i -1;
+                if($annee[$j]->id_diplome == $value->id_diplome)
+                {
+                            $listDiplome[$j] = [
+                                                    'id'=>$annee[$j]->id_annee,
+                                                    'libelle'=>$value->libelle.' '.$annee[$j]->libelle[0]
+                                                ];
+
+                }
+            }
+        }
+
         if(count($request->all()) != 1)
         {
             $info = $request->fichier;
@@ -136,11 +148,20 @@ class ListeEtudiantController extends Controller
                     } else {
                         echo $data[6];
                     }*/
-
+                    $filiere = null;
+                    foreach($listDiplome as &$value)
+                    {
+                        if ($data[0] == $value['libelle'])
+                        {
+                            $filiere = $value['id'];
+                        }
+                    }
+                    
                     $personne = Personne::firstOrCreate([
-                        'identifiant' => $data[2],
+                        'login' => $data[2],
                         'nom' => $data[2],
                         'prenom' => $data[1],
+                        'email'=>$data[2].'@webmail.universita.corsica',
                         'email_sos' => $data[3],
                         'naissance'=> $data[5],
                         'password' =>  Hash::make(str_replace("-","",$data[5])),
@@ -148,18 +169,26 @@ class ListeEtudiantController extends Controller
                         'admin' =>0
                         ]); //'commentaire' => $data[7],
 
+                    
                     $personne->where([
                                 ['nom', '=', $data[2]],
                                 ['prenom', '=', $data[1]],
                                 ['naissance', '=', $data[5]],
                             ])->first();
-                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id,'id_annee'=>$filiere]);
                     $etudiant = $etudiant->where('id', $personne->id)->first();
-                    $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+                    $personne->where('login', $personne['login'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
                 }
             } 
         }
         return redirect()->action('ListeEtudiantController@index');
     }
 
+    public function search(Request $request)
+    {
+        dd($request->all());
+        
+       
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','contenuEtudiant'));
+    }
 }
