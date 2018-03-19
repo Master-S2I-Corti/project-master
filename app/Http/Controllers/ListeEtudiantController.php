@@ -32,12 +32,12 @@ class ListeEtudiantController extends Controller
                 {
                             $listDiplome[$j] = [
                                                     'id'=>$annee[$j]->id_annee,
-                                                    'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
+                                                    'libelle'=>$annee[$j]->libelle.'  '.$value->libelle
                                                 ];
                 }
             }
         }       
-        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','filiereEtudiant'));
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 
     //Enregistrement d'un nouveau etudiant
@@ -75,7 +75,9 @@ class ListeEtudiantController extends Controller
     public function update(Request $request)
     {
         $personne = Personne::findOrFail($request->id);
-        $personne->update(['email' =>$request->email]);
+        $etudiant = Etudiant::findOrFail($request->id);
+        $personne->update(['email' =>$request->email ]);
+        $etudiant->update(['id_annee'=>$request->filiere]);
         return redirect()->action('ListeEtudiantController@index');
     }
 
@@ -108,7 +110,7 @@ class ListeEtudiantController extends Controller
                 {
                             $listDiplome[$j] = [
                                                     'id'=>$annee[$j]->id_annee,
-                                                    'libelle'=>$value->libelle.' '.$annee[$j]->libelle[0]
+                                                    'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
                                                 ];
 
                 }

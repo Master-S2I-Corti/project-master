@@ -94,7 +94,7 @@
                             <th>{{$etudiant->id}}</th>
                             <th  class="opener">{{$etudiant->identity->nom}}</th>
                             <th  class="opener">{{$etudiant->identity->prenom}}</th>
-                            <th  class="opener">{{$etudiant->annee[0]->libelle." ".$etudiant->annee[0]->diplome->libelle}}</th>
+                            <th  class="opener">{{$etudiant->annee[0]->libelle."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                             <th class="del"><i class="fa fa-trash fa-2x"></i></th>
@@ -154,7 +154,16 @@
                                     
                                 </div>
                                 <div class="col-md-4">
-                                    <p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>
+                                    <!--<p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>-->
+                                    <p>Filière :
+                                        <select class="form-control form-control-sm" name="filiere" id="fil2">
+                                        @if ( isset($listDiplome))
+                                            @foreach ( $listDiplome as $diplome)
+                                                    <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p> 
                                 </div>
                             </div>
                        
@@ -293,27 +302,35 @@
                     }
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#email").innerHTML = "Email : "+ personnes[num]['email']
+                document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
                 document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
                 $( "#dialog" ).modal('show');
             });
 
             $( ".modifier" ).on( "click", function(e) {
                 var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-                var id_personne = elements.item(0).innerHTML
-                var num = 0
+                var id_personne = elements.item(0).innerHTML;
+                var name_diplome = elements.item(3).innerHTML;
+                var idIdentity = 0, idDiplome = 0;
                 var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
+                var diplome = JSON.parse('<?= json_encode($listDiplome);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
-                        num = i;
+                        idIdentity = i;
                     }
                 }
+                diplome.forEach(function (value) {
+                    if(  name_diplome == value['libelle'])
+                        {
+                            idDiplome = value['id'];
+                        }
+                });
                 document.getElementById("id2").value = id_personne
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.querySelector("#fil2").value = elements.item(3).innerHTML
-                document.querySelector("#email2").value = personnes[num].identity.email_sos
+                document.querySelector("#fil2").value = idDiplome
+                document.querySelector("#email2").value = personnes[idIdentity].identity.email
                 $( "#modif" ).modal( "show" );
             });
 
