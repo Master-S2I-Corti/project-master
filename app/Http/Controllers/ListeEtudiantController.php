@@ -15,10 +15,10 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
-        $max= count($listesEtudiant);
-        $contenu = Etudiant::where('id', '<>', [ $listesEtudiant[0]->id -1 ,$listesEtudiant[$max-1]->id ] )
-                            ->get();
+        $listesEtudiant = Etudiant::with('identity','annee')->where([
+            ['id_annee', '!=',null],
+        ])->paginate(7);
+       // dd($listesEtudiant);
         $listeDepartement = Departement::get();
         $annee = Annee::get();
         $diplome = Diplome::get();
@@ -36,27 +36,8 @@ class ListeEtudiantController extends Controller
                                                 ];
                 }
             }
-        }
-
-        for ($i = 1 ; $i <= count($contenu) ; $i++ )
-        {
-            $j = $i -1;
-            foreach($listDiplome as &$val)
-            {
-                if ( $contenu[$j]->id_annee == $val['id'] )
-                {
-                    $contenuEtudiant[$j] = [
-                                                'id'=> $listesEtudiant[$j]->id,
-                                                'nom'=> $listesEtudiant[$j]->nom,
-                                                'prenom'=> $listesEtudiant[$j]->prenom,
-                                                'email'=> $listesEtudiant[$j]->email,
-                                                'filiere'=> $val['libelle']
-                                            ];
-                }
-            }
-        }
-       
-        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','contenuEtudiant'));
+        }       
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','filiereEtudiant'));
     }
 
     //Enregistrement d'un nouveau etudiant
@@ -101,6 +82,7 @@ class ListeEtudiantController extends Controller
     //Suppression du etudiant
     public function destroy(Request $request)
     {
+        
         $personne = Personne::findOrFail($request->id);
         $test = [ 'code_etudiant' => null];
         $personne->update($test);

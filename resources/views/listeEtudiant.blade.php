@@ -88,13 +88,13 @@
             </tr>
             </thead>
             <tbody>
-           @if ( isset($contenuEtudiant))
-                @foreach ( $contenuEtudiant as $etudiant)
+           @if ( isset($listesEtudiant))
+                @foreach ( $listesEtudiant as $etudiant)
                     <tr>
-                            <th>{{$etudiant['id']}}</th>
-                            <th  class="opener">{{$etudiant['nom']}}</th>
-                            <th  class="opener">{{$etudiant['prenom']}}</th>
-                            <th  class="opener">{{$etudiant['filiere']}}</th>
+                            <th>{{$etudiant->id}}</th>
+                            <th  class="opener">{{$etudiant->identity->nom}}</th>
+                            <th  class="opener">{{$etudiant->identity->prenom}}</th>
+                            <th  class="opener">{{$etudiant->annee[0]->libelle." ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                             <th class="del"><i class="fa fa-trash fa-2x"></i></th>
@@ -313,7 +313,7 @@
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
                 document.querySelector("#fil2").value = elements.item(3).innerHTML
-                document.querySelector("#email2").value = personnes[num]['email']
+                document.querySelector("#email2").value = personnes[num].identity.email_sos
                 $( "#modif" ).modal( "show" );
             });
 
