@@ -2,11 +2,16 @@
 
 
 
+
 @section('content')
 <br>
+<!--<div >
+' {!!  json_encode($data["semestre"]) !!}'
+</div>-->
 <button onclick="delAll()">Suprimer toute les Ue et matiere </button>
+<br>
 <div id="semestre"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
-
+<br>
 </div>
 
 
@@ -22,7 +27,7 @@
 
 
 
-</div>
+
 <div id='overlay'><!--le pop ud qui s'affiche lorsque l'on click sur une textarrea de la colone "detail (si tu veux le desactive va dans le json et met en com les fonction open et close box va aussi dans le css pour supprimer le resize:none de la class detail--> 
 <button onclick='closeBox()' >Fermer</button>
 <br>
@@ -34,6 +39,32 @@
 <div id='popup' >
 
 
+
+
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea>TEST</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -75,7 +106,7 @@
 		 {
 			 $.ajax({
 				   type:'POST',
-				   url:'maquette/save',
+				   url:'save',
 					 headers: {
 			'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>'
 			

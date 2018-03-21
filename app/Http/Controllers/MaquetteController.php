@@ -1,21 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \App\semestre;
+use App\Enseignant;
+use Illuminate\Support\Facades\Auth;
 class MaquetteController extends Controller
 {
-	public function index()///////Permet de faire la maquette des semestre
+	public function index($diplome)///////Permet de faire la maquette des semestre
 	{
 		
-		   
+		//print_r(file(URL::asset('js/maquette.json'))); 
+		    $user = Auth::user();
+ $pro= DB::table('enseignant')->
+ select('code_professeur')
+ ->where('id',$user->id)
+ ->first();
+	
+	
+	$d=DB::table('diplome')->
+	where('diplome.id_diplome',$diplome)->
+	first();
+	
+	if($d==null)
+	return "ce diplome n'existe pas";
+	
+	if($d->code_professeur!=$pro->code_professeur)
+		return "vous n'ete pas responsable de ce diplome";
 		   
 		   //print_r($dip);
 		    $annee = DB::table('diplome')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
 			join('annee','annee.id_diplome','diplome.id_diplome')->////annee c'est le année de ma bdd
-			where('diplome.id_diplome','1')->/////
+			where('diplome.id_diplome',$diplome)->/////
 			pluck('id_annee');
 	
 	$semestre=DB::table('semestre')->//////je  prends tout les semestre de l'année 
@@ -67,7 +85,7 @@ class MaquetteController extends Controller
 	get('enseignant.code_professeur','nom','prenom');
 	$data=array('semestre'=>$semarray,
 				'enseignant'=>$prof);
-				//print_r($data["enseignant"]);
+				//print_r($data["semestre"]);
  /*semarray ressemble a ca
  ///le tableau contient des tableau de semestre
  chaque semestre contient 2 tableau
@@ -81,6 +99,8 @@ chaque matiere contient les donnée des matiere
  
 	
 //	print_r($data);
+
+	
 		return view('maquette/creation')->with('data',$data);
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,13 +138,13 @@ chaque matiere contient les donnée des matiere
 			$ue=$arrue[0];/////////ue contient les détail de cette ue 
 			//print_r($ue);
 			//echo $sem;
-			DB::table('ue')->insert(['id_ue'=>$Nsem.'ue'.$sem,'libelle'=>$ue[0],'id_semestre'=>$Nsem,'coeff'=>$ue[1],'description'=>$ue[2],'code_professeur'=>$ue[3]]);
+			DB::table('ue')->insert(['id_ue'=>$Nsem.'ue'.$sem,'libelle'=>$ue[0],'id_semestre'=>$Nsem,'coeff'=>$ue[1],'description'=>$ue[2],'code_professeur'=>$ue[3],'ects'=>$ue[4]]);
 			$nmat=0;
 			
 			
 			foreach($arrue[1] as $matiere)//////pour chaque matiere d'une ue
 			{
-				DB::table('matiere')->insert(['id_matiere'=>$Nsem.'ue'.$sem.'m'.$nmat,'libelle'=>$matiere[0],'coeff'=>$matiere[1],'cours'=>$matiere[2],'td'=>$matiere[3],'tp'=>$matiere[3],'id_ue'=>$Nsem.'ue'.$sem]);
+				DB::table('matiere')->insert(['id_matiere'=>$Nsem.'ue'.$sem.'m'.$nmat,'libelle'=>$matiere[0],'coeff'=>$matiere[1],'cours'=>$matiere[2],'td'=>$matiere[3],'tp'=>$matiere[4],'id_ue'=>$Nsem.'ue'.$sem]);
 				
 				$nmat++;//sert pour definir l'id de la matiere c'est le numero de la matiere dans l'ue 
 			}
@@ -137,11 +157,11 @@ chaque matiere contient les donnée des matiere
 }
 
 
-public function aff()///sert a afficher les détail d'un diplome,le code est plutot similaire au code d'index
+public function aff($diplome)///sert a afficher les détail d'un diplome,le code est plutot similaire au code d'index
 {
 	  $annee = DB::table('diplome')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
 			join('annee','annee.id_diplome','diplome.id_diplome')->////annee c'est le année de ma bdd
-			where('diplome.id_diplome','1')->/////
+			where('diplome.id_diplome',$diplome)->/////
 			pluck('id_annee');
 	
 	$semestre=DB::table('semestre')->
@@ -194,5 +214,9 @@ le second un tableau des matiere
 chaque matiere contient les donnée des matiere 
  */
 }
-
+public function test()
+{
+	return view('maquette/test');
+	//return view('maquette/affiche')
+}
 }

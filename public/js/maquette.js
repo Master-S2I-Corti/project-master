@@ -41,8 +41,12 @@ function getSemestre(filiere) // affiche les matiere et ue et semestre d'un dipl
 		cell=header.insertCell(-1);
 		cell.innerHTML="Description       ";
 	
+		
 		cell=header.insertCell(-1);
-		cell.innerHTML="Responsable de l'&#39ue";
+		cell.innerHTML="Responsable de l&#39ue";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="ECTS";
 		
 		
 		cell=header.insertCell(-1);
@@ -88,6 +92,7 @@ function getSemestre(filiere) // affiche les matiere et ue et semestre d'un dipl
 			uerow.getElementsByClassName("description")[0].value=des;
 			uerow.getElementsByClassName("coeff")[0].value=allSem[semestre][1][ue][0].coeff;
 			uerow.getElementsByClassName("nSemestre")[0].innerHTML=semestre+1;
+			uerow.getElementsByClassName("ects")[0].value=allSem[semestre][1][ue][0].ects;
 			for (matiere in allSem[semestre][1][ue][1])
 			{
 				
@@ -146,7 +151,8 @@ function affSemestre(filiere)
 		cell.innerHTML="Description";
 		cell=header.insertCell(-1);
 		cell.innerHTML="responsable de l'&#39ue";
-		
+		cell=header.insertCell(-1);
+		cell.innerHTML="ECTS";
 		
 		cell=header.insertCell(-1);
 		cell.innerHTML="coeff intern";
@@ -193,6 +199,8 @@ function affSemestre(filiere)
 			cell=uerow.insertCell(-1);
 			var t=document.createTextNode(filiere[semestre][1][ue][0].nom + " " + filiere[semestre][1][ue][0].prenom);
 			cell.appendChild(t);
+			cell=uerow.insertCell(-1);
+			cell.innerHTML=filiere[semestre][1][ue][0].ects;
 			if (ue   % 2 == 1)
 				uerow.style.backgroundColor="Gainsboro  ";
 
@@ -253,11 +261,8 @@ function newue(prof,semestre) {// cree une nouvelle ue
     var row = semestre.insertRow(-1);//cree une nouvelle ligne a la fin du tableau
 	row.className="Uerow";
 	
-    var cell1 = row.insertCell(-1);
-	var cell2=row.insertCell(-1);
-	var cell3=row.insertCell(-1);
-	 var cell4=row.insertCell(-1);
-	 var cell5=row.insertCell(-1);
+    var cell = row.insertCell(-1);
+	
 	var c="<div ><button onclick='newmat(this.parentElement.parentElement.parentElement)'>Ajouter une matiere</button></div>";
 	
 	c=c+"<div><input type='text' class='nomUe' value='nom de l&#39ue'/></div>";
@@ -276,30 +281,34 @@ function newue(prof,semestre) {// cree une nouvelle ue
 		
 	}
   }
-	cell1.innerHTML=c;
-	cell1.className="ue";
+	cell.innerHTML=c;
+	
+	cell.className="ue";
+	var cell = row.insertCell(-1);
 	c="<div class='nSemestre'> ";
 	
 	c+=nsem;
 	c+="</div>"
-	cell2.innerHTML=c;
-	cell2.className="ue";
-	c="<input type='number' class='coeff' max='99' min='1''value='0' />";
-	cell3.innerHTML=c
-	cell3.className="ue";
+	cell.innerHTML=c;
+	cell.className="ue";
+	var cell = row.insertCell(-1);
+	c="<input type='number' class='coeff' max='99' min='1'  value='1' />";
+	cell.innerHTML=c
+	cell.className="ue";
+	var cell = row.insertCell(-1);
 		c="<textarea class='description' onclick='openBox(this)'/>";
 		
-	cell4.innerHTML=c;
+	cell.innerHTML=c;
 	
-		var i=0;
+		/*var i=0;
 			while(row.getElementsByClassName("description")[0]!=document.getElementsByClassName('description')[i])
 			i++;
 		//alert(i);
-	tabdes.splice(i,0,"");
-	cell4.className="ue";
-	
-	cell5.innerHTML="<select class='responsable'></select>";
-	cell5.className="ue";
+	tabdes.splice(i,0,"");*/
+	cell.className="ue";
+	var cell = row.insertCell(-1);
+	cell.innerHTML="<select class='responsable'></select>";
+	cell.className="ue";
 	//row.getElementsByClassName('responsable').style.width='100%';
 	
 	for(i in prof)
@@ -310,7 +319,9 @@ function newue(prof,semestre) {// cree une nouvelle ue
 		row.getElementsByClassName('responsable')[0].add(optio);
 		
 	}
-	
+	var cell = row.insertCell(-1);
+	cell.innerHTML="<input type='number' class='ects' value='0' min='0' oninput='calc(this.parentElement.parentElement)'/>"
+	cell.className="ue";
 	color(semestre);
 	
 }
@@ -414,6 +425,7 @@ var tout=[];//donnée qui seront  envoyees
 var t=document.getElementsByClassName("tabSemestre");
 	for(var nSem=0;nSem<t.length;nSem++)
 	{
+		var ectsTot=0;
 		if(t[nSem].getElementsByClassName("Uerow").length==0)
 			return [0,"Un semestre n'a aucune UE "];
 		var tabmatiere=[];
@@ -428,7 +440,7 @@ var t=document.getElementsByClassName("tabSemestre");
 	var thisue=[];
 	for(var nrows=2;nrows<t[nSem].rows.length;nrows++)
 		{	
-			
+		
 			
 			var thisRow=t[nSem].rows[nrows];
 			if(thisRow.className=="Uerow")
@@ -455,11 +467,16 @@ var t=document.getElementsByClassName("tabSemestre");
 				descriptionUe.push(thisRow.getElementsByClassName("nomUe")[0].value);
 				
 				
-	
+				if(thisRow.getElementsByClassName("coeff")[0].value<1 || thisRow.getElementsByClassName("coeff")[0].value>99)
+					return[0,"Le coefficient d'une ue n'est pas valide"];
 				descriptionUe.push(thisRow.getElementsByClassName("coeff")[0].value);
-				descriptionUe.push(thisRow.getElementsByClassName("description")[0].value);
-				descriptionUe.push(thisRow.getElementsByClassName("responsable")[0].value);
 				
+				descriptionUe.push(thisRow.getElementsByClassName("description")[0].value);
+				
+				descriptionUe.push(thisRow.getElementsByClassName("responsable")[0].value);
+				descriptionUe.push(thisRow.getElementsByClassName("ects")[0].value);
+				ectsTot+= +thisRow.getElementsByClassName("ects")[0].value;
+				//alert(ectsTot);	
 				thisue.push(descriptionUe);
 					
 			}
@@ -468,9 +485,22 @@ var t=document.getElementsByClassName("tabSemestre");
 				if(thisRow.getElementsByClassName("nomMat")[0].value=="")
 					return[0,"Une matiere n'a pas de nom"];
 				matiere.push(thisRow.getElementsByClassName("nomMat")[0].value);
+					if(thisRow.getElementsByClassName("elCoeff")[0].value<1 || thisRow.getElementsByClassName("elCoeff")[0].value>99)
+					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
 				matiere.push(thisRow.getElementsByClassName("elCoeff")[0].value);
+				if(thisRow.getElementsByClassName("elCoeff")[0].value<1 || thisRow.getElementsByClassName("elCoeff")[0].value>99)
+					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
+				if(thisRow.getElementsByClassName("cour")[0].value<0)
+					return[0,"Les heures de cour d'un element constitutif de sont pas valide"];
+				
+				if(thisRow.getElementsByClassName("tp")[0].value<0)
+					return[0,"Les heures de tp d'un element constitutif de sont pas valide"];
+				
+				if(thisRow.getElementsByClassName("td")[0].value<0)
+					return[0,"Les heures de td d'un element constitutif de sont pas valide"];
 				matiere.push(thisRow.getElementsByClassName("cour")[0].value);
 				matiere.push(thisRow.getElementsByClassName("td")[0].value);
+			//	alert("td="+thisRow.getElementsByClassName("td")[0].value +"tp="+thisRow.getElementsByClassName("tp")[0].value);
 				matiere.push(thisRow.getElementsByClassName("tp")[0].value);
 				tabmatiere.push(matiere);
 				
@@ -489,7 +519,7 @@ var t=document.getElementsByClassName("tabSemestre");
 		tout.push(semestre);
 		
 	}
-//console.log(tout);
+console.log(tout);
 
 return[1,JSON.stringify(tout)];
 
