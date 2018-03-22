@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use App\Annee;
 
 
 class EDTController extends Controller
@@ -16,7 +16,10 @@ class EDTController extends Controller
     }
 
     public function gestion() {
-        return view("edtAdmin");
+        $classes = Annee::get();
+        
+        
+        return view("edtAdmin",compact('classes'));
     }
 
 }
