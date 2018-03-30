@@ -1,5 +1,114 @@
 var tabdes=[];
 var placedes;
+function loadArchive(archive,prof)
+{
+	
+
+	for(i=0;i<archive.length;i++)
+	{
+		
+		if(archive[i].annee==document.getElementById("archive").value)
+		{
+		file=JSON.parse(archive[i].file);
+			console.log(file);
+		for(nSem=0;nSem<file.length;nSem++)
+			{
+			
+				for(nUe=0;nUe<file[nSem].ues.length;nUe++)
+				{
+				newue(prof,document.getElementsByClassName("tabSemestre")[nSem]);
+				lastrow=document.getElementsByClassName("tabSemestre")[nSem].rows[document.getElementsByClassName("tabSemestre")[nSem].rows.length-1];
+				
+				
+			
+					////si les semestre on deja dess ue crée je les affiche et rentre les description a l'interieur du tableau 
+				lastrow.getElementsByClassName("nomUe")[0].value=file[nSem].ues[nUe].ue.nom;
+				lastrow.getElementsByClassName("responsable")[0].value=file[nSem].ues[nUe].ue.responsable;
+				lastrow.getElementsByClassName("description")[0].value=file[nSem].ues[nUe].ue.description;
+				lastrow.getElementsByClassName("coeff")[0].value=file[nSem].ues[nUe].ue.coeff;
+			
+				lastrow.getElementsByClassName("ects")[0].value=file[nSem].ues[nUe].ue.ects;
+					for(nMat=0;nMat<file[nSem].ues[nUe].matieres.length;nMat++)
+					{
+						newmat(lastrow); 
+						var lasMat=document.getElementsByClassName("tabSemestre")[nSem].rows[document.getElementsByClassName("tabSemestre")[nSem].rows.length-1];
+						lasMat.getElementsByClassName("nomMat")[0].value=file[nSem].ues[nUe].matieres[nMat].nom;
+						lasMat.getElementsByClassName("elCoeff")[0].value=file[nSem].ues[nUe].matieres[nMat].coeff;
+						lasMat.getElementsByClassName("cour")[0].value=file[nSem].ues[nUe].matieres[nMat].cour;
+						lasMat.getElementsByClassName("tp")[0].value=file[nSem].ues[nUe].matieres[nMat].tp;
+						lasMat.getElementsByClassName("td")[0].value=file[nSem].ues[nUe].matieres[nMat].td;
+						calc(lasMat);
+					}
+				}
+				
+			}
+		}
+	}
+}
+
+function loadSemestre(semestre)
+{
+	var tableau=document.getElementById("semestre");
+		console.log(semestre);
+		for(var i=0;i<semestre.length;i++)
+		{
+			var tabSemestre=document.createElement("table");
+		
+		tableau.appendChild(tabSemestre);//j'ajoute in nouveau tableau dans la div
+       var sName=tabSemestre.insertRow(-1);//je crée un premiere ligne dans le tableau qui contiendra le nom du semestre 
+	   sName.className="titleRow";
+		var cell=sName.insertCell(-1);
+		 tabSemestre.className=" tabSemestre";
+		 tabSemestre.id=semestre[i].id_semestre;
+		
+		cell.innerHTML=semestre[i].libelle;
+		
+		cell.style.width="200px";
+		cell=sName.insertCell(-1);//ajoute un bouton permetant de suprimé toute les ue et matiere d'un semestre 
+		cell.innerHTML="<button onclick='delSemestre(this.parentElement.parentElement.parentElement)'>Suprimer ce semestre</button>";
+		cell=sName.insertCell(-1);
+			cell.innerHTML="<button class='newue' '>ajouter une ue</button>";
+		
+		///creation de l'en téte 
+		var header=tabSemestre.insertRow(-1);/////crée l'header du semestre comtenant les titre des colonne 
+		header.className="header";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Désignation";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Semestre";
+		cell=header.insertCell(-1);
+		cell.innerHTML="coeff";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Description       ";
+	
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Responsable de l&#39ue";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="ECTS";
+		
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="coeff interne";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Sous-UE";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Cour(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="TD(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="TP(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Total(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Equiv-TD(H)";
+		var t =document.createElement("br");;
+		tableau.appendChild(t);
+		}
+}
 function getSemestre(filiere) // affiche les matiere et ue et semestre d'un diplome sur le tableau
 {
 
@@ -22,6 +131,7 @@ function getSemestre(filiere) // affiche les matiere et ue et semestre d'un dipl
 		 tabSemestre.id=allSem[semestre][0].id_semestre;
 		
 		cell.innerHTML=allSem[semestre][0].libelle;
+		
 		cell.style.width="200px";
 		cell=sName.insertCell(-1);//ajoute un bouton permetant de suprimé toute les ue et matiere d'un semestre 
 		cell.innerHTML="<button onclick='delSemestre(this.parentElement.parentElement.parentElement)'>Suprimer ce semestre</button>";
@@ -74,7 +184,7 @@ function getSemestre(filiere) // affiche les matiere et ue et semestre d'un dipl
 		
 				////si les semestre on deja dess ue crée je les affiche et rentre les description a l'interieur du tableau 
 			uerow.getElementsByClassName("nomUe")[0].value=allSem[semestre][1][ue][0].libelle;
-			uerow.getElementsByClassName("responsable")[0].value=allSem[semestre][1][ue][0].code_professeur;
+			uerow.getElementsByClassName("responsable")[0].value=1;
 			
 		/*	var i=0;
 			while(uerow.getElementsByClassName("description")[0]!=document.getElementsByClassName('description')[i])
@@ -417,7 +527,7 @@ var i;
 
 
 
-var matiere=[];
+var matiere={};
 var tout=[];//donnée qui seront  envoyees
 
 
@@ -429,15 +539,14 @@ var t=document.getElementsByClassName("tabSemestre");
 		if(t[nSem].getElementsByClassName("Uerow").length==0)
 			return [0,"Un semestre n'a aucune UE "];
 		var tabmatiere=[];
-	var semestre=[];
+	var semestre={};
 	var descriptionSemestre=[];
 	
-	semestre[0]=t[nSem].id;
-
+	semestre.id_semestre=t[nSem].id;
 	var tableue=[];
-	var descriptionUe=[];
+	var descriptionUe={};
 
-	var thisue=[];
+	var thisue={};
 	for(var nrows=2;nrows<t[nSem].rows.length;nrows++)
 		{	
 		
@@ -446,48 +555,51 @@ var t=document.getElementsByClassName("tabSemestre");
 			if(thisRow.className=="Uerow")
 			{
 				
-				if(thisue.length!=0){
-					thisue.push(tabmatiere);
+				if(thisRow!=t[nSem].getElementsByClassName("Uerow")[0]){
+					thisue.matieres=tabmatiere;
 					tableue.push(thisue);
 				
 				tabmatiere=[]
-				thisue=[];
-				descriptionUe=[];
+				thisue={};
+				descriptionUe={};
 				
 				}
 				for(var i=0;i<tableue.length;i++)////test pour voir si il n'y a pas 2 ue avec le meme nom dans un semestre
 				{
-					
-					if(tableue[i][0][0]==thisRow.getElementsByClassName("nomUe")[0].value)
+					console.log(tableue);
+					if(tableue[i].ue.nom==thisRow.getElementsByClassName("nomUe")[0].value)
 				
 						return[0,"Deux UE du meme semestre ont le meme nom"];
 				}
 				if(thisRow.getElementsByClassName("nomUe")[0].value=="")
 					return[0,"Une UE n'a pas de nom"];
-				descriptionUe.push(thisRow.getElementsByClassName("nomUe")[0].value);
+				descriptionUe.nom=thisRow.getElementsByClassName("nomUe")[0].value;
 				
 				
 				if(thisRow.getElementsByClassName("coeff")[0].value<1 || thisRow.getElementsByClassName("coeff")[0].value>99)
 					return[0,"Le coefficient d'une ue n'est pas valide"];
-				descriptionUe.push(thisRow.getElementsByClassName("coeff")[0].value);
+				descriptionUe.coeff=thisRow.getElementsByClassName("coeff")[0].value;
 				
-				descriptionUe.push(thisRow.getElementsByClassName("description")[0].value);
+				descriptionUe.description=thisRow.getElementsByClassName("description")[0].value;
 				
-				descriptionUe.push(thisRow.getElementsByClassName("responsable")[0].value);
-				descriptionUe.push(thisRow.getElementsByClassName("ects")[0].value);
-				ectsTot+= +thisRow.getElementsByClassName("ects")[0].value;
+				descriptionUe.responsable=thisRow.getElementsByClassName("responsable")[0].value;
+				descriptionUe.ects=thisRow.getElementsByClassName("ects")[0].value;
+				ectsTot+=+thisRow.getElementsByClassName("ects")[0].value;
 				//alert(ectsTot);	
-				thisue.push(descriptionUe);
+				thisue.ue=descriptionUe;
 					
 			}
 			else
-			{var matiere=[];
+			{var matiere={};
 				if(thisRow.getElementsByClassName("nomMat")[0].value=="")
 					return[0,"Une matiere n'a pas de nom"];
-				matiere.push(thisRow.getElementsByClassName("nomMat")[0].value);
+				
+				matiere.nom=thisRow.getElementsByClassName("nomMat")[0].value;
+					
 					if(thisRow.getElementsByClassName("elCoeff")[0].value<1 || thisRow.getElementsByClassName("elCoeff")[0].value>99)
 					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
-				matiere.push(thisRow.getElementsByClassName("elCoeff")[0].value);
+				matiere.coeff=thisRow.getElementsByClassName("elCoeff")[0].value;
+				
 				if(thisRow.getElementsByClassName("elCoeff")[0].value<1 || thisRow.getElementsByClassName("elCoeff")[0].value>99)
 					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
 				if(thisRow.getElementsByClassName("cour")[0].value<0)
@@ -498,28 +610,30 @@ var t=document.getElementsByClassName("tabSemestre");
 				
 				if(thisRow.getElementsByClassName("td")[0].value<0)
 					return[0,"Les heures de td d'un element constitutif de sont pas valide"];
-				matiere.push(thisRow.getElementsByClassName("cour")[0].value);
-				matiere.push(thisRow.getElementsByClassName("td")[0].value);
+				
+				matiere.cour=thisRow.getElementsByClassName("cour")[0].value;
+				
+				matiere.td=thisRow.getElementsByClassName("td")[0].value;
 			//	alert("td="+thisRow.getElementsByClassName("td")[0].value +"tp="+thisRow.getElementsByClassName("tp")[0].value);
-				matiere.push(thisRow.getElementsByClassName("tp")[0].value);
+				matiere.tp=thisRow.getElementsByClassName("tp")[0].value;
+				
 				tabmatiere.push(matiere);
 				
 			}
 			
 		}
 		
-		thisue.push(tabmatiere);
+		thisue.matieres=tabmatiere;
 		
 					tableue.push(thisue);
 					
 					if(tableue.length==0)
 						return [0,"Un sememestre n'a aucune UE "];
 		//semestre[1]=tableue;
-		semestre.push(tableue);
+		semestre.ues=tableue;
 		tout.push(semestre);
 		
 	}
-console.log(tout);
 
 return[1,JSON.stringify(tout)];
 

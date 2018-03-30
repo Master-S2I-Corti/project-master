@@ -5,9 +5,16 @@
 
 @section('content')
 <br>
-<!--<div >
-' {!!  json_encode($data["semestre"]) !!}'
-</div>-->
+
+<select id="archive" >
+<option selected></option>
+<?php
+foreach (json_decode(stripslashes($data["archive"])) as $annee) {
+    echo"<option value='".$annee->annee."'>".$annee->annee."</option>";
+}?>
+</select>  <button id="archbut" onclick="archClick()" >charger une maquette des annees précédentes</button>
+<br>
+</br>
 <button onclick="delAll()">Suprimer toute les Ue et matiere </button>
 <br>
 <div id="semestre"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
@@ -15,7 +22,7 @@
 </div>
 
 
-
+<div id="test"></div>
 	
 <button id="postB" >Modifier le semestre </button><!--Bouton servant a enregistre la requete-->
 
@@ -78,12 +85,12 @@
  var table = document.getElementById("previsio");
  var prof=' {!! $data["enseignant"] !!}';
  
- var filiere="{!!addslashes(json_encode($data))!!}";//sans le add slash un probleme se crée lors du passage en js si il y a un saut de ligne 
- 
-
-	function myFunction()///fonction s'activant a la création de la table 
+ var filiere="{!!addslashes(json_encode($data))!!}";//sans le add slash un probleme se crée lors du passage en js si il y a un saut de ligne */
+ var archive='{!! $data["archive"] !!}';
+var semestre=' {!! $data["semestre"] !!}'
+	function mFunction()///fonction s'activant a la création de la table 
 	{ 
-		getSemestre(filiere);///affiche les donné
+		getSemestre(filiere);///affiche les donnée
 		for(var i=0;i<document.getElementsByClassName("newue").length;i++)
 		{
 			
@@ -97,22 +104,60 @@
 				})
 		}
 	}
+	function mFunction2()///fonction s'activant a la création de la table 
+	{ 
+	
+		console.log(prof);
+		var sem=JSON.parse(semestre);
+		loadSemestre(sem);
+		for(var i=0;i<document.getElementsByClassName("newue").length;i++)
+		{
+			
+			document.getElementsByClassName("newue")[i].addEventListener("click",function()/////ajoute un event listener qui crée un nouvelle row pour les ue une row pour la matiere attachée a cette row
+				{
+					table=this.parentElement.parentElement.parentElement.parentElement;//table est le tableau du semestre du bouton
+					newue(JSON.parse(prof),table)
+					lastRow=table.rows[table.rows.length-1];
+					
+					newmat(lastRow);
+				})
+		}
+		
+	}
+	 function archClick()
+	{
+		
+		if(document.getElementById("archive").value=="")
+			alert("Selctionné une année");
+		
+		else{
+		r=confirm("Vouler vous chargée cette maquette")
+	if (r==false)
+		return"";
+	loadArchive(JSON.parse(archive),JSON.parse(prof));
+	}
+	}
+   
  $("#postB").click(function(){////////fonction de la requete ajax pour enregistrer la maquete  dans la bdd 
          var send=getjson();////send est un tableau la premiere case indique si il n'y a pas d'erreur dans notre maquete si elle est a un aucune erreur n'a ete detectée
 							//la seconde case est le json de la maquete si il n'ya pas d'erreur si il y en a lors c'est le message d'erreur a affichér
+		
 		 
-		 
-		 if(send[0]==1)
+		if(send[0]==1)
 		 {
+			  var data={id_diplome:JSON.parse(filiere).diplome,
+			  detail:send[1]
+			  };
+			console.log(send[1]);
 			 $.ajax({
 				   type:'POST',
-				   url:'save',
+				   url:'save2',
 					 headers: {
 			'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>'
 			
 			  },
 			  //data:,
-			   data: {'filiere' : send[1]},
+			   data: {'filiere' : data},
 			 // dataType: 'JSON',
 			success:function(msg,data, settings) {
 					alert('La maquète a été enregistrée');
@@ -124,13 +169,14 @@
 		 }
 		else if(send[1]!=null)
 			alert(send[1]);
+		var car = {type:"Fiat", model:"500", color:["yellow","red"]};
 		
+	
 		
 	});
 	
 	
-document.body.addEventListener("load",myFunction());
-
+document.addEventListener("load",mFunction2());
 
 </script>
 @endsection

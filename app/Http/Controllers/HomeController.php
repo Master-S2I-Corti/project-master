@@ -14,6 +14,7 @@ class HomeController extends BaseController
 
     public function index() {
         if(Auth::guest()) {
+	
             return view("welcome");
         } else {
             return view("home");

@@ -61,6 +61,8 @@
 		 
 		 if(send[0]==1)
 		 {
+			 var t=send[1];
+			 alert(t==send[1]);
 			 $.ajax({
 				   type:'POST',
 				   url:'save',

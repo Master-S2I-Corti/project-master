@@ -1,11 +1,11 @@
 SET foreign_key_checks = 0;
 
-DELETE FROM Personne;
+/*DELETE FROM Personne;
 DELETE FROM Enseignant;
 DELETE FROM Etudiant;
 DELETE FROM Annee;
 DELETE FROM Diplome;
-DELETE FROM Departement;
+DELETE FROM Departement;*/
 
 START TRANSACTION;
 
