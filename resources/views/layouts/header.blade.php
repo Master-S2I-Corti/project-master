@@ -31,8 +31,10 @@
                     <i class="fa fa-user-circle d-inline align-middle mr-2"></i> Compte
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{!! url('profil') !!}">Profil</a>
+                    <a class="dropdown-item" href="#">Profil</a>
                     <a class="dropdown-item" href="#">Contact</a>
+                    <a class="dropdown-item" href="{{ url('changePassword')}}">Change Password</a>
+                    
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
                         <form id="logout-form" action="{{url("/logout")}}" method="POST" class="hide">

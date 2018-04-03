@@ -110,7 +110,7 @@
 
     <!-- POPUP D'AFFICHAGE -->
     <div id="dialog" title="Profil de l' Etudiant" class="modal fade" >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="nom">Détails étudiant</h5>
@@ -133,17 +133,16 @@
     </div>
     <!-- POPUP DE MODIFICATON -->
     <div id="modif" title="Modification de l' Etudiant" class="modal fade" >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form method="post" action="{!! url('updateEtudiant') !!}" accept-charset="UTF-8">
+                <div class="modal-header">
+                    <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{!! url('annuaire/etudiants/updateEtudiant') !!}" accept-charset="UTF-8">
                     <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="row">
@@ -151,8 +150,8 @@
                                     <input id="id2" type="hidden" name="id" value="" />
                                     <p> Email: <input class="form-control form-control-md" type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
-                                <div class="col">
-                                    <p> Filière: <input type="text" name="filiere" id="fil2" value=''/><br /></p>
+                                <div class="col-md-2">
+                                    
                                 </div>
                                 <div class="col-md-4">
                                     <!--<p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>-->
@@ -167,13 +166,13 @@
                                 </p> 
                                 </div>
                             </div>
-                        </form>
+                       
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary"> Modifier</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -336,9 +335,6 @@
             });
 
             $( ".add" ).on( "click", function(e) {
-                /*var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-                document.querySelector("#nom3").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.getElementById("fil2").value = elements.item(3).innerHTML;*/
                 $( "#ajout" ).modal( "show" );
             });
 
