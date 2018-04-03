@@ -16,4 +16,8 @@ class Enseignant extends Personne
     ];
 
     public $timestamps = false;
+    
+    public function personne() {
+        return $this->hasOne('App\Personne', "id", "id");
+    }
 }

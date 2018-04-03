@@ -3,8 +3,14 @@
 
 @extends('layouts.app')
 
-
+@section('css')
+<style>
+    .custom-select {border: 1px solid blue; color: blue}
+    .custom-select:focus {color: blue}
+</style>
+@endsection
 @section('content')
+
 
     <div class="py-5">
         <div class="container">
@@ -37,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="py-5">
+        <div class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -55,21 +61,8 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>8h-9h</td>
-                            <td class="bg-success text-center">UE1-FONDAMENTAUX-DU-WEB-ET-MOBILE-FA
-                                <br>&nbsp;Santucci,&nbsp;Jean-Francois
-                                <br>113</td>
-                            <td class="text-center"></td>
+                            <td>8h-8h15</td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>9h-10h</td>
-                            <td class="text-center bg-success">UE1-FONDAMENTAUX-DU-WEB-ET-MOBILE-FA
-                                <br>&nbsp;Santucci,&nbsp;Jean-Francois
-                                <br>&nbsp;113</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -77,10 +70,8 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>10h-11h</td>
-                            <td class="text-center bg-success">UE1-FONDAMENTAUX-DU-WEB-ET-MOBILE-FA &nbsp;&nbsp;
-                                <br>Santucci,&nbsp;Jean-Francois &nbsp;
-                                <br>113</td>
+                            <td>8h15-8h30h</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -88,10 +79,116 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>11h-12h</td>
-                            <td class="text-center bg-success">UE1-FONDAMENTAUX-DU-WEB-ET-MOBILE-FA &nbsp;
-                                <br>Santucci,&nbsp;Jean-Francois &nbsp;
-                                <br>113</td>
+                            <td>8h30-8h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>8h45-9h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9h-9h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9h15-9h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9h30-9h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9h45-10h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10h-10h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10h15-10h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10h30-10h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10h45-11h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11h-11h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11h15-11h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11h45-12h</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -108,7 +205,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>13h-14h</td>
+                            <td>13h-13h15</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -117,40 +214,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>14h-15h</td>
-                            <td class="text-center bg-warning">UE4-ADMINISTRATION-SYSTEMES-ET-RESEAUX
-                                <br>FRANCK ABELLI
-                                <br>113&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>15h-16h</td>
-                            <td class="text-center bg-warning">UE4-ADMINISTRATION-SYSTEMES-ET-RESEAUX
-                                <br>FRANCK ABELLI
-                                <br>113&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>16h-17h</td>
-                            <td class="bg-warning text-center">UE4-ADMINISTRATION-SYSTEMES-ET-RESEAUX
-                                <br>FRANCK ABELLI
-                                <br>113&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>17h-18h</td>
+                            <td>13h15-13h30</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -159,7 +223,160 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>18h-19h</td>
+                            <td>13h30-13h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>13h45-14h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>14h-14h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>14h15-14h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>14h30-14h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>14h45-15h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>15h-15h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>15h15-15h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>15h30-15h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>15h45-16h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16h-16h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16h15-16h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16h30-16h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16h45-17h</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17h-17h15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17h15-17h30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17h30-17h45</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17h45-18h</td>
                             <td></td>
                             <td></td>
                             <td></td>
