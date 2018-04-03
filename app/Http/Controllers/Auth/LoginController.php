@@ -22,8 +22,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-<<<<<<< HEAD
-=======
     
     protected function validateLogin(Request $request)
     {
@@ -34,7 +32,6 @@ class LoginController extends Controller
         ]);
     }
     
->>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
     protected $redirectTo = '/';
     /**
      * Create a new controller instance.
