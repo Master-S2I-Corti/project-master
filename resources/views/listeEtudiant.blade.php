@@ -219,7 +219,7 @@
                                 <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
                             </div>
                         </div>
-                        <div class="rows">
+                        <div class="row">
                             <div class="col-md-4">
                                 <p>Département :
                                         <select class="form-control form-control-sm" name="departement">
@@ -230,6 +230,9 @@
                                         @endif
                                         </select> 
                                 </p> 
+                            </div>
+                            <div class="col-md-2">
+
                             </div>
                             <div class="col-md-4">
                                 <p>Filière :
