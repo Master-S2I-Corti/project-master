@@ -121,8 +121,9 @@ CREATE TABLE Groupe(
 
 CREATE TABLE Diplome(
         id_diplome     int (11) Auto_increment  NOT NULL ,
-        libelle        Varchar (255) ,
+        type           Varchar (255) ,
         maquetteEtat   Int ,
+        specialite     Varchar (255) ,
         id_departement Int ,
         PRIMARY KEY (id_diplome )
 )ENGINE=InnoDB;

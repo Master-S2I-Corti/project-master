@@ -12,7 +12,7 @@ class Enseignant extends Personne
     protected $table = "Enseignant";
 
     protected $fillable = [
-        'id'
+        'id','type','heure','nbBureau'
     ];
 
     public $timestamps = false;
@@ -20,4 +20,5 @@ class Enseignant extends Personne
     public function personne() {
         return $this->hasOne('App\Personne', "id", "id");
     }
+
 }

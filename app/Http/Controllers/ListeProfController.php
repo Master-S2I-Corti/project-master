@@ -4,75 +4,92 @@ namespace App\Http\Controllers;
 
 use App\Enseignant;
 use App\Personne;
-use Illuminate\Http\Request;
+use App\Responsabilite;
+use App\Departement;
+use App\Est_responsable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class ListeProfController extends Controller
 {
     // Accès à la page Liste Prof
     public function index()
     {
-        $recherche = null;
-        $listesEnseignant = null;
-        $personnes = Personne::get();
-        if( isset($personnes) )
-        {
-            $conteur = 0;
-            foreach ( $personnes as $personne): 
-                if ($personne->code_professeur !=null)
-                {
-                    $listesEnseignant[$conteur] = $personne;
-                    $conteur++;
-                }
+        $listesEnseignant = Personne::where('code_professeur','!=',0)
+            ->paginate(7);
+        $listeResponsabilite = Responsabilite::get();
+        $listeDepartement = Departement::get();
 
-            endforeach;
-        }
-        return view('listeEnseignant', compact('listesEnseignant','recherche'));
+        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement'));
     }
 
     //Enregistrement d'un nouveau prof
     public function store(Request $request){
         $personne = Personne::firstOrCreate([
-            'identifiant' => $request->nom,
+            'login' => $request->nom,
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'mail' => $request->email,
-            'password' =>  Hash::make(str_replace("-","",$request->dateNaissance))
+            'email' =>$request->nom .'@webmail.universita.corsica',
+            'email_sos' => $request->emailSos,
+            'naissance'=> $request->naissance,
+            'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+            'tel' => $request->tel,
+            'adresse' =>$request->adresse,
+            'code_postal' =>$request->codePostal,
+            'ville' =>$request->ville,
+            'admin' =>0
         ]);
-        
-        $personne->where('identifiant', $personne['identifiant'])->first();
-        $enseignant = Enseignant::firstOrCreate(['id'=>$personne->id]);
-        $enseignant = $enseignant->where('id', $personne->id)->first();
-        $personne->where('identifiant', $personne['identifiant'])->update(['code_professeur' =>$enseignant->code_professeur]);
+        $personne->where([
+            ['nom', '=', $request->nom],
+            ['prenom', '=', $request->prenom],
+            ['naissance', '=', $request->naissance],
+        ])->first();
 
+        $enseignant = Enseignant::firstOrCreate([
+            'id'=>$personne->id,
+            'type'=>$request->fonction
+        ]);
+        $enseignant = $enseignant->where('id', $personne->id)->first();
+        $personne->update(['code_professeur' =>$enseignant->code_professeur]);
+        if ( $request->Responsabilie != 0)
+        {
+            $responsabilite = Est_responsable::firstOrCreate([
+                'code_professeur' =>$enseignant->code_professeur,
+                'id_reponsabilite' =>$request->Responsabilie
+            ]);
+        }
+
+
+        return redirect()->action('ListeProfController@index');
+
+    }
+
+    //Enregistrement de la modification du prof
+    public function update( Request $request)
+    {
+        $personne = Personne::findOrFail($request->id);
+        $personne->update(['email' =>$request->email]);
         return redirect()->action('ListeProfController@index');
     }
 
-    //Accès à la page de modification d'un prof                                     un prof peut modifier sa fiche
-    public function edit($id) 
-    {
-        $profs = Enseignant::findOrFail($id);
-        return view('test/editProf', compact('profs'));
-    }
-
-    //Enregistrement de la modification du prof 
-    public function update( Request $request)
-    {
-        $prof = Enseignant::findOrFail($request->id);
-        $prof->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeProfController@index', compact('user'));
-    }
-
     //Suppression du prof
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $prof = Enseignant::findOrFail($id);
-        $prof->delete();
-        $user = 'admin';
-        return redirect()->action('ListeProfController@index', compact('user'));
-    }
-    
+        $personne = Personne::findOrFail($request->id);
+        $personne->update([ 'code_professeur' => null]);
 
-    
+        $prof = Enseignant::findOrFail($request->id);
+        $prof->update([ 'id' => null]);
+
+        //A vérifier et a discuter
+        $responsabilite = Est_responsable::where('code_professeur',$prof->code_professeur)->delete();
+
+        $personne->delete();
+        $prof->delete();
+        return redirect()->action('ListeProfController@index');
+    }
+
+
+
 }

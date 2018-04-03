@@ -9,6 +9,7 @@ DELETE FROM Departement;
 
 START TRANSACTION;
 
+<<<<<<< HEAD
 ALTER TABLE `Personne` CHANGE `updated_at` `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `Personne` CHANGE `created_at` `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
@@ -29,6 +30,8 @@ INSERT INTO `Etudiant` (`code_etudiant`, `id_annee`, `id`) VALUES
 UPDATE Personne SET code_etudiant = 1 WHERE id = 1;
 UPDATE Personne SET code_professeur = 1 WHERE id = 3;
 
+INSERT INTO `responsabilite` (`id_reponsabilite`, `libellle`, `heureReducable`) VALUES
+(1, 'Presidence', 192),(2, 'Vice Presidence', null),(3, 'Directeur Laboratoire', 96),(4,'Doyen', 96),(5,'Responsable Filiere', 12);
 
 INSERT INTO UFR (libelle) VALUE ('Science et technique');
 INSERT INTO Departement (libelle, id_departement) VALUE  ('Informatique', 1);
@@ -44,4 +47,3 @@ INSERT INTO Annee (libelle, id_diplome) VALUE ('3eme', 2);
 COMMIT ;
 
 SET foreign_key_checks = 1;
-
