@@ -17,12 +17,12 @@ foreach (json_decode(stripslashes($data["archive"])) as $annee) {
 </br>
 <button onclick="delAll()">Suprimer toute les Ue et matiere </button>
 <br>
-<div id="semestre"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
+<div id="semestre" class="container-fluid"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
 <br>
 </div>
 
 
-<div id="test"></div>
+
 	
 <button id="postB" >Modifier le semestre </button><!--Bouton servant a enregistre la requete-->
 

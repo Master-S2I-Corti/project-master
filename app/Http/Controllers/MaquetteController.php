@@ -389,7 +389,7 @@ chaque matiere contient les donnée des matiere
 }
 public function test()
 {
-	return view('maquette/test');
+	return view('maquette/boot');
 	//return view('maquette/affiche')
 }
 }

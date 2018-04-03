@@ -49,7 +49,7 @@ function loadArchive(archive,prof)
 function loadSemestre(semestre)
 {
 	var tableau=document.getElementById("semestre");
-		console.log(semestre);
+		
 		for(var i=0;i<semestre.length;i++)
 		{
 			var tabSemestre=document.createElement("table");
@@ -60,7 +60,7 @@ function loadSemestre(semestre)
 		var cell=sName.insertCell(-1);
 		 tabSemestre.className=" tabSemestre";
 		 tabSemestre.id=semestre[i].id_semestre;
-		
+		tabSemestre.classList.add("table-bordered");
 		cell.innerHTML=semestre[i].libelle;
 		
 		cell.style.width="200px";

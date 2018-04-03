@@ -32,10 +32,10 @@ table button
 {
 	width: 100%;
 }
-.Uerow
+/*.Uerow
 {
 	border: 2px solid black;
-}
+}*/
 #overlay {
     display:none;    
     position:fixed;  
