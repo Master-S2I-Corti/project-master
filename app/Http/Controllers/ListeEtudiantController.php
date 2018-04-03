@@ -6,6 +6,8 @@ use App\Personne;
 use Illuminate\Http\Request;
 use App\Etudiant;
 use App\Departement;
+use App\Annee;
+use App\Diplome;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -13,19 +15,39 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $listesEtudiant = Personne::where('code_etudiant','!=',0)->paginate(7);
+        $listesEtudiant = Etudiant::with('identity','annee')->where([
+            ['id_annee', '!=',null],
+        ])->paginate(7);
+       // dd($listesEtudiant);
         $listeDepartement = Departement::get();
+        $annee = Annee::get();
+        $diplome = Diplome::get();
 
-        return view('listeEtudiant', compact('listesEtudiant','listeDepartement'));
+        for ($i = 1 ; $i <= count($annee) ; $i++ )
+        {
+            foreach($diplome as &$value)
+            {
+                $j = $i -1;
+                if($annee[$j]->id_diplome == $value->id_diplome)
+                {
+                            $listDiplome[$j] = [
+                                                    'id'=>$annee[$j]->id_annee,
+                                                    'libelle'=>$annee[$j]->libelle.'  '.$value->libelle
+                                                ];
+                }
+            }
+        }       
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
+        
         $personne = Personne::firstOrCreate([
-            'identifiant' => $request->nom,
+            'login'=>$request->nom,
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'email' => $request->email,
+            'email'=>$request->nom .'@webmail.universita.corsica',
             'email_sos' => $request->emailSos,
             'naissance'=> $request->naissance,
             'password' =>  Hash::make(str_replace("-","",$request->naissance)),
@@ -35,34 +57,34 @@ class ListeEtudiantController extends Controller
             'ville' =>$request->ville,
             'admin' =>0
             ]);
-        
-            $personne->where('identifiant', $personne['identifiant'])->first();
-            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+            
+            $personne->where([
+                                ['nom', '=', $request->nom],
+                                ['prenom', '=', $request->prenom],
+                                ['naissance', '=', $request->naissance],
+                            ])->first();
+
+            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
-            $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+            $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
     
             return redirect()->action('ListeEtudiantController@index');
-    }
-
-    //Accès à la page de modification d'un etudiant
-    public function edit($id) 
-    {
-        $etudiants = Etudiant::findOrFail($id);
-        return view('test/editEtudiant', compact('etudiants'));
     }
 
     //Modification du etudiant 
     public function update(Request $request)
     {
-        $etudiants = Etudiant::findOrFail($request->id);
-        $etudiants->update($request->all());
-        $user = 'admin';
-        return redirect()->action('ListeEtudiantController@index', compact('user'));
+        $personne = Personne::findOrFail($request->id);
+        $etudiant = Etudiant::findOrFail($request->id);
+        $personne->update(['email' =>$request->email ]);
+        $etudiant->update(['id_annee'=>$request->filiere]);
+        return redirect()->action('ListeEtudiantController@index');
     }
 
     //Suppression du etudiant
     public function destroy(Request $request)
     {
+        
         $personne = Personne::findOrFail($request->id);
         $test = [ 'code_etudiant' => null];
         $personne->update($test);
@@ -76,7 +98,25 @@ class ListeEtudiantController extends Controller
     
     //Ajout des étudiants grâce à un fichier .csv
     public function multipleStore(Request $request){ 
-        
+        $annee = Annee::get();
+        $diplome = Diplome::get();
+
+        for ($i = 1 ; $i <= count($annee) ; $i++ )
+        {
+            foreach($diplome as &$value)
+            {
+                $j = $i -1;
+                if($annee[$j]->id_diplome == $value->id_diplome)
+                {
+                            $listDiplome[$j] = [
+                                                    'id'=>$annee[$j]->id_annee,
+                                                    'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
+                                                ];
+
+                }
+            }
+        }
+
         if(count($request->all()) != 1)
         {
             $info = $request->fichier;
@@ -92,11 +132,20 @@ class ListeEtudiantController extends Controller
                     } else {
                         echo $data[6];
                     }*/
-
+                    $filiere = null;
+                    foreach($listDiplome as &$value)
+                    {
+                        if ($data[0] == $value['libelle'])
+                        {
+                            $filiere = $value['id'];
+                        }
+                    }
+                    
                     $personne = Personne::firstOrCreate([
-                        'identifiant' => $data[2],
+                        'login' => $data[2],
                         'nom' => $data[2],
                         'prenom' => $data[1],
+                        'email'=>$data[2].'@webmail.universita.corsica',
                         'email_sos' => $data[3],
                         'naissance'=> $data[5],
                         'password' =>  Hash::make(str_replace("-","",$data[5])),
@@ -104,14 +153,26 @@ class ListeEtudiantController extends Controller
                         'admin' =>0
                         ]); //'commentaire' => $data[7],
 
-                    $personne->where('identifiant', $personne['identifiant'])->first();
-                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id]);
+                    
+                    $personne->where([
+                                ['nom', '=', $data[2]],
+                                ['prenom', '=', $data[1]],
+                                ['naissance', '=', $data[5]],
+                            ])->first();
+                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id,'id_annee'=>$filiere]);
                     $etudiant = $etudiant->where('id', $personne->id)->first();
-                    $personne->where('identifiant', $personne['identifiant'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+                    $personne->where('login', $personne['login'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
                 }
             } 
         }
         return redirect()->action('ListeEtudiantController@index');
     }
 
+    public function search(Request $request)
+    {
+        dd($request->all());
+        
+       
+        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','contenuEtudiant'));
+    }
 }

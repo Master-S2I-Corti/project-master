@@ -32,10 +32,21 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
+<<<<<<< HEAD
     Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
     Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
     Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
+=======
+    Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
+    Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
+    Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
+    Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+    Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
+    Route::post('annuaire/professeurs/updateProf','ListeProfController@update');
+    Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
+
+>>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -47,6 +58,7 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 });
 
 Route::get('profil','ProfilController@index');
+<<<<<<< HEAD
 Route::get('annuaire/professeurs','ListeProfController@index');
 Route::get('annuaire/etudiants','ListeEtudiantController@index');
 Route::post('updateProfil','ProfilController@update');
@@ -57,6 +69,16 @@ Route::post('listeEtudiant/search','ListeEtudiantController@search');
 
 Route::post('updateProf','ListeProfController@update');
 Route::post('updateEtudiant','ListeEtudiantController@update');
+=======
+Route::get('annuaire/etudiants','ListeEtudiantController@index');
+Route::get('annuaire/professeurs','ListeProfController@index');
+
+Route::post('listeProf/search','ListeProfController@search');
+Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
+
+
+
+>>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
 
 
 Route::get('profil','ProfilController@index');

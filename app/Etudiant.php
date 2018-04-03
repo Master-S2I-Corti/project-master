@@ -12,8 +12,18 @@ class Etudiant extends Personne
     protected $table = "Etudiant";
 
     protected $fillable = [
-        'id'
+        'id','id_annee'
     ];
 
     public $timestamps = false;
+
+    public function identity()
+    {
+        return $this->belongsTo('App\Personne','id');
+    }
+    
+    public function annee()
+    {
+        return $this->hasMany('App\Annee','id_annee','id_annee');
+    }
 }
