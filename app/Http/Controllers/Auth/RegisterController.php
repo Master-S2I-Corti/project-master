@@ -44,11 +44,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'identifiant' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-<<<<<<< HEAD
-            'g-recaptcha-response' => 'required|recaptcha',
-=======
-            //'g-recaptcha-response' => 'required|recaptcha',
->>>>>>> origin/annuaire
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
     }
     /**
