@@ -59,7 +59,12 @@ Route::post('updateProf','ListeProfController@update');
 Route::post('updateEtudiant','ListeEtudiantController@update');
 
 
-Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+Route::get('profil','ProfilController@index');
+Route::get('annuaire/professeurs','ListeProfController@index');
+Route::get('annuaire/etudiants','ListeEtudiantController@index');
+Route::post('updateProfil','ProfilController@update');
+Route::post('listeProf/search','ListeProfController@search');
+Route::post('listeEtudiant/search','ListeEtudiantController@search');
 
 Auth::routes();
 
