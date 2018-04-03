@@ -257,12 +257,45 @@
             //TEST
             $( ".Responsabilie" ).on( "change", function(e) {
                
+               var tab = ["5454","189"] ;
+                
                // document.getElementById("resp").appendChild(cln);
                 var newDiv = document.getElementById("resp");
                 var selectList = document.createElement("select"); 
+                var option = "";
+                for(i=0;i<tab.length;i++){
+                    option = document.createElement('option');
+                    option.value=tab[i];
+                    option.text=tab[i];
+                    selectList.add(option);
+                }
+                var values = '';
+ 
+               // $('#Responsabilie option').each(function() { values += $(this).text; });
+               var nb=($("#Responsabilie")).length;
+              
+              /* var listeAuteur="";
+                for(var i=0;i<nb;i++)
+                {
+                    listeAuteur= listeAuteur+($("#Responsabilie"))[i].value
+                }*/
+
+                $(".Responsabilie option").each(function()
+                {
+                 console.log($(this).val()); //CHOPPER LE LIBELLE
+                });
+
+                //console.log(listeAuteur);
                 //var cln = newDiv.cloneNode(true);
-                selectList.class = "Responsabilie";
+                selectList.class = "Responsabilie2";
+               
                 newDiv.appendChild(selectList);
+                $('#Responsabilie2').append();
+
+                //tableau case responsabilité
+                //var e = document.getElementsByClassName("Responsabilie");
+                //var strUser = e.options[e.selectedIndex].value;
+                //console.log($("#Responsabilie option:selected").val());
                 //var currentDiv = document.getElementById("resp");
                 //document.body.insertAfter(newDiv, currentDiv);
             });
