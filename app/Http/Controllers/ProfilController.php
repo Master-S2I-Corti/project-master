@@ -45,7 +45,6 @@ class ProfilController extends Controller
 
      //Ajout des étudiants grâce à un fichier .csv
      public function multipleStore(Request $request){ 
-        
         if(count($request->all()) != 1)
         {
             $info = $request->fichier;

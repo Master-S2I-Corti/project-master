@@ -147,24 +147,13 @@
                     <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="row">
-<<<<<<< HEAD
-                                <div class="col">
-                                    <input id="id2" type="hidden" name="id"  value="" />
-                                    <p> Email: <br /></p>
-=======
                                 <div class="col-md-4">
                                     <input id="id2" type="hidden" name="id" value="" />
                                     <p> Email: <input class="form-control form-control-md" type="email"  name="email" id="email2" value='' required/><br /></p>
->>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
                                 </div>
                                 <div class="col">
                                     <p> Filière: <input type="text" name="filiere" id="fil2" value=''/><br /></p>
                                 </div>
-<<<<<<< HEAD
-                                <div class="row">
-                                    <div class="col">
-                                    </div>
-=======
                                 <div class="col-md-4">
                                     <!--<p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>-->
                                     <p>Filière :
@@ -176,7 +165,6 @@
                                         @endif
                                         </select> 
                                 </p> 
->>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
                                 </div>
                             </div>
                         </form>
@@ -315,25 +303,13 @@
                     }
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-<<<<<<< HEAD
-                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['email']
-                
-                
-=======
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
                 document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
->>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
                 $( "#dialog" ).modal('show');
             });
 
             $( ".modifier" ).on( "click", function(e) {
                 var elements = e.target.parentElement.parentElement.querySelectorAll("th")
-<<<<<<< HEAD
-                document.getElementById("id2").value = elements.item(0).innerHTML
-                document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
-                document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.getElementById("fil2").value = elements.item(3).innerHTML;
-=======
                 var id_personne = elements.item(0).innerHTML;
                 var name_diplome = elements.item(3).innerHTML;
                 var idIdentity = 0, idDiplome = 0;
@@ -356,7 +332,6 @@
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
                 document.querySelector("#fil2").value = idDiplome
                 document.querySelector("#email2").value = personnes[idIdentity].identity.email
->>>>>>> 7293e14236425f69e08d7fefb1270061ca747ab7
                 $( "#modif" ).modal( "show" );
             });
 
