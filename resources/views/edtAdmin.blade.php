@@ -7,6 +7,8 @@
 <style>
     .custom-select {border: 1px solid blue; color: blue}
     .custom-select:focus {color: blue}
+    td, th {border: 1px solid black;}
+    table {border-collapse : collapse;}
 </style>
 @endsection
 @section('content')
