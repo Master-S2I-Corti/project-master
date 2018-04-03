@@ -21,7 +21,6 @@ Route::middleware(['roles:etudiant'])->group(function () {
     Route::get('/notes', 'NotesController@index');
     Route::get('/etudiant/edt', 'EDTController@etudiant');
     Route::get('/annuaire/professeur', 'AnnuaireController@index');
-    Route::get('/annuaire/etudiant', 'AnnuaireController@index');
     Route::get('/annuaire', 'AnnuaireController@index');
 });
 
@@ -35,13 +34,16 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
-    Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
     Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
-    Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
+    Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
     Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
+
     Route::post('annuaire/professeurs/updateProf','ListeProfController@update');
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
+    Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
+    Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
+
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -54,18 +56,11 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 });
 
 Route::get('profil','ProfilController@index');
-Route::get('annuaire/professeurs','ListeProfController@index');
 Route::get('annuaire/etudiants','ListeEtudiantController@index');
-Route::post('updateProfil','ProfilController@update');
-
+Route::get('annuaire/professeurs','ListeProfController@index');
 
 Route::post('listeProf/search','ListeProfController@search');
-Route::post('listeEtudiant/search','ListeEtudiantController@search');
-
-
-
-
-
+Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
 
 
 Auth::routes();

@@ -18,7 +18,6 @@ INSERT INTO `Personne` (`id`, `login`, `password`, `nom`, `prenom`, `tel`, `emai
   (2, 'admin', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rwVdvEgmC6jvkA5ku7DiRXC7GmuPOwSZ6J4tfZZVFT8OLoau1n8cQa05zMAl', '2018-01-28 15:01:07', '2018-01-28 15:01:07', 1, NULL, NULL),
   (3, 'ens', '$2y$10$YUV3bcd.JwBk/ci29kjXhucPfeQV1NC48GSdRE0xbk8e5LG1FWWCW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-01-28 16:03:17', '2018-01-28 16:03:17', 0, NULL, NULL);
 
-
 INSERT INTO `Enseignant` (`code_professeur`, `id`) VALUES
 (1, 3);
 
@@ -29,8 +28,15 @@ INSERT INTO `Etudiant` (`code_etudiant`, `id_annee`, `id`) VALUES
 UPDATE Personne SET code_etudiant = 1 WHERE id = 1;
 UPDATE Personne SET code_professeur = 1 WHERE id = 3;
 
-INSERT INTO `responsabilite` (`id_reponsabilite`, `libellle`, `heureReducable`) VALUES
-(1, 'Presidence', 192),(2, 'Vice Presidence', null),(3, 'Directeur Laboratoire', 96),(4,'Doyen', 96),(5,'Responsable Filiere', 12);
+INSERT INTO `Enseignant` (`code_professeur`, `id`) VALUES
+(1, 3);
+
+INSERT INTO `Etudiant` (`code_etudiant`, `id_annee`, `id`) VALUES
+(1, NULL, 1);
+
+
+UPDATE Personne SET code_etudiant = 1 WHERE id = 1;
+UPDATE Personne SET code_professeur = 1 WHERE id = 3;
 
 INSERT INTO UFR (libelle) VALUE ('Science et technique');
 INSERT INTO Departement (libelle, id_departement) VALUE  ('Informatique', 1);
@@ -46,3 +52,4 @@ INSERT INTO Annee (libelle, id_diplome) VALUE ('3eme', 2);
 COMMIT ;
 
 SET foreign_key_checks = 1;
+

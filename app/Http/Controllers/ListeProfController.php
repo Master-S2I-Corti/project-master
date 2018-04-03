@@ -46,10 +46,12 @@ class ListeProfController extends Controller
             ['naissance', '=', $request->naissance],
         ])->first();
 
+
         $enseignant = Enseignant::firstOrCreate([
             'id'=>$personne->id,
             'type'=>$request->fonction
         ]);
+
         $enseignant = $enseignant->where('id', $personne->id)->first();
         $personne->update(['code_professeur' =>$enseignant->code_professeur]);
         if ( $request->Responsabilie != 0)
@@ -65,7 +67,8 @@ class ListeProfController extends Controller
 
     }
 
-    //Enregistrement de la modification du prof
+
+    //Enregistrement de la modification du prof 
     public function update( Request $request)
     {
         $personne = Personne::findOrFail($request->id);

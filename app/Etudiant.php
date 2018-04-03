@@ -22,6 +22,7 @@ class Etudiant extends Personne
         return $this->belongsTo('App\Personne','id');
     }
 
+    
     public function annee()
     {
         return $this->hasMany('App\Annee','id_annee','id_annee');

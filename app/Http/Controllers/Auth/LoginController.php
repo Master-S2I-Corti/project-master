@@ -30,7 +30,11 @@ class LoginController extends Controller
         $this->validate($request, [
             $this->username() => 'required|string',
             'password' => 'required|string',
+<<<<<<< HEAD
             'g-recaptcha-response' => 'required|recaptcha',
+=======
+            //'g-recaptcha-response' => 'required|recaptcha',
+>>>>>>> origin/annuaire
         ]);
     }
     

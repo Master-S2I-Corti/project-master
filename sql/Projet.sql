@@ -121,9 +121,14 @@ CREATE TABLE Groupe(
 
 CREATE TABLE Diplome(
         id_diplome     int (11) Auto_increment  NOT NULL ,
+<<<<<<< HEAD
         type           Varchar (255) ,
         maquetteEtat   Int ,
         specialite     Varchar (255) ,
+=======
+        libelle        Varchar (255) ,
+        maquetteEtat   Int ,
+>>>>>>> origin/annuaire
         id_departement Int ,
         PRIMARY KEY (id_diplome )
 )ENGINE=InnoDB;
@@ -389,6 +394,22 @@ CREATE TABLE Note(
 
 #------------------------------------------------------------
 # Table: Responsable_Diplome
+#------------------------------------------------------------
+
+CREATE TABLE Responsable_Diplome(
+        id_diplome      Int NOT NULL ,
+        code_professeur Int NOT NULL ,
+        PRIMARY KEY (id_diplome ,code_professeur )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Responsable_UE
+#------------------------------------------------------------
+
+CREATE TABLE Responsable_UE(
+        id_ue           Varchar (25) NOT NULL ,
+        code_professeur Int NOT NULL ,
 #------------------------------------------------------------
 
 CREATE TABLE Responsable_Diplome(
