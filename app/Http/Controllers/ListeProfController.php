@@ -26,6 +26,8 @@ class ListeProfController extends Controller
 
     //Enregistrement d'un nouveau prof
     public function store(Request $request){
+
+        dd($request->all());
         $personne = Personne::firstOrCreate([
             'login' => $request->nom,
             'nom' => $request->nom,

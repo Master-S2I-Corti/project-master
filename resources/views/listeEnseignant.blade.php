@@ -179,7 +179,7 @@
                                     <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
                                     <p> Responsablité :
                                     <span id='resp'>
-                                        <select class="Responsabilie" name="Responsabilie">
+                                        <select id="slct" class="Responsabilie" name="Responsabilie[]" onchange="getChef()">
                                             <option value="0">Aucune</option>
                                         @if ( isset($listeResponsabilite))
                                             @foreach ( $listeResponsabilite as $respo)
@@ -188,10 +188,10 @@
                                         @endif
                                         </select> 
                                         </span>
+                                        <button id="btnadd" class="add btn btn-primary" type="button">+</button>
                                     </p> 
                                     </div>
                                     <div class="col-md-2">
-
                                     </div>
                                     <div class="col-md-4">
                                         <p> Département :
@@ -253,51 +253,45 @@
 
 @section('script')
     <script>
+    function getChef() {  
+        //recupere les GETELEMTSBYNAME index - 1 le dernier changer si c'ets chef de filliere on crer un nouveau select de classe
+                    if(lastSelect.options[ lastSelect.selectedIndex ].text == "chef filliere"){
+                    console.log("mdr!");
+                }
+        }
         $( function() {
             //TEST
-            $( ".Responsabilie" ).on( "change", function(e) {
-               
-               var tab = ["5454","189"] ;
-                
-               // document.getElementById("resp").appendChild(cln);
-                var newDiv = document.getElementById("resp");
+                //var lastSelect = document.getElementById("slct");
+           /* var newDiv = document.getElementById("resp");
                 var selectList = document.createElement("select"); 
                 var option = "";
-                for(i=0;i<tab.length;i++){
-                    option = document.createElement('option');
-                    option.value=tab[i];
-                    option.text=tab[i];
-                    selectList.add(option);
-                }
-                var values = '';
- 
-               // $('#Responsabilie option').each(function() { values += $(this).text; });
-               var nb=($("#Responsabilie")).length;
-              
-              /* var listeAuteur="";
-                for(var i=0;i<nb;i++)
-                {
-                    listeAuteur= listeAuteur+($("#Responsabilie"))[i].value
-                }*/
 
                 $(".Responsabilie option").each(function()
                 {
-                 console.log($(this).val()); //CHOPPER LE LIBELLE
+                 option = document.createElement('option');
+                option.value=($(this).val());
+                option.text= ($(this).text());
+                selectList.add(option);
                 });
 
-                //console.log(listeAuteur);
-                //var cln = newDiv.cloneNode(true);
-                selectList.class = "Responsabilie2";
-               
+                selectList.class = "Responsabilie";
+                selectList.name = "Responsabilie[]";
                 newDiv.appendChild(selectList);
-                $('#Responsabilie2').append();
+                $('#Responsabilie').append();
+                lastSelect = selectList;*/
 
-                //tableau case responsabilité
-                //var e = document.getElementsByClassName("Responsabilie");
-                //var strUser = e.options[e.selectedIndex].value;
-                //console.log($("#Responsabilie option:selected").val());
-                //var currentDiv = document.getElementById("resp");
-                //document.body.insertAfter(newDiv, currentDiv);
+            $( "#btnadd" ).on( "click", function(e) {
+                
+                    var newDiv =  document.getElementById("resp");
+                    var line = "<div> <select class='Responsabilie' name='Responsabilie[]' onchange='getChef()'>";
+                   // $(newDiv).append("<div> <select class='Responsabilie' name='Responsabilie[]'>");
+                    $("#slct option").each(function()
+                    {
+                        //$(newDiv).append("<option value=''></option>");//"<option value='"+$(this).val()+"'>"+$(this).text()+"</option>"
+                        line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
+                    });
+                    line += "</select></div>";
+                    $(newDiv).append(line);
             });
 
             $( ".opener" ).on( "click", function(e) {
