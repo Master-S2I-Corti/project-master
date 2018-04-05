@@ -24,6 +24,22 @@ class Enseignant extends Personne
 
     public function departement()
     {
-        return $this->hasMany('App\Departement','id_departement','id_departement');
+        return $this->belongsTo('App\Departement','id_departement','id_departement');
     }
+
+    public function status()
+    {
+        return $this->belongsTo('App\status','id_status','id_status');
+    }
+
+    public function Est_Responsable()
+    {
+        return $this->hasMany('App\Est_Responsable','code_professeur','code_professeur');
+    }
+
+    public function Responsable_diplome()
+    {
+        return $this->hasMany('App\Responsable_diplome','code_professeur','code_professeur');
+    }
+
 }

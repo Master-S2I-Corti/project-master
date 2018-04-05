@@ -41,4 +41,14 @@ class Personne extends Authenticatable
         return $this->isEtudiant() ? "/etudiant" : "/enseignant";
     }
 
+    public function Etudiant()
+    {
+            return $this->belongsTo('App\Etudiant','code_etudiant','code_etudiant');
+    }
+    
+    public function Enseignant()
+    {  
+        return $this->belongsTo('App\Enseignant','code_professeur','code_professeur');
+    }
+
 }

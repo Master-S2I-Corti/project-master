@@ -13,33 +13,33 @@ class ProfilController extends Controller
 {
 
     public function index() {
+
         $listeDepartement = Departement::get();
-       // $log=Personne::where('id', Auth::user()->getId())->first(); 
         $log = Auth::user();
-        //dd($log->isEtudiant());
         if ( $log->isEtudiant())
         {
             $id= $log->code_etudiant;
-            $myProfil =  Etudiant::with('identity','annee')->where([
+            $myProfil = Personne::with('Etudiant')->where([
                 ['code_etudiant', '=',$id]
             ])->first();
         }
         else if ( $log->isEnseignant())
         {
             $id= $log->code_professeur;
-            $myProfil =  Enseignant::with('identity','departement')->where([
+            $myProfil =  Personne::with('Enseignant')->where([
                 ['code_professeur', '=',$id]
             ])->first();
-            //dd($myProfil);
         }
         else
         {
-            //Faire l'affichage de  l'admin ou autre
-            $myProfil = "identity = "+$log ;    dd($myProfil);
+            $id=$log->id;
+            $myProfil = Personne::where([
+                ['id', '=',$id]
+            ])->first();  
         }
-   
 
-       // $enseignant = Enseignant::where('id',$log['id'])->first();
+        //dd($myProfil->Enseignant->Est_Responsable[1]->Responsabilite[0]->id_reponsabilite);
+
         return view("profil",compact('myProfil','listeDepartement'));
     }
 

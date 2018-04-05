@@ -4,7 +4,7 @@
 
     <div id="dimGest" class="w-75 m-auto py-5">
         <div class="d-flex justify-content-between mb-5">
-            <h2>{{$myProfil->identity->nom }} {{$myProfil->identity->prenom }}</h2><br>
+            <h2>{{$myProfil->nom }} {{$myProfil->prenom }}</h2><br>
             
         </div>
         <div class="row">
@@ -13,13 +13,13 @@
             </div>
             <div class="col-md-6">
                     <h3><b><u>Mes Informations Personnels</u></b></h3>
-                    <h5> Mail Univ : {{ $myProfil->identity->email }} </h5>
-                    <h5> Mail Perso :  {{ $myProfil->identity->email_sos }} </h5>
-                    <h5> Telephone : {{$myProfil->identity->tel }} </h5>
-                    <h5> Adresse : {{ $myProfil->identity->adresse }}, {{$myProfil->identity->code_postal }} {{ $myProfil->identity->ville }} </h5>
-                    <h5> Date de naissance : {{ $myProfil->identity->naissance }}</h5>
-                    @if($myProfil->identity->isEtudiant())
-                    <h5>INE : default </h5>
+                    <h5> Mail Univ : {{ $myProfil->email }} </h5>
+                    <h5> Mail Perso :  {{ $myProfil->email_sos }} </h5>
+                    <h5> Telephone : {{$myProfil->tel }} </h5>
+                    <h5> Adresse : {{ $myProfil->adresse }}, {{$myProfil->code_postal }} {{ $myProfil->ville }} </h5>
+                    <h5> Date de naissance : {{ $myProfil->naissance }}</h5>
+                    @if($myProfil->isEtudiant())
+                    <h5>INE : {{ $myProfil->Etudiant->INE }} </h5>
                     @endif
                     </br>
             </div>
@@ -33,31 +33,41 @@
         </div>
         <div class="row">
             <div class="col-4">
-                @if($myProfil->identity->isEtudiant())
+                @if($myProfil->isEtudiant())
                     <h5><b><u>Diplômes étudiés :</u></b></h5>
-                    <h5>{{$myProfil->annee[0]->libelle."  ".$myProfil->annee[0]->diplome->libelle }}</h5>
+                    <h5>{{$myProfil->Etudiant->annee[0]->libelle."  ".$myProfil->Etudiant->annee[0]->diplome->libelle }}</h5>
+                @endif 
+                @if($myProfil->isEnseignant())
+                    <h5><b><u>Vos Responsabiliés : </u></b></h5>
+                    @for ($i = 1; $i<= sizeof($myProfil->Enseignant->Est_Responsable);$i++ )
+                        <h5>- {{$myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle }} </h5>
+                        @if($myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle == "Responsable de Filiere")
+                            @for ($j = 1; $j<= sizeof($myProfil->Enseignant->Responsable_diplome);$j++ )
+                                <h6>- {{$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->libelle }} </h6>
+                            @endfor
+                        @endif
+                    @endfor
                 @endif
-                @if($myProfil->identity->isEnseignant())
-                    <h5><b><u>Votre Bureau :</u></b></h5>
-                    <h5> département : {{ $myProfil->departement[0]->libelle }} </h5>
-                    <h5> Batiment : {{ $myProfil->batiment }} </h5>
-                    <h5> Etage : {{ $myProfil->etage }} </h5>
-                @endif  
             </div>
             <div class="col-4">
-                @if($myProfil->identity->isEtudiant())
+                @if($myProfil->isEtudiant())
                     <h5><b><u>Diplômes obtenus : </u></b></h5>
                 @endif
-                @if($myProfil->identity->isEnseignant())
+                @if($myProfil->isEnseignant())
                     <h5><b><u>Informations : </u></b></h5>
-                    <h5> Type enseignant : {{ $myProfil->type }} </h5>
-                    <h5> Heures totales : {{ $myProfil->heure }} </h5>
+                    <h5> Type enseignant : {{ $myProfil->Enseignant->Status->type }} </h5>
+                    <h5> Heures totales : {{ $myProfil->Enseignant->Status->volumeHoraire }} </h5>
+                    <h5> Heures Effectuer : {{ $myProfil->Enseignant->heure }} </h5>
                 @endif
             </div>
             <div class="col-4">
-                @if($myProfil->identity->isEnseignant())
-                    <h5><b><u>Vos Responsabiliés : </u></b></h5>
-                @endif
+                @if($myProfil->isEnseignant())
+                    <h5><b><u>Votre Bureau :</u></b></h5>
+                    <h5> Département : {{ $myProfil->Enseignant->departement->libelle }} </h5>
+                    <h5> UFR : {{ $myProfil->Enseignant->departement->Ufr->libelle }} </h5>
+                    <h5> Batiment : {{ $myProfil->Enseignant->batiment }} </h5>
+                    <h5> Etage : {{ $myProfil->Enseignant->etage }} </h5>
+                @endif 
             </div>
         </div>
  
@@ -77,13 +87,13 @@
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col">
-                                    <p>Nouveau mot de passe: <input type="password" name="psw"/> </p>
+                                    <p>Nouveau mot de passe : <input class="form-control form-control-sm" type="password" name="psw" required/> </p>
                                 </div>
-                            <div class="row">
-                                <div class="col">
+                                </div>
+                                <div class="modal-footer">
                                     <button class="btn btn-primary"> Modifier</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                                 </div>
-                            </div>
                         </form>
                     </div>
             </div>
@@ -108,20 +118,20 @@
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value="{{ $myProfil->identity->adresse }}" required/> </p>
-                                    <p>code postal: <input class="form-control form-control-sm" type="text" name="code_postal" value="{{ $myProfil->identity->code_postal }}" required/> </p>
-                                    <p>ville : <input class="form-control form-control-sm" type="text" name="ville" value="{{ $myProfil->identity->ville }}" required/> </p>
+                                    <p>Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value="{{ $myProfil->adresse }}" required/> </p>
+                                    <p>code postal: <input class="form-control form-control-sm" type="text" name="code_postal" value="{{ $myProfil->code_postal }}" required/> </p>
+                                    <p>ville : <input class="form-control form-control-sm" type="text" name="ville" value="{{ $myProfil->ville }}" required/> </p>
                                 </div>
                                 <div class="col-md-1">
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Mail Perso : <input class="form-control form-control-sm" type="text" name="email_sos" value="{{ $myProfil->identity->email_sos }}"required/> </p>
-                                    <p>Telephone : <input class="form-control form-control-sm" type="text" name="tel" value="{{ $myProfil->identity->tel }}"required/> </p>
+                                    <p>Mail Perso : <input class="form-control form-control-sm" type="text" name="email_sos" value="{{ $myProfil->email_sos }}"required/> </p>
+                                    <p>Telephone : <input class="form-control form-control-sm" type="text" name="tel" value="{{ $myProfil->tel }}"required/> </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    @if($myProfil->identity->isEnseignant())
+                                    @if($myProfil->isEnseignant())
                                     <p>Département :
                                         <select class="form-control form-control-sm" name="departement">
                                         @if ( isset($listeDepartement))
@@ -131,8 +141,8 @@
                                         @endif
                                         </select> 
                                     </p> 
-                                    <p>Batiment : <input class="form-control form-control-sm" type="text" name="batiment" value="{{  $myProfil->batiment }}"/> </p>
-                                    <p>Etage : <input class="form-control form-control-sm" type="text" name="etage" value="{{  $myProfil->etage }}"/> </p>
+                                    <p>Batiment : <input class="form-control form-control-sm" type="text" name="batiment" value="{{  $myProfil->Enseignant->batiment }}"/> </p>
+                                    <p>Etage : <input class="form-control form-control-sm" type="text" name="etage" value="{{  $myProfil->Enseignant->etage }}"/> </p>
                                     @endif
                                 </div>
                                 <div class="col-md-1">
@@ -157,11 +167,11 @@
     <script>
         $( function() {
             $( ".modifier" ).on( "click", function(e) {
-                if ($myProfil->identity->isEnseignant())
-                {
-                    document.querySelector("#fil2").value = $myProfil->id_departement
+                if ($myProfil->identity->isEnseignant()){
+                    document.querySelector("#fil2").value = $myProfil->id_departement;
                 }
                 $( "#modif" ).modal( "show" );
             });
+        });
     </script>
 @endsection
