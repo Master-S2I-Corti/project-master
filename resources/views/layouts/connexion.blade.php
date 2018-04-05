@@ -48,7 +48,7 @@
                             <label for="captcha" class="form-control-label">Captcha</label>
                             <div>
                                 {!! Recaptcha::render()!!}
-                                
+
                                 @if ($errors->has('g-recaptcha-response'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('g-recaptcha-response') }}</strong>

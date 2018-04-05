@@ -4,12 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UE extends Model
+class Ue extends Model
 {
-    protected $table = 'UE';
+    protected $table = 'Ue';
     public $timestamps = false;
-
-
-    
 }
-
