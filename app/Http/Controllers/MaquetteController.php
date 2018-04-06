@@ -177,7 +177,7 @@ chaque matiere contient les donnée des matiere
 //	print_r($data);
 
 	
-		return view('maquette/creation')->with('data',$data);
+		return view('maquette/card')->with('data',$data);
 	}
 	
 	
@@ -389,7 +389,7 @@ chaque matiere contient les donnée des matiere
 }
 public function test()
 {
-	return view('maquette/boot');
+	return view('maquette/example');
 	//return view('maquette/affiche')
 }
 }

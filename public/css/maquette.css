@@ -20,6 +20,10 @@ table,tr,td
 td{
 	white-space:nowrap
 }
+.btn{
+    margin: 0 10px;
+    height: 50px;
+}
 input[type=number]
 {
 	width: 100%;
@@ -51,8 +55,14 @@ table button
 
 textarea { resize:both; }
 	
-	.description{
+	/*.description{
 		height:79px;
 		width: 150px; 
 		resize:none;
-	}
+	}*/
+.fa-plus{
+	color:green;
+}
+.fa-trash{
+	color:red;
+}

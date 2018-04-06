@@ -54,8 +54,8 @@ foreach (json_decode(stripslashes($data["archive"])) as $annee) {
   Launch demo modal
 </button>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg "role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -64,10 +64,96 @@ foreach (json_decode(stripslashes($data["archive"])) as $annee) {
         </button>
       </div>
       <div class="modal-body">
-        <textarea>TEST</textarea>
+	  test
+ <form class="form-horizontal">
+            <fieldset>
+            
+            <!-- Form Name -->
+            <legend>Ajouter une UE</legend>
+            
+            <!-- input Designation-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="textinput">Désignation</label>  
+              <div class="col-md-4">
+              <input id="textinput" name="textinput" placeholder="Désignation" required="" class="form-control input-md" type="text"> 
+              </div>
+            </div>
+            
+            <!-- TextAera Description -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="textarea">Description</label>
+              <div class="col-md-4">                     
+                <textarea class="form-control" id="textarea" required="" name="textarea">Description</textarea>
+              </div>
+            </div>
+            
+            <!-- Select Responsable -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="selectbasic">Responsable</label>
+              <div class="col-md-4">
+                <select id="selectbasic" name="selectbasic" class="form-control">
+                </select>
+              </div>
+            </div>
+            
+            <!-- Input Coeff-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="textinput">Coefficiant</label>  
+              <div class="col-md-4">
+              <input id="coeff" name="textinput" placeholder="Coeff" class="form-control input-md" required="" type="number">
+                
+              </div>
+            </div>
+            
+            <!-- Input ECTS-->
+            <div class="form-group">
+                <label class=" col-md-4 control-label" for="textinput">ECTS</label>  
+                <div class="col-md-4">
+                <input id="textinput" name="textinput" placeholder="ECTS" class="form-control input-md" required="" type="number">
+                  
+                </div>
+              </div>
+            <!-- Création de Sous-UE ? -->
+            <div class="form-group">
+              <label class=" control-label" for="radios">Création de sous-ue ?</label>
+              <div class=""> 
+                <label class="radio-inline" for="radios-0">
+                  <input name="radios" id="radios-0" value="1" checked="checked" type="radio">
+                  oui
+                </label> 
+                <label class="radio-inline" for="radios-1">
+                  <input name="radios" id="radios-1" value="2" type="radio">
+                  non
+                </label>
+              </div>
+            </div>
+            
+            <!-- Input Nb Sous-UE -->
+            <div class="form-group">
+              <label class=" control-label" for="textinput">Nombre de sous-ue(s)</label>  
+              <div class="">
+              <input id="textinput" name="textinput" placeholder="nombre" class="form-control input-md" type="text">
+                
+              </div>
+            </div>
+            
+            
+            
+            <!-- Buttons  -->
+            <div class="form-group">
+              <div class="col-md-8">
+                <button id="button0id" name="button0id" class="btn btn-danger">Annuler</button>
+                <button id="button1id" name="button1id" class="btn btn-primary">Valider et en créer une autre</button>
+                <button id="button2id" name="button2id" class="btn btn-success">Terminer</button>
+              </div>
+            </div>
+            
+            </fieldset>
+            </form>
+		
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       
       
       </div>
     </div>

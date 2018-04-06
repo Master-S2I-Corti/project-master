@@ -373,11 +373,12 @@ function newue(prof,semestre) {// cree une nouvelle ue
 	
     var cell = row.insertCell(-1);
 	
-	var c="<div ><button onclick='newmat(this.parentElement.parentElement.parentElement)'>Ajouter une matiere</button></div>";
-	
-	c=c+"<div><input type='text' class='nomUe' value='nom de l&#39ue'/></div>";
 
-   c=c+"<div><button onclick='delue(this.parentElement.parentElement.parentElement)'>Suprimer l'UE</button></div>";
+	
+	c="<div><input type='text' class='nomUe ' value='nom de l&#39ue'/>";
+	c=c+"<i onclick='newmat(this.parentElement.parentElement.parentElement)'class='fa fa-plus ' style='color:green'></i>";
+
+   c=c+"<i onclick='delue(this.parentElement.parentElement.parentElement)' class='fa fa-trash' style='color:red' ></i></div>";
  
   var nsem=0;
  
