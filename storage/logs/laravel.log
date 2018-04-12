@@ -1707,3 +1707,147 @@
 #64 /home/martinet/Web/project-master/public/index.php(57): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #65 {main}
 "} 
+[2018-04-12 18:13:35] local.ERROR: Call to undefined method Illuminate\Foundation\Application::share() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Illuminate\\Foundation\\Application::share() at /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php:127)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php(36): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->registerDbExportHandler()
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(586): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->register()
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register(Object(Nwidart\\DbExporter\\DbExportHandlerServiceProvider))
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(561): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(213): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(296): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(119): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2018-04-12 18:14:08] local.ERROR: Call to undefined method Illuminate\Foundation\Application::share() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Illuminate\\Foundation\\Application::share() at /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php:127)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php(36): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->registerDbExportHandler()
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(586): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->register()
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register(Object(Nwidart\\DbExporter\\DbExportHandlerServiceProvider))
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(561): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(213): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(296): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(119): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2018-04-12 18:16:06] local.ERROR: Call to undefined method Illuminate\Foundation\Application::share() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Illuminate\\Foundation\\Application::share() at /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php:127)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/nwidart/db-exporter/src/Nwidart/DbExporter/DbExportHandlerServiceProvider.php(36): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->registerDbExportHandler()
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(586): Nwidart\\DbExporter\\DbExportHandlerServiceProvider->register()
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register(Object(Nwidart\\DbExporter\\DbExportHandlerServiceProvider))
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(561): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(213): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(296): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(119): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2018-04-12 18:21:43] local.ERROR: Method Elimuswift\DbExporter\Commands\MigrationsGeneratorCommand::handle() does not exist {"exception":"[object] (ReflectionException(code: 0): Method Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand::handle() does not exist at /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:135)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(135): ReflectionMethod->__construct(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), 'handle')
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(115): Illuminate\\Container\\BoundMethod::getCallReflector(Array)
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(29): Illuminate\\Container\\BoundMethod::getMethodDependencies(Object(Illuminate\\Foundation\\Application), Array, Array)
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(87): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(31): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/Container.php(549): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#7 /Users/maxence/Server/project-master/vendor/symfony/console/Command/Command.php(252): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#8 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#9 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(946): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(248): Symfony\\Component\\Console\\Application->doRunCommand(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 {main}
+"} 
+[2018-04-12 18:22:58] local.ERROR: Method Elimuswift\DbExporter\Commands\MigrationsGeneratorCommand::handle() does not exist {"exception":"[object] (ReflectionException(code: 0): Method Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand::handle() does not exist at /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:135)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(135): ReflectionMethod->__construct(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), 'handle')
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(115): Illuminate\\Container\\BoundMethod::getCallReflector(Array)
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(29): Illuminate\\Container\\BoundMethod::getMethodDependencies(Object(Illuminate\\Foundation\\Application), Array, Array)
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(87): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(31): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/Container.php(549): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#7 /Users/maxence/Server/project-master/vendor/symfony/console/Command/Command.php(252): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#8 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#9 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(946): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(248): Symfony\\Component\\Console\\Application->doRunCommand(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 {main}
+"} 
+[2018-04-12 18:23:03] local.ERROR: Command "db-exporter" is not defined.
+
+Did you mean one of these?
+    db-exporter:backup
+    db-exporter:migrations
+    db-exporter:seeds {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"db-exporter\" is not defined.
+
+Did you mean one of these?
+    db-exporter:backup
+    db-exporter:migrations
+    db-exporter:seeds at /Users/maxence/Server/project-master/vendor/symfony/console/Application.php:618)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(229): Symfony\\Component\\Console\\Application->find('db-exporter')
+#1 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2018-04-12 18:23:23] local.ERROR: Method Elimuswift\DbExporter\Commands\MigrationsGeneratorCommand::handle() does not exist {"exception":"[object] (ReflectionException(code: 0): Method Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand::handle() does not exist at /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:135)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(135): ReflectionMethod->__construct(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), 'handle')
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(115): Illuminate\\Container\\BoundMethod::getCallReflector(Array)
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(29): Illuminate\\Container\\BoundMethod::getMethodDependencies(Object(Illuminate\\Foundation\\Application), Array, Array)
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(87): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(31): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/Container.php(549): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#7 /Users/maxence/Server/project-master/vendor/symfony/console/Command/Command.php(252): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#8 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#9 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(946): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(248): Symfony\\Component\\Console\\Application->doRunCommand(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 {main}
+"} 
+[2018-04-12 18:24:36] local.ERROR: There are no commands defined in the "db-exporter" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): There are no commands defined in the \"db-exporter\" namespace. at /Users/maxence/Server/project-master/vendor/symfony/console/Application.php:564)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(604): Symfony\\Component\\Console\\Application->findNamespace('db-exporter')
+#1 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(229): Symfony\\Component\\Console\\Application->find('db-exporter:mig...')
+#2 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 
+[2018-04-12 18:24:41] local.ERROR: Method Elimuswift\DbExporter\Commands\MigrationsGeneratorCommand::handle() does not exist {"exception":"[object] (ReflectionException(code: 0): Method Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand::handle() does not exist at /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:135)
+[stacktrace]
+#0 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(135): ReflectionMethod->__construct(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), 'handle')
+#1 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(115): Illuminate\\Container\\BoundMethod::getCallReflector(Array)
+#2 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(29): Illuminate\\Container\\BoundMethod::getMethodDependencies(Object(Illuminate\\Foundation\\Application), Array, Array)
+#3 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(87): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#4 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(31): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#5 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Container/Container.php(549): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#6 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#7 /Users/maxence/Server/project-master/vendor/symfony/console/Command/Command.php(252): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#8 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#9 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(946): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(248): Symfony\\Component\\Console\\Application->doRunCommand(Object(Elimuswift\\DbExporter\\Commands\\MigrationsGeneratorCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 /Users/maxence/Server/project-master/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/maxence/Server/project-master/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/maxence/Server/project-master/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 {main}
+"} 
