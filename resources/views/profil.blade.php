@@ -26,16 +26,14 @@
             <div class="col-md-2">
                 <p>
                     <button class="add btn btn-primary" data-toggle="modal" data-target="#modifi" >Modifier le profil<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                <br/><br/>
-                    <span class="modifier"><button class="add btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Changer de mot de passe<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button></span>
-                </p>
+                </P>
             </div>
         </div>
         <div class="row">
             <div class="col-4">
                 @if($myProfil->isEtudiant())
                     <h5><b><u>Diplômes étudiés :</u></b></h5>
-                    <h5>{{$myProfil->Etudiant->annee[0]->libelle."  ".$myProfil->Etudiant->annee[0]->diplome->libelle }}</h5>
+                    <h5>{{$myProfil->Etudiant->annee[0]->diplome->niveau."  ".$myProfil->Etudiant->annee[0]->libelle[0]."  ".$myProfil->Etudiant->annee[0]->diplome->libelle }}</h5>
                 @endif 
                 @if($myProfil->isEnseignant())
                     <h5><b><u>Vos Responsabiliés : </u></b></h5>
@@ -43,7 +41,7 @@
                         <h5>- {{$myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle }} </h5>
                         @if($myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle == "Responsable de Filiere")
                             @for ($j = 1; $j<= sizeof($myProfil->Enseignant->Responsable_diplome);$j++ )
-                                <h6>- {{$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->libelle }} </h6>
+                                <h6>- {{$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->niveau."  ".$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->libelle }} </h6>
                             @endfor
                         @endif
                     @endfor

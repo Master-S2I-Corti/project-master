@@ -35,25 +35,24 @@
                                 <div class="col-md">
                                     <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
                                 </div>
-                                <div class="col-md">
-                                <label>Filière : </label>
-                                <input type="checkbox" id="DUT" name="Choix6" value="DUT">
+                                <div class="col-md-2">
+                                <label>Filière : </label></br>
+                                        <input type="checkbox" name="filiere[]" value="DUT">
                                     <label for="DUT">DUT</label>
-                                    <input type="checkbox" id="l1" name="Choix1" value="LICENCE 1">
+                                        <input type="checkbox"name="filiere[]" value="LICENCE 1">
                                     <label for="LICENCE 1">L1</label>
-                                    <input type="checkbox" id="l2" name="Choix2" value="LICENCE 2">
+                                        <input type="checkbox"  name="filiere[]" value="LICENCE 2">
                                     <label for="LICENCE 2">L2</label>
-                                    <input type="checkbox" id="l3" name="Choix3" value="LICENCE 3">
+                                        <input type="checkbox"  name="filiere[]" value="LICENCE 3">
                                     <label for="LICENCE 3">L3</label></br>
-                                    <input type="checkbox" id="M1" name="Choix4" value="MASTER 1">
+                                        <input type="checkbox"  name="filiere[]" value="MASTER 1">
                                     <label for="MASTER 1">M1</label>
-                                    <input type="checkbox" id="M2" name="Choix5" value="MASTER 2">
-                                    <label for="MASTER 2">M2</label>
-                                    
-                                    <input type="checkbox" id="Doc" name="Choix7" value="DOCTORAT">
+                                        <input type="checkbox" name="filiere[]" value="MASTER 2">
+                                    <label for="MASTER 2">M2</label>    
+                                        <input type="checkbox" name="filiere[]" value="DOCTORAT">
                                     <label for="Doc">DOCTORAT</label>
                                 </div>
-                                <div class="col-md">
+                                <div class="col-md-2">
                                 <p>Département :
                                         <select class="form-control form-control-sm" name="departement">
                                         @if ( isset($listeDepartement))
@@ -94,7 +93,7 @@
                             <th>{{$etudiant->id}}</th>
                             <th  class="opener">{{$etudiant->identity->nom}}</th>
                             <th  class="opener">{{$etudiant->identity->prenom}}</th>
-                            <th  class="opener">{{$etudiant->annee[0]->libelle."  ".$etudiant->annee[0]->diplome->libelle}}</th>
+                            <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
                             <th class="del"><i class="fa fa-trash fa-2x"></i></th>

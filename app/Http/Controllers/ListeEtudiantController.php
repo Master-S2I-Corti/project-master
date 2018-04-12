@@ -32,7 +32,7 @@ class ListeEtudiantController extends Controller
                 {
                             $listDiplome[$j] = [
                                                     'id'=>$annee[$j]->id_annee,
-                                                    'libelle'=>$annee[$j]->libelle.'  '.$value->libelle
+                                                    'libelle'=>$value->niveau.'  '.$annee[$j]->libelle[0].'  '.$value->libelle
                                                 ];
                 }
             }
@@ -170,9 +170,105 @@ class ListeEtudiantController extends Controller
 
     public function search(Request $request)
     {
-        dd($request->all());
-        
+       //dd($request->all());
+       $listeDepartement = Departement::get();
+       $annee = Annee::get();
+       $diplome = Diplome::get();
+
+       for ($i = 1 ; $i <= count($annee) ; $i++ )
+       {
+           foreach($diplome as &$value)
+           {
+               $j = $i -1;
+               if($annee[$j]->id_diplome == $value->id_diplome)
+               {
+                           $listDiplome[$j] = [
+                                                   'id'=>$annee[$j]->id_annee,
+                                                   'libelle'=>$value->niveau.'  '.$annee[$j]->libelle[0].'  '.$value->libelle
+                                               ];
+               }
+           }
+       }
+
+       $j=0;
+       if (sizeof($request->filiere) != null )
+       {
+        for ($i = 1 ; $i <= sizeof($request->filiere); $i++ )
+        {
+            $test[$i-1] = explode(' ',$request->filiere[$i-1]);
+            if ( sizeof($test[$i-1]) == 2 )
+            {
+                 $filiere[$j] = $test[$i-1][0];
+                 if ( $test[$i-1][1] == "1" )
+                 {
+                     $annees[$j] = $test[$i-1][1]."ere";
+                 }
+                 else
+                 {
+                     $annees[$j] = $test[$i-1][1]."eme";
+                 }
+                 
+                 $j++;
+            }
+            else if (sizeof($test[$i-1]) != 2)
+            {
+                 $filiere[$j] = $test[$i-1][0];
+                 $annees[$j] = 0;
+                 $j++;
+            }
+        }
+       }
+       else
+       {
+           $annees = null;
+           $filiere = null;
+       }
        
-        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome','contenuEtudiant'));
+       
+        if ( ($request->nom != null || $request->prenom != null ) && $annees != null && $filiere != null )
+        {
+            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('annee','Etudiant.id_annee','=','annee.id_annee')
+                                        ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->whereIn('annee.libelle',$annees)
+                                        ->whereIn('diplome.niveau',$filiere)
+                                        ->where('Personne.nom','=',$request->nom)
+                                        ->orWhere('Personne.prenom','=',$request->prenom)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
+        }
+        else if (($request->nom != null || $request->prenom != null ))
+        {
+            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->where('Personne.nom','=',$request->nom)
+                                        ->orWhere('Personne.prenom','=',$request->prenom)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
+        }
+        else if ( $request->nom == null && $request->prenom == null && $annees != null && $filiere != null)
+        {
+            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('annee','Etudiant.id_annee','=','annee.id_annee')
+                                        ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->whereIn('annee.libelle',$annees)
+                                        ->whereIn('diplome.niveau',$filiere)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
+        }
+        else
+        {
+            return redirect()->action('ListeEtudiantController@index');
+        }
+
+       return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 }
