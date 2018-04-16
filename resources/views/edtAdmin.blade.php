@@ -72,7 +72,7 @@ use App\Http\Controllers\EDTController;
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <a href="#" data-toggle="modal" data-target="#ajout" class="btn btn-outline-primary">Ajouter un cours</a>
+                    <a href="#" data-toggle="modal" id="btAjout" data-target="#ajout" class="btn btn-outline-primary">Ajouter un cours</a>
                 </div>
             </div>
         </div>
