@@ -7,7 +7,7 @@ use App\Http\Controllers\EDTController;
 
 @section('css')
 <style>
-    td, th {border: 1px solid rgba(0, 0, 0, 0.52);}
+    td, th {border: 1px solid rgba(0, 0, 0, 0.4);}
     table {border-collapse : collapse;}
     .heure, .minute {
         text-align: end;
@@ -21,17 +21,25 @@ use App\Http\Controllers\EDTController;
     .tr-inner {
         border-bottom: 0px;
     }
+    .tr-cours {
+        background: #1e7e34;
+        color:white;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
     tr:first-child td {
-        border: 1px solid rgba(0, 0, 0, 0.52);
+        border: 1px solid rgba(0, 0, 0, 0.4);
         padding:.7rem;
 
     }
     tr:last-child td {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.52);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
     .table td {
         padding:.2rem;
     }
+
 
 </style>
 @endsection
@@ -85,19 +93,23 @@ use App\Http\Controllers\EDTController;
                         @for ($i = 0; $i < 7; $i++)
                             <tr>
                                 <td style="text-align: end">{{strftime("%a %d %b", strtotime($date . ' +'.$i.' day'))}}</td>
+                                <td class="tr-inner"></td>
                                 @for ($j = 8; $j < 22; $j++)
-                                        @for ($k = 0; $k < 4; $k++)
+                                    @for ($k = 0; $k < 4; $k++)
 
                                             <?php
                                                 $seance = EDTController::getHoraire($seances, strtotime($date . ' +'.$i.' day'), $j, 15*$k);
                                                 if($seance != null) {
                                                     $ecart = $seance->getEcart();
-                                                    echo "<td style='background:red' colspan='".$ecart."' class=\"tr-inner\" id=\"table{{$i}}{{$j}}\">".$seance->matiere->libelle."</td>";
+                                                    echo "<td colspan='".$ecart."' class=\"tr-inner tr-cours\" id=\"table{{$i}}{{$j}}\">".$seance->matiere->libelle."</td>";
                                                     $k = $k+$ecart;
-
+                                                    $p = ($ecart/4)-1;
+                                                    echo "  ".$p;
+                                                    $j += $p;
                                                 } else {
-                                                    echo "<td class=\"tr-inner\" id=\"table{{$i}}{{$j}}\"></td>";
-
+                                                    if($j != 21 || $k != 3) {
+                                                        echo "<td class=\"tr-inner\" id=\"table{{$i}}{{$j}}\"></td>";
+                                                    }
                                                 }
                                             ?>
                                         @endfor
