@@ -149,6 +149,15 @@
         // or clone.id = ""; if the divs don't need an ID
         original.parentNode.appendChild(clone);
     }
+    
+    document.querySelector("#btAjout").addEventListener("click", function(){
+        document.querySelectorAll("select").forEach(function(select){
+            select.selectedIndex=0;
+        })
+        document.querySelectorAll("input").forEach(function(input){
+            input.value="";
+        })
+    })
 </script>
     
 @endsection
