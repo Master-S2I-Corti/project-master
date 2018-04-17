@@ -12,14 +12,20 @@
 @section('content')
     <div class="w-75 m-auto pt-5">
         <div class="d-flex justify-content-between mb-5">
+            <div class="col-md">
                 <h2>Liste des étudiants</h2>
+            </div>
                 @if(Auth::user()->isAdmin())
-                    <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                    <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <input type="file" name="fichier" accept=".csv"/>
-                        <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                    </form>
+                    <div class="col-md">
+                            <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    </div>
+                    <div class="col-md">
+                            <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="file" name="fichier" accept=".csv"/>
+                                <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                            </form>
+                    </div>
                 @endif
             </div>
 
@@ -96,7 +102,7 @@
                             <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><i class="fa fa-trash fa-2x"></i></th>
+                            <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
                             @endif
                     </tr>
                 
@@ -145,20 +151,20 @@
                     <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input id="id2" type="hidden" name="id" value="" />
                                     <p> Email: <input class="form-control form-control-md" type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
                                 <div class="col-md-2">
                                     
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <!--<p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>-->
                                     <p>Filière :
                                         <select class="form-control form-control-sm" name="filiere" id="fil2">
                                         @if ( isset($listDiplome))
-                                            @foreach ( $listDiplome as $diplome)
-                                                    <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @foreach ( $listDiplome as $value)
+                                                    <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
                                         </select> 
@@ -323,9 +329,10 @@
                     }
                 }
                 diplome.forEach(function (value) {
-                    if(  name_diplome == value['libelle'])
+                    var libelle = value.diplome.niveau+"  "+value.libelle[0]+"  "+value.diplome.libelle;
+                    if(  name_diplome == libelle)
                         {
-                            idDiplome = value['id'];
+                            idDiplome = value.id_annee;
                         }
                 });
                 document.getElementById("id2").value = id_personne

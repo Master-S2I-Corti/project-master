@@ -17,9 +17,8 @@
                     <h5> Mail Perso :  {{ $myProfil->email_sos }} </h5>
                     <h5> Telephone : {{$myProfil->tel }} </h5>
                     <h5> Adresse : {{ $myProfil->adresse }}, {{$myProfil->code_postal }} {{ $myProfil->ville }} </h5>
-                    <h5> Date de naissance : {{ $myProfil->naissance }}</h5>
-                    @if($myProfil->isEtudiant())
-                    <h5>INE : {{ $myProfil->Etudiant->INE }} </h5>
+                    @if( !($myProfil->isAdmin()))
+                        <h5> Date de naissance : {{ $myProfil->naissance }}</h5>
                     @endif
                     </br>
             </div>
@@ -40,9 +39,11 @@
                     @for ($i = 1; $i<= sizeof($myProfil->Enseignant->Est_Responsable);$i++ )
                         <h5>- {{$myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle }} </h5>
                         @if($myProfil->Enseignant->Est_Responsable[$i-1]->Responsabilite->libellle == "Responsable de Filiere")
+                            <ul>
                             @for ($j = 1; $j<= sizeof($myProfil->Enseignant->Responsable_diplome);$j++ )
-                                <h6>- {{$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->niveau."  ".$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->libelle }} </h6>
+                                <li>{{$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->niveau."  ".$myProfil->Enseignant->Responsable_diplome[$j-1]->diplome->libelle }} </li>
                             @endfor
+                            </ul>
                         @endif
                     @endfor
                 @endif

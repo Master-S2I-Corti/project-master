@@ -20,23 +20,9 @@ class ListeEtudiantController extends Controller
         ])->paginate(7);
        // dd($listesEtudiant);
         $listeDepartement = Departement::get();
-        $annee = Annee::get();
+        $listDiplome = Annee::get();
         $diplome = Diplome::get();
-
-        for ($i = 1 ; $i <= count($annee) ; $i++ )
-        {
-            foreach($diplome as &$value)
-            {
-                $j = $i -1;
-                if($annee[$j]->id_diplome == $value->id_diplome)
-                {
-                            $listDiplome[$j] = [
-                                                    'id'=>$annee[$j]->id_annee,
-                                                    'libelle'=>$value->niveau.'  '.$annee[$j]->libelle[0].'  '.$value->libelle
-                                                ];
-                }
-            }
-        }       
+              
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 
