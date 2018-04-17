@@ -22,7 +22,7 @@ class ListeEtudiantController extends Controller
         $listeDepartement = Departement::get();
         $listDiplome = Annee::get();
         $diplome = Diplome::get();
-              
+
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 
@@ -158,23 +158,7 @@ class ListeEtudiantController extends Controller
     {
        //dd($request->all());
        $listeDepartement = Departement::get();
-       $annee = Annee::get();
-       $diplome = Diplome::get();
-
-       for ($i = 1 ; $i <= count($annee) ; $i++ )
-       {
-           foreach($diplome as &$value)
-           {
-               $j = $i -1;
-               if($annee[$j]->id_diplome == $value->id_diplome)
-               {
-                           $listDiplome[$j] = [
-                                                   'id'=>$annee[$j]->id_annee,
-                                                   'libelle'=>$value->niveau.'  '.$annee[$j]->libelle[0].'  '.$value->libelle
-                                               ];
-               }
-           }
-       }
+       $listDiplome = Annee::get();
 
        $j=0;
        if (sizeof($request->filiere) != null )
@@ -216,6 +200,8 @@ class ListeEtudiantController extends Controller
             $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('departement','diplome.id_departement','=','departement.id_departement')
+                                        ->where('departement.id_departement','=',$request->departement)
                                         ->whereIn('annee.libelle',$annees)
                                         ->whereIn('diplome.niveau',$filiere)
                                         ->where('Personne.nom','=',$request->nom)
@@ -229,6 +215,10 @@ class ListeEtudiantController extends Controller
         else if (($request->nom != null || $request->prenom != null ))
         {
             $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('annee','Etudiant.id_annee','=','annee.id_annee')
+                                        ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('departement','diplome.id_departement','=','departement.id_departement')
+                                        ->where('departement.id_departement','=',$request->departement)
                                         ->where('Personne.nom','=',$request->nom)
                                         ->orWhere('Personne.prenom','=',$request->prenom)
                                         ->where([
@@ -242,6 +232,8 @@ class ListeEtudiantController extends Controller
             $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('departement','diplome.id_departement','=','departement.id_departement')
+                                        ->where('departement.id_departement','=',$request->departement)
                                         ->whereIn('annee.libelle',$annees)
                                         ->whereIn('diplome.niveau',$filiere)
                                         ->where([
@@ -252,7 +244,17 @@ class ListeEtudiantController extends Controller
         }
         else
         {
-            return redirect()->action('ListeEtudiantController@index');
+            //dd($request->all());
+            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('annee','Etudiant.id_annee','=','annee.id_annee')
+                                        ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('departement','diplome.id_departement','=','departement.id_departement')
+                                        ->where('departement.id_departement','=',$request->departement)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
         }
 
        return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));

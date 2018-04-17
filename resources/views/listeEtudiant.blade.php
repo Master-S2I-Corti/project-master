@@ -243,8 +243,8 @@
                                 <p>Filière :
                                         <select class="form-control form-control-sm" name="diplome">
                                         @if ( isset($listDiplome))
-                                            @foreach ( $listDiplome as $diplome)
-                                                    <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @foreach ( $listDiplome as $value)
+                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
                                         </select> 
