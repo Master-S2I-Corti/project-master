@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'noreply@univ-corse.fr'),
-        'name' => env('MAIL_FROM_NAME', 'Reset password'),
+        'name' => env('MAIL_FROM_NAME', 'Universita-Di-Corsica'),
     ],
 
     /*
