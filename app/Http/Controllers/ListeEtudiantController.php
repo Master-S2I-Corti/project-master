@@ -8,6 +8,7 @@ use App\Etudiant;
 use App\Departement;
 use App\Annee;
 use App\Diplome;
+use App\Est_diplome;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -15,7 +16,7 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $listesEtudiant = Etudiant::with('identity','annee')->where([
+        $listesEtudiant = Etudiant::with('identity','annee','Est_diplome')->where([
             ['id_annee', '!=',null],
         ])->paginate(7);
        // dd($listesEtudiant);
@@ -70,15 +71,16 @@ class ListeEtudiantController extends Controller
     //Suppression du etudiant
     public function destroy(Request $request)
     {
-        
         $personne = Personne::findOrFail($request->id);
         $test = [ 'code_etudiant' => null];
         $personne->update($test);
         $etudiant = Etudiant::findOrFail($request->id);
         $test = [ 'id' => null];
         $etudiant->update($test);
+        $test = $etudiant->code_etudiant;
         $personne->delete();
         $etudiant->delete();
+        $diplomeEtudiant = Est_diplome::where('code_etudiant',$test)->delete();
         return redirect()->action('ListeEtudiantController@index');
     }
     
@@ -197,7 +199,8 @@ class ListeEtudiantController extends Controller
        
         if ( ($request->nom != null || $request->prenom != null ) && $annees != null && $filiere != null )
         {
-            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+            $listesEtudiant = Etudiant::with('Est_diplome')
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
                                         ->join('departement','diplome.id_departement','=','departement.id_departement')
@@ -214,7 +217,8 @@ class ListeEtudiantController extends Controller
         }
         else if (($request->nom != null || $request->prenom != null ))
         {
-            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+            $listesEtudiant = Etudiant::with('Est_diplome')
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
                                         ->join('departement','diplome.id_departement','=','departement.id_departement')
@@ -229,7 +233,8 @@ class ListeEtudiantController extends Controller
         }
         else if ( $request->nom == null && $request->prenom == null && $annees != null && $filiere != null)
         {
-            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+            $listesEtudiant = Etudiant::with('Est_diplome')
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
                                         ->join('departement','diplome.id_departement','=','departement.id_departement')
@@ -245,7 +250,8 @@ class ListeEtudiantController extends Controller
         else
         {
             //dd($request->all());
-            $listesEtudiant = Etudiant::join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+            $listesEtudiant = Etudiant::with('Est_diplome')
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
                                         ->join('annee','Etudiant.id_annee','=','annee.id_annee')
                                         ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
                                         ->join('departement','diplome.id_departement','=','departement.id_departement')

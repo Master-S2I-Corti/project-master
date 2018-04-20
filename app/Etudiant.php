@@ -26,4 +26,9 @@ class Etudiant extends Personne
     {
         return $this->hasMany('App\Annee','id_annee','id_annee');
     }
+
+    public function Est_Diplome()
+    {
+        return $this->hasMany('App\Est_Diplome','code_etudiant','code_etudiant');
+    }
 }

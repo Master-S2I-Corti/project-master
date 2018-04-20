@@ -126,10 +126,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <p id="email"> Email: Aucun email</p>
+                            <p id="email"> Email: Aucun </p>
+                            <p id="fil"> Filière: Aucune filiere</p>
                         </div>
                         <div class="col">
-                            <p id="fil"> Filière: Aucune filiere</p>
+                            <p id="filObtenu"> Filière Obtenu : Aucune </p> 
                         </div>
                     </div>
                 </div>
@@ -302,16 +303,29 @@
                 var elements = e.target.parentElement.querySelectorAll("th")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
+                var filiereObtenu = ""
                 var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
+                var diplome = JSON.parse('<?= json_encode($listDiplome);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
                         num = i;
                     }
                 }
+                (personnes[num].est_diplome).forEach(function (value) {
+                    for ( var i=0; i< diplome.length; i++)
+                    {
+                        if ( value.id_annee == diplome[i].id_annee)
+                        {
+                            filiereObtenu += "</br>"+diplome[i].diplome.niveau+"  "+diplome[i].libelle[0]+"  "+diplome[i].diplome.libelle+" ("+value.obtention+")";
+                        }
+                    }
+                });
+
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
                 document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
+                document.querySelector("#filObtenu").innerHTML = " Diplômes obtenus : "+ filiereObtenu
                 $( "#dialog" ).modal('show');
             });
 

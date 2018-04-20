@@ -51,6 +51,9 @@
             <div class="col-4">
                 @if($myProfil->isEtudiant())
                     <h5><b><u>Diplômes obtenus : </u></b></h5>
+                    @for ($i = 1; $i<= sizeof($myProfil->Etudiant->Est_Diplome);$i++ )
+                      <h5>{{$myProfil->Etudiant->Est_Diplome[$i-1]->annee->diplome->niveau."  ".$myProfil->Etudiant->Est_Diplome[$i-1]->annee->libelle[0]."  ".$myProfil->Etudiant->Est_Diplome[$i-1]->annee->diplome->libelle." (".$myProfil->Etudiant->Est_Diplome[$i-1]->obtention.")" }}</h5>
+                    @endfor
                 @endif
                 @if($myProfil->isEnseignant())
                     <h5><b><u>Informations : </u></b></h5>
