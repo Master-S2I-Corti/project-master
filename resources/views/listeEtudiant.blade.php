@@ -213,7 +213,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
-                                <p> Code Postal :  <input class="form-control form-control-sm" type="text" name="codePostal" value='' required/><br/></p>
+                                <p> Code Postal :  <input class="form-control form-control-sm" type="number" name="codePostal" value='20000' required/><br/></p>
                                 <p> Ville :  <input class="form-control form-control-sm" type="text" name="ville" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
@@ -221,21 +221,23 @@
                             </div>
                             <div class="col-md-4">
                                 
-                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="text" name="tel" value='' required/><br/></p>
+                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="01 23 45 67 89" value='' required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/><br/></p>
                                 <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <p>Département :
-                                        <select class="form-control form-control-sm" name="departement">
-                                        @if ( isset($listeDepartement))
-                                            @foreach ( $listeDepartement as $departement)
-                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                <p> Dernier Diplome Obtenu  :
+                                    <select class="form-control form-control-sm" name="diplomeObtenu">
+                                        <option value="0">Aucun</option>
+                                        @if ( isset($listDiplome))
+                                            @foreach ( $listDiplome as $value)
+                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
-                                        </select> 
+                                    </select> 
                                 </p> 
+                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObt" value='2017' required/><br/></p>
                             </div>
                             <div class="col-md-2">
 
@@ -243,11 +245,11 @@
                             <div class="col-md-4">
                                 <p>Filière :
                                         <select class="form-control form-control-sm" name="diplome">
-                                        @if ( isset($listDiplome))
-                                            @foreach ( $listDiplome as $value)
-                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
-                                            @endforeach
-                                        @endif
+                                            @if ( isset($listDiplome))
+                                                @foreach ( $listDiplome as $value)
+                                                    <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
+                                                @endforeach
+                                            @endif
                                         </select> 
                                 </p> 
                             </div>

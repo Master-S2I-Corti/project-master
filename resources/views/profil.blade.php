@@ -72,37 +72,6 @@
                 @endif 
             </div>
         </div>
- 
-       <!-- POPUP DE MODIFICATON MOT DE PASSE -->
-    <div  class="modal fade" aria-labelledby="exampleModalLabel" id="exampleModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="nom">Modification du mot de passe</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                    <div class="container">
-                        <form method="post" action="#" accept-charset="UTF-8">
-                            {{ csrf_field() }}
-                            <div class="row">
-                                <div class="col">
-                                    <p>Nouveau mot de passe : <input class="form-control form-control-sm" type="password" name="psw" required/> </p>
-                                </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary"> Modifier</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                </div>
-                        </form>
-                    </div>
-            </div>
-        </div>
-    </div>
-</div> 
-</div>  
 
  <!-- POPUP DE MODIFICATON DU PROFIL -->
  <div  class="modal fade" aria-labelledby="modifi" id="modifi">
@@ -121,14 +90,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <p>Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value="{{ $myProfil->adresse }}" required/> </p>
-                                    <p>code postal: <input class="form-control form-control-sm" type="text" name="code_postal" value="{{ $myProfil->code_postal }}" required/> </p>
+                                    <p>code postal: <input class="form-control form-control-sm" type="number" name="code_postal" value="{{ $myProfil->code_postal }}" required/> </p>
                                     <p>ville : <input class="form-control form-control-sm" type="text" name="ville" value="{{ $myProfil->ville }}" required/> </p>
                                 </div>
                                 <div class="col-md-1">
                                 </div>
                                 <div class="col-md-4">
                                     <p>Mail Perso : <input class="form-control form-control-sm" type="text" name="email_sos" value="{{ $myProfil->email_sos }}"required/> </p>
-                                    <p>Telephone : <input class="form-control form-control-sm" type="text" name="tel" value="{{ $myProfil->tel }}"required/> </p>
+                                    <p>Telephone : <input class="form-control form-control-sm" type="tel" name="tel" value="{{ $myProfil->tel }}" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/> </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -144,7 +113,7 @@
                                         </select> 
                                     </p> 
                                     <p>Batiment : <input class="form-control form-control-sm" type="text" name="batiment" value="{{  $myProfil->Enseignant->batiment }}"/> </p>
-                                    <p>Etage : <input class="form-control form-control-sm" type="text" name="etage" value="{{  $myProfil->Enseignant->etage }}"/> </p>
+                                    <p>Etage : <input class="form-control form-control-sm" type="number" name="etage" value="{{  $myProfil->Enseignant->etage }}"/> </p>
                                     @endif
                                 </div>
                                 <div class="col-md-1">
@@ -169,9 +138,6 @@
     <script>
         $( function() {
             $( ".modifier" ).on( "click", function(e) {
-                if ($myProfil->identity->isEnseignant()){
-                    document.querySelector("#fil2").value = $myProfil->id_departement;
-                }
                 $( "#modif" ).modal( "show" );
             });
         });

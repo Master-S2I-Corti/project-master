@@ -30,30 +30,69 @@ class ListeEtudiantController extends Controller
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
         
-        $personne = Personne::firstOrCreate([
-            'login'=>$request->nom,
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'email'=>$request->nom .'@webmail.universita.corsica',
-            'email_sos' => $request->emailSos,
-            'naissance'=> $request->naissance,
-            'password' =>  Hash::make(str_replace("-","",$request->naissance)),
-            'tel' => $request->tel,
-            'adresse' =>$request->adresse,
-            'code_postal' =>$request->codePostal,
-            'ville' =>$request->ville,
-            'admin' =>0
-            ]);
-            
-            $personne->where([
-                                ['nom', '=', $request->nom],
-                                ['prenom', '=', $request->prenom],
-                                ['naissance', '=', $request->naissance],
-                            ])->first();
+        $search = Personne::where([
+                                    ['nom', '=', $request->nom],
+                                    ['prenom', '=', $request->prenom],
+                                    ['naissance', '=', $request->naissance]
+                                ])->first();
 
-            $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
-            $etudiant = $etudiant->where('id', $personne->id)->first();
-            $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
+        if ($search == null)
+        {
+            $personne = Personne::firstOrCreate([
+                'login'=>$request->nom,
+                'nom' => $request->nom,
+                'prenom' => $request->prenom,
+                'email'=>$request->nom .'@webmail.universita.corsica',
+                'email_sos' => $request->emailSos,
+                'naissance'=> $request->naissance,
+                'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+                'tel' => $request->tel,
+                'adresse' =>$request->adresse,
+                'code_postal' =>$request->codePostal,
+                'ville' =>$request->ville,
+                'admin' =>0
+                ]);
+                
+                $personne->where([
+                                    ['nom', '=', $request->nom],
+                                    ['prenom', '=', $request->prenom],
+                                    ['naissance', '=', $request->naissance],
+                                ])->first();
+    
+                $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
+                $etudiant = $etudiant->where('id', $personne->id)->first();
+                $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
+                if ( $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) //
+                {
+                    $est_diplome = Est_diplome::firstOrCreate([
+                                                                'code_etudiant'=>$etudiant->code_etudiant,
+                                                                'id_annee'=>$request->diplomeObtenu,
+                                                                'obtention'=>$request->anneeObt
+                                                            ]);
+                }
+        }
+        else
+        {
+            $etudiant = Etudiant::where([
+                                            ['code_etudiant', '=', $search->code_etudiant]
+                                        ])->first();
+            if ( $etudiant->id_annee == null )
+            {
+                $etudiant->update(['id_annee' =>$request->diplome]);
+            }
+            else if ( $request->diplomeObtenu == $etudiant->id_annee &&  $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) //
+            {
+                $est_diplome = Est_diplome::firstOrCreate([
+                                                        'code_etudiant'=>$etudiant->code_etudiant,
+                                                        'id_annee'=>$etudiant->id_annee,
+                                                        'obtention'=>$request->anneeObt
+                                                    ]);
+                $etudiant->update(['id_annee' =>$request->diplome]);
+            }
+             
+            
+        }
+        
     
             return redirect()->action('ListeEtudiantController@index');
     }
