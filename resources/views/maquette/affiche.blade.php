@@ -7,26 +7,24 @@
 @endsection
 
 @section('content')
+<select id="archive" >
+<option selected></option>
+<?php
+foreach (json_decode(stripslashes($data["archive"])) as $annee) {
+    echo"<option value='".$annee->annee."'>".$annee->annee."</option>";
+}?>
+</select>  <button  onclick="archClick()" >charger une maquette des annees précédentes</button>
 <br>
-<div id="semestre">
+</br>
+<div id="filiere" class="container-fluid"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
+<br>
 
 </div>
 
 
 
-	
-
-</form>
 
 
-
-
-
-<div id='overlay'>
-<button onclick='closeBox()' >Fermer</button>
-<br>
-<textarea disabled cols='100' rows='20' id='desbox'>test</textarea>
-</div>
 @endsection
 	
 	
@@ -34,24 +32,31 @@
 
 
 @section('script')
-<script type="text/javascript" src="{{ URL::asset('js/maquette.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/card.js') }}"></script>
 <script>
-
- var table = document.getElementById("previsio");
+var table = document.getElementById("previsio");
+ var prof=' {!! $data["enseignant"] !!}';
  
- var test= '{!! addslashes(json_encode($data))!!}';
-////alert(JSON.parse(prof)[0].nom);
- 	/*for(i in test)
+ var filiere="{!!addslashes(json_encode($data))!!}";//sans le add slash un probleme se crée lors du passage en js si il y a un saut de ligne */
+ var archive='{!! $data["archive"] !!}';
+var semestre=' {!! $data["semestre"] !!}'
+
+
+	 function archClick()
 	{
-alert(i.code_professeur);
-	}*/function myFunction()
-	{ 
-		affSemestre(test);
-	
 		
+		if(document.getElementById("archive").value=="")
+			alert("Selctionné une année");
+		
+		else{
+		r=confirm("Vouler vous chargée cette maquette")
+	if (r==false)
+		return"";
+	cardAffiche(JSON.parse(archive),JSON.parse(prof));
+	}
 	}
 
-document.body.addEventListener("load",myFunction());
+
 </script>	
 @endsection
 </html>

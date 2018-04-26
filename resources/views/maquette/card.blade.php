@@ -12,136 +12,14 @@
 foreach (json_decode(stripslashes($data["archive"])) as $annee) {
     echo"<option value='".$annee->annee."'>".$annee->annee."</option>";
 }?>
-</select>  <button id="archbut" onclick="archClick" >charger une maquette des annees précédentes</button>
+</select>  <button id="archbut" onclick="archClick()" >charger une maquette des annees précédentes</button>
 <br>
 </br>
 <button onclick="deleteAll()" class="delB">Suprimer toute les Ue et matiere </button>
 <br>
 <div id="filiere" class="container-fluid"><!-- les tableau s'afficheront dans cette div au chargement de la page -->
 <br>
-<!--Nom du semestre
-<div class="card">
-  <div class="card-body">  
-  <table>
-		<tr>
-			<td>
-			nom de l'ue
-			</td>
-			<td>
-			descriptio
-			</td>
-			<td>
-			coeficient
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-		<tr>
-			<td>
-			nom de la matiere
-			</td>
-			<td>
-			coeff
-			</td>
-			<td>
-			heure
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-	  </table></div>
-</div>
-	
- <div class="card">
-  <div class="card-body">  
-  <table>
-		<tr>
-			<td>
-			nom de l'ue
-			</td>
-			<td>
-			descriptio
-			</td>
-			<td>
-			coeficient
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-		<tr>
-			<td>
-			nom de la matiere
-			</td>
-			<td>
-			coeff
-			</td>
-			<td>
-			heure
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-		<tr>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-			<td>
-			 <input type="text">
-			</td>
-		</tr>
-	  </table></div>
-</div> 
-<!--Bouton servant a enregistre la requete-->
+
 </div>
 
 
@@ -179,6 +57,8 @@ var semestre=' {!! $data["semestre"] !!}'
 	
 
 		var sem=JSON.parse(semestre);
+		console.log(sem);
+		
 		loadSemestre(sem,JSON.parse(prof));
 		
 		
@@ -193,14 +73,14 @@ var semestre=' {!! $data["semestre"] !!}'
 		r=confirm("Vouler vous chargée cette maquette")
 	if (r==false)
 		return"";
-	loadArchive(JSON.parse(archive),JSON.parse(prof));
+	loadArchive(JSON.parse(archive),prof);
 	}
 	}
    
- /*$("#postB").click(function(){////////fonction de la requete ajax pour enregistrer la maquete  dans la bdd 
+ $("#postB").click(function(){////////fonction de la requete ajax pour enregistrer la maquete  dans la bdd 
          var send=getjson();////send est un tableau la premiere case indique si il n'y a pas d'erreur dans notre maquete si elle est a un aucune erreur n'a ete detectée
 							//la seconde case est le json de la maquete si il n'ya pas d'erreur si il y en a lors c'est le message d'erreur a affichér
-		
+		/*
 		 
 		if(send[0]==1)
 		 {
@@ -231,8 +111,8 @@ var semestre=' {!! $data["semestre"] !!}'
 		var car = {type:"Fiat", model:"500", color:["yellow","red"]};
 		
 	
-		
-	});*/
+		*/
+	});
 	
 	
 document.addEventListener("load",mFunction2());

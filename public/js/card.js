@@ -6,15 +6,18 @@ function loadSemestre(semestres,prof)
 		{
 			card = document.createElement("div");
 			card.classList.add('card','semestre');
+			card.id=semestres[i].id_semestre;
+			
 			cHeader=document.createElement("div");
 			cHeader.classList.add('card-header');
+			cHeader.id=semestres[i].libelle;
 			Nsemestre=document.createTextNode(semestres[i].libelle); 
 			/*add=document.createElement('i');
 			
 			trash*/
 			
 			
-			headHtml=semestres[i].libelle+"  <i class='fa fa-plus' onclick='newUe(prof,this.parentElement.parentElement)'></i>  <i class='fa fa-trash ' onclick='deleteSem(this.parentElement.parentElement)' ></i>"
+			headHtml=semestres[i].libelle.toUpperCase()+"  <i class='fa fa-plus fa-2x' onclick='newUe(prof,this.parentElement.parentElement)'></i>     <i class='fa fa-trash fa-2x' onclick='deleteSem(this.parentElement.parentElement)' ></i>"
 			cHeader.innerHTML=headHtml;
 			cBody=document.createElement("div");
 			cBody.classList.add('card-body');
@@ -28,24 +31,24 @@ function loadSemestre(semestres,prof)
 		}
 }
 function loadArchive(archive,prof)
-{
-	for(i=0;i<archive.length;i++)
+{	
+deleteAll();
+for(i=0;i<archive.length;i++)
 	{
 		
 		if(archive[i].annee==document.getElementById("archive").value)
 		{
 		file=JSON.parse(archive[i].file);
-			console.log(file);
-		for(nSem=0;nSem<file.length;nSem++)
+			//console.log(file);
+	for(nSem=0;nSem<file.length;nSem++)
 			{
 				
 				for(nUe=0;nUe<file[nSem].ues.length;nUe++)
 				{
-				/*ueCard=document.createElement("div");
-				ueCard.classList.add('card');
-				ueCard.classList.add('ueCard');*/
-				newue(prof,document.getElementsByClassName("tabSemestre")[nSem]);
-				lastrow=document.getElementsByClassName("tabSemestre")[nSem].rows[document.getElementsByClassName("tabSemestre")[nSem].rows.length-1];
+			//	console.log(prof);
+				newUe(prof,document.getElementsByClassName("semestre")[nSem]);
+				lastrow=document.getElementsByClassName("semestre")[nSem].getElementsByClassName("Uerow")[nUe];
+				//console.log(lastrow);
 				
 				
 			
@@ -56,16 +59,19 @@ function loadArchive(archive,prof)
 				lastrow.getElementsByClassName("coeff")[0].value=file[nSem].ues[nUe].ue.coeff;
 			
 				lastrow.getElementsByClassName("ects")[0].value=file[nSem].ues[nUe].ue.ects;
+					
 					for(nMat=0;nMat<file[nSem].ues[nUe].matieres.length;nMat++)
 					{
-						newmat(lastrow); 
-						var lasMat=document.getElementsByClassName("tabSemestre")[nSem].rows[document.getElementsByClassName("tabSemestre")[nSem].rows.length-1];
+						
+						newmat(document.getElementsByClassName("semestre")[nSem].getElementsByClassName("ueTable")[nUe]); 
+						lasMat=document.getElementsByClassName("semestre")[nSem].getElementsByClassName("UeCard")[nUe].getElementsByClassName("matRow")[nMat];
+					
 						lasMat.getElementsByClassName("nomMat")[0].value=file[nSem].ues[nUe].matieres[nMat].nom;
 						lasMat.getElementsByClassName("elCoeff")[0].value=file[nSem].ues[nUe].matieres[nMat].coeff;
 						lasMat.getElementsByClassName("cour")[0].value=file[nSem].ues[nUe].matieres[nMat].cour;
 						lasMat.getElementsByClassName("tp")[0].value=file[nSem].ues[nUe].matieres[nMat].tp;
 						lasMat.getElementsByClassName("td")[0].value=file[nSem].ues[nUe].matieres[nMat].td;
-						calc(lasMat);
+						//calc(lasMat);*/
 					}
 				}
 				
@@ -73,10 +79,85 @@ function loadArchive(archive,prof)
 		}
 	}
 }
+function cardAffiche(archive,prof)
+{
+	document.getElementById("filiere").innerHTML="";
+	console.log(archive);
+	console.log(prof);
+	for(i=0;i<archive.length;i++)
+	{
+		
+		if(archive[i].annee==document.getElementById("archive").value)
+		{
+		file=JSON.parse(archive[i].file);
+			//console.log(file);
+		for(nSem=0;nSem<file.length;nSem++)
+			{
+			var tableau=document.getElementById("filiere");
+			var card = document.createElement("div");
+			card.classList.add('card','semestre');
+			cHeader=document.createElement("div");
+			cHeader.classList.add('card-header');
+			Nsemestre=document.createTextNode("test"); 
+			/*add=document.createElement('i');
+			
+			trash*/
+			
+			
+			
+			cHeader.innerHTML="test";
+			cBody=document.createElement("div");
+			cBody.classList.add('card-body');
+			
+			card.appendChild(cHeader);
+			card.appendChild(cBody);
+			
+			tableau.appendChild(card);
+			br=document.createElement("br");
+			tableau.appendChild(br);
+		/*	for(nUe=0;nUe<file[nSem].ues.length;nUe++)
+				{
+			//	console.log(prof);
+				newUe(prof,document.getElementsByClassName("semestre")[nSem]);
+				lastrow=document.getElementsByClassName("semestre")[nSem].getElementsByClassName("Uerow")[nUe];
+				//console.log(lastrow);
+				
+				
+			
+					////si les semestre on deja dess ue crée je les affiche et rentre les description a l'interieur du tableau 
+				lastrow.getElementsByClassName("nomUe")[0].value=file[nSem].ues[nUe].ue.nom;
+				lastrow.getElementsByClassName("responsable")[0].value=file[nSem].ues[nUe].ue.responsable;
+				lastrow.getElementsByClassName("description")[0].value=file[nSem].ues[nUe].ue.description;
+				lastrow.getElementsByClassName("coeff")[0].value=file[nSem].ues[nUe].ue.coeff;
+			
+				lastrow.getElementsByClassName("ects")[0].value=file[nSem].ues[nUe].ue.ects;
+					
+					for(nMat=0;nMat<file[nSem].ues[nUe].matieres.length;nMat++)
+					{
+						
+						newmat(document.getElementsByClassName("semestre")[nSem].getElementsByClassName("ueTable")[nUe]); 
+						lasMat=document.getElementsByClassName("semestre")[nSem].getElementsByClassName("UeCard")[nUe].getElementsByClassName("matRow")[nMat];
+					
+						lasMat.getElementsByClassName("nomMat")[0].value=file[nSem].ues[nUe].matieres[nMat].nom;
+						lasMat.getElementsByClassName("elCoeff")[0].value=file[nSem].ues[nUe].matieres[nMat].coeff;
+						lasMat.getElementsByClassName("cour")[0].value=file[nSem].ues[nUe].matieres[nMat].cour;
+						lasMat.getElementsByClassName("tp")[0].value=file[nSem].ues[nUe].matieres[nMat].tp;
+						lasMat.getElementsByClassName("td")[0].value=file[nSem].ues[nUe].matieres[nMat].td;
+						//calc(lasMat);
+					}
+				}*/
+			
+			}
+		}
+	}
+}
+
 function newUe(prof,card)
 
-{	body=card.getElementsByClassName('card-body')[0];
-	console.log(card);
+{	
+	prof=JSON.parse(prof);
+	body=card.getElementsByClassName('card-body')[0];
+	
 	UeCard=document.createElement("div");
 	Uebody=document.createElement("div");
 	
@@ -86,6 +167,7 @@ function newUe(prof,card)
 	UE=document.createElement("table");
 	UE.classList.add("table","ueTable","ueONly");	
 	header=UE.insertRow(-1);
+	header.style.backgroundColor="azure";
 	cell=header.insertCell(-1);
 		cell.innerHTML="Désignation";
 		
@@ -104,9 +186,10 @@ function newUe(prof,card)
 		cell.innerHTML="ECTS";
 		
 		cell=header.insertCell(-1);
-		cell.innerHTML="<i class='fa fa-plus' onclick='newmat(this.parentElement.parentElement.parentElement) '>    </i>     ";
+		cell.innerHTML="<i class='fa fa-plus fa-2x' onclick='newmat(this.parentElement.parentElement.parentElement) '>    </i>     ";
+		
 		cell=header.insertCell(-1);
-		cell.innerHTML="<i class='fa fa-trash ' onclick='deleteUE(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)'>    </i>     ";
+		cell.innerHTML="<i class='fa fa-trash fa-2x' onclick='deleteUE(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)'>    </i>     ";
 		Uebody.appendChild(UE);
 		UeCard.appendChild(Uebody);
 		body.appendChild(UeCard);
@@ -114,12 +197,15 @@ function newUe(prof,card)
 
 	var row = UE.insertRow(-1);//cree une nouvelle ligne a la fin du tableau
 	row.className="Uerow";
-	
+	row.classList.add("unlock");
     var cell = row.insertCell(-1);
 	
 
 	
 	c="<div><input type='text' class='nomUe ' value='nom de l&#39ue'/>";
+	cell.innerHTML=c;
+	
+	cell.className="nomUeC";
 	/*c=c+"<i onclick='newmat(this.parentElement.parentElement.parentElement)'class='fa fa-plus ' ></i>";
 
    c=c+"<i onclick='delue(this.parentElement.parentElement.parentElement)' class='fa fa-trash' ></i></div>";*/
@@ -136,35 +222,27 @@ function newUe(prof,card)
 		
 	}
   }
-	cell.innerHTML=c;
 	
-	cell.className="ue";
 	var cell = row.insertCell(-1);
 	c="<div class='nSemestre'> ";
 	
 	c+=nsem;
 	c+="</div>"
 	cell.innerHTML=c;
-	cell.className="ue";
+	
 	var cell = row.insertCell(-1);
 	c="<input type='number' class='coeff' max='99' min='1'  value='1' />";
 	cell.innerHTML=c
-	cell.className="ue";
-	var cell = row.insertCell(-1);
-		c="<textarea class='description' '/>";
-		
-	cell.innerHTML=c;
+	cell.className="coeffC";
 	
-		/*var i=0;
-			while(row.getElementsByClassName("description")[0]!=document.getElementsByClassName('description')[i])
-			i++;
-		//alert(i);
-	tabdes.splice(i,0,"");*/
-	cell.className="ue";
+	var cell = row.insertCell(-1);
+	c="<textarea class='description' '/>";
+	cell.innerHTML=c;
+	cell.className="descriptionC";
+	
 	var cell = row.insertCell(-1);
 	cell.innerHTML="<select class='responsable'></select>";
-	cell.className="ue";
-	//row.getElementsByClassName('responsable').style.width='100%';
+	cell.className="responsableC";
 	
 	for(i in prof)
 	{
@@ -174,15 +252,20 @@ function newUe(prof,card)
 		row.getElementsByClassName('responsable')[0].add(optio);
 		
 	}
+	
 	var cell = row.insertCell(-1);
 	cell.innerHTML="<input type='number' class='ects' value='0' min='0' oninput='calc(this.parentElement.parentElement)'/>"
-	cell.className="ue";
-	//color(semestre);
+	cell.className="ectsC";
+	
+	cell=row.insertCell(-1);
+		cell.innerHTML="<i class='fa fa-check fa-2x ' onclick='lock(this.parentElement.parentElement)'>    </i>     ";
+	cell.className="lock-unlock";
 	
 	header=UE.insertRow(-1);
+	header.style.backgroundColor="azure";
 	cell=header.insertCell(-1);
 		cell.innerHTML="Sous-UE";
-		;
+		
 		cell=header.insertCell(-1);
 		cell.innerHTML="coeff interne"
 		
@@ -196,6 +279,9 @@ function newUe(prof,card)
 		cell.innerHTML="Total(H)";
 		cell=header.insertCell(-1);
 		cell.innerHTML="Equiv-TD(H)";
+		
+			
+		
 	/*	var t =document.createElement("br");;
 		tableau.appendChild(t);*/
 	
@@ -204,6 +290,7 @@ function newUe(prof,card)
 function newmat(UEtable)
 {	
 row=UEtable.insertRow(-1);
+row.classList.add("matRow");
 var cell3 = row.insertCell(-1);
     var cell4 = row.insertCell(-1);	
 
@@ -224,7 +311,7 @@ var cell3 = row.insertCell(-1);
 	cell9.innerHTML = "<div class='total'>0</div>";
 	cell10.innerHTML = "<div class='equiv'>0</div>";
 	var cell=row.insertCell(-1);
-	cell.innerHTML="<i class='fa fa-trash ' onclick='deletemat(this.parentElement.parentElement)'>    </i>  ";
+	cell.innerHTML="<i class='fa fa-trash fa-2x' onclick='deletemat(this.parentElement.parentElement)'>    </i>  ";
 }
 function deleteAll()
 {
@@ -247,4 +334,171 @@ function deletemat(matrow)
 {
 	console.log(matrow);
 	$(matrow).remove();
+}
+
+function calc(CurentRow) //cacul le total des heure d'une ligne et l'affiche au sa cellule total
+{
+	
+	
+	
+
+   
+   
+	var c=CurentRow.getElementsByClassName("cour")[0].value;
+	
+	
+	var d=CurentRow.getElementsByClassName("td")[0].value;
+	
+	var p=CurentRow.getElementsByClassName("tp")[0].value;
+
+	CurentRow.getElementsByClassName("total")[0].innerHTML=+c + +d + +p;
+	CurentRow.getElementsByClassName("equiv")[0].innerHTML=+c*1.5 + +d + +p;
+	
+	
+}
+function lock(row)
+{
+	
+	row.style.borderColor = "red";
+	$(row).find(":input").prop('readonly', true);
+	$(row).find("textarea").prop('readonly', true);
+
+	$(row).find("select").prop('disabled', 'disabled');
+	row.getElementsByClassName("lock-unlock")[0].innerHTML="<i class='fa fa-unlock fa-2x ' onclick='unlock(this.parentElement.parentElement)'>    </i>"
+	row.classList.remove("unlock");
+	row.classList.add("lock");
+	
+	
+}
+function unlock(row)
+{
+	
+	row.style.borderColor = "black";
+	$(row).find(":input").prop('readonly', false);
+	$(row).find("textarea").prop('readonly', false);
+
+	$(row).find("select").prop('disabled', false);
+	row.getElementsByClassName("lock-unlock")[0].innerHTML="<i class='fa fa-check fa-2x ' onclick='lock(this.parentElement.parentElement)'>     </i>"
+	row.classList.add("unlock");
+	row.classList.remove("lock");
+	
+	
+}
+function getjson()
+{
+r=confirm("Vouler vous modifier ce semestre")
+	if (r==false)
+		return"";
+var i;
+
+
+
+var matiere={};
+var tout=[];//donnée qui seront  envoyees
+
+
+
+var semCard=document.getElementsByClassName("semestre");
+	for(var nSem=0;nSem<semCard.length;nSem++)
+	{
+		console.log(semCard[nSem].getElementsByClassName("UeCard"));
+		if(semCard[nSem].getElementsByClassName("UeCard").length==0)
+						return [0,"Un sememestre n'a aucune UE "];
+		var ectsTot=0;
+		if(semCard[nSem].getElementsByClassName("UeCard").length==0)
+			return [0,"Un semestre n'a aucune UE "];
+		var tabmatiere=[];
+	var semestre={};
+	var descriptionSemestre=[];
+	
+	semestre.id_semestre=semCard[nSem].id;
+	semestre.libelle=semCard[nSem].getElementsByClassName("card-header")[0].id;
+	var tableue=[];
+	
+
+	
+	for(var nUE=0;nUE<semCard[nSem].getElementsByClassName("UeCard").length;nUE++)
+		{	
+		
+			var descriptionUe={};
+			var thisue={};
+			var tabmatiere=[];
+			var UeCard=semCard[nSem].getElementsByClassName("UeCard")[nUE];
+			
+			for(var i=nUE+1;i<semCard[nSem].getElementsByClassName("UeCard").length;i++)////test pour voir si il n'y a pas 2 ue avec le meme nom dans un semestre
+				{
+					
+					if(UeCard.getElementsByClassName("nomUe")[0].value==semCard[nSem].getElementsByClassName("nomUe")[i].value)
+				
+						return[0,"Deux UE du meme semestre ont le meme nom"];
+				}
+			if(UeCard.getElementsByClassName("nomUe")[0].value=="")
+					return[0,"Une UE n'a pas de nom"];
+				descriptionUe.nom=UeCard.getElementsByClassName("nomUe")[0].value;
+				
+				
+				if(UeCard.getElementsByClassName("coeff")[0].value<1 || UeCard.getElementsByClassName("coeff")[0].value>99)
+					return[0,"Le coefficient d'une ue n'est pas valide"];
+				descriptionUe.coeff=UeCard.getElementsByClassName("coeff")[0].value;
+				
+				descriptionUe.description=UeCard.getElementsByClassName("description")[0].value;
+				
+				descriptionUe.responsable=UeCard.getElementsByClassName("responsable")[0].value;
+				
+				descriptionUe.ects=UeCard.getElementsByClassName("ects")[0].value;
+				ectsTot+=+UeCard.getElementsByClassName("ects")[0].value;
+				//alert(ectsTot);	
+				thisue.ue=descriptionUe;
+			
+			for(var nMat=0;nMat<UeCard.getElementsByClassName("matRow").length;nMat++)
+			{var matiere={};
+			 var thisMatRow=UeCard.getElementsByClassName("matRow")[nMat];
+				if(thisMatRow.getElementsByClassName("nomMat")[0].value=="")
+					return[0,"Une matiere n'a pas de nom"];
+				
+				matiere.nom=thisMatRow.getElementsByClassName("nomMat")[0].value;
+					
+					if(thisMatRow.getElementsByClassName("elCoeff")[0].value<1 || thisMatRow.getElementsByClassName("elCoeff")[0].value>99)
+					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
+				matiere.coeff=thisMatRow.getElementsByClassName("elCoeff")[0].value;
+				
+				if(thisMatRow.getElementsByClassName("elCoeff")[0].value<1 || thisMatRow.getElementsByClassName("elCoeff")[0].value>99)
+					return[0,"Le coefficient d'un element constitutif n'est pas valide"];
+				if(thisMatRow.getElementsByClassName("cour")[0].value<0)
+					return[0,"Les heures de cour d'un element constitutif de sont pas valide"];
+				
+				if(thisMatRow.getElementsByClassName("tp")[0].value<0)
+					return[0,"Les heures de tp d'un element constitutif de sont pas valide"];
+				
+				if(thisMatRow.getElementsByClassName("td")[0].value<0)
+					return[0,"Les heures de td d'un element constitutif de sont pas valide"];
+				
+				matiere.cour=thisMatRow.getElementsByClassName("cour")[0].value;
+				
+				matiere.td=thisMatRow.getElementsByClassName("td")[0].value;
+			//	alert("td="+thisRow.getElementsByClassName("td")[0].value +"tp="+thisRow.getElementsByClassName("tp")[0].value);
+				matiere.tp=thisMatRow.getElementsByClassName("tp")[0].value;
+				
+				tabmatiere.push(matiere);
+				
+			}
+			thisue.matieres=tabmatiere;
+			tableue.push(thisue);
+			
+		}
+		
+		
+		
+					
+					
+					
+		//semestre[1]=tableue;
+		semestre.ues=tableue;
+		tout.push(semestre);
+		
+	}
+console.log(tout);
+return[1,JSON.stringify(tout)];
+
+
 }
