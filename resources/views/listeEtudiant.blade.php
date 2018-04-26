@@ -28,7 +28,15 @@
                     </div>
                 @endif
             </div>
-
+            @if(session()->has("ok"))
+                <div class="alert alert-success alert-dismissible">
+                        {!! session('ok') !!}
+                </div>
+            @elseif (session()->has("error"))
+                <div class="alert alert-danger alert-dismissible">
+                        {!! session('error') !!}
+                </div>
+            @endif
             <div class="card">
                 <h3>Recherche de l'étudiant</h3>
                 <form method="post" action="{!! url('annuaire/etudiants/search') !!}" accept-charset="UTF-8">

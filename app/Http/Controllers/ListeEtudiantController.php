@@ -16,20 +16,20 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $listesEtudiant = Etudiant::with('identity','annee','Est_diplome')->where([
-            ['id_annee', '!=',null],
-        ])->paginate(7);
-       // dd($listesEtudiant);
+        $listesEtudiant = Etudiant::with('identity','annee','Est_diplome')->where('id_annee', '!=',null)->paginate(7);
         $listeDepartement = Departement::get();
         $listDiplome = Annee::get();
         $diplome = Diplome::get();
-
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
     }
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
         
+       if  ($request->anneeObt > date("Y"))
+       {
+           return redirect('annuaire/etudiants')->withError("La date d'obtention du diplome est incorrect");
+       }
         $search = Personne::where([
                                     ['nom', '=', $request->nom],
                                     ['prenom', '=', $request->prenom],
@@ -39,18 +39,18 @@ class ListeEtudiantController extends Controller
         if ($search == null)
         {
             $personne = Personne::firstOrCreate([
-                'login'=>$request->nom,
-                'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'email'=>$request->nom .'@webmail.universita.corsica',
-                'email_sos' => $request->emailSos,
-                'naissance'=> $request->naissance,
-                'password' =>  Hash::make(str_replace("-","",$request->naissance)),
-                'tel' => $request->tel,
-                'adresse' =>$request->adresse,
-                'code_postal' =>$request->codePostal,
-                'ville' =>$request->ville,
-                'admin' =>0
+                    'login'=>$request->nom,
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'email'=>$request->nom .'@webmail.universita.corsica',
+                    'email_sos' => $request->emailSos,
+                    'naissance'=> $request->naissance,
+                    'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+                    'tel' => $request->tel,
+                    'adresse' =>$request->adresse,
+                    'code_postal' =>$request->codePostal,
+                    'ville' =>$request->ville,
+                    'admin' =>0
                 ]);
                 
                 $personne->where([
@@ -62,7 +62,7 @@ class ListeEtudiantController extends Controller
                 $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
                 $etudiant = $etudiant->where('id', $personne->id)->first();
                 $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
-                if ( $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) //
+                if ( $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y"))
                 {
                     $est_diplome = Est_diplome::firstOrCreate([
                                                                 'code_etudiant'=>$etudiant->code_etudiant,
@@ -73,28 +73,25 @@ class ListeEtudiantController extends Controller
         }
         else
         {
-            $etudiant = Etudiant::where([
-                                            ['code_etudiant', '=', $search->code_etudiant]
-                                        ])->first();
-            if ( $etudiant->id_annee == null )
+            if ( $search->Etudiant->id_annee == null )
             {
-                $etudiant->update(['id_annee' =>$request->diplome]);
+                $search->Etudiant->update(['id_annee' =>$request->diplome]);
             }
-            else if ( $request->diplomeObtenu == $etudiant->id_annee &&  $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) //
+            else if ( $request->diplomeObtenu == $search->Etudiant->id_annee &&  $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) 
             {
                 $est_diplome = Est_diplome::firstOrCreate([
-                                                        'code_etudiant'=>$etudiant->code_etudiant,
-                                                        'id_annee'=>$etudiant->id_annee,
+                                                        'code_etudiant'=>$search->Etudiant->code_etudiant,
+                                                        'id_annee'=>$search->Etudiant->id_annee,
                                                         'obtention'=>$request->anneeObt
                                                     ]);
-                $etudiant->update(['id_annee' =>$request->diplome]);
+                $search->Etudiant->update(['id_annee' =>$request->diplome]);
+            } 
+            else
+            {
+                $search->Etudiant->update(['id_annee' =>$request->diplome]);
             }
-             
-            
         }
-        
-    
-            return redirect()->action('ListeEtudiantController@index');
+        return redirect('annuaire/etudiants')->withOk("L'étudiant a bien été enregistré");
     }
 
     //Modification du etudiant 
@@ -104,7 +101,8 @@ class ListeEtudiantController extends Controller
         $etudiant = Etudiant::findOrFail($request->id);
         $personne->update(['email' =>$request->email ]);
         $etudiant->update(['id_annee'=>$request->filiere]);
-        return redirect()->action('ListeEtudiantController@index');
+
+        return redirect('annuaire/etudiants')->withOk("L'étudiant a bien été modifié");
     }
 
     //Suppression du etudiant
@@ -120,7 +118,8 @@ class ListeEtudiantController extends Controller
         $personne->delete();
         $etudiant->delete();
         $diplomeEtudiant = Est_diplome::where('code_etudiant',$test)->delete();
-        return redirect()->action('ListeEtudiantController@index');
+
+        return redirect('annuaire/etudiants')->withOk("L'étudiant a bien été supprimé");
     }
     
     //Ajout des étudiants grâce à un fichier .csv

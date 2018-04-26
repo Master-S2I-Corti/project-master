@@ -67,6 +67,7 @@ class ProfilController extends Controller
             // ETUDIANT A FAIRE : CHAMPS DE L ETUDIANT A UPDATE
         }
         //$user = 'admin';
-        return redirect()->action('ProfilController@index');
+
+        return redirect('profil')->withOk("Votre profil a bien été modifié");
     }
 }

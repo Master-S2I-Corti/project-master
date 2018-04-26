@@ -5,8 +5,12 @@
     <div id="dimGest" class="w-75 m-auto py-5">
         <div class="d-flex justify-content-between mb-5">
             <h2>{{$myProfil->nom }} {{$myProfil->prenom }}</h2><br>
-            
         </div>
+        @if(session()->has("ok"))
+            <div class="alert alert-success alert-dismissible">
+                {!! session('ok') !!}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-3">
                 <i class="fa fa-user"  style="font-size:200px;"></i>
