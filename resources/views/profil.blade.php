@@ -7,10 +7,14 @@
             <h2>{{$myProfil->nom }} {{$myProfil->prenom }}</h2><br>
         </div>
         @if(session()->has("ok"))
-            <div class="alert alert-success alert-dismissible">
-                {!! session('ok') !!}
-            </div>
-        @endif
+                <div class="alert alert-success alert-dismissible">
+                        {!! session('ok') !!}
+                </div>
+            @elseif (session()->has("error"))
+                <div class="alert alert-danger alert-dismissible">
+                        {!! session('error') !!}
+                </div>
+            @endif
         <div class="row">
             <div class="col-md-3">
                 <i class="fa fa-user"  style="font-size:200px;"></i>
@@ -29,7 +33,12 @@
             <div class="col-md-2">
                 <p>
                     <button class="add btn btn-primary" data-toggle="modal" data-target="#modifi" >Modifier le profil<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                </P>
+                </p>
+                @if($myProfil->isEnseignant())
+                    <p>
+                        <button class="add btn btn-primary" data-toggle="modal" data-target="#ajoutIndispo" >Ajout de l'indisponibilité<i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    </p>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -76,6 +85,20 @@
                 @endif 
             </div>
         </div>
+        <div class="row">
+            <div class="col-4">
+                @if($myProfil->isEnseignant())
+                    <h5><b><u>Vos indisponibilités :</u></b></h5>
+                    @if($myProfil->Enseignant->Indisponibilite != null )
+                            <ul>
+                            @for ($j = 1; $j<= sizeof($myProfil->Enseignant->Indisponibilite);$j++ )
+                                <li>{{$myProfil->Enseignant->Indisponibilite[$j-1]->debut }} au {{$myProfil->Enseignant->Indisponibilite[$j-1]->fin }} </li>
+                            @endfor
+                            </ul>
+                    @endif
+                @endif 
+            </div>
+        </div>
 
  <!-- POPUP DE MODIFICATON DU PROFIL -->
  <div  class="modal fade" aria-labelledby="modifi" id="modifi">
@@ -89,7 +112,7 @@
             </div>
             <div class="modal-body">
                     <div class="container">
-                        <form method="post" action="{!! url('updateProfil') !!}" accept-charset="UTF-8">
+                        <form method="post" action="{!! url('profil/updateProfil') !!}" accept-charset="UTF-8">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-4">
@@ -137,12 +160,67 @@
     </div>
 </div> 
 </div>  
+
+<!-- POPUP D'Ajout de 'indisponibilité' -->
+<div id="ajoutIndispo" class="modal fade">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nom">Ajout de l'indisponibilité</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="container">
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <form method="post" action="{{ url('profil/ajoutIndisponible') }}">
+                                        {{ csrf_field() }}
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label> 
+                                                Début : 
+                                                <input type="date" name="dateDebut" required>
+                                                <input type="time" name="timeDebut" required>
+                                            </label>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-5">
+                                               <label> 
+                                                Fin : 
+                                                <input type="date" name="dateFin" required>
+                                                <input type="time" name="timeFin" required>
+                                            </label> 
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary">Enregistrer</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('script')
     <script>
         $( function() {
             $( ".modifier" ).on( "click", function(e) {
                 $( "#modif" ).modal( "show" );
+            });
+        });
+
+        $( function() {
+            $( ".ajoutIndisponible" ).on( "click", function(e) {
+                $( "#ajoutIndispo" ).modal( "show" );
             });
         });
     </script>

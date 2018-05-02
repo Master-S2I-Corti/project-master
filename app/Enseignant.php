@@ -42,4 +42,9 @@ class Enseignant extends Personne
         return $this->hasMany('App\Responsable_diplome','code_professeur','code_professeur');
     }
 
+    public function Indisponibilite()
+    {
+        return $this->hasMany('App\Indisponibilite','code_professeur','code_professeur');
+    }
+
 }

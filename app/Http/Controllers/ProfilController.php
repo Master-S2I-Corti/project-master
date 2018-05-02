@@ -6,6 +6,7 @@ use App\Enseignant;
 use App\Etudiant;
 use App\Personne;
 use App\Departement;
+use App\Indisponibilite;
 
 
 
@@ -69,5 +70,25 @@ class ProfilController extends Controller
         //$user = 'admin';
 
         return redirect('profil')->withOk("Votre profil a bien été modifié");
+    }
+
+    public function ajoutIndisponible(Request $request)
+    {
+        $log = Auth::user();
+
+        if ($log->code_professeur != null)
+        {
+          $Indisponibilite = Indisponibilite::firstOrCreate([
+            'code_professeur'=>$log->code_professeur,
+            'debut' => $request->dateDebut." ".$request->timeDebut.":00",
+            'fin' => $request->dateFin." ".$request->timeFin.":00"
+            ]);
+        
+           return redirect('profil')->withOk("Votre indisponibilité a bien été enregistré");
+        }
+        else
+        {
+            return redirect('profil')->withError("Votre indisponibilité n'a pas pu etre enregistrer");
+        }
     }
 }
