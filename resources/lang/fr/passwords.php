@@ -14,5 +14,5 @@ return [
     'reset'    => 'Votre mot de passe a été réinitialisé !',
     'sent'     => 'Nous vous avons envoyé par courriel le lien de réinitialisation du mot de passe !',
     'token'    => "Cette adresse mail n'est pas celle indiqué lors de l'envoie du message",
-    'user'     => "Cette adresse mail n'existe pas",
-];
+    'user'     => "Une ou les deux adresses ne sont pas valides",
+ ];

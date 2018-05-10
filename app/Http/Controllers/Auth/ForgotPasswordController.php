@@ -48,7 +48,7 @@ class ForgotPasswordController extends Controller
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
         $response = $this->broker()->sendResetLink(
-            $request->only(['email', 'email_sos'])
+            $request->only(['email_sos', 'email'])
         );
 
         
@@ -60,8 +60,25 @@ class ForgotPasswordController extends Controller
     
     protected function validateEmail(Request $request)
     {
-        $this->validate($request, ['email' => 'required|email']);
-        $this->validate($request, ['email_sos' => 'required|email']);
+        $validatedData = $request->validate([
+            'email' => 'required|email|exists:personne',
+            'email_sos' => 'required|email|exists:personne',
+        ], [
+            'email.required' => 'Le champ email est obligatoire.',
+            'email.email' => 'Veuillez entrer une adresse mail valide.',
+            'email.exists' => "Votre email est incorrect.",
+            'email_sos.required' => 'Le champ email de secours est obligatoire.',
+            'email_sos.email' => 'Veuillez entrer une adresse mail valide',
+            'email_sos.exists' => 'Votre email de secours est incorrect.',
+        ]);
+            
+    }
+    
+    protected function sendResetLinkFailedResponse(Request $request, $response)
+    {
+        return back()->withErrors(
+            ['email_sos' => trans($response)]
+        );
     }
      
         

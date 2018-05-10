@@ -42,14 +42,19 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="captcha" class="form-control-label">Captcha</label>
-                            <div>
-                                {!! Recaptcha::render()!!}
-                                
-                                @if ($errors->has('g-recaptcha-response'))
+                        <div class="form-group{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                            <label for="captcha" class="col-md-4 control-label">Captcha</label>
+
+                            <div class="col-md-6">
+                                <div class="captcha">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-success btn-refresh">Refresh</button>
+                                </div>
+                                <input id="captcha" type="text" class="form-control" name="captcha">
+
+                                @if ($errors->has('captcha'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                        <strong>{{ $errors->first('captcha') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -66,4 +71,5 @@
                 </div>
             </div>
 </div>
+
 @endsection

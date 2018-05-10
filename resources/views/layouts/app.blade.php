@@ -11,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/password-bar.css') }}"/>
+
     <script type="text/javascript" src="{{ asset('js/jquery.min.js')}}"></script>
-
     <script src="{{ asset('js/popper.min.js')}}"></script>
-
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
     <script src="https://use.fontawesome.com/1844c64849.js"></script>
 
@@ -52,10 +52,12 @@
     <div >
         @include('layouts.header')
 
+<!--
         @guest
             @include('layouts.connexion')
-            
         @endguest
+-->
+        
         <div id="conteneur" style="overflow: auto; height: calc(100vh - 66px)">
             @yield('content')
             @include('layouts.footer')
@@ -70,17 +72,22 @@
 
     $(".toggleMenu").click(function (e) {
         $("#menu").toggleClass("openMenu")
-
     });
     $("#conteneur").click(function () {
         $("#menu").removeClass("openMenu")
     });
-    @if ($errors->any())
-        $('#connexionModal').modal('show');
-    @endif
+//    @if ($errors->any())
+//        $('#connexionModal').modal('show');
+//    @endif
+    
     });
 
-</script>
+    
 
+</script>
+    <script type="text/javascript" src="{{ asset('js/change-password-bar.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/reset-password-bar.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/application.js')}}"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
 Route::post('password/reset', 'ResetPasswordController@reset');
 Route::get('/changePassword','ChangePasswordController@showChangePasswordForm');
 Route::post('/changePassword','ChangePasswordController@changePassword')->name('changePassword');
+Route::get('refresh_captcha', 'HomeController@refreshCaptcha')->name('refresh_captcha');
 
 Route::get("/etudiants", function() {
    return App\Personne::all();

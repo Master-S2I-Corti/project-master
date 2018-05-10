@@ -31,7 +31,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+    //    $this->middleware('guest');
     }
     /**
      * Get a validator for an incoming registration request.
@@ -44,9 +44,17 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'identifiant' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'captcha' => 'required|captcha',
+//            'g-recaptcha-response' => 'required|recaptcha',
+        ], [
+            'password.required' => 'Veuillez entrer un mot de passe',
+            'captcha.required' => 'Veuillez entrer le code captcha',
+            'captcha.captcha' => 'Veuillez réessayer',
+        
         ]);
     }
+    
+    
     /**
      * Create a new user instance after a valid registration.
      *

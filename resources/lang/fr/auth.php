@@ -11,6 +11,6 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'failed'   => 'Idetifiant et / ou mot de passe incorrect',
+    'failed'   => 'Identifiant et / ou mot de passe incorrect',
     'throttle' => 'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
 ];
