@@ -20,7 +20,7 @@
                                     <select class= "form-control custom-select" required="">
                                             <option value="" selected>Veuillez sélectionner un cours</option>
                                                 @foreach ($matieres as $matiere)
-                                                <option value="1" class="dropdown-item" href="#">{{$matiere->libelle}} </option>
+                                                <option value="{{$matiere->id_matiere}}" class="dropdown-item" href="#">{{$matiere->libelle}} </option>
                                                 @endforeach 
                                     </select>
                                 </div>
@@ -50,7 +50,7 @@
                                     <select class= "form-control custom-select" required="">
                                             <option value="" selected>Veuillez sélectionner un nom d'enseignant</option>
                                                 @foreach ($enseignants as $enseignant)
-                                                   <option value="1" class="dropdown-item" href="#">{{$enseignant->personne->prenom}} {{$enseignant->personne->nom}}</option>
+                                                   <option value="{{$enseignant->code_professeur}}" class="dropdown-item" href="#">{{$enseignant->personne->prenom}} {{$enseignant->personne->nom}}</option>
                                                 @endforeach
                                     </select>
                                 </div>
@@ -123,7 +123,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="#" class="btn btn-outline-primary">Ajouter</a>
+                                <a href="#" id=addCour onclick="addCour()" class="btn btn-outline-primary">Ajouter</a>
                             </div>
                         </div>
                     </div>
@@ -158,6 +158,15 @@
             input.value="";
         })
     })
+    
+    function addCour() {
+        document.getElementById("addCour").style.color = "red";
+        
+        DB::table('Seance')->insert(
+                array('id_seance' => '5', 'type' => 'TD', 'heure_debut' => '2018-05-13 14:00:00', 'heure_fin' => '2018-05-13 15:00:00', 'date_seance' => '2018-05-13', 'remarque' => 'test1', 'id_matiere' => '5', 'id_salle' => '404', 'code_professeur' => '1')
+        
+        );
+    }
 </script>
     
 @endsection

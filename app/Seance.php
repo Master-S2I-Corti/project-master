@@ -19,9 +19,8 @@ class Seance extends Model
     public function getEcart() {
         $h1= date('H', strtotime($this->heure_debut));
         $h2= date('H',strtotime( $this->heure_fin));
-        $m1= date('M',strtotime( $this->heure_debut));
-        $m2= date('M',strtotime($this->heure_fin));
-
+        $m1= intval(date('i',strtotime( $this->heure_debut)));
+        $m2= intval(date('i',strtotime($this->heure_fin)));
         return ($h2-$h1)*4+($m2-$m1)/15;
 
     }
