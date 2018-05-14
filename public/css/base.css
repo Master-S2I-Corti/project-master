@@ -50,6 +50,16 @@ label i {
 .toggleMenu {
     cursor:pointer;
 }
+.btn-refresh{
+    height: 35px;
+    width: 35px;
+    padding: 2px;
+}
+#cap{
+    padding-right: 10px;
+    width: 100%;
+    height: 100px;
+}
 
 #menu {
     transition: transform 0.2s;

@@ -5,14 +5,16 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "fideloper/proxy": "~3.3",
-        "greggilbert/recaptcha": "^2.2",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "~5.0",
+        "mews/captcha": "^2.2",
         "stechstudio/laravel-ssh-tunnel": "^1.1"
     },
+    "minimum-stability": "dev",
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",

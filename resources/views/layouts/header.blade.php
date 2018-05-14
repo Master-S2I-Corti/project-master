@@ -8,9 +8,9 @@
     <ul class="navbar-nav flex-row" >
 
         @guest
-            @if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  != "register")
+            @if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  != "login")
             <li class="nav-item">
-                <a class="nav-link p-0 align-items-center d-inline-flex"  data-toggle="modal" href="{{ url('login')}}" data-target="#connexionModal">Connexion <i class="icon_account fa fa-user-circle fa-2x"></i></a>
+                <a class="nav-link p-0 align-items-center d-inline-flex"  href="{{ url('login')}}">Connexion <i class="icon_account fa fa-user-circle fa-2x"></i></a>
             </li>
             @endif
         @else
@@ -33,7 +33,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Profil</a>
                     <a class="dropdown-item" href="#">Contact</a>
-                    <a class="dropdown-item" href="{{ url('changePassword')}}">Change Password</a>
+                    <a class="dropdown-item" href="{{ url('changePassword')}}">Changer mot de passe</a>
                     
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">

@@ -5,8 +5,8 @@
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-3"> </div>
-        <div class="col-md-6">
+        <div class="col-md-1"> </div>
+        <div class="col-md-10">
           <div class="card text-white p-5 bg-dark">
             <div class="card-body">
               <h2 class="mb-4">Modification mot de passe</h2>
@@ -19,51 +19,71 @@
                         <div class="alert alert-success">
                         {{ session('success') }}
                         </div>
-                    @endif
-
+                    @else
                     <form class="form-horizontal" method="POST" action="{{ route('changePassword') }}">
                         {{ csrf_field() }}
-                        
+                                                               
                         <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
-                                <label for="new-password" class="control-label">Current Password</label>
-                   
-                                <input id="current-password" type="password" class="form-control" name="current-password" placeholder="********" required>
+                                <label for="new-password" class="control-label">Mot de passe actuel</label>
+                                           
+                                <input id="current-password" type="password" name="current-password">
+                                
                                 @if ($errors->has('current-password'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('current-password') }}</strong>
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('current-password') }}</strong>
+                                    </span>
+                                @endif
+                                @if (session('current-password'))
+                                    <span class="help-block text-danger">
+                                        <strong>{{ session('current-password') }}</strong>
                                     </span>
                                 @endif
 
                         </div>
 
                         <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
-                            <label for="new-password" class="control-label">New Password</label>
+                            <label for="new-password" class="control-label">Nouveau mot de passe</label>
 
-                                <input id="new-password" type="password" class="form-control" placeholder="********" name="new-password" required>
+                                <input id="new-password" type="password" name="new-password">
+                                <meter max="5" id="password-strength-meter"></meter>  
+                                <span id="notepassword"></span>
+                                
                                 @if ($errors->has('new-password'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('new-password') }}</strong>
+                                    <span class="help-block text-danger" id="error-msg">
+                                        <strong>{{ $errors->first('new-password') }}</strong>
+                                    </span>
+                                @endif
+                                @if (session('new-password'))
+                                    <span class="help-block text-danger" id="error-msg">
+                                        <strong>{{ session('new-password') }}</strong>
                                     </span>
                                 @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="new-password-confirm" class="control-label">Confirm New Password</label>
-                                <input id="new-password-confirm" type="password" class="form-control" placeholder="********" name="new-password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        <div class="form-group{{ $errors->has('new-password-confirm') ? ' has-error' : '' }}">
+                                <label for="new-password-confirm" class="control-label">Confirmation nouveau mot de passe</label>
+                                <input id="new-password-confirm" type="password" name="new-password-confirm">
+                                <meter max="5" id="passwordconfirm-strength-meter"></meter>
+                                <span id="notepasswordconfirm"></span>
+                                    
+                                @if ($errors->has('new-password-confirm'))
+                                    <span class="help-block text-danger" id="error-msgconfirm">
+                                        <strong>{{ $errors->first('new-password-confirm') }}</strong>
                                     </span>
                                 @endif
-                        </div>    
-
-                        
+                                @if (session('new-password-confirm'))
+                                    <span class="help-block text-danger" id="error-msgconfirm" >
+                                        <strong>{{ session('new-password-confirm') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
                         <div class="modal-footer">
                             <br>
-                            <button type="submit" class="btn btn-secondary">Valider</button>
+                            <button type="submit" id="envoi" class="btn btn-secondary">Valider</button>
                         </div>
                     </form>
+                    @endif
+
             </div>
           </div>
         </div>
@@ -73,6 +93,9 @@
  @endsection
 
 
+@section('script')
+    <script type="text/javascript" src="{{ asset('js/change-password-bar.js')}}"></script>
+@endsection
 
 
 

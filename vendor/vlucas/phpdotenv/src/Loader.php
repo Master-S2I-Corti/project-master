@@ -43,6 +43,29 @@ class Loader
     }
 
     /**
+     * Set immutable value.
+     *
+     * @param bool $immutable
+     * @return $this
+     */
+    public function setImmutable($immutable = false)
+    {
+        $this->immutable = $immutable;
+
+        return $this;
+    }
+
+    /**
+     * Set immutable value.
+     *
+     * @return bool
+     */
+    public function getImmutable()
+    {
+        return $this->immutable;
+    }
+
+    /**
      * Load `.env` file in given directory.
      *
      * @return array
@@ -92,9 +115,7 @@ class Loader
      */
     protected function normaliseEnvironmentVariable($name, $value)
     {
-        list($name, $value) = $this->splitCompoundStringIntoParts($name, $value);
-        list($name, $value) = $this->sanitiseVariableName($name, $value);
-        list($name, $value) = $this->sanitiseVariableValue($name, $value);
+        list($name, $value) = $this->processFilters($name, $value);
 
         $value = $this->resolveNestedVariables($value);
 
@@ -147,7 +168,9 @@ class Loader
      */
     protected function isComment($line)
     {
-        return strpos(ltrim($line), '#') === 0;
+        $line = ltrim($line);
+
+        return isset($line[0]) && $line[0] === '#';
     }
 
     /**
@@ -235,7 +258,7 @@ class Loader
     /**
      * Resolve the nested variables.
      *
-     * Look for {$varname} patterns in the variable value and replace with an
+     * Look for ${varname} patterns in the variable value and replace with an
      * existing environment variable.
      *
      * @param string $value
@@ -247,7 +270,7 @@ class Loader
         if (strpos($value, '$') !== false) {
             $loader = $this;
             $value = preg_replace_callback(
-                '/\${([a-zA-Z0-9_]+)}/',
+                '/\${([a-zA-Z0-9_.]+)}/',
                 function ($matchedPatterns) use ($loader) {
                     $nestedVariable = $loader->getEnvironmentVariable($matchedPatterns[1]);
                     if ($nestedVariable === null) {
@@ -287,7 +310,7 @@ class Loader
      */
     protected function beginsWithAQuote($value)
     {
-        return strpbrk($value[0], '"\'') !== false;
+        return isset($value[0]) && ($value[0] === '"' || $value[0] === '\'');
     }
 
     /**

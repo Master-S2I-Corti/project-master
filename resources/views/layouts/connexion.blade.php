@@ -1,14 +1,12 @@
-@if(substr(Request::url(), strrpos(Request::url(), '/') + 1)  == "register")
-@else
-<div class="modal fade" id="connexionModal" tabindex="-1" role="dialog" aria-labelledby="connexionModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><strong>Authentification</strong></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"> </div>
+        <div class="col-xs-12 col-sm-12 col-lg-6">
+          <div class="card text-white p-5 bg-dark">
+            <div class="card-body">
+                <h2 class="mb-4">Authentification</h2>
+                
             <form class="form-horizontal" method="POST" action="{{ url('login') }}">
 
             <div class="modal-body">
@@ -27,7 +25,7 @@
                                    required>
                             @if ($errors->has('login'))
                                 <span class="help-block text-danger">
-                                        <strong>{{ $errors->first('identifiant') }}</strong>
+                                        <strong>{{ $errors->first('login') }}</strong>
                                     </span>
                             @endif
 
@@ -38,35 +36,42 @@
                             @endif
                         </div>
                     </div>
+                
+                    <div class="form-group{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                            <label for="captcha" class="form-control-label"><i class="fa d-inline fa-cogs"></i>Captcha</label>
+                                
+                                <div class="captcha">
+                                    <span id="cap">{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-primary btn-refresh"><i class="fa d-inline fa-refresh"></i></button>
+                                </div>
+                        <br>
+                                <input id="captcha" type="text" class="form-control" name="captcha" placeholder="Code captcha">
+
+                                @if ($errors->has('captcha'))
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('captcha') }}</strong>
+                                    </span>
+                                @endif
+                        
+                            
+                    </div>
                     <div class="form-group">
                         <a href="{{ route('password.request') }}">
                                     Mot de passe oublié ?
                         </a>
                     </div>
                     
-                    <div class="form-group">
-                            <label for="captcha" class="form-control-label">Captcha</label>
-                            <div>
-                                {!! Recaptcha::render()!!}
-                                
-                                @if ($errors->has('g-recaptcha-response'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                    </div>
-                    
+
                 </div>
+                    
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 <button type="submit" class="btn btn-primary">Valider</button>
             </div>
             </form>
-
+                </div>
+              </div>
+          </div>
+         <div class="col-md-3"> </div> 
         </div>
+      </div>
     </div>
-</div>
-@endif
-
-
