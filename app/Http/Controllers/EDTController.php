@@ -41,12 +41,15 @@ class EDTController extends Controller
             $date->setTime($heure, $minute);
             //echo $seance->heure_debut ."        ".$date->format('Y-m-d H:i:s')."<br />";
             if ($date->format('Y-m-d H:i:s') == $seance->heure_debut) {
-                echo "SALADE";
                 return $seance;
             }
         }
         return null;
 
+    }
+
+    public function seanceWeek() {
+        return Seance::all();
     }
 
 }

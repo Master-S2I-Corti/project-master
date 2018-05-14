@@ -30,6 +30,7 @@ Route::middleware(['roles:enseignant'])->group(function () {
 
 Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/edt', 'EDTController@gestion');
+    Route::get('/gestion/edt/{week}', 'EDTController@gestion');
     Route::get('/gestion/salles', 'SalleController@index');
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
@@ -62,6 +63,6 @@ Route::get('annuaire/professeurs','ListeProfController@index');
 Route::post('listeProf/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
 
-
+Route::get('seances/week/{week}', 'EDTController@seanceWeek');
 Auth::routes();
 
