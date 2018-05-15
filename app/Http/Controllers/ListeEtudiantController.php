@@ -9,6 +9,7 @@ use App\Departement;
 use App\Annee;
 use App\Diplome;
 use App\Est_diplome;
+use App\Est_diplome_hors_univ;
 use Illuminate\Support\Facades\Hash;
 
 class ListeEtudiantController extends Controller
@@ -16,7 +17,7 @@ class ListeEtudiantController extends Controller
     // Accès à la page Liste etudiant
     public function index()
     {
-        $listesEtudiant = Etudiant::with('identity','annee','Est_diplome')->where('id_annee', '!=',null)->paginate(7);
+        $listesEtudiant = Etudiant::with('identity','annee','Est_diplome','Est_diplome_hors_univ')->where('id_annee', '!=',null)->paginate(7);
         $listeDepartement = Departement::get();
         $listDiplome = Annee::get();
         $diplome = Diplome::get();
@@ -25,8 +26,7 @@ class ListeEtudiantController extends Controller
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
-        
-       if  ($request->anneeObt > date("Y"))
+       if  ($request->anneeObt > date("Y") && $request->diplomeObtenu != 0 || $request->anneeObtHors > date("Y") && $request->hors != null)
        {
            return redirect('annuaire/etudiants')->withError("La date d'obtention du diplome est incorrect");
        }
@@ -69,6 +69,14 @@ class ListeEtudiantController extends Controller
                                                                 'id_annee'=>$request->diplomeObtenu,
                                                                 'obtention'=>$request->anneeObt
                                                             ]);
+                }
+                if ($request->anneeObtHors <= date("Y") && $request->hors != null)
+                {
+                    $est_diplome_hors_univ = Est_diplome_hors_univ::firstOrCreate([
+                        'code_etudiant'=>$etudiant->code_etudiant,
+                        'libelle'=>$request->hors,
+                        'obtention'=>$request->anneeObtHors
+                    ]);
                 }
         }
         else
@@ -116,8 +124,9 @@ class ListeEtudiantController extends Controller
         $etudiant->update($test);
         $test = $etudiant->code_etudiant;
         $personne->delete();
-        $etudiant->delete();
+        $horsdiplomeEtudiant = Est_diplome_hors_univ::where('code_etudiant',$test)->delete();
         $diplomeEtudiant = Est_diplome::where('code_etudiant',$test)->delete();
+        $etudiant->delete();
 
         return redirect('annuaire/etudiants')->withOk("L'étudiant a bien été supprimé");
     }

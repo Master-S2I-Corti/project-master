@@ -76,6 +76,12 @@
                 @endif
             </div>
             <div class="col-4">
+                @if($myProfil->isEtudiant())
+                    <h5><b><u>Diplômes obtenus Hors Campus : </u></b></h5>
+                    @for ($i = 1; $i<= sizeof($myProfil->Etudiant->Est_diplome_hors_univ);$i++ )
+                      <h5>{{$myProfil->Etudiant->Est_diplome_hors_univ[$i-1]->libelle." (".$myProfil->Etudiant->Est_diplome_hors_univ[$i-1]->obtention.")" }}</h5>
+                    @endfor
+                @endif
                 @if($myProfil->isEnseignant())
                     <h5><b><u>Votre Bureau :</u></b></h5>
                     <h5> Département : {{ $myProfil->Enseignant->departement->libelle }} </h5>
@@ -116,39 +122,47 @@
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-4">
+                                    <p>Mail Perso : <input class="form-control form-control-sm" type="text" name="email_sos" value="{{ $myProfil->email_sos }}"required/> </p>
                                     <p>Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value="{{ $myProfil->adresse }}" required/> </p>
-                                    <p>code postal: <input class="form-control form-control-sm" type="number" name="code_postal" value="{{ $myProfil->code_postal }}" required/> </p>
-                                    <p>ville : <input class="form-control form-control-sm" type="text" name="ville" value="{{ $myProfil->ville }}" required/> </p>
                                 </div>
                                 <div class="col-md-1">
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Mail Perso : <input class="form-control form-control-sm" type="text" name="email_sos" value="{{ $myProfil->email_sos }}"required/> </p>
-                                    <p>Telephone : <input class="form-control form-control-sm" type="tel" name="tel" value="{{ $myProfil->tel }}" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/> </p>
+                                    <p>Telephone : <input class="form-control form-control-sm" type="tel" name="tel" value="{{ $myProfil->tel }}" required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/> </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    @if($myProfil->isEnseignant())
-                                    <p>Département :
-                                        <select class="form-control form-control-sm" name="departement">
-                                        @if ( isset($listeDepartement))
-                                            @foreach ( $listeDepartement as $departement)
-                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
-                                            @endforeach
-                                        @endif
-                                        </select> 
-                                    </p> 
-                                    <p>Batiment : <input class="form-control form-control-sm" type="text" name="batiment" value="{{  $myProfil->Enseignant->batiment }}"/> </p>
-                                    <p>Etage : <input class="form-control form-control-sm" type="number" name="etage" value="{{  $myProfil->Enseignant->etage }}"/> </p>
-                                    @endif
+                                    <p>code postal: <input class="form-control form-control-sm" type="number" name="code_postal" value="{{ $myProfil->code_postal }}" required/> </p>
                                 </div>
                                 <div class="col-md-1">
                                 </div>
                                 <div class="col-md-4">
-                                    
+                                <p>ville : <input class="form-control form-control-sm" type="text" name="ville" value="{{ $myProfil->ville }}" required/> </p>
                                 </div>
                             </div>
+                            @if($myProfil->isEnseignant())
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                        <p>Batiment : <input class="form-control form-control-sm" type="text" name="batiment" value="{{  $myProfil->Enseignant->batiment }}"/> </p>
+                                        <p>Etage : <input class="form-control form-control-sm" type="number" name="etage" value="{{  $myProfil->Enseignant->etage }}"/> </p>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-4">
+                                        <p>Département :
+                                            <select class="form-control form-control-sm" name="departement">
+                                            @if ( isset($listeDepartement))
+                                                @foreach ( $listeDepartement as $departement)
+                                                        <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                                @endforeach
+                                            @endif
+                                            </select> 
+                                        </p> 
+                                </div>
+                            </div>
+                            @endif
                                 <div class="modal-footer">
                                     <button class="btn btn-primary"> Modifier</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
