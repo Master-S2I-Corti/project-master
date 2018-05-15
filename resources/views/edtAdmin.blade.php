@@ -1,13 +1,9 @@
 
-
-<?php
-use App\Http\Controllers\EDTController;
-?>
 @extends('layouts.app')
 
 @section('css')
 <style>
-    td, th {border: 1px solid rgba(0, 0, 0, 0.4);}
+    td, th {border: 1px solid rgb(166, 166, 166);}
     table {border-collapse : collapse;}
     .heure, .minute {
         text-align: end;
@@ -19,7 +15,8 @@ use App\Http\Controllers\EDTController;
         font-style: italic;
     }
     .tr-inner {
-        border-bottom: 0px;
+        border-bottom: 0;
+        width: 13%;
     }
     .tr-cours {
         background: #1e7e34;
@@ -29,12 +26,17 @@ use App\Http\Controllers\EDTController;
     }
 
     tr:first-child td {
-        border: 1px solid rgba(0, 0, 0, 0.4);
+        border: 1px solid rgb(166, 166, 166);
         padding:.7rem;
 
     }
+    tr:first-child {
+        background: #343a40!important;
+        color: white;
+        text-transform: capitalize;
+    }
     tr:last-child td {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid rgb(166, 166, 166);
     }
     .table td {
         padding:.2rem;
@@ -42,16 +44,81 @@ use App\Http\Controllers\EDTController;
     input {
         width: 100%;
     }
+    .table {
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
 
 </style>
 @endsection
 @section('content')
 
+    <script>
 
-    <div class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
+        Date.prototype.toHHMM = function () {
+            var minutes = this.getMinutes();
+            var time = this.getHours()+':';
+            time += minutes < 10 ? "0"+minutes : minutes
+            return time;
+        };
+
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
+            return new Date(d.setDate(diff));
+        }
+
+
+        function getBeginTime(hours, minutes) {
+            return ((hours-8)*4+(minutes/15))+2;
+        }
+
+        function removeItemOverflow(colonnes, counter) {
+            for(var i=colonnes.length-1; i > (colonnes.length-counter); i--) {
+                colonnes[i].outerHTML="";
+            }
+        }
+
+
+
+        function loadWeek(week) {
+            $.getJSON("{{URL::to("seances/week/")}}/"+week, function (data) {
+                var date = getMonday(new Date("{{$date}}"));
+                reverse_table(document.getElementById("table_edt"));
+
+                for (var i = 1; i < 7; i++) {
+                    var counter = 0;
+                    var colonne = $(document.querySelectorAll("tr")[i]).find("td");
+                    var seanceDay = data.filter(function (seance) {
+                        
+                        return (new Date(Date.parse(seance.date_seance)).getDate() === date.getDate());
+                    }).sort(function (e, e1) {
+                        return (new Date(e.heure_debut)).getTime() < (new Date(e1.heure_debut)).getTime();
+                    }).forEach(function (seance) {
+                        counter += seance.ecart;
+                        var time = seance.heure_debut.split(":");
+                        var tdIndex = getBeginTime(parseInt(time[0]), parseInt(time[1]));
+                        var ligne = colonne[tdIndex];
+                        ligne.colSpan = seance.ecart;
+                        ligne.classList.add("tr-cours");
+                        ligne.innerHTML = seance.matiere + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.prenom + " " + seance.nom + "<br/>" + seance.id_salle;
+                    });
+
+                    removeItemOverflow(colonne, counter);
+                    date.setDate(date.getDate() + 1);
+                    console.log(seanceDay)
+                }
+                reverse_table(document.getElementById("table_edt"));
+
+            });
+        }
+        loadWeek({{$week}});
+    </script>
+
+    <div class="container mt-4">
+            <div class="d-flex justify-content-between">
+                <div>
                     <div class="btn-group">
                         <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Classe</button>
                         <div class="dropdown-menu">
@@ -61,29 +128,24 @@ use App\Http\Controllers\EDTController;
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Semaine&nbsp;</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Semaine 1</a>
-                            <a class="dropdown-item" href="#">Semaine 2</a>
-                            <a class="dropdown-item" href="#">Semaine 3</a>
-                            <a class="dropdown-item" href="#">Semaine 4</a>
-                            <a class="dropdown-item" href="#">Semaine 5</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+                <div>
                     <a href="#" data-toggle="modal" id="btAjout" data-target="#ajout" class="btn btn-outline-primary">Ajouter un cours</a>
                 </div>
             </div>
-        </div>
+            <div class="d-flex justify-content-between mt-3">
+                <a href="{{URL::to("/gestion/edt/")}}/{{$week - 1}}" class="btn btn-secondary"><i class="fa fa-angle-left fa-lg d-inline align-middle mr-2"></i>Précédent</a>
+                
+                <h3>Semaine {{$week}}</h3>
+                
+                <a href="{{URL::to("/gestion/edt/")}}/{{$week + 1}}" class="btn btn-secondary">Suivant <i class="fa fa-angle-right fa-lg d-inline align-middle ml-2"></i></a>
+            </div>
+
     </div>
         <div class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table" id="table_edt">
+                    <table class="table table-striped" id="table_edt">
                         <tbody>
                         <tr>
                             <td></td>
@@ -95,25 +157,11 @@ use App\Http\Controllers\EDTController;
                         @for ($i = 0; $i < 7; $i++)
                             <tr>
                                 <td style="text-align: end">{{strftime("%a %d %b", strtotime($date . ' +'.$i.' day'))}}</td>
-                                <td class="tr-inner"></td>
                                 @for ($j = 8; $j < 22; $j++)
                                     @for ($k = 0; $k < 4; $k++)
-
-                                            <?php
-                                                $seance = EDTController::getHoraire($seances, strtotime($date . ' +'.$i.' day'), $j, 15*$k);
-                                                if($seance != null) {
-                                                    $ecart = $seance->getEcart();
-                                                    echo "<td colspan='".$ecart."' class=\"tr-inner tr-cours\" id=\"table{{$i}}{{$j}}\">".$seance->matiere->libelle."</td>";
-                                                    $k = $k+$ecart;
-                                                    $p = ($ecart/4)-1;
-                                                    echo "  ".$p;
-                                                    $j += $p;
-                                                } else {
-                                                    if($j != 21 || $k != 3) {
-                                                        echo "<td class=\"tr-inner\" id=\"table{{$i}}{{$j}}\"></td>";
-                                                    }
-                                                }
-                                            ?>
+                                        <?php
+                                                echo "<td class=\"tr-inner\"></td>";
+                                        ?>
                                         @endfor
                                 @endfor
                             </tr>
@@ -228,8 +276,10 @@ use App\Http\Controllers\EDTController;
             }
 
             thetable.parentNode.replaceChild(rtable, thetable);
+
         }
         reverse_table(document.getElementById("table_edt"));
+
     </script>
     @include("edtAjout")
 @endsection

@@ -23,11 +23,25 @@ class EDTController extends Controller
         return view("edtEnseignant");
     }
 
-    public function gestion() {
+    
+    
+
+    function getStartDate($week, $year)
+    {
+
+        $time = strtotime("1 January $year", time());
+        $day = date('w', $time);
+        $time += ((7*($week-1))+1-$day)*24*3600;
+        $return[0] = date('Y-n-j', $time);
+        return $return;
+    }
+
+
+    
+    public function gestion($week) {
         date_default_timezone_set('Europe/Paris');
         setlocale (LC_TIME, 'fr_FR.utf8','fra');
-        $day = strtotime('Monday this week');
-        $date= date('Y-m-d H:i:s', $day);
+        $date= self::getStartDate($week, date('Y'))[0];
 
         $classes = Annee::get();
         $seances = Seance::get();
@@ -37,7 +51,11 @@ class EDTController extends Controller
         
 
 
-        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres", "salles"));
+        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres", "salles", "week"));
+    }
+    
+    public function gestionActuel() {
+        return self::gestion(date ('W'));
     }
 
 
@@ -47,7 +65,6 @@ class EDTController extends Controller
             $date->setTime($heure, $minute);
             //echo $seance->heure_debut ."        ".$date->format('Y-m-d H:i:s')."<br />";
             if ($date->format('Y-m-d H:i:s') == $seance->heure_debut) {
-                echo "SALADE";
                 return $seance;
             }
         }
@@ -70,4 +87,10 @@ class EDTController extends Controller
         ]);
         return redirect('gestion/edt');
     }
+    public function seanceWeek() {
+        return Seance::all();
+    }
+    
+    
+
 }

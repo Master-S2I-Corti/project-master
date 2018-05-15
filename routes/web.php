@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
-Route::get('password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('password/confirmation', 'ConfirmationController@confirmationEnvoie');
+Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'ResetPasswordController@reset');
 Route::get('/changePassword','ChangePasswordController@showChangePasswordForm');
 Route::post('/changePassword','ChangePasswordController@changePassword')->name('changePassword');
 
@@ -29,7 +29,8 @@ Route::middleware(['roles:enseignant'])->group(function () {
 });
 
 Route::middleware(['roles:admin'])->group(function () {
-    Route::get('/gestion/edt', 'EDTController@gestion');
+    Route::get('/gestion/edt', 'EDTController@gestionActuel');
+    Route::get('/gestion/edt/{week}', 'EDTController@gestion');
     Route::get('/gestion/salles', 'SalleController@index');
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
@@ -62,5 +63,6 @@ Route::post('listeProf/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
 Route::post('/edt/ajout','EDTController@ajoutCour');
 
+Route::get('seances/week/{week}', 'EDTController@seanceWeek');
 Auth::routes();
 
