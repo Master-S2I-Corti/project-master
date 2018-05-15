@@ -5,6 +5,10 @@ use App\Matiere;
 use App\Enseignant;
 use App\Seance;
 use DateTime;
+use Illuminate\Http\Request;
+use App\Salle;
+
+use Illuminate\Support\Facades\DB;
 
 
 class EDTController extends Controller
@@ -29,9 +33,11 @@ class EDTController extends Controller
         $seances = Seance::get();
         $matieres = Matiere::get();
         $enseignants = Enseignant::get();
+        $salles = Salle::select( DB::raw('DISTINCT(type)') )->get();
+        
 
 
-        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres"));
+        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres", "salles"));
     }
 
 
@@ -49,4 +55,19 @@ class EDTController extends Controller
 
     }
 
+    public function ajoutCour(Request $request){
+        $id_salle = Salle::select()->where("type", $request->salle)->first()->id_salle;
+         Seance::create([
+                 'id' => null,
+                 'type' => $request->type, 
+                 'heure_debut' => $request->heure_debut, 
+                 'heure_fin' => $request->heure_fin,
+                 'date_seance' => $request->date,
+                 'remarque' => $request->remarque,
+                 'id_matiere' => $request->matieres, 
+                 'id_salle' => $id_salle, 
+                 'code_professeur' => $request->code_professeur
+        ]);
+        return redirect('gestion/edt');
+    }
 }

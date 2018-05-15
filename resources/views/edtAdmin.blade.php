@@ -39,7 +39,9 @@ use App\Http\Controllers\EDTController;
     .table td {
         padding:.2rem;
     }
-
+    input {
+        width: 100%;
+    }
 
 </style>
 @endsection

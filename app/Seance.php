@@ -11,6 +11,12 @@ class Seance extends Model
 
     public $timestamps = false;
 
+    
+    protected $fillable = [
+        'type','heure_debut', 'heure_fin', 'date_seance', 'remarque', 'id_matiere', 'id_salle', 'code_professeur'
+    ];
+
+    
     public function matiere() {
         return $this->hasOne('App\Matiere', "id_matiere", "id_matiere");
     }

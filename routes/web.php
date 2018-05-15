@@ -43,7 +43,6 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
     Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
-
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -61,7 +60,7 @@ Route::get('annuaire/professeurs','ListeProfController@index');
 
 Route::post('listeProf/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
-
+Route::post('/edt/ajout','EDTController@ajoutCour');
 
 Auth::routes();
 
