@@ -30,12 +30,12 @@ class LoginController extends Controller
         $this->validate($request, [
             $this->username() => 'required|string',
             'password' => 'required|string',
- //           'captcha' => 'required|captcha',
+//          'captcha' => 'required|captcha',
 //          'g-recaptcha-response' => 'required|recaptcha',
         ], [
             'password.required' => 'Veuillez entrer un mot de passe',
-            'captcha.required' => 'Veuillez entrer le code captcha',
-            'captcha.captcha' => 'Veuillez réessayer',
+ //           'captcha.required' => 'Veuillez entrer le code captcha',
+ //           'captcha.captcha' => 'Veuillez réessayer',
 //          'g-recaptcha-response.required' => 'Veuillez confirmer le code captcha.'
         ]);
     }
@@ -51,5 +51,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return "login";
+    }
 
 }
