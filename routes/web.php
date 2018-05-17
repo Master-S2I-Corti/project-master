@@ -31,7 +31,7 @@ Route::middleware(['roles:enseignant'])->group(function () {
 });
 
 Route::middleware(['roles:admin'])->group(function () {
-    Route::get('/gestion/edt', 'EDTController@gestion');
+    Route::get('/gestion/edt', 'EDTController@gestionActuel');
     Route::get('/gestion/edt/{week}', 'EDTController@gestion');
     Route::get('/gestion/salles', 'SalleController@index');
     Route::get('/gestion/salles/add', 'SalleController@add');
@@ -46,7 +46,6 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
     Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
-
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -66,6 +65,7 @@ Route::get('annuaire/professeurs','ListeProfController@index');
 
 Route::post('listeProf/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
+Route::post('/edt/ajout','EDTController@ajoutCour');
 
 Route::get('seances/week/{week}', 'EDTController@seanceWeek');
 Auth::routes();

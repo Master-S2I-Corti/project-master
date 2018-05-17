@@ -16,6 +16,7 @@
     }
     .tr-inner {
         border-bottom: 0;
+        width: 13%;
     }
     .tr-cours {
         background: #1e7e34;
@@ -40,11 +41,13 @@
     .table td {
         padding:.2rem;
     }
+    input {
+        width: 100%;
+    }
     .table {
         border-radius: 10px;
         box-sizing: border-box;
     }
-
 
 </style>
 @endsection
@@ -67,9 +70,8 @@
         }
 
 
-        function getBeginTime(time) {
-            console.log(((time.getHours()-8)*4+(time.getMinutes()/15)));
-            return ((time.getHours()-8)*4+(time.getMinutes()/15))+2;
+        function getBeginTime(hours, minutes) {
+            return ((hours-8)*4+(minutes/15))+2;
         }
 
         function removeItemOverflow(colonnes, counter) {
@@ -81,25 +83,26 @@
 
 
         function loadWeek(week) {
-            $.getJSON("/project-master/public/seances/week/"+week, function (data) {
-                var date = getMonday(new Date());
+            $.getJSON("{{URL::to("seances/week/")}}/"+week, function (data) {
+                var date = getMonday(new Date("{{$date}}"));
                 reverse_table(document.getElementById("table_edt"));
 
                 for (var i = 1; i < 7; i++) {
                     var counter = 0;
                     var colonne = $(document.querySelectorAll("tr")[i]).find("td");
                     var seanceDay = data.filter(function (seance) {
-                        return (new Date(seance.heure_debut)).getDate() === date.getDate();
+                        
+                        return (new Date(Date.parse(seance.date_seance)).getDate() === date.getDate());
                     }).sort(function (e, e1) {
                         return (new Date(e.heure_debut)).getTime() < (new Date(e1.heure_debut)).getTime();
                     }).forEach(function (seance) {
                         counter += seance.ecart;
-                        console.log(seance.ecart);
-                        var tdIndex = getBeginTime(new Date(seance.heure_debut));
+                        var time = seance.heure_debut.split(":");
+                        var tdIndex = getBeginTime(parseInt(time[0]), parseInt(time[1]));
                         var ligne = colonne[tdIndex];
                         ligne.colSpan = seance.ecart;
                         ligne.classList.add("tr-cours");
-                        ligne.innerHTML = seance.matiere + "<br/>" + new Date(seance.heure_debut).toHHMM() + "-" + new Date(seance.heure_fin).toHHMM();
+                        ligne.innerHTML = seance.matiere + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.prenom + " " + seance.nom + "<br/>" + seance.id_salle;
                     });
 
                     removeItemOverflow(colonne, counter);
@@ -110,12 +113,12 @@
 
             });
         }
-        loadWeek({{date ('W')}});
+        loadWeek({{$week}});
     </script>
 
     <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-4">
+            <div class="d-flex justify-content-between">
+                <div>
                     <div class="btn-group">
                         <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Classe</button>
                         <div class="dropdown-menu">
@@ -125,26 +128,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Semaine&nbsp;</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Semaine 1</a>
-                            <a class="dropdown-item" href="#">Semaine 2</a>
-                            <a class="dropdown-item" href="#">Semaine 3</a>
-                            <a class="dropdown-item" href="#">Semaine 4</a>
-                            <a class="dropdown-item" href="#">Semaine 5</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+                <div>
                     <a href="#" data-toggle="modal" id="btAjout" data-target="#ajout" class="btn btn-outline-primary">Ajouter un cours</a>
                 </div>
             </div>
             <div class="d-flex justify-content-between mt-3">
-                <a href="./edt/{{date ('W') - 1}}" class="btn btn-secondary"><i class="fa fa-angle-left fa-lg d-inline align-middle mr-2"></i>Précédent</a>
-                <h3>Semaine {{date ('W')}}</h3>
-                <a href="./edt/{{date ('W') + 1}}" class="btn btn-secondary">Suivant <i class="fa fa-angle-right fa-lg d-inline align-middle ml-2"></i></a>
+                <a href="{{URL::to("/gestion/edt/")}}/{{$week - 1}}" class="btn btn-secondary"><i class="fa fa-angle-left fa-lg d-inline align-middle mr-2"></i>Précédent</a>
+                
+                <h3>Semaine {{$week}}</h3>
+                
+                <a href="{{URL::to("/gestion/edt/")}}/{{$week + 1}}" class="btn btn-secondary">Suivant <i class="fa fa-angle-right fa-lg d-inline align-middle ml-2"></i></a>
             </div>
 
     </div>

@@ -5,6 +5,10 @@ use App\Matiere;
 use App\Enseignant;
 use App\Seance;
 use DateTime;
+use Illuminate\Http\Request;
+use App\Salle;
+
+use Illuminate\Support\Facades\DB;
 
 
 class EDTController extends Controller
@@ -19,19 +23,39 @@ class EDTController extends Controller
         return view("edtEnseignant");
     }
 
-    public function gestion() {
+    
+    
+
+    function getStartDate($week, $year)
+    {
+
+        $time = strtotime("1 January $year", time());
+        $day = date('w', $time);
+        $time += ((7*($week-1))+1-$day)*24*3600;
+        $return[0] = date('Y-n-j', $time);
+        return $return;
+    }
+
+
+    
+    public function gestion($week) {
         date_default_timezone_set('Europe/Paris');
         setlocale (LC_TIME, 'fr_FR.utf8','fra');
-        $day = strtotime('Monday this week');
-        $date= date('Y-m-d H:i:s', $day);
+        $date= self::getStartDate($week, date('Y'))[0];
 
         $classes = Annee::get();
         $seances = Seance::get();
         $matieres = Matiere::get();
         $enseignants = Enseignant::get();
+        $salles = Salle::select( DB::raw('DISTINCT(type)') )->get();
+        
 
 
-        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres"));
+        return view("edtAdmin",compact('classes', 'seances', 'enseignants', "date", "matieres", "salles", "week"));
+    }
+    
+    public function gestionActuel() {
+        return self::gestion(date ('W'));
     }
 
 
@@ -48,8 +72,25 @@ class EDTController extends Controller
 
     }
 
+    public function ajoutCour(Request $request){
+        $id_salle = Salle::select()->where("type", $request->salle)->first()->id_salle;
+         Seance::create([
+                 'id' => null,
+                 'type' => $request->type, 
+                 'heure_debut' => $request->heure_debut, 
+                 'heure_fin' => $request->heure_fin,
+                 'date_seance' => $request->date,
+                 'remarque' => $request->remarque,
+                 'id_matiere' => $request->matieres, 
+                 'id_salle' => $id_salle, 
+                 'code_professeur' => $request->code_professeur
+        ]);
+        return redirect('gestion/edt');
+    }
     public function seanceWeek() {
         return Seance::all();
     }
+    
+    
 
 }
