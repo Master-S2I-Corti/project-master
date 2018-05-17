@@ -9,8 +9,13 @@ class Est_responsable extends Model
     protected $table = "Est_responsable";
 
     protected $fillable = [
-        'code_professeur','id_reponsablilite'
+        'code_professeur','id_reponsabilite'
     ];
 
     public $timestamps = false;
+
+    public function Responsabilite()
+    {
+        return $this->belongsTo('App\Responsabilite','id_reponsabilite','id_reponsabilite');
+    }
 }

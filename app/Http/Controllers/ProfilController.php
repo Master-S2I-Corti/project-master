@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Enseignant;
 use App\Etudiant;
 use App\Personne;
+use App\Departement;
+use App\Indisponibilite;
 
 
 
@@ -12,15 +14,40 @@ class ProfilController extends Controller
 {
 
     public function index() {
-       // $log=Personne::where('id', Auth::user()->getId())->first(); 
+
+        $listeDepartement = Departement::get();
         $log = Auth::user();
-        $enseignant = Enseignant::where('id',$log['id'])->first();
-        return view("profil",compact('log','enseignant'));
+        if ( $log->isEtudiant())
+        {
+            $id= $log->code_etudiant;
+            $myProfil = Personne::with('Etudiant')->where([
+                ['code_etudiant', '=',$id]
+            ])->first();
+        }
+        else if ( $log->isEnseignant())
+        {
+            $id= $log->code_professeur;
+            $myProfil =  Personne::with('Enseignant')->where([
+                ['code_professeur', '=',$id]
+            ])->first();
+        }
+        else
+        {
+            $id=$log->id;
+            $myProfil = Personne::where([
+                ['id', '=',$id]
+            ])->first();  
+        }
+
+        //dd($myProfil->Enseignant->Est_Responsable[1]->Responsabilite[0]->id_reponsabilite);
+
+        return view("profil",compact('myProfil','listeDepartement'));
     }
 
     public function update( Request $request)
     {
         //A FINIR MODIF DU PROFIL
+        //dd($request->all());
         $log = Auth::user();//Etudiant::findOrFail($request->id);
         //Update de la personne
         $personne = Personne::where('id',$log['id'])->update([
@@ -33,13 +60,35 @@ class ProfilController extends Controller
         //Si c'est un enseignant
         if ($log->isEnseignant()){
             $ens = Enseignant::where('id',$log['id'])->update([
-                'nbBureau' => $request->nbBureau
+                'batiment' => $request->batiment,
+                'etage'=> $request->etage
                 ]);
             //$ens::update();//update la table enseignant
         } else if ($log->isEtudiant()){ // Si c'est un eleve
             // ETUDIANT A FAIRE : CHAMPS DE L ETUDIANT A UPDATE
         }
         //$user = 'admin';
-        return redirect()->action('ProfilController@index');
+
+        return redirect('profil')->withOk("Votre profil a bien été modifié");
+    }
+
+    public function ajoutIndisponible(Request $request)
+    {
+        $log = Auth::user();
+
+        if ($log->code_professeur != null)
+        {
+          $Indisponibilite = Indisponibilite::firstOrCreate([
+            'code_professeur'=>$log->code_professeur,
+            'debut' => $request->dateDebut." ".$request->timeDebut.":00",
+            'fin' => $request->dateFin." ".$request->timeFin.":00"
+            ]);
+        
+           return redirect('profil')->withOk("Votre indisponibilité a bien été enregistré");
+        }
+        else
+        {
+            return redirect('profil')->withError("Votre indisponibilité n'a pas pu etre enregistrer");
+        }
     }
 }

@@ -12,17 +12,31 @@
 @section('content')
     <div class="w-75 m-auto pt-5">
         <div class="d-flex justify-content-between mb-5">
-            <h2>Liste des étudiants</h2>
+            <div class="col-md">
+                <h2>Liste des étudiants</h2>
+            </div>
             @if(Auth::user()->isAdmin())
-                <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <input type="file" name="fichier" accept=".csv"/>
-                    <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
-                </form>
+                <div class="col-md">
+                    <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                </div>
+                <div class="col-md">
+                    <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="file" name="fichier" accept=".csv"/>
+                        <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                    </form>
+                </div>
             @endif
         </div>
-
+        @if(session()->has("ok"))
+            <div class="alert alert-success alert-dismissible">
+                {!! session('ok') !!}
+            </div>
+        @elseif (session()->has("error"))
+            <div class="alert alert-danger alert-dismissible">
+                {!! session('error') !!}
+            </div>
+        @endif
         <div class="card">
             <h3>Recherche de l'étudiant</h3>
             <form method="post" action="{!! url('annuaire/etudiants/search') !!}" accept-charset="UTF-8">
@@ -35,25 +49,24 @@
                         <div class="col-md">
                             <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
                         </div>
-                        <div class="col-md">
-                            <label>Filière : </label>
-                            <input type="checkbox" id="DUT" name="Choix6" value="DUT">
+                        <div class="col-md-2">
+                            <label>Filière : </label></br>
+                            <input type="checkbox" name="filiere[]" value="DUT">
                             <label for="DUT">DUT</label>
-                            <input type="checkbox" id="l1" name="Choix1" value="LICENCE 1">
+                            <input type="checkbox"name="filiere[]" value="LICENCE 1">
                             <label for="LICENCE 1">L1</label>
-                            <input type="checkbox" id="l2" name="Choix2" value="LICENCE 2">
+                            <input type="checkbox"  name="filiere[]" value="LICENCE 2">
                             <label for="LICENCE 2">L2</label>
-                            <input type="checkbox" id="l3" name="Choix3" value="LICENCE 3">
+                            <input type="checkbox"  name="filiere[]" value="LICENCE 3">
                             <label for="LICENCE 3">L3</label></br>
-                            <input type="checkbox" id="M1" name="Choix4" value="MASTER 1">
+                            <input type="checkbox"  name="filiere[]" value="MASTER 1">
                             <label for="MASTER 1">M1</label>
-                            <input type="checkbox" id="M2" name="Choix5" value="MASTER 2">
+                            <input type="checkbox" name="filiere[]" value="MASTER 2">
                             <label for="MASTER 2">M2</label>
-
-                            <input type="checkbox" id="Doc" name="Choix7" value="DOCTORAT">
+                            <input type="checkbox" name="filiere[]" value="DOCTORAT">
                             <label for="Doc">DOCTORAT</label>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <p>Département :
                                 <select class="form-control form-control-sm" name="departement">
                                     @if ( isset($listeDepartement))
@@ -94,10 +107,10 @@
                         <th>{{$etudiant->id}}</th>
                         <th  class="opener">{{$etudiant->identity->nom}}</th>
                         <th  class="opener">{{$etudiant->identity->prenom}}</th>
-                        <th  class="opener">{{$etudiant->annee[0]->libelle."  ".$etudiant->annee[0]->diplome->libelle}}</th>
+                        <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                         @if(Auth::user()->isAdmin())
                             <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><i class="fa fa-trash fa-2x"></i></th>
+                            <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
                         @endif
                     </tr>
 
@@ -121,10 +134,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <p id="email"> Email: Aucun email</p>
+                            <p id="email"> Email: Aucun </p>
+                            <p id="fil"> Filière: Aucune filiere</p>
                         </div>
                         <div class="col">
-                            <p id="fil"> Filière: Aucune filiere</p>
+                            <p id="filObtenu"> Filière Obtenu : Aucune </p>
                         </div>
                     </div>
                 </div>
@@ -146,20 +160,20 @@
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <input id="id2" type="hidden" name="id" value="" />
                                 <p> Email: <input class="form-control form-control-md" type="email"  name="email" id="email2" value='' required/><br /></p>
                             </div>
                             <div class="col-md-2">
 
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <!--<p> Filière: <input class="form-control form-control-md" type="text" name="filiere" id="fil2" value='' /><br /></p>-->
                                 <p>Filière :
                                     <select class="form-control form-control-sm" name="filiere" id="fil2">
                                         @if ( isset($listDiplome))
-                                            @foreach ( $listDiplome as $diplome)
-                                                <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @foreach ( $listDiplome as $value)
+                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -207,7 +221,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
-                                <p> Code Postal :  <input class="form-control form-control-sm" type="text" name="codePostal" value='' required/><br/></p>
+                                <p> Code Postal :  <input class="form-control form-control-sm" type="number" name="codePostal" value='20000' required/><br/></p>
                                 <p> Ville :  <input class="form-control form-control-sm" type="text" name="ville" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
@@ -215,28 +229,33 @@
                             </div>
                             <div class="col-md-4">
 
-                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="text" name="tel" value='' required/><br/></p>
+                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="01 23 45 67 89" value='' required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/><br/></p>
                                 <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
                             </div>
                         </div>
-                        <div class="rows">
+                        <div class="row">
                             <div class="col-md-4">
-                                <p>Département :
-                                    <select class="form-control form-control-sm" name="departement">
-                                        @if ( isset($listeDepartement))
-                                            @foreach ( $listeDepartement as $departement)
-                                                <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                <p> Dernier Diplome Obtenu  :
+                                    <select class="form-control form-control-sm" name="diplomeObtenu">
+                                        <option value="0">Aucun</option>
+                                        @if ( isset($listDiplome))
+                                            @foreach ( $listDiplome as $value)
+                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
                                     </select>
                                 </p>
+                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObt" value='2017' required/><br/></p>
+                            </div>
+                            <div class="col-md-2">
+
                             </div>
                             <div class="col-md-4">
                                 <p>Filière :
                                     <select class="form-control form-control-sm" name="diplome">
                                         @if ( isset($listDiplome))
-                                            @foreach ( $listDiplome as $diplome)
-                                                <option value="{{$diplome['id']}}">{{$diplome['libelle']}}</option>
+                                            @foreach ( $listDiplome as $value)
+                                                <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -294,16 +313,29 @@
                 var elements = e.target.parentElement.querySelectorAll("th")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
+                var filiereObtenu = ""
                 var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
+                var diplome = JSON.parse('<?= json_encode($listDiplome);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
                         num = i;
                     }
                 }
+                (personnes[num].est_diplome).forEach(function (value) {
+                    for ( var i=0; i< diplome.length; i++)
+                    {
+                        if ( value.id_annee == diplome[i].id_annee)
+                        {
+                            filiereObtenu += "</br>"+diplome[i].diplome.niveau+"  "+diplome[i].libelle[0]+"  "+diplome[i].diplome.libelle+" ("+value.obtention+")";
+                        }
+                    }
+                });
+
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
                 document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
+                document.querySelector("#filObtenu").innerHTML = " Diplômes obtenus : "+ filiereObtenu
                 $( "#dialog" ).modal('show');
             });
 
@@ -321,9 +353,10 @@
                     }
                 }
                 diplome.forEach(function (value) {
-                    if(  name_diplome == value['libelle'])
+                    var libelle = value.diplome.niveau+"  "+value.libelle[0]+"  "+value.diplome.libelle;
+                    if(  name_diplome == libelle)
                     {
-                        idDiplome = value['id'];
+                        idDiplome = value.id_annee;
                     }
                 });
                 document.getElementById("id2").value = id_personne
