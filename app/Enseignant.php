@@ -32,9 +32,9 @@ class Enseignant extends Personne
         return $this->belongsTo('App\Departement','id_departement','id_departement');
     }
 
-    public function status()
+    public function Status()
     {
-        return $this->belongsTo('App\status','id_status','id_status');
+        return $this->belongsTo('App\Status','id_status','id_status');
     }
 
     public function Est_Responsable()

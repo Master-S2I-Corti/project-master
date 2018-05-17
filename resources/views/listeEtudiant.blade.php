@@ -138,7 +138,8 @@
                             <p id="fil"> Filière: Aucune filiere</p>
                         </div>
                         <div class="col">
-                            <p id="filObtenu"> Filière Obtenu : Aucune </p>
+                            <p id="filObtenu"> Filière Obtenu : Aucune </p> 
+                            <p id="filHorsObtenu"> Diplome Obtenu hors campus: Aucune </p> 
                         </div>
                     </div>
                 </div>
@@ -220,22 +221,46 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
+                                <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
                                 <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
-                                <p> Code Postal :  <input class="form-control form-control-sm" type="number" name="codePostal" value='20000' required/><br/></p>
-                                <p> Ville :  <input class="form-control form-control-sm" type="text" name="ville" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
 
                             </div>
                             <div class="col-md-4">
-
-                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="01 23 45 67 89" value='' required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/><br/></p>
-                                <p> Email de Secours: <input class="form-control form-control-sm" type="email"  name="emailSos" value='' required/><br/></p>
+                                <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br/></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <p> Dernier Diplome Obtenu  :
+                                <p> Code Postal :  <input class="form-control form-control-sm" type="number" name="codePostal" value='20000' required/><br/></p>
+                                
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
+                                <p> Ville :  <input class="form-control form-control-sm" type="text" name="ville" value='' required/><br/></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="rows">
+                            <div class="col-md-4">
+                                <p>Filière :
+                                            <select class="form-control form-control-sm" name="diplome">
+                                                @if ( isset($listDiplome))
+                                                    @foreach ( $listDiplome as $value)
+                                                        <option value="{{$value->id_annee}}">{{$value->diplome->niveau."  ".$value->libelle[0]."  ".$value->diplome->libelle}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                    </p> 
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p> Dernier Diplome Obtenu à Université :
                                     <select class="form-control form-control-sm" name="diplomeObtenu">
                                         <option value="0">Aucun</option>
                                         @if ( isset($listDiplome))
@@ -251,6 +276,8 @@
 
                             </div>
                             <div class="col-md-4">
+
+<!--SUP ??-->
                                 <p>Filière :
                                     <select class="form-control form-control-sm" name="diplome">
                                         @if ( isset($listDiplome))
@@ -260,6 +287,8 @@
                                         @endif
                                     </select>
                                 </p>
+                                <p>Dernier Diplome Obtenu hors Univertisé :<input class="form-control form-control-sm" type="text" name="hors"  value='' required /></p>
+                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObtHors" value='2017' required/><br/></p>
                             </div>
                         </div>
                     </div>
@@ -314,6 +343,7 @@
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
                 var filiereObtenu = ""
+                var horsobtenu = ""
                 var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
                 var diplome = JSON.parse('<?= json_encode($listDiplome);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
@@ -322,6 +352,10 @@
                         num = i;
                     }
                 }
+                
+                (personnes[num].est_diplome_hors_univ).forEach(function (value) {
+                    horsobtenu += "</br>"+value.libelle+" ("+value.obtention+")";
+                });
                 (personnes[num].est_diplome).forEach(function (value) {
                     for ( var i=0; i< diplome.length; i++)
                     {
@@ -336,6 +370,7 @@
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
                 document.querySelector("#fil").innerHTML = " Filière : "+ elements.item(3).innerHTML
                 document.querySelector("#filObtenu").innerHTML = " Diplômes obtenus : "+ filiereObtenu
+                document.querySelector("#filHorsObtenu").innerHTML = "Diplome Obtenu hors campus: "+horsobtenu
                 $( "#dialog" ).modal('show');
             });
 
