@@ -176,17 +176,18 @@
                                                 <option value="Vacataire">Vacataire</option>
                                         </select> 
                                     </p> 
-                                    <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
-                                    <p> Responsablité :
+                                    <p> Responsabilité :
                                     <span id='resp'>
-                                        <select id="slct" class="Responsabilie" name="Responsabilie[]" onchange="getChef()">
+                                    <span id='slct0'>
+                                    <select id="slct" class="Responsabilie" name="Responsabilie[]" onchange="getChef(0)">
                                             <option value="0">Aucune</option>
                                         @if ( isset($listeResponsabilite))
                                             @foreach ( $listeResponsabilite as $respo)
                                                     <option value="{{$respo->id_reponsabilite}}">{{$respo->libellle}}</option>
                                             @endforeach
                                         @endif
-                                        </select> 
+                                        </select>
+                                        </span>
                                         </span>
                                         <button id="btnadd" class="add btn btn-primary" type="button">+</button>
                                     </p> 
@@ -202,6 +203,15 @@
                                                 @endforeach
                                             @endif
                                             </select> 
+                                            <span type="hidden">
+                                            <select id="hiddenDiplome">
+                                            @if ( isset($listeDiplome))
+                                                @foreach ( $listeDiplome as $dip)
+                                                        <option value="{{$dip->id_diplome}}">{{$dip->libelle}}</option>
+                                                @endforeach
+                                            @endif
+                                            </select> 
+                                            </span>
                                         </p> 
                                         
                                         
@@ -253,44 +263,33 @@
 
 @section('script')
     <script>
-    function getChef() {  
-        //recupere les GETELEMTSBYNAME index - 1 le dernier changer si c'ets chef de filliere on crer un nouveau select de classe
-                    if(lastSelect.options[ lastSelect.selectedIndex ].text == "chef filliere"){
-                    console.log("mdr!");
-                }
-        }
-        $( function() {
-            //TEST
-                //var lastSelect = document.getElementById("slct");
-           /* var newDiv = document.getElementById("resp");
-                var selectList = document.createElement("select"); 
-                var option = "";
-
-                $(".Responsabilie option").each(function()
-                {
-                 option = document.createElement('option');
-                option.value=($(this).val());
-                option.text= ($(this).text());
-                selectList.add(option);
-                });
-
-                selectList.class = "Responsabilie";
-                selectList.name = "Responsabilie[]";
-                newDiv.appendChild(selectList);
-                $('#Responsabilie').append();
-                lastSelect = selectList;*/
-
-            $( "#btnadd" ).on( "click", function(e) {
-                
-                    var newDiv =  document.getElementById("resp");
-                    var line = "<div> <select class='Responsabilie' name='Responsabilie[]' onchange='getChef()'>";
-                   // $(newDiv).append("<div> <select class='Responsabilie' name='Responsabilie[]'>");
-                    $("#slct option").each(function()
+    var nbSelect= 0;
+    function getChef(nbS) {
+        var c = document.getElementsByClassName("Responsabilie");
+        var d = c[nbS].options;
+        var q = "slct"+nbS;
+        //console.log(d[c[nbS].selectedIndex].text);
+        if(d[c[nbS].selectedIndex].text == "chef filliere"){
+            var line = "Classe: <select class='classes' name='classes[]'>";                   
+                     $("#hiddenDiplome option").each(function()
                     {
-                        //$(newDiv).append("<option value=''></option>");//"<option value='"+$(this).val()+"'>"+$(this).text()+"</option>"
                         line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
                     });
-                    line += "</select></div>";
+                    line += "</select>";
+           $("#slct"+nbS).append(line);
+        }
+        }
+
+        $( function() {
+            $( "#btnadd" ).on( "click", function(e) {
+                    nbSelect = nbSelect + 1;
+                    var newDiv =  document.getElementById("resp");
+                    var line = "<div id='slct"+nbSelect+"'> <select class='Responsabilie' name='Responsabilie[]' onchange='getChef("+nbSelect+")'>";                   
+                     $("#slct option").each(function()
+                    {
+                        line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
+                    });
+                    line += "</select></span>";
                     $(newDiv).append(line);
             });
 

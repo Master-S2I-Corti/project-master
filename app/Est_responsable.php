@@ -9,7 +9,7 @@ class Est_responsable extends Model
     protected $table = "Est_responsable";
 
     protected $fillable = [
-        'code_professeur','id_reponsablilite'
+        'code_professeur','id_reponsabilite','id_filliere'
     ];
 
     public $timestamps = false;
