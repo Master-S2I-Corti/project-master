@@ -54,19 +54,11 @@ class ListeProfController extends Controller
             ]);
         $enseignant = $enseignant->where('id', $personne->id)->first();
         $personne->update(['code_professeur' =>$enseignant->code_professeur]);
-        
-        /*
-        if ( $request->Responsabilie != 0)
-        {
-             $responsabilite = Est_responsable::firstOrCreate([
-            'code_professeur' =>$enseignant->code_professeur,
-            'id_reponsabilite' =>$request->Responsabilie
-            ]);
-        }*/
 
         //Ajout des responsabilités
-        $classint = 0;
-        foreach($request->Responsabilie as $res){
+        if ($request->Responsabilie[0] != "0"){
+            $classint = 0;
+             foreach($request->Responsabilie as $res){
             if($res == 3){ // chef de filliere
                 $est_resp = Est_responsable::firstOrCreate([
                     'code_professeur' => $enseignant->code_professeur,
@@ -81,6 +73,8 @@ class ListeProfController extends Controller
                 ]);
             }
         }
+        }
+        
        
 
         return redirect()->action('ListeProfController@index');

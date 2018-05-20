@@ -9,9 +9,46 @@
         <div class="d-flex justify-content-between mb-5">
             <h2>Liste des enseignants</h2>
             @if(Auth::user()->isAdmin())
-                <button class="add btn btn-primary" >Ajouter d'un professeur : <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                <button class="add btn btn-primary" >Ajouter un enseignant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>
+
+
+        <div class="card">
+                <h3>Recherche d'un enseignant</h3>
+                <form method="post" action="{!! url('annuaire/profs/search') !!}" accept-charset="UTF-8">
+                    <div class="modal-body">
+                            <div class="row">
+                            {{ csrf_field() }}
+                                <div class="col-md">
+                                    <p> Nom : <input class="form-control form-control-sm" type="text" name="nom" value='' /><br/></p>
+                                    </div>
+                                <div class="col-md">
+                                    <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
+                                </div>
+                                <div class="col-md">
+                                <p>Département :
+                                        <select class="form-control form-control-sm" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p>
+                                </div>
+                                <div class="col-md">
+                                </br>
+                                    <button class="btn btn-primary">Rechercher </button>
+                                </div>
+                            </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+
         <table class="table table-bordered ">
             <thead>
             <tr>
