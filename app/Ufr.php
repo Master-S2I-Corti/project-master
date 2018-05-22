@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ufr extends Model
 {
-    protected $table = 'Ufr';
+    protected $table = 'UFR';
     public $timestamps = false;
 }
