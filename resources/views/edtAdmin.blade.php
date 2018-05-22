@@ -89,26 +89,32 @@
 
                 for (var i = 1; i < 7; i++) {
                     var counter = 0;
+                    var counter2 = 0;
                     var colonne = $(document.querySelectorAll("tr")[i]).find("td");
                     var seanceDay = data.filter(function (seance) {
-                        
+
                         return (new Date(Date.parse(seance.date_seance)).getDate() === date.getDate());
                     }).sort(function (e, e1) {
-                        return (new Date(e.heure_debut)).getTime() < (new Date(e1.heure_debut)).getTime();
-                    }).forEach(function (seance) {
-                        counter += seance.ecart;
+                        var time = e.heure_debut.split(":");
+                        var time2 = e1.heure_debut.split(":");
+                        return parseInt(time[0]) > parseInt(time2[0]);
+                    });
+                    seanceDay.forEach(function (seance) {
                         var time = seance.heure_debut.split(":");
-                        var tdIndex = getBeginTime(parseInt(time[0]), parseInt(time[1]));
+                        var tdIndex = getBeginTime(parseInt(time[0]), parseInt(time[1]))-counter2;
+                        console.log(tdIndex+"   "+counter);
+                        counter += seance.ecart;
+                        counter2 = counter-1;
                         var ligne = colonne[tdIndex];
                         ligne.colSpan = seance.ecart;
                         ligne.classList.add("tr-cours");
                         ligne.innerHTML = seance.matiere + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.prenom + " " + seance.nom + "<br/>" + seance.id_salle;
                     });
-
-                    removeItemOverflow(colonne, counter);
                     date.setDate(date.getDate() + 1);
-                    console.log(seanceDay)
+                    removeItemOverflow(colonne, counter-(seanceDay.length-1));
+
                 }
+
                 reverse_table(document.getElementById("table_edt"));
 
             });
