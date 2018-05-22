@@ -270,14 +270,14 @@
                                         @endif
                                     </select> 
                                 </p> 
-                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObt" value='2017' required/><br/></p>
+                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObt" value='2017' /><br/></p>
                             </div>
                             <div class="col-md-2">
 
                             </div>
                             <div class="col-md-4">
-                                <p>Dernier Diplome Obtenu hors Univertisé :<input class="form-control form-control-sm" type="text" name="hors"  value='' required /></p>
-                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObtHors" value='2017' required/><br/></p>
+                                <p>Dernier Diplome Obtenu hors Univertisé :<input class="form-control form-control-sm" type="text" name="hors"  value='' /></p>
+                                <p> Année d'obtention : <input class="form-control form-control-sm" type="number"  name="anneeObtHors" value='2017' /><br/></p>
                             </div>
                         </div>
                     </div>
