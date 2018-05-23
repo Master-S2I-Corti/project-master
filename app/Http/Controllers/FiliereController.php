@@ -20,6 +20,9 @@ class FiliereController extends Controller
 
     public function vueEnseignant()
     {
-        return view('filiereEns');
+        $filieres = Diplome::get();
+        $ufr = UFR::get();
+        $annees = Annee::get();
+        return view('filiereEns',compact('filieres','ufr','annees'));
     }
 }
