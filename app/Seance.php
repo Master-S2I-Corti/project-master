@@ -8,12 +8,13 @@ class Seance extends Model
 {
 
     protected $table = "Seance";
-
+    protected $primaryKey ="id_seance";
+    
     public $timestamps = false;
 
     
     protected $fillable = [
-        'type','heure_debut', 'heure_fin', 'date_seance', 'remarque', 'id_matiere', 'id_salle', 'code_professeur'
+        'id_seance', 'type','heure_debut', 'heure_fin', 'date_seance', 'remarque', 'id_matiere', 'id_salle', 'code_professeur'
     ];
 
     
@@ -21,8 +22,12 @@ class Seance extends Model
         return $this->hasOne('App\Matiere', "id_matiere", "id_matiere");
     }
 
-        public function professeur() {
+    public function professeur() {
         return $this->hasOne('App\Enseignant', "code_professeur", "code_professeur");
+    }
+    
+    public function salle() {
+        return $this->hasOne('App\Salle', "id_salle", "id_salle");
     }
 
 
@@ -38,15 +43,16 @@ class Seance extends Model
     public function toArray()
     {
         return [
+            'id' => $this->id_seance,
             'type' => $this->type,
             'heure_debut' => $this->heure_debut,
             'heure_fin' => $this->heure_fin,
             'date_seance' => $this->date_seance,
-            'matiere' => $this->matiere->libelle,
+            'matiere' => $this->matiere->toArray(),
+            'remarque' => $this->remarque,
             'ecart' => $this->getEcart(),
-            'id_salle' => $this->id_salle,
-            'prenom' => $this->professeur->personne->prenom,
-            'nom'=> $this->professeur->personne->nom
+            'salle' => $this->salle->toArray(),
+            'enseignant' => $this->professeur->toArray(),
          ];
     }
 

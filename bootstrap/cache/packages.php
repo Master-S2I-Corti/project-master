@@ -36,6 +36,13 @@
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
+  'stechstudio/laravel-ssh-tunnel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'STS\\Tunneler\\TunnelerServiceProvider',
+    ),
+  ),
   'mews/captcha' => 
   array (
     'providers' => 

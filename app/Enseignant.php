@@ -51,5 +51,13 @@ class Enseignant extends Personne
     {
         return $this->hasMany('App\Indisponibilite','code_professeur','code_professeur');
     }
+    
+     public function toArray()
+    {
+        return [
+            'code_professeur' => $this->code_professeur,
+            'personne' => $this->personne,
+         ];
+    }
 
 }

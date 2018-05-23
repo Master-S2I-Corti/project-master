@@ -46,6 +46,17 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/professeurs/saveProf','ListeProfController@store');
     Route::post('annuaire/professeurs/deleteProf','ListeProfController@destroy');
+    
+    
+    Route::post('edt/modifier','EDTController@update');
+    Route::get('edt/supprimer/{id}','EDTController@supprimer');
+    Route::post('/edt/ajout','EDTController@ajoutCour');
+
+});
+
+Route::middleware(['roles:enseignant,etudiant'])->group(function () {
+    Route::get('/edt', 'EDTController@edt');
+    Route::get('/edt/{week}', 'EDTController@edtWeek');
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -65,7 +76,6 @@ Route::get('annuaire/professeurs','ListeProfController@index');
 
 Route::post('listeProf/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
-Route::post('/edt/ajout','EDTController@ajoutCour');
 
 Route::get('seances/week/{week}', 'EDTController@seanceWeek');
 Auth::routes();
