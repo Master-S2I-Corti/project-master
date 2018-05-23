@@ -262,67 +262,67 @@ class ListeEtudiantController extends Controller
         if ( ($request->nom != null || $request->prenom != null ) && $annees != null && $filiere != null )
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
-                ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->whereIn('annee.libelle',$annees)
-                ->whereIn('diplome.niveau',$filiere)
-                ->where('Personne.nom','=',$request->nom)
-                ->orWhere('Personne.prenom','=',$request->prenom)
-                ->where([
-                    ['nom','!=',null],
-                    ['prenom','!=',null]
-                ])
-                ->paginate(7);
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                                        ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->whereIn('Annee.libelle',$annees)
+                                        ->whereIn('Diplome.niveau',$filiere)
+                                        ->where('Personne.nom','=',$request->nom)
+                                        ->orWhere('Personne.prenom','=',$request->prenom)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
         }
         else if (($request->nom != null || $request->prenom != null ))
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
-                ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->where('Personne.nom','=',$request->nom)
-                ->orWhere('Personne.prenom','=',$request->prenom)
-                ->where([
-                    ['nom','!=',null],
-                    ['prenom','!=',null]
-                ])
-                ->paginate(7);
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                                        ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->where('Personne.nom','=',$request->nom)
+                                        ->orWhere('Personne.prenom','=',$request->prenom)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
         }
         else if ( $request->nom == null && $request->prenom == null && $annees != null && $filiere != null)
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
-                ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->whereIn('annee.libelle',$annees)
-                ->whereIn('diplome.niveau',$filiere)
-                ->where([
-                    ['nom','!=',null],
-                    ['prenom','!=',null]
-                ])
-                ->paginate(7);
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                                        ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->whereIn('Annee.libelle',$annees)
+                                        ->whereIn('Diplome.niveau',$filiere)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
         }
         else
         {
             //dd($request->all());
             $listesEtudiant = Etudiant::with('Est_diplome')
-                ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->where([
-                    ['nom','!=',null],
-                    ['prenom','!=',null]
-                ])
-                ->paginate(7);
+                                        ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
+                                        ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                                        ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                                        ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
         }
 
         return view('listeEtudiant', compact('listesEtudiant','listeDepartement','listDiplome'));
