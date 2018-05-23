@@ -51,21 +51,15 @@
                                 </div>
                                 <div class="col-md-2">
                                 <label>Filière : </label></br>
-                                        <input type="checkbox" name="filiere[]" value="DUT">
-                                    <label for="DUT">DUT</label>
-                                        <input type="checkbox"name="filiere[]" value="LICENCE 1">
-                                    <label for="LICENCE 1">L1</label>
-                                        <input type="checkbox"  name="filiere[]" value="LICENCE 2">
-                                    <label for="LICENCE 2">L2</label>
-                                        <input type="checkbox"  name="filiere[]" value="LICENCE 3">
-                                    <label for="LICENCE 3">L3</label></br>
-                                        <input type="checkbox"  name="filiere[]" value="MASTER 1">
-                                    <label for="MASTER 1">M1</label>
-                                        <input type="checkbox" name="filiere[]" value="MASTER 2">
-                                    <label for="MASTER 2">M2</label>    
-                                        <input type="checkbox" name="filiere[]" value="DOCTORAT">
-                                    <label for="Doc">DOCTORAT</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="DUT">DUT</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="LICENCE 1">L1</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="LICENCE 2">L2</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="LICENCE 3">L3</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="MASTER 1">M1</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="MASTER 2">M2</label> 
+                                    <label class="checkbox-inline"><input type="checkbox" name="filiere[]" value="DOCTORAT">DOCTORAT</label>
                                 </div>
+                                
                                 <div class="col-md-2">
                                 <p>Département :
                                         <select class="form-control form-control-sm" name="departement">
@@ -90,7 +84,7 @@
         <table class="table table-bordered ">
             <thead>
             <tr>
-                <th>#</th>
+                <th></th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Filière</th>
@@ -104,7 +98,7 @@
            @if ( isset($listesEtudiant))
                 @foreach ( $listesEtudiant as $etudiant)
                     <tr>
-                            <th>{{$etudiant->id}}</th>
+                            <th style="color:white">{{$etudiant->id}}</th>
                             <th  class="opener">{{$etudiant->identity->nom}}</th>
                             <th  class="opener">{{$etudiant->identity->prenom}}</th>
                             <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
