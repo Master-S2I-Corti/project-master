@@ -119,19 +119,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="py-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" id=addCour class="btn btn-outline-primary">Ajouter</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id=addCour class="btn btn-outline-primary">Ajouter</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>

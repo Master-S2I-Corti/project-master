@@ -19,10 +19,15 @@
         width: 13%;
     }
     .tr-cours {
-        background: #1e7e34;
         color:white;
         text-align: center;
         vertical-align: middle !important;
+    }
+    
+    .tr-cours:hover
+    {
+        cursor: pointer;
+        opacity: 0.9;
     }
 
     tr:first-child td {
@@ -47,6 +52,18 @@
     .table {
         border-radius: 10px;
         box-sizing: border-box;
+    }
+    
+    .bg-cours {
+        background :#2196F3;
+    }    
+    
+    .bg-td {
+        background :#8BC34A;
+    }
+    
+    .bg-other {
+        background :#F44336;
     }
 
 </style>
@@ -74,16 +91,33 @@
             return ((hours-8)*4+(minutes/15))+2;
         }
 
+        
         function removeItemOverflow(colonnes, counter) {
             for(var i=colonnes.length-1; i > (colonnes.length-counter); i--) {
                 colonnes[i].outerHTML="";
             }
         }
 
-
+        function changeId(id) {
+            $("#id-cours-malamute").attr("value", id);
+            var cour = cours.filter(function(e) {return e.id == id}).pop();
+            $("select[name='matieres']").val(cour.matiere.id_matiere);
+            $("select[name='type']").val(cour.type);
+            $("select[name='salle']").val(cour.salle.type);
+            $("select[name='code_professeur']").val(cour.enseignant.code_professeur);
+            $("input[name='heure_debut']").val(cour.heure_debut);
+            $("input[name='heure_fin']").val(cour.heure_fin);
+            $("input[name='remarque']").val(cour.remarque);
+            $("input[name='date']").val(cour.date_seance);
+            $("#supCour").attr("href", "{{URL::to("edt/supprimer/")}}/"+id);
+            
+        }
+    
+        var cours;
 
         function loadWeek(week) {
             $.getJSON("{{URL::to("seances/week/")}}/"+week, function (data) {
+                cours = data;
                 var date = getMonday(new Date("{{$date}}"));
                 reverse_table(document.getElementById("table_edt"));
 
@@ -108,7 +142,19 @@
                         var ligne = colonne[tdIndex];
                         ligne.colSpan = seance.ecart;
                         ligne.classList.add("tr-cours");
-                        ligne.innerHTML = seance.matiere + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.prenom + " " + seance.nom + "<br/>" + seance.id_salle;
+                        
+                        if(seance.type == "Cours") {
+                            ligne.classList.add("bg-cours");
+                        } else if(seance.type == "TD") {
+                            ligne.classList.add("bg-td");
+                        } else {
+                            ligne.classList.add("bg-other");
+                        }
+                        ligne.setAttribute("data-toggle", "modal");
+                        ligne.setAttribute("data-target", "#modifier")
+                        ligne.setAttribute("onclick", "changeId('"+seance.id+"')");
+                        
+                        ligne.innerHTML = seance.matiere.libelle + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.enseignant.personne.prenom + " " + seance.enseignant.personne.nom + "<br/>" + seance.salle.id_salle;
                     });
                     date.setDate(date.getDate() + 1);
                     removeItemOverflow(colonne, counter-(seanceDay.length-1));
@@ -122,6 +168,15 @@
         loadWeek({{$week}});
     </script>
 
+    @if(session()->has("ok"))
+            <div class="alert alert-success alert-dismissible">
+                {!! session('ok') !!}
+            </div>
+        @elseif (session()->has("error"))
+            <div class="alert alert-danger alert-dismissible">
+                {!! session('error') !!}
+            </div>
+        @endif
     <div class="container mt-4">
             <div class="d-flex justify-content-between">
                 <div>
@@ -147,35 +202,38 @@
             </div>
 
     </div>
-        <div class="py-5">
+    <div class="py-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped" id="table_edt">
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            @for ($j = 8; $j < 22; $j++)
-                                <td class="heure" colspan="2">{{$j}}:00 -</td>
-                                <td class="minute" colspan="2">{{$j}}:30</td>
-                            @endfor
-                        </tr>
-                        @for ($i = 0; $i < 7; $i++)
+            <div id="printableArea">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped" id="table_edt">
+                            <tbody>
                             <tr>
-                                <td style="text-align: end">{{strftime("%a %d %b", strtotime($date . ' +'.$i.' day'))}}</td>
+                                <td></td>
                                 @for ($j = 8; $j < 22; $j++)
-                                    @for ($k = 0; $k < 4; $k++)
-                                        <?php
-                                                echo "<td class=\"tr-inner\"></td>";
-                                        ?>
-                                        @endfor
+                                    <td class="heure" colspan="2">{{$j}}:00 -</td>
+                                    <td class="minute" colspan="2">{{$j}}:30</td>
                                 @endfor
                             </tr>
-                        @endfor
+                            @for ($i = 0; $i < 7; $i++)
+                                <tr>
+                                    <td style="text-align: end">{{strftime("%a %d %b", strtotime($date . ' +'.$i.' day'))}}</td>
+                                    @for ($j = 8; $j < 22; $j++)
+                                        @for ($k = 0; $k < 4; $k++)
+                                            <?php
+                                                    echo "<td class=\"tr-inner\"></td>";
+                                                    
+                                            ?>
+                                            @endfor
+                                    @endfor
+                                </tr>
+                            @endfor
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -184,17 +242,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="#" class="btn btn-outline-primary"><i class="fa fa-user fa-fw"></i>Imprimer</a>
-                </div>
-                <div class="col-md-6">
-                    <a href="#" class="btn btn-outline-primary">Modifier</a>
+                    <!-- <input type="button" class="btn btn-outline-primary" value="Imprimer" onClick="printDiv('printableArea')"> -->
+                    <button type="button" class="btn btn-outline-primary" onClick="printDiv('printableArea')">Imprimer </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        
+        function supprimer(){
+            
+        }
+        
+        function printDiv(printableArea) {
+             var printContents = document.getElementById(printableArea).innerHTML;
+             var originalContents = document.body.innerHTML;
 
+             document.body.innerHTML = printContents;
+
+             window.print();
+
+             document.body.innerHTML = originalContents;
+        }
+        
         var copyStyle = function(source, dest)
         {
             dest.style.cssText = source.style.cssText;
@@ -288,4 +359,5 @@
 
     </script>
     @include("edtAjout")
+    @include("edtModifier")
 @endsection
