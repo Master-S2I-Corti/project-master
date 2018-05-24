@@ -35,6 +35,7 @@
         @elseif (session()->has("error"))
             <div class="alert alert-danger alert-dismissible">
                 {!! session('error') !!}
+        @endif
             <div class="card">
                 <h3>Recherche de l'étudiant</h3>
                 <form method="post" action="{!! url('annuaire/etudiants/search') !!}" accept-charset="UTF-8">
@@ -76,56 +77,7 @@
                             </div>
                     </div>
                 </form>
-            </div>
-        @endif
-        <div class="card">
-            <h3>Recherche de l'étudiant</h3>
-            <form method="post" action="{!! url('annuaire/etudiants/search') !!}" accept-charset="UTF-8">
-                <div class="modal-body">
-                    <div class="row">
-                        {{ csrf_field() }}
-                        <div class="col-md">
-                            <p> Nom : <input class="form-control form-control-sm" type="text" name="nom" value='' /><br/></p>
-                        </div>
-                        <div class="col-md">
-                            <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
-                        </div>
-                        <div class="col-md-2">
-                            <label>Filière : </label></br>
-                            <input type="checkbox" name="filiere[]" value="DUT">
-                            <label for="DUT">DUT</label>
-                            <input type="checkbox"name="filiere[]" value="LICENCE 1">
-                            <label for="LICENCE 1">L1</label>
-                            <input type="checkbox"  name="filiere[]" value="LICENCE 2">
-                            <label for="LICENCE 2">L2</label>
-                            <input type="checkbox"  name="filiere[]" value="LICENCE 3">
-                            <label for="LICENCE 3">L3</label></br>
-                            <input type="checkbox"  name="filiere[]" value="MASTER 1">
-                            <label for="MASTER 1">M1</label>
-                            <input type="checkbox" name="filiere[]" value="MASTER 2">
-                            <label for="MASTER 2">M2</label>
-                            <input type="checkbox" name="filiere[]" value="DOCTORAT">
-                            <label for="Doc">DOCTORAT</label>
-                        </div>
-                        <div class="col-md-2">
-                            <p>Département :
-                                <select class="form-control form-control-sm" name="departement">
-                                    @if ( isset($listeDepartement))
-                                        @foreach ( $listeDepartement as $departement)
-                                            <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </p>
-                        </div>
-                        <div class="col-md">
-                            </br>
-                            <button class="btn btn-primary">Rechercher </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+
 
 
         <table class="table table-bordered ">
@@ -145,14 +97,14 @@
             @if ( isset($listesEtudiant))
                 @foreach ( $listesEtudiant as $etudiant)
                     <tr>
-                            <th style="color:white">{{$etudiant->id}}</th>
+                            <th>{{$etudiant->code_etudiant}}</th>
                             <th  class="opener">{{$etudiant->identity->nom}}</th>
                             <th  class="opener">{{$etudiant->identity->prenom}}</th>
                             <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
-                                <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                                <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
-                            @endif
+                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
+                            <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
+                        @endif
                     </tr>
 
                 @endforeach
