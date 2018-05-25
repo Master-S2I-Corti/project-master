@@ -67,11 +67,11 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     private $requestStackSize = 0;
     private $resetServices = false;
 
-    const VERSION = '3.4.11-DEV';
-    const VERSION_ID = 30411;
+    const VERSION = '3.4.12-DEV';
+    const VERSION_ID = 30412;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 11;
+    const RELEASE_VERSION = 12;
     const EXTRA_VERSION = 'DEV';
 
     const END_OF_MAINTENANCE = '11/2020';

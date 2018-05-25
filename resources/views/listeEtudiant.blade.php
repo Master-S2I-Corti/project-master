@@ -97,13 +97,13 @@
             @if ( isset($listesEtudiant))
                 @foreach ( $listesEtudiant as $etudiant)
                     <tr>
-                            <th>{{$etudiant->code_etudiant}}</th>
-                            <th  class="opener">{{$etudiant->identity->nom}}</th>
-                            <th  class="opener">{{$etudiant->identity->prenom}}</th>
-                            <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
+                            <td>{{$etudiant->id}}</td>
+                            <td  class="opener">{{$etudiant->identity->nom}}</td>
+                            <td  class="opener">{{$etudiant->identity->prenom}}</td>
+                            <td  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</td>
                             @if(Auth::user()->isAdmin())
-                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
+                            <td class="modifier" ><i class="fa fa-edit fa-2x"></i></td>
+                            <td class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></td>
                         @endif
                     </tr>
 
@@ -218,7 +218,7 @@
                                 <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
-
+  num = i;
                             </div>
                             <div class="col-md-4">
                                 <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br/></p>
@@ -331,7 +331,7 @@
         $( function() {
             //AFFICHAGE POPUP
             $( ".opener" ).on( "click", function(e) {
-                var elements = e.target.parentElement.querySelectorAll("th")
+                var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
                 var filiereObtenu = ""
@@ -367,7 +367,7 @@
             });
 
             $( ".modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML;
                 var name_diplome = elements.item(3).innerHTML;
                 var idIdentity = 0, idDiplome = 0;
@@ -399,7 +399,7 @@
             });
 
             $( ".del" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 document.getElementById("idS").value = elements.item(0).innerHTML
                 document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );

@@ -51,13 +51,6 @@ class Personne extends Authenticatable
         return $this->belongsTo('App\Enseignant','code_professeur','code_professeur');
     }
     
-        
-     public function toArray()
-    {
-        return [
-            'nom' => $this->nom,
-            'prenom' => $this->prenom
-         ];
-    }
+
 
 }

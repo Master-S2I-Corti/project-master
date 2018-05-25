@@ -61,6 +61,7 @@ return array(
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
+    'Carbon\\CarbonPeriod' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonPeriod.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
     'Carbon\\Translator' => $vendorDir . '/nesbot/carbon/src/Carbon/Translator.php',
     'Collective\\Html\\Componentable' => $vendorDir . '/laravelcollective/html/src/Componentable.php',
