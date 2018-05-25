@@ -476,7 +476,7 @@ var semCard=document.getElementsByClassName("semestre");
 				matiere.cour=thisMatRow.getElementsByClassName("cour")[0].value;
 				
 				matiere.td=thisMatRow.getElementsByClassName("td")[0].value;
-			//	alert("td="+thisRow.getElementsByClassName("td")[0].value +"tp="+thisRow.getElementsByClassName("tp")[0].value);
+			    //alert("td="+thisRow.getElementsByClassName("td")[0].value +"tp="+thisRow.getElementsByClassName("tp")[0].value);
 				matiere.tp=thisMatRow.getElementsByClassName("tp")[0].value;
 				
 				tabmatiere.push(matiere);
