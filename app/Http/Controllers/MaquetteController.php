@@ -345,7 +345,14 @@ chaque matiere contient les donnée des matiere
 }
 public function test()
 {
-	return view('maquette/example');
+	$path = public_path('js/maquette.json');
+	$archive=file_get_contents($path);
+	$j=json_decode ($archive);
+	print_r($j);
+	$j=json_encode ($archive);
+	
+	//file_put_contents(public_path('js/maquette.json'),$j);
+	//return view('maquette/example');
 	//return view('maquette/affiche')
 }
 }
