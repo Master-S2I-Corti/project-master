@@ -20,7 +20,7 @@ class CreateUETable extends Migration
             $table->string('libelle', 25);
             $table->text('description');
             $table->integer('coeff');
-            $table->integer('edts');
+            $table->integer('ects');
             $table->string('id_semestre', 25);
             $table->timestamps();
             $table->index(["id_semestre"]);

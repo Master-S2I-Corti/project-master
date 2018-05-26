@@ -69,6 +69,8 @@ Route::middleware(['roles:admin'])->group(function () {
 Route::middleware(['roles:enseignant,etudiant'])->group(function () {
     Route::get('/edt', 'EDTController@edt');
     Route::get('/edt/{week}', 'EDTController@edtWeek');
+	
+	
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -78,9 +80,10 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
     Route::get('/ue', 'UEController@index');
     Route::get('/salles', 'SalleController@liste');
     Route::post('/searched', 'SalleController@searchEns');
-
+	Route::get('maquette/{diplome}','MaquetteController@index2');
+	Route::post('maquette/save2','MaquetteController@save2')->name('save2');
 });
-
+Route::get('maquette/affichage/{diplome}','MaquetteController@aff');
 Route::get('profil','ProfilController@index');
 Route::post('profil/updateProfil','ProfilController@update');
 
