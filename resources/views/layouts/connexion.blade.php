@@ -61,18 +61,7 @@
                         </a>
                     </div>
 
-                    <div class="form-group">
-                            <label for="captcha" class="form-control-label">Captcha</label>
-                            <div>
-                                {!! Recaptcha::render()!!}
 
-                                @if ($errors->has('g-recaptcha-response'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                    </div>
                     
                 </div>
                     
