@@ -95,9 +95,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" >
-                                <span id="niveau"></span>
-                                <span id="libelleA"></span>
-                                <span id="libelleD"></span>
+                            <span>Modifier</span>
+                            <span id="niveau"></span>
+                            <span id="libelleA"></span>
+                            <span id="libelleD"></span>
 
                         </h5>
 
