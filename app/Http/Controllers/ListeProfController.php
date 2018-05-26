@@ -19,7 +19,9 @@ class ListeProfController extends Controller
     {
         $listesEnseignant = Enseignant::with('identity','Est_Responsable')->paginate(7);
         $listeDepartement = Departement::get();
-        return view('listeEnseignant', compact('listesEnseignant','listeDepartement'));
+        $listeResponsabilite = Responsabilite::get();
+        $listeDiplome = Diplome::get();
+        return view('listeEnseignant', compact('listesEnseignant','listeDepartement','listeResponsabilite','listeDiplome'));
     }
 
     //Enregistrement d'un nouveau prof

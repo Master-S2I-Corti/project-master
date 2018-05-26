@@ -72,7 +72,7 @@
                                 <td  class="opener" data-target="#affichage">{{$enseignant->departement->libelle}}</td>
                                 @if(Auth::user()->isAdmin())
                                 <td><i id="modifier"class="fa fa-edit fa-2x"></i></td>
-                                <td><i id="del" class="fa fa-trash fa-2x"></i></td>
+                                <td><i id="del" class="fa fa-trash fa-2x"  style="color:red"></i></td>
                                 @endif
                         </tr>
                 
@@ -84,30 +84,27 @@
     </div>
 
     <!-- POPUP Affichage -->
-    <div id="affichage" class="modal fade">
-        <div class="modal-dialog" role="document">
+    <div id="affichage" title="Profil de l' Enseignant" class="modal fade" >
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >Profil de l'enseignant</h5>
+                    <h5 class="modal-title" id="nom">Détails enseignant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                        <div class="container">
-                            <h1 id="nom">Prof</h1>
-                            <div class="row">
-                                <div class="col">
-                                    <p id="resp"> Responsablité : </p>
-                                </div>
-                                <div class="col">
-                                    <p> Professeur pédagogique : </p>
-                                    <p id="email"> Email: <br/></p>
-                                    <!--<p id="dep"> Département: </p> -->
-                                    
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <p id="email"> Email: Aucun </p>
+                            @if(Auth::user()->isAdmin()|| Auth::user()->isEnseignant())
+                            <p id="respon">Responsabilités : Aucun</p>
+                            @endif
                         </div>
+                        <div class="col">
+                            <p id="bureau">Bureau : Aucun</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,7 +134,7 @@
                                     </div>
                                     <div class="col">
                                         <p> Professeur pédagogique : </p>
-                                        <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
+                                        <p> Email: <input type="text" name="mail" id="email2" value=''/><br/></p>
                                         <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
                                         </p>
                                         <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
@@ -171,36 +168,36 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         {{ csrf_field() }}
-                                        <p> Nom: <input type="text" name="nom" value='' required/><br/></p>
-                                        <p> Date de Naissance :  <input type="date" name="naissance" value='' required/><br></p>
+                                        <p> Nom: <input type="text" class="form-control form-control-sm" name="nom" value='' required/><br/></p>
+                                        <p> Date de Naissance :  <input type="date" class="form-control form-control-sm" name="naissance" value='' required/><br></p>
                                     </div>
                                     <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-4">
-                                        <p> Prénom: <input type="text" name="prenom" value='' required/><br/><br/><br></p>
+                                        <p> Prénom: <input type="text" class="form-control form-control-sm" name="prenom" value='' required/><br/><br/><br></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p> Adresse : <input type="text" name="adresse" value='' required/><br/></p>
-                                        <p> Code Postal :  <input type="text" name="codePostal" value='' required/><br/></p>
-                                        <p> Ville :  <input type="text" name="ville" value='' required/><br/></p>
+                                        <p> Adresse : <input type="text" class="form-control form-control-sm" name="adresse" value='' required/><br/></p>
+                                        <p> Code Postal :  <input type="text" class="form-control form-control-sm" name="codePostal" value='' required/><br/></p>
+                                        <p> Ville :  <input type="text" name="ville" class="form-control form-control-sm" value='' required/><br/></p>
                                     </div>
                                     <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-4">
                                         
-                                        <p> Numéro de télephone : <input type="text" name="tel" value='' required/><br/></p>
+                                        <p> Numéro de télephone : <input type="text" class="form-control form-control-sm" name="tel" value='' required/><br/></p>
                                         
-                                        <p> Email de Secours: <input type="email"  name="emailSos" value='' required/><br/></p>
+                                        <p> Email de Secours: <input type="email" class="form-control form-control-sm"  name="emailSos" value='' required/><br/></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                     <p> Fonction :
-                                        <select name="fonction">
+                                        <select class="form-control form-control-sm" name="fonction">
                                                 <option value="Professeur">Professeur</option>
                                                 <option value="Maitre de Conferences">Maitre de Conférences</option>
                                                 <option value="ATER">ATER</option>
@@ -304,7 +301,7 @@
         var d = c[nbS].options;
         var q = "slct"+nbS;
         //console.log(d[c[nbS].selectedIndex].text);
-        if(d[c[nbS].selectedIndex].text == "chef filliere"){
+        if(d[c[nbS].selectedIndex].text == "Responsable de Filière"){
             var line = "Classe: <select class='classes' name='classes[]'>";                   
                      $("#hiddenDiplome option").each(function()
                     {
@@ -332,16 +329,29 @@
                 var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
-                var responsabilité = ""
+                var responsabilité = "Ses Responsabilités :"
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
+                var respo = JSON.parse('<?= json_encode($listeResponsabilite);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
                         num = i;
                     }
                 }
+                (personnes[num].est__responsable).forEach(function (value) {
+                    for ( var i=0; i< respo.length; i++)
+                    {
+                       
+                        if ( value.id_reponsabilite == respo[i].id_reponsabilite)
+                        {
+                            responsabilité += "</br> -"+respo[i].libellle;
+                        }
+                    }
+                });
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
                 document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email 
+                document.querySelector("#bureau").innerHTML ="Son Bureau </br> Batiment : " + personnes[num].batiment +"</br> Etage : " + personnes[num].etage;
+                document.querySelector("#respon").innerHTML = responsabilité;
                 $( "#affichage" ).modal( "show" );
             });
 
