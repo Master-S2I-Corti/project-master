@@ -15,7 +15,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Cours</h1>
+                                <!-- <h1 class="">Cours</h1> -->
+                                <!--<h1 class=""><font size="-3">Cours</font></h1>--> 
+                                <h1 class=""><font size="6">Nom du cours: </font>
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
@@ -30,7 +32,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Type_Cours</h1>
+                                <h1 class=""><font size="6">Type du cours: </font>
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
@@ -45,7 +47,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Enseignant</h1>
+                                <h1 class=""><font size="6">Nom de l'enseignant: </font>
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
@@ -60,7 +62,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Salle</h1>
+                                <h1 class=""><font size="6">Type de salle: </font>
                             </div>
                             <div class="col-md-6">
                                 <div class="btn-group">
@@ -75,7 +77,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Remarque</h1>
+                                <h1 class=""><font size="6">Remarque: </font>
                             </div>
                             <div class="col-md-6">
                                     <input type="remarque" name="remarque" class="form-control"
@@ -84,7 +86,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Heure de début</h1>
+                                <h1 class=""><font size="6">Heure de début: </font>
                             </div>
                             <div class="col-md-6">
                                     <input required type="time" name="heure_debut" class="form-control"
@@ -93,7 +95,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="">Heure de fin</h1>
+                                <h1 class=""><font size="6">Heure de fin: </font>
                             </div>
                             <div class="col-md-6">
                                     <input required type="time" name="heure_fin" class="form-control"
@@ -102,7 +104,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="" content="true">Date</h1>
+                                <h1 class="" content="true"><font size="6">Date de la séance: </font>
                             </div>
                             <div class="col-md-6">
                                 <div id=dateDuplicate class="btn-group">

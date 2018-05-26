@@ -154,7 +154,7 @@
                         ligne.setAttribute("data-target", "#modifier")
                         ligne.setAttribute("onclick", "changeId('"+seance.id+"')");
                         
-                        ligne.innerHTML = seance.matiere.libelle + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.enseignant.personne.prenom + " " + seance.enseignant.personne.nom + "<br/>" + seance.salle.id_salle;
+                        ligne.innerHTML = seance.matiere.libelle + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.enseignant.personne.prenom + " " + seance.enseignant.personne.nom + "<br/>" + seance.salle.id_salle + "<br/>" + seance.remarque;
                     });
                     date.setDate(date.getDate() + 1);
                     removeItemOverflow(colonne, counter-(seanceDay.length-1));

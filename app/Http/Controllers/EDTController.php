@@ -110,7 +110,6 @@ class EDTController extends Controller
                  'code_professeur' => $request->code_professeur
         ]);
         return redirect('gestion/edt')->withOk("Séance ajouté avec succès");
-;
     }
 
     public function seanceWeek() {

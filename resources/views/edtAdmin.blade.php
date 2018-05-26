@@ -150,11 +150,12 @@
                         } else {
                             ligne.classList.add("bg-other");
                         }
+                       
                         ligne.setAttribute("data-toggle", "modal");
                         ligne.setAttribute("data-target", "#modifier")
                         ligne.setAttribute("onclick", "changeId('"+seance.id+"')");
-                        
-                        ligne.innerHTML = seance.matiere.libelle + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.enseignant.personne.prenom + " " + seance.enseignant.personne.nom + "<br/>" + seance.salle.id_salle;
+                        seance.remarque =seance.remarque ? seance.remarque : ""
+                        ligne.innerHTML = seance.matiere.libelle + "<br/>" + seance.heure_debut + "-" + seance.heure_fin + "<br/>" + seance.enseignant.personne.prenom + " " + seance.enseignant.personne.nom + "<br/>" + seance.salle.id_salle + "<br/>" + seance.remarque ;
                     });
                     date.setDate(date.getDate() + 1);
                     removeItemOverflow(colonne, counter-(seanceDay.length-1));
@@ -190,7 +191,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="#" data-toggle="modal" id="btAjout" data-target="#ajout" class="btn btn-outline-primary">Ajouter un cours</a>
+                    <a href="#" data-toggle="modal" id="btAjout" data-target="#ajout" class="btn btn-outline-primary">Ajouter une séance</a>
                 </div>
             </div>
             <div class="d-flex justify-content-between mt-3">
@@ -242,7 +243,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <!-- <input type="button" class="btn btn-outline-primary" value="Imprimer" onClick="printDiv('printableArea')"> -->
                     <button type="button" class="btn btn-outline-primary" onClick="printDiv('printableArea')">Imprimer </button>
                 </div>
             </div>
