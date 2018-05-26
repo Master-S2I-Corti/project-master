@@ -80,7 +80,7 @@ var semestre=' {!! $data["semestre"] !!}'
  $("#postB").click(function(){////////fonction de la requete ajax pour enregistrer la maquete  dans la bdd 
          var send=getjson();////send est un tableau la premiere case indique si il n'y a pas d'erreur dans notre maquete si elle est a un aucune erreur n'a ete detectée
 							//la seconde case est le json de la maquete si il n'ya pas d'erreur si il y en a lors c'est le message d'erreur a affichér
-		/*
+		
 		 
 		if(send[0]==1)
 		 {
@@ -108,10 +108,9 @@ var semestre=' {!! $data["semestre"] !!}'
 		 }
 		else if(send[1]!=null)
 			alert(send[1]);
-		var car = {type:"Fiat", model:"500", color:["yellow","red"]};
 		
 	
-		*/
+		
 	});
 	
 	

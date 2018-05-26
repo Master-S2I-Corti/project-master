@@ -90,6 +90,7 @@ function cardAffiche(archive,prof)
 		if(archive[i].annee==document.getElementById("archive").value)
 		{
 		file=JSON.parse(archive[i].file);
+		console.log(file);
 			//console.log(file);
 		for(nSem=0;nSem<file.length;nSem++)
 			{
@@ -105,7 +106,7 @@ function cardAffiche(archive,prof)
 			
 			
 			
-			cHeader.innerHTML="test";
+			cHeader.innerHTML=file[nSem].libelle;
 			cBody=document.createElement("div");
 			cBody.classList.add('card-body');
 			
@@ -115,9 +116,119 @@ function cardAffiche(archive,prof)
 			tableau.appendChild(card);
 			br=document.createElement("br");
 			tableau.appendChild(br);
-		/*	for(nUe=0;nUe<file[nSem].ues.length;nUe++)
+		    for(nUe=0;nUe<file[nSem].ues.length;nUe++)
 				{
 			//	console.log(prof);
+				
+				*////////////new ue
+				
+			
+	body=card.getElementsByClassName('card-body')[0];
+	
+	UeCard=document.createElement("div");
+	Uebody=document.createElement("div");
+	
+	UeCard.classList.add("card","UeCard");
+	Uebody.classList.add("card-body","table-responsive");
+	
+	UE=document.createElement("table");
+	UE.classList.add("table","ueTable","ueONly");	
+	header=UE.insertRow(-1);
+	header.style.backgroundColor="azure";
+	cell=header.insertCell(-1);
+		cell.innerHTML="Désignation";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Semestre";
+		cell=header.insertCell(-1);
+		cell.innerHTML="coeff";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Description       ";
+	
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Responsable de l&#39ue";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="ECTS";
+		
+		Uebody.appendChild(UE);
+		UeCard.appendChild(Uebody);
+		body.appendChild(UeCard);
+	
+
+	var row = UE.insertRow(-1);//cree une nouvelle ligne a la fin du tableau
+	row.className="Uerow";
+	
+    var cell = row.insertCell(-1);
+	
+
+	
+	c="<div><input type='text' class='nomUe ' value=file[nSem].ues[nUe].ue.nom>";
+	cell.innerHTML=c;
+	
+	
+ 
+  var nsem=0;
+ 
+  for(i=0;i<document.getElementsByClassName("semestre").length;i++)
+  {
+
+	if(document.getElementsByClassName("semestre")[i]==card)
+	{
+	
+		nsem=i+1;
+		
+	}
+  }
+	
+	var cell = row.insertCell(-1);
+	
+	
+	c+=nsem;
+	c+="</div>"
+	cell.innerHTML=c;
+	
+	var cell = row.insertCell(-1);
+	c="<input type='number' class='coeff' max='99' min='1'  value=file[nSem].ues[nUe].ue.coeff />";
+	cell.innerHTML=c
+	
+	
+	var cell = row.insertCell(-1);
+	c="<textarea class='description' value=file[nSem].ues[nUe].ue.description/>";
+	cell.innerHTML=c;
+	
+	
+	var cell = row.insertCell(-1);
+	////////////plus tard
+	var cell = row.insertCell(-1);
+	cell.innerHTML="<input type='number' class='ects' value='0' min='0' oninput='calc(this.parentElement.parentElement)'/>"
+	cell.className="ectsC";
+	
+	cell=row.insertCell(-1);
+		cell.innerHTML="<i class='fa fa-check fa-2x ' onclick='lock(this.parentElement.parentElement)'>    </i>     ";
+	cell.className="lock-unlock";
+	
+	header=UE.insertRow(-1);
+	header.style.backgroundColor="azure";
+	cell=header.insertCell(-1);
+		cell.innerHTML="Sous-UE";
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="coeff interne"
+		
+		cell=header.insertCell(-1);
+		cell.innerHTML="Cour(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="TD(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="TP(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Total(H)";
+		cell=header.insertCell(-1);
+		cell.innerHTML="Equiv-TD(H)";
+				
+				/////////////////////
 				newUe(prof,document.getElementsByClassName("semestre")[nSem]);
 				lastrow=document.getElementsByClassName("semestre")[nSem].getElementsByClassName("Uerow")[nUe];
 				//console.log(lastrow);
@@ -145,7 +256,7 @@ function cardAffiche(archive,prof)
 						lasMat.getElementsByClassName("td")[0].value=file[nSem].ues[nUe].matieres[nMat].td;
 						//calc(lasMat);
 					}
-				}*/
+				}
 			
 			}
 		}
