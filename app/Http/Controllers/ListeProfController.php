@@ -16,12 +16,9 @@ class ListeProfController extends Controller
     // Accès à la page Liste Prof
     public function index()
     {
-        $listesEnseignant = Personne::where('code_professeur','!=',0)
-                            ->paginate(7);
-        $listeResponsabilite = Responsabilite::get();
+        $listesEnseignant = Enseignant::with('identity','Est_Responsable')->paginate(7);
         $listeDepartement = Departement::get();
-        
-        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement'));
+        return view('listeEnseignant', compact('listesEnseignant','listeDepartement'));
     }
 
     //Enregistrement d'un nouveau prof

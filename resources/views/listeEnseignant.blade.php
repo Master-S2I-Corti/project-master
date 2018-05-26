@@ -15,7 +15,6 @@
         <table class="table table-bordered ">
             <thead>
             <tr>
-                    <th></th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Département</th>
@@ -30,13 +29,13 @@
                 @foreach ( $listesEnseignant as $enseignant)
 
                         <tr>
-                                <th>{{$enseignant->id}}</th>
-                                <th  class="opener" data-target="#affichage">{{$enseignant->nom}}</th>
-                                <th  class="opener" data-target="#affichage">{{$enseignant->prenom}}</th>
-                                <th  class="opener" data-target="#affichage">{{$enseignant->departement}}</th>
+                                <td hidden>{{$enseignant->id}}</td>
+                                <td  class="opener" data-target="#affichage">{{$enseignant->identity->nom}}</td>
+                                <td  class="opener" data-target="#affichage">{{$enseignant->identity->prenom}}</td>
+                                <td  class="opener" data-target="#affichage">{{$enseignant->departement->libelle}}</td>
                                 @if(Auth::user()->isAdmin())
-                                <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                                <th class="del"><i class="fa fa-trash fa-2x"></i></th>
+                                <td><i id="modifier"class="fa fa-edit fa-2x"></i></td>
+                                <td><i id="del" class="fa fa-trash fa-2x"></i></td>
                                 @endif
                         </tr>
                 
@@ -62,9 +61,7 @@
                             <h1 id="nom">Prof</h1>
                             <div class="row">
                                 <div class="col">
-                                    <p> Compétences: </p>
-                                    <p> - Modules en charges : </p>
-                                    <p> - Matières enseignées: </p>
+                                    <p id="resp"> Responsablité : </p>
                                 </div>
                                 <div class="col">
                                     <p> Professeur pédagogique : </p>
@@ -96,7 +93,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <input id="id2" type="hidden" name="id" value="" />
-                                    <p> Email: <input type="email"  name="email" id="email2" value='' required/><br /></p>
+                                    <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='' required/><br /></p>
                                 </div>
                                 <div class="col-md-2">
                                     
@@ -227,7 +224,8 @@
                 </div>
                 <div class="modal-body">
                         <div class="container">
-                            <h4> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet enseignant </span> ?</h4>
+                            <h6> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet enseignant </span> ?</h6>
+                            <br>
                             <div class="row">
                                 <div class="col">
                                     <form method="post" action="{{ url('annuaire/professeurs/deleteProf') }}">
@@ -237,7 +235,7 @@
                                     </form>
                                 </div>
                                 <div class="col">
-                                    <button>Annuler</button>
+                                    <button class="btn btn-secondary">Annuler</button>
                                 </div>
                             </div>
                         </div>
@@ -269,9 +267,10 @@
 
             //AFFICHAGE POPUP
             $( ".opener" ).on( "click", function(e) {
-                var elements = e.target.parentElement.querySelectorAll("th")
+                var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
+                var responsabilité = ""
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
@@ -280,12 +279,12 @@
                     }
                 }
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#email").innerHTML ="Email : "+ personnes[num]['email']
+                document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email 
                 $( "#affichage" ).modal( "show" );
             });
 
-            $( ".modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+            $( "i#modifier" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
@@ -298,7 +297,7 @@
                 document.getElementById("id2").value = id_personne
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.querySelector("#email2").value = personnes[num]['email']
+                document.querySelector("#email2").value = personnes[num].identity.email
                 $( "#modif" ).modal( "show" );
             });
 
@@ -306,8 +305,8 @@
                 $( "#ajout" ).modal( "show" );
             });
 
-            $( ".del" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+            $( "i#del" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 document.getElementById("idS").value = elements.item(0).innerHTML
                 document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );
