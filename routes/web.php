@@ -56,6 +56,17 @@ Route::middleware(['roles:admin'])->group(function () {
 
 });
 
+   Route::get('/gestion/salles/edt/{id}', 'SalleController@edit');
+    Route::get('/gestion/salles/del/{id}', 'SalleController@delete');
+    Route::get('/gestion/salles', 'SalleController@index');
+    Route::get('/gestion/salles/add', 'SalleController@add');
+    Route::post('/gestion/salles/add', 'SalleController@store');
+    Route::get('/gestion/salles/gestion', 'SalleController@gestion');
+    Route::post('/gestion/salles/group', 'SalleController@groupStore');
+     Route::post('/gestion/search', 'SalleController@search');
+    
+});  
+
 Route::middleware(['roles:enseignant,etudiant'])->group(function () {
     Route::get('/edt', 'EDTController@edt');
     Route::get('/edt/{week}', 'EDTController@edtWeek');
@@ -67,6 +78,7 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
     Route::get('/gestion/notes','GestionNotesController@index');
     Route::get('/ue', 'UEController@index');
     Route::get('/salles', 'SalleController@liste');
+    Route::post('/searched', 'SalleController@searchEns');
 
 });
 
