@@ -27,6 +27,7 @@ Route::middleware(['roles:etudiant'])->group(function () {
 
 Route::middleware(['roles:enseignant'])->group(function () {
     Route::get('/enseignant/edt', 'EDTController@enseignant');
+    Route::post('profil/ajoutIndisponible','ProfilController@ajoutIndisponible');
 });
 
 Route::middleware(['roles:admin'])->group(function () {
@@ -55,6 +56,8 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
 });
 
 Route::get('profil','ProfilController@index');
+Route::post('profil/updateProfil','ProfilController@update');
+
 Route::get('annuaire/etudiants','ListeEtudiantController@index');
 Route::get('annuaire/professeurs','ListeProfController@index');
 

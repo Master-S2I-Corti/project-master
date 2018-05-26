@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Responsabilite extends Model
+class Indisponibilite extends Model
 {
-    protected $table = "Responsabilite";
+    protected $table = 'Indisponibilite';
 
     protected $fillable = [
-        'id_reponsabilite'
+        'code_professeur','debut','fin'
     ];
 
     public $timestamps = false;
+
 }
