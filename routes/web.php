@@ -39,7 +39,8 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
     Route::get('/gestion/filiere','FiliereController@vueAdmin');
-    Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
+	Route::get('/gestion/semestres','MaquetteController@gestion');
+	Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
     Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');

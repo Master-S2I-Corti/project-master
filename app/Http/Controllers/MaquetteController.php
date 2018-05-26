@@ -9,104 +9,17 @@ use App\Enseignant;
 use Illuminate\Support\Facades\Auth;
 class MaquetteController extends Controller
 {
-	public function index($diplome)///////Permet de faire la maquette des semestre
+	public function gestion()
 	{
-		
-		//print_r(file(URL::asset('js/maquette.json'))); 
-		    $user = Auth::user();
- /*$pro= DB::table('enseignant')->
- select('code_professeur')
- ->where('id',$user->id)
- ->first();*/
-	
-	
-	$d=DB::table('diplome')->
-	where('diplome.id_diplome',$diplome)->
-	first();
-	
-	if($d==null)
-	return "ce diplome n'existe pas";
-	
-	/*if($d->code_professeur!=$pro->code_professeur)
-		return "vous n'ete pas responsable de ce diplome";*/
-		   
-		   //print_r($dip);
-		    $annee = DB::table('diplome')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
-			join('annee','annee.id_diplome','diplome.id_diplome')->////annee c'est le année de ma bdd
-			where('diplome.id_diplome',$diplome)->/////
-			pluck('id_annee');
-	
-	$semestre=DB::table('semestre')->//////je  prends tout les semestre de l'année 
-	select('id_semestre','libelle')->
-	wherein('id_annee',$annee)->
+		$d=DB::table('diplome')->
+	select('id_diplome','libelle')->
 	get();
-	$semarray=array();
-	foreach($semestre as $thisSem)
-	{
-		$semComp=array();
-		$ue=DB::table('ue')->//je recupére toute les donnée et l'id ,nom et prenom du prof qui  gérent les ue d'un semestre 
-		/*join('enseignant','ue.code_professeur','enseignant.code_professeur')->
-		join('personne','enseignant.id','personne.id')->
-		select('ue.*','nom','prenom')->*/
-		where('id_semestre',$thisSem->id_semestre)->
-		get();
-		
-			$uearray=array();
-			
-			$ueComp=array();
-			foreach($ue as $thisUe) 
-			{
-					$thisUe->description=preg_split("/\\r\\n|\\r|\\n/",$thisUe->description);//je convertie le champ description en tableau une case pour chaque ligne 
-				$mat=DB::table('element_constitutif')->//prend les donnée de chaque matiere d'une ue
-			where('id_ue',$thisUe->id_ue)->
-			get();
-			
-			
-			$ueComp=array('0'=>$thisUe,
-						   '1'=>$mat);
-			array_push($uearray,$ueComp);	
-			
-			
-			}
+	return view('maquette/gestion')->with('data',$d);
 	
-		array_push($semComp,$thisSem,$uearray);
-		array_push($semarray,$semComp);
-		
-	}
-    
-	
-	
-	
-	$prof=DB::table('enseignant')->
-	
-
-    join('personne','enseignant.id','personne.id')->
-		select('enseignant.code_professeur','nom','prenom')->
-	get('enseignant.code_professeur','nom','prenom');
-	$data=array('semestre'=>$semarray,
-				'enseignant'=>$prof,
-				'diplome'=>$diplome);
-				
-				//print_r($data["semestre"]);
- /*semarray ressemble a ca
- ///le tableau contient des tableau de semestre
- chaque semestre contient 2 tableau
- le premier le nom et id du semestre 
- le second le tableau des ue du semestre
- chaque ue comtient 2 tableau 
-le premier les description de l'ue 
-le second un tableau des matiere
-chaque matiere contient les donnée des matiere 
- */
- 
-	
-//	print_r($data);
-
-	
-		return view('maquette/creation')->with('data',$data);
+	//print_r($d);
 	}
 
-
+	
 	public function index2($diplome)///////Permet de faire la maquette des semestre
 	{
 		
