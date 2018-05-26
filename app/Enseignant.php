@@ -16,4 +16,9 @@ class Enseignant extends Personne
     ];
 
     public $timestamps = false;
+
+    public function departement()
+    {
+        return $this->hasMany('App\Departement','id_departement','id_departement');
+    }
 }

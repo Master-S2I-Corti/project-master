@@ -67,13 +67,13 @@
                 @foreach ( $listesEnseignant as $enseignant)
 
                         <tr>
-                                <th>{{$enseignant->id}}</th>
+                                <th style="color:white">{{$enseignant->id}}</th>
                                 <th  class="opener" data-target="#affichage">{{$enseignant->nom}}</th>
                                 <th  class="opener" data-target="#affichage">{{$enseignant->prenom}}</th>
-                                <th  class="opener" data-target="#affichage">{{$enseignant->departement}}</th>
+                                <th  class="opener" data-target="#affichage">Informatique</th>
                                 @if(Auth::user()->isAdmin())
                                 <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                                <th class="del"><i class="fa fa-trash fa-2x"></i></th>
+                                <th class="del"><i class="fa fa-trash fa-2x" style="color:red"></i></th>
                                 @endif
                         </tr>
                 
