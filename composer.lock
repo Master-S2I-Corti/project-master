@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6cb94fd8136916a2a98cca4ad17ee89b",
-    "content-hash": "307e4e1cde1b0c81b65e2a86265a8df3",
+    "hash": "6c02d18229b221b2e420d2c2ba90e2e0",
+    "content-hash": "77c16ab64155a5b543fe479f301d8bd0",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1734,58 +1734,6 @@
                 "uuid"
             ],
             "time": "2018-04-25 19:14:32"
-        },
-        {
-            "name": "stechstudio/laravel-ssh-tunnel",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stechstudio/laravel-ssh-tunnel.git",
-                "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stechstudio/laravel-ssh-tunnel/zipball/c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-                "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "STS\\Tunneler\\TunnelerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "classmap": [],
-                "psr-4": {
-                    "STS\\Tunneler\\": "src"
-                },
-                "files": []
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bubba Hines",
-                    "email": "rob@stechstudio.com"
-                }
-            ],
-            "description": "Easy creation & maintenance of an SSH Tunnel for Laravel/Lumen",
-            "keywords": [
-                "laravel",
-                "lumen",
-                "mysql",
-                "ssh",
-                "tunnel"
-            ],
-            "time": "2018-05-20 19:10:27"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4509,12 +4457,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "23bf61bc8a7cc229d7ce8689b1bf818a9e192cac"
+                "reference": "1fc2d96ee97d5052f44662563587a0213895343d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/23bf61bc8a7cc229d7ce8689b1bf818a9e192cac",
-                "reference": "23bf61bc8a7cc229d7ce8689b1bf818a9e192cac",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/1fc2d96ee97d5052f44662563587a0213895343d",
+                "reference": "1fc2d96ee97d5052f44662563587a0213895343d",
                 "shasum": ""
             },
             "require": {
@@ -4551,7 +4499,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-04-19 15:46:26"
+            "time": "2018-05-26 14:16:30"
         }
     ],
     "aliases": [],
