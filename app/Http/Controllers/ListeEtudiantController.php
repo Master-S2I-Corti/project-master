@@ -141,7 +141,7 @@ class ListeEtudiantController extends Controller
 
         for ($i = 1 ; $i <= count($annee) ; $i++ )
         {
-            foreach($diplome as &$value)
+            foreach($diplome as $value)
             {
                 $j = $i -1;
                 if($annee[$j]->id_diplome == $value->id_diplome)
@@ -150,7 +150,6 @@ class ListeEtudiantController extends Controller
                                                     'id'=>$annee[$j]->id_annee,
                                                     'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
                                                 ];
-
                 }
             }
         }
@@ -161,6 +160,7 @@ class ListeEtudiantController extends Controller
             if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
                 while(($data = fgetcsv($handle,1000,",")) !== FALSE){
                     //Gestion du tableau de formation A UTILISER PLUS TARD
+                    //En parler avec Mathieu et nouvelle bdd
                     /*echo "\neleve: ";
                     if ((strpos($data[6], '-'))){
                       $tabFormation = explode('-', $data[6]);
@@ -171,14 +171,13 @@ class ListeEtudiantController extends Controller
                         echo $data[6];
                     }*/
                     $filiere = null;
-                    foreach($listDiplome as &$value)
+                    foreach($listDiplome as $value)
                     {
                         if ($data[0] == $value['libelle'])
                         {
                             $filiere = $value['id'];
                         }
                     }
-                    
                     $personne = Personne::firstOrCreate([
                         'login' => $data[2],
                         'nom' => $data[2],

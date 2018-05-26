@@ -9,9 +9,46 @@
         <div class="d-flex justify-content-between mb-5">
             <h2>Liste des enseignants</h2>
             @if(Auth::user()->isAdmin())
-                <button class="add btn btn-primary" >Ajouter d'un professeur : <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                <button class="add btn btn-primary" >Ajouter un enseignant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>
+
+
+        <div class="card">
+                <h3>Recherche d'un enseignant</h3>
+                <form method="post" action="{!! url('annuaire/profs/search') !!}" accept-charset="UTF-8">
+                    <div class="modal-body">
+                            <div class="row">
+                            {{ csrf_field() }}
+                                <div class="col-md">
+                                    <p> Nom : <input class="form-control form-control-sm" type="text" name="nom" value='' /><br/></p>
+                                    </div>
+                                <div class="col-md">
+                                    <p> Prénom : <input class="form-control form-control-sm" type="text" name="prenom" value='' /><br/></p>
+                                </div>
+                                <div class="col-md">
+                                <p>Département :
+                                        <select class="form-control form-control-sm" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> 
+                                </p>
+                                </div>
+                                <div class="col-md">
+                                </br>
+                                    <button class="btn btn-primary">Rechercher </button>
+                                </div>
+                            </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+
         <table class="table table-bordered ">
             <thead>
             <tr>
@@ -48,7 +85,7 @@
 
     <!-- POPUP Affichage -->
     <div id="affichage" class="modal fade">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" >Profil de l'enseignant</h5>
@@ -77,38 +114,42 @@
     </div>
 
  <!-- POPUP DE MODIFICATON -->
- <div id="modif" title="Modification de l'enseignant " class="modal fade" >
-        <div class="modal-dialog modal-lg" role="document">
+    <div id="modif"  class="modal fade">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" ><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h5>
-
+                    <h5 class="modal-title" id="nom">Profil de l' Etudiant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{!! url('annuaire/professeurs/updateProf') !!}" accept-charset="UTF-8">
-                    <div class="modal-body">
-                            {{ csrf_field() }}
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input id="id2" type="hidden" name="id" value="" />
-                                    <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='' required/><br /></p>
+                <div class="modal-body">
+                        <div class="container">
+                            <form method="post" action="{!! url('updateProf') !!}" accept-charset="UTF-8">
+                                {{ csrf_field() }}
+                                <h1><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h1>
+                                <div class="row">
+                                    <div class="col">
+                                        <input id="id2" type="hidden" name="id" value=""/>
+                                        <p> Compétences: </p>
+                                        <p> - Modules en charges : </p>
+                                        <p> - Matières enseignées: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p> Professeur pédagogique : </p>
+                                        <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
+                                        <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
+                                        </p>
+                                        <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
                                 </div>
-                                <div class="col-md-2">
-                                    
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="btn btn-primary"> Modifier</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    
-                                </div>
-                            </div>
-                       
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary"> Modifier</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    </div>
-                </form>
+                            </form>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
@@ -169,22 +210,23 @@
                                                 <option value="Vacataire">Vacataire</option>
                                         </select> 
                                     </p> 
-                                    <!-- faire une div puis en JS/Jquery faire du append et rajouter un autre select create p ... -->
-                                    <p> Responsablité :
+                                    <p> Responsabilité :
                                     <span id='resp'>
-                                        <select id="hihi" class="Responsabilie" name="Responsabilie">
+                                    <span id='slct0'>
+                                    <select id="slct" class="Responsabilie" name="Responsabilie[]" onchange="getChef(0)">
                                             <option value="0">Aucune</option>
                                         @if ( isset($listeResponsabilite))
                                             @foreach ( $listeResponsabilite as $respo)
                                                     <option value="{{$respo->id_reponsabilite}}">{{$respo->libellle}}</option>
                                             @endforeach
                                         @endif
-                                        </select> 
+                                        </select>
                                         </span>
+                                        </span>
+                                        <button id="btnadd" class="add btn btn-primary" type="button">+</button>
                                     </p> 
                                     </div>
                                     <div class="col-md-2">
-
                                     </div>
                                     <div class="col-md-4">
                                         <p> Département :
@@ -195,6 +237,15 @@
                                                 @endforeach
                                             @endif
                                             </select> 
+                                            <span type="hidden">
+                                            <select id="hiddenDiplome">
+                                            @if ( isset($listeDiplome))
+                                                @foreach ( $listeDiplome as $dip)
+                                                        <option value="{{$dip->id_diplome}}">{{$dip->libelle}}</option>
+                                                @endforeach
+                                            @endif
+                                            </select> 
+                                            </span>
                                         </p> 
                                         
                                         
@@ -247,25 +298,36 @@
 
 @section('script')
     <script>
+    var nbSelect= 0;
+    function getChef(nbS) {
+        var c = document.getElementsByClassName("Responsabilie");
+        var d = c[nbS].options;
+        var q = "slct"+nbS;
+        //console.log(d[c[nbS].selectedIndex].text);
+        if(d[c[nbS].selectedIndex].text == "chef filliere"){
+            var line = "Classe: <select class='classes' name='classes[]'>";                   
+                     $("#hiddenDiplome option").each(function()
+                    {
+                        line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
+                    });
+                    line += "</select>";
+           $("#slct"+nbS).append(line);
+        }
+        }
+
         $( function() {
-            //Ajout d'un select de responsabilité en JS
-            $(document).on("change", ".Responsabilie",function() {
-                //console.log(this.id);
-                select = document.getElementById(this.id);
-                choice = select.selectedIndex;
-                if(select.options[choice].text == "Responsable Filiere"){
-                    console.log("WOULAAAAAAAH");
-                    //RECUP LES FILLIERES ET les mettre dans un select de mort
-                }
-                var newDiv = document.getElementById("resp");
-                var selectList = document.createElement("select"); 
-                var getSele = document.getElementById("hihi");
-                selectList = getSele.cloneNode(true);
-                selectList.removeAttribute("id");
-                newDiv.appendChild(selectList);
+            $( "#btnadd" ).on( "click", function(e) {
+                    nbSelect = nbSelect + 1;
+                    var newDiv =  document.getElementById("resp");
+                    var line = "<div id='slct"+nbSelect+"'> <select class='Responsabilie' name='Responsabilie[]' onchange='getChef("+nbSelect+")'>";                   
+                     $("#slct option").each(function()
+                    {
+                        line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
+                    });
+                    line += "</select></span>";
+                    $(newDiv).append(line);
             });
 
-            //AFFICHAGE POPUP
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
