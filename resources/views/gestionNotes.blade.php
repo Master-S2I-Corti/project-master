@@ -40,6 +40,9 @@
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
+        .pg1{
+            padding:1px;
+        }
     </style>
 @endsection
 
@@ -54,34 +57,39 @@
             <div class="row">
                 <div class="col-md-12 px-5" style="padding:10px; top:15px;">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-7">
 
                             <div class="row">
-                                <div class="form-group col-md-4 p-0">
-                                    <select class="form-control" id="sel1">
-                                        <option value="">M1 S2I</option>
-                                        <option value="">L3 INFO</option>
+                                
+                                <div class="form-group col-md-3 pg1">
+                                    <select class="form-control selFilter" id="sel_promo">
+                                        <option value="">PROMO</option>
+                                        @foreach ($data as $promo)
+                                         <option value="{{$promo['id']}}">{{$promo['promo']}}</option>
+                                        @endforeach 
 
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <select class="form-control" id="sel1">
-                                        <option value="">Semestre 1</option>
-                                        <option value="">Semestre 2</option>
+                                <div class="form-group col-md-3 pg1">   
+                                    <select class="form-control selFilter" id="sel_semestre">
+                                       <option value="">SEMESTRE</option>
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-4 p-0">
-                                    <select class="form-control" id="sel_matiere">
+                                <div class="form-group col-md-3 pg1">
+                                    
+                                    <select class="form-control selFilter" id="sel_ue">
+                                       <option value="">-- UE --</option>
+                                    </select>
+                                </div>
 
-                                        @if(count($data['matiere'])>=1)
+                                <div class="form-group col-md-3 pg1">
 
-                                            @foreach($data['matiere'] as $matiere)
-                                                <option value="{{$matiere->id_matiere}}">{{$matiere->libelle}}</option>
-                                            @endforeach
+                                    
 
-                                        @endif
+                                    <select class="form-control selFilter" id="sel_matiere">
+                                        <option value="">-- EC --</option>
 
                                     </select>
                                 </div>
@@ -91,88 +99,43 @@
 
                         </div>
                         <div class="col-md-2">
-                            <button  data-target="#modal_tdtpcc"  data-toggle="modal" class="btn btn-primary d-flex align-items-center" type="button"> <i class="fa fa-plus"></i> TD TP CC</button>
+                            <button  data-target="#modal_tdtpcc" disabled data-toggle="modal" class="btn btn-primary d-flex align-items-center btnevl" type="button"> <i style="    margin-right: 5px;" class="fa fa-plus"></i>   Evaluation</button>
                         </div>
 
 
 
-                        <div class="col-md-4  p-0">
+                        <div class="col-md-3  p-0">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Recherche..." aria-label="Search for...">
+                                <input type="search" id="search" class="form-control" placeholder="Recherche..." aria-label="Search for...">
                                 <button class="btn btn-primary d-flex align-content-center" type="button"> <i class="fa fa-search"></i></button>
                             </div>
                         </div>
 
-
-                        <table class="table table-striped">
-                            <thead>
+                        <form class="col-md-12 p-0" id="form_note">
+                        <table class="table table-striped specTable">
+                            <thead style="color:#fff; background-color:#343a40;">
                             <tr>
                                 <th>#</th>
-                                <th>Nom</th>
                                 <th>Prenom</th>
-                                <th class="w-25">Moyenne</th>
-                                <th class="w-20" style="width:20px;">Modifier</th>
-                            </tr>
+                                <th>Nom</th>
+                                <th>Session</th>
+                                <th>Moyenne</th>
+<!--                            <th class="w-20" style="width:20px;">Modifier</th>-->                            
+                           </tr>
                             </thead>
-                            <tbody >
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>12.80</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr style="color:red">
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>---</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>15.12</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td class="">Larry</td>
-                                <td>the Bird</td>
-                                <td>15.12</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>15.12</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>10.50</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>10.50</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>10.50</td>
-                                <td><i class="fa fa-fw fa-pencil-square-o fa-lg " data-target="#myModal" data-toggle="modal"></i></td>
-                            </tr>
+                            <tbody id="lstEtud">
+    
                             </tbody>
                         </table>
+                      
+                       </form>  
+                        
+                       <div class="col-md-6 errMess"></div>
+                        <div class="col-md-6 pg1 pull-right">
+                         <!-- <button id="publier" class="btn btn-success d-flex align-items-center pull-right" style="margin-left:5px;">Publier</button> -->
+                           <button id="svNote" class="btn btn-primary d-flex align-items-center pull-right">Enregistrer les modifications</button>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -187,12 +150,12 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="mr-2 fa fa-user-circle"></i> Mark Otto</h5> <span style="margin-left:20px; color: #007bff;" class="tltMat"> Web Semantique</span>
+                        <h5 class="d-flex align-items-center modal-title" style="border-right:solid silver 1px; padding-right:20px; display:inline-block;"><i class="mr-2 fa fa-user-circle "></i> <span class="affNomEtuPop"></span></h5> <span style="margin-left:20px; color: #007bff;" class="tltMat"> Web Semantique</span>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
                     <div class="modal-body">
-
+                        <form id="formPopNote">
                         <table class="table table-striped" id="tab">
                             <thead>
                             <tr>
@@ -202,53 +165,17 @@
                             </tr>
                             </thead>
 
-                            <tbody>
-
-                            <tr>
-                                <td class="w-25">TD</td>
-
-                                <td class="w-25">
-                                    1
-                                </td>
-
-                                <td class="w-25">
-                                    <input type="text" value="12" class="form-control form-control-sm w-50">
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td class="w-25">TP</td>
-                                <td class="w-25">2</td>
-                                <td class="w-25"><input type="text" class="form-control form-control-sm w-50" value="10.25"> </td>
-                            </tr>
-
-                            <tr>
-                                <td class="w-25">CC</td>
-                                <td class="w-25">3 </td>
-                                <td class="w-25"><input type="text" value="14.25" class="form-control form-control-sm w-50"> </td>
-                            </tr>
+                            <tbody id="ctableNote">
 
                             </tbody>
                         </table>
-                        <h5 style="padding:5px;float:right;">Moyenne : 12.80</h5>
+                        </form>
+                        <h5 style="padding:5px;float:right; display: none;" >Moyenne : <span class="affMoyPop"></span></h5>
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-success" data-dismiss="modal" data-toggle="modal" onclick="AfficherMasquer()">Enregistrer</button>
-                        <script>
-                            function AfficherMasquer()
-                            {
-                                divInfo = document.getElementById('couco');
-                                if (divInfo.style.display == 'none')
-                                    divInfo.style.display = 'block';
-
-                                else
-                                    divInfo.style.display = 'none';
-                            }
-                        </script>
+                        <button type="button" id="enrgNote" class="btn btn-default btn-success" data-dismiss="modal" data-toggle="modal" >Enregistrer</button>
                     </div>
                 </div>
             </div>
@@ -266,75 +193,28 @@
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
-                    <div class="modal-body">
+                    <form id="formEval" class="modal-body">
 
                         <table class="table table-striped" id="tab">
                             <thead>
                             <tr>
-                                <th># &nbsp;<i class="fa fa-plus fa-lg d-inline text-success insertLine"></i></th>
+                                <th>Moy</th>
                                 <th>Coef</th>
-                                <th></th>
+                                <th><div class="btn btn-primary  btn-sm insertLine" style="float"><i class="fa fa-plus fa-lg d-inline"></i></div></th>
                             </tr>
                             </thead>
 
                             <tbody id="cTable">
 
-
-                            @if(count($data['evaluation'])>=1)
-
-                                @foreach($data['evaluation'] as $evaluation)
-
-                                    <tr id="ligne_{{$evaluation->id_evaluation}}">
-                                        <input type="hidden" name="" value="{{$evaluation->id_evaluation}}">
-                                        <td class="w-25">{{$evaluation->type}}</td>
-
-                                        <td>
-                                            <input type="number" value="{{$evaluation->coeff}}" min="0" max="5" class="form-control form-control-sm w-25">
-                                        </td>
-
-                                        <td><i class="fa fa-lg d-inline removeLine dbRemoveEval text-danger fa-trash-o" id="{{$evaluation->id_evaluation}}"></i></td>
-
-                                    </tr>
-
-                                @endforeach
-
-                            @endif
-
-
-
-
-                            <!--     <tr>
-                  <td>TP</td>
-                  <td><input type="number" value="2" class="form-control form-control-sm w-25"> </td>
-
-                  <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td>
-                </tr>
-
-                <tr>
-                  <td>CC</td>
-                  <td><input type="number" value="3" class="form-control form-control-sm w-25"> </td>
-
-                  <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td>
-                </tr> -->
-
                             </tbody>
                         </table>
 
 
-                    </div>
+                    </form>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-success" data-dismiss="modal" data-toggle="modal" onclick="AfficherMasquer()">Enregistrer</button>
-                        <script>
-                            function AfficherMasquer()
-                            {
-                                divInfo = document.getElementById('couco');
-                                if (divInfo.style.display == 'none')
-                                    divInfo.style.display = 'block';
 
-                                else
-                                    divInfo.style.display = 'none';
-                            }
-                        </script>
+                        <div class="pull-left aff-mess"></div>
+                        <button type="button" class="subModalEval btn btn-default btn-success" >Enregistrer</button>
                     </div>
                 </div>
             </div>
@@ -370,8 +250,32 @@
             }
         });
         $('document').ready(function(){
-            $('.insertLine').click(function(){
-                $('#cTable').prepend('<tr><td class="w-25"><select class="form-control" name="" id=""><option value="">TD</option><option value="">TP</option> <option value="">CC</option></select></td> <td class=""><input type="number" class="form-control form-control-sm w-25" value="0" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
+
+          var eval = ["TD", "TP", "CC","ORAL","EXAM","SEM"];   
+
+            $('.insertLine').on('click',function(){
+
+              //var test=$('.cgeval').text();
+              var evalExiste = $(".cgeval").map(function(){return $(this).text();}).get();
+              var evalExistOpt = $(".optE option:selected").map(function(){return $(this).text();}).get();
+
+              //console.log(evalExistOpt);
+              var evalDiff=arr_diff(eval,evalExiste);
+
+              var evalDiff=arr_diff(evalDiff,evalExistOpt);
+
+              var options="";
+
+              jQuery.each( evalDiff, function( i, val ) {
+                  options+='<option value="'+val+'">'+val+'</option>';
+              });
+
+             
+              if(evalDiff!="")
+              {
+                $('#cTable').prepend('<tr><td class="w-25"><select class="form-control optE" name="eval[]" id="">'+options+'</select></td> <td class=""><input type="number" name="coeff[]" class="form-control form-control-sm w-25" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
+              }
+
             });
 
             // SUPRESSION EVALUATION
@@ -382,9 +286,11 @@
                     {
                         // Traitement Ajx Supression Evaluation Base
                         var idTodelete=$(this).attr("id");
-                        alert(idTodelete);
+                        //alert(idTodelete);
                         $.post('deleteEval',{idEvalTodelete:idTodelete},function($data){
                             $('#ligne_'+idTodelete).remove();
+
+                            refrechTabNoteEtu();
                         });
 
                     } else {
@@ -396,28 +302,290 @@
 
 
 
-        $('body').on('change','#sel_matiere', function(){
+        // Charger les semestres en fonction de la promo
+        $('body').on('change','#sel_promo', function(){
+ 
+         var idPromo=$(this).val();
 
-         
-         var selectedId=$(this).val();
-         var name_mat=$("#sel_matiere option:selected").text();
+           $.post('promofilter',{idPromo:idPromo},
+                    
+                        function(data){
 
-           $.post('changeMatiere',
-                  {selectedId:selectedId},
-                  function(data){
-                          console.log(data);
-
-                            // $('#mat1').html(data[0].matiere);
-
-                            $('#cTable').html(data);
-                            $('.tltMat').html(name_mat);
+                           $('#sel_semestre').html(data);
 
                           },
 
                             'html'
                           );
 
-      });
+           // Reinitialiser les autres select 
+           $('#sel_ue').html('<option value="">-- UE --</option>');
+           $('#sel_matiere').html('<option value="">-- EC --</option>');
+           $('.btnevl').attr('disabled', 'disabled');
+
+           $('#lstEtud').html(' ');
+           
+
+        });
+
+        // Charger les UE en fonction du semestre
+        $('body').on('change','#sel_semestre', function(){
+ 
+         var idSemestre=$(this).val();
+
+           $.post('semestrefilter',{idSemestre:idSemestre},
+                    
+                        function(data){
+
+                           $('#sel_ue').html(data);
+
+                          },
+
+                            'html'
+                          );
+
+           $('#sel_matiere').html('<option value="">-- EC --</option>');
+           $('.btnevl').attr('disabled', 'disabled');
+           $('#lstEtud').html(' ');
+
+        });
+
+         // Charger les Matiere en fonction de l'ue
+        $('body').on('change','#sel_ue', function(){
+ 
+         var idUe=$(this).val();
+
+           $.post('uefilter',{idUe:idUe},
+                    
+                        function(data){
+
+                           $('#sel_matiere').html(data);
+
+                          },
+
+                            'html'
+                          );
+
+           $('#lstEtud').html(' ');
+
+        });
+
+  // Chargement evaluation en fonction de la matiere selectionnée
+        $('body').on('change','#sel_matiere', function(){
+ 
+         var selectedId=$(this).val();
+         var name_mat=$("#sel_matiere option:selected").text();
+
+         $('.aff-mess').html(' ');
+
+            // Remplissage tableau evaluation
+           $.post('changeMatiere',{selectedId:selectedId},
+                    
+                        function(data){
+
+                            $('#cTable').html(data);
+                            $('.tltMat').html(name_mat);
+
+                             
+
+                          },
+
+                            'html'
+                          );
+           // activer le button evaluation
+           $('.btnevl').removeAttr('disabled');
+
+             
+
+           //recuperer laliste des etudiants et leur note
+            refrechTabNoteEtu();
+
+
+        });  
+
+        // Recherche en live 
+        $('body').on('keyup', '#search', function(){
+
+          refrechTabNoteEtu();
+
+
+        }) ; 
+
+        // Ajax ajout evaluation
+
+        $('body').on('click','.subModalEval', function(){
+
+            var data = $('#formEval').serializeArray();
+
+            var selectedMat=$('#sel_matiere').val();
+            
+            data.push({name: 'matiere', value: selectedMat});
+
+          $.post('saveEvaluation',data,
+
+              function( response ) {
+                $('#cTable').html(response);
+
+                $('.aff-mess').html('<span class="alert alert-success">Evaluation(s) ajoutée(s) avec success</span>');
+
+                refrechTabNoteEtu();
+              },
+
+              'html'
+              
+            
+            );
+
+
+            
+        });
+
+
+
+
+        // Clique sur modifier pr chaque etudiant
+
+
+        $('body').on('click','.mdfIon', function(){
+
+           var id_etu = $(this).find('input[type=hidden]').val();
+
+           var nom_etu = $(this).parent().parent().find('.nom').text();
+           var prenom_etu = $(this).parent().parent().find('.prenom').text();
+           var moy_etu= $(this).parent().parent().find('.moyenne').text();
+
+           var matiere =$('#sel_matiere').val();
+
+           $('.affMoyPop').html(moy_etu);
+
+           $('.affNomEtuPop').html(prenom_etu+' '+nom_etu);
+
+
+          $.post('getNoteEvaluation',{code_etudiant:id_etu,matiere:matiere},
+
+              function( response ) {
+                $('#ctableNote').html(response);
+
+              },
+
+              'html'
+              
+            
+            );
+           
+
+
+            
+        });
+
+
+
+        $('body').on('click','#enrgNote',function(){
+
+              var data = $('#formPopNote').serializeArray();
+
+              $.post('saveNoteEtu',data,
+
+              function( response ) {
+                   refrechTabNoteEtu();
+              },
+
+              'html'
+              
+            
+            );
+
+        });
+
+        // Sauvegarder des notes 
+
+
+        $('body').on('click','#svNote',function(){
+
+             $('.errMess').html(' ');
+              var data = $('#form_note').serializeArray();
+
+              console.log(data);
+
+              $.post('saveNote',data,
+
+              function( response ) {
+                   
+                   if(response==1)
+                   {
+                      refrechTabNoteEtu();
+                      $('.errMess').html('<div class="alert alert-success">Enregistrement effectué avec succès</div>');
+
+
+                   }else {
+                      $('.errMess').html('<div class="alert alert-danger">Erreur : Veuillez saisir uniquement des nombres ou les termes "ABI" ou "ABJ"</div>');
+                   }
+              },
+
+              'html'
+              
+            
+            );
+
+            
+            
+        });
+
+
+        // Fonction pour raffraichire laliste des etudiant et leurs notes
+        function refrechTabNoteEtu()
+        {
+
+             //recuperer laliste des etudiants et leur note
+           var promo = $('#sel_promo').val();
+           var semestre = $('#sel_semestre').val();
+           var ue =$('#sel_ue').val();
+           var matiere = $('#sel_matiere').val();
+           var search= $('#search').val();
+
+
+           $.post('noteEtu',{promo:promo,semestre:semestre,ue:ue,matiere:matiere,search:search},
+
+                function(data){
+
+                    $('.specTable').html(data);
+                },
+                'html'   
+            );
+        }
+
+
+
+
+
+      function arr_diff (a1, a2) 
+      {
+
+          var a = [], diff = [];
+          for (var i = 0; i < a1.length; i++) {
+              a[a1[i]] = true;
+          }
+          for (var i = 0; i < a2.length; i++) {
+              if (a[a2[i]]) {
+                  delete a[a2[i]];
+              } else {
+                  a[a2[i]] = true;
+              }
+          }
+
+          for (var k in a) {
+              diff.push(k);
+          }
+
+          return diff;
+      }
+
+
+$(function() {
+  $('body').on('keydown', '.onlyNum', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||(/65|67|86|88/.test(e.keyCode)&&(e.ctrlKey===true||e.metaKey===true))&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+})
+
+
 
     </script>
 @endsection

@@ -20,6 +20,13 @@ Route::get("/etudiants", function() {
 
 Route::middleware(['roles:etudiant'])->group(function () {
     Route::get('/notes', 'NotesController@index');
+    Route::post('changeSemestre', 'NotesController@onChangeSemestre');
+    Route::post('changeDiplome', 'NotesController@onChangeDiplome');
+    Route::post('changeDiplome2', 'NotesController@onChangeDiplome2');
+    Route::post('changeAnnee', 'NotesController@onChangeAnnee');
+    Route::post('changeAnnee2', 'NotesController@telechargementpdf');
+    Route::get('test','NotesController@telechargement');
+    
     Route::get('/etudiant/edt', 'EDTController@etudiant');
     Route::get('/annuaire/professeur', 'AnnuaireController@index');
     Route::get('/annuaire', 'AnnuaireController@index');
@@ -72,8 +79,19 @@ Route::middleware(['roles:enseignant,etudiant'])->group(function () {
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
-    Route::post('/gestion/deleteEval','GestionNotesController@deleteEvalById');
+   Route::post('/gestion/deleteEval','GestionNotesController@deleteEvalById');
     Route::post('/gestion/changeMatiere','GestionNotesController@onChangeMatiere');
+
+    Route::post('/gestion/promofilter','GestionNotesController@onChangePromo');
+    Route::post('/gestion/semestrefilter','GestionNotesController@onChangeSemestre');
+    Route::post('/gestion/uefilter','GestionNotesController@onChangeUe');
+    Route::post('/gestion/saveEvaluation','GestionNotesController@saveEval');
+    Route::post('/gestion/saveNoteEtu','GestionNotesController@saveNoteEtu');
+    Route::post('/gestion/saveNote','GestionNotesController@saveNote');
+    
+    Route::post('/gestion/getNoteEvaluation','GestionNotesController@getNoteEval');
+    Route::post('/gestion/noteEtu','GestionNotesController@getListNoteEtu');
+
     Route::get('/gestion/notes','GestionNotesController@index');
     Route::get('/ue', 'UEController@index');
     Route::get('/salles', 'SalleController@liste');
