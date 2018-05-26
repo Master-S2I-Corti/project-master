@@ -1,4 +1,4 @@
-> You might also like [Caret](https://caret.io?ref=parsedown) - our Markdown editor for Mac / Windows / Linux.
+> I also make [Caret](https://caret.io?ref=parsedown) - a Markdown editor for Mac and PC.
 
 ## Parsedown
 
@@ -19,12 +19,21 @@ Better Markdown Parser in PHP
 * Super Fast
 * Extensible
 * [GitHub flavored](https://help.github.com/articles/github-flavored-markdown)
-* Tested in 5.3 to 7.1 and in HHVM
+* Tested in 5.3 to 7.2 and in HHVM
 * [Markdown Extra extension](https://github.com/erusev/parsedown-extra)
 
 ### Installation
+#### Composer
+Install the [composer package] by running the following command:
 
-Include `Parsedown.php` or install [the composer package](https://packagist.org/packages/erusev/parsedown).
+    composer require erusev/parsedown
+
+#### Manual
+1. Download the "Source code" from the [latest release]
+2. Include `Parsedown.php`
+
+[composer package]: https://packagist.org/packages/erusev/parsedown "The Parsedown package on packagist.org"
+[latest release]: https://github.com/erusev/parsedown/releases/latest "The latest release of Parsedown"
 
 ### Example
 
@@ -32,13 +41,40 @@ Include `Parsedown.php` or install [the composer package](https://packagist.org/
 $Parsedown = new Parsedown();
 
 echo $Parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
+// you can also parse inline markdown only
+echo $Parsedown->line('Hello _Parsedown_!'); # prints: Hello <em>Parsedown</em>!
 ```
 
 More examples in [the wiki](https://github.com/erusev/parsedown/wiki/) and in [this video tutorial](http://youtu.be/wYZBY8DEikI).
 
 ### Security
 
-Parsedown does not sanitize the HTML that it generates. When you deal with untrusted content (ex: user commnets) you should also use a HTML sanitizer like [HTML Purifier](http://htmlpurifier.org/).
+Parsedown is capable of escaping user-input within the HTML that it generates. Additionally Parsedown will apply sanitisation to additional scripting vectors (such as scripting link destinations) that are introduced by the markdown syntax itself.
+
+To tell Parsedown that it is processing untrusted user-input, use the following:
+```php
+$parsedown = new Parsedown;
+$parsedown->setSafeMode(true);
+```
+
+If instead, you wish to allow HTML within untrusted user-input, but still want output to be free from XSS it is recommended that you make use of a HTML sanitiser that allows HTML tags to be whitelisted, like [HTML Purifier](http://htmlpurifier.org/).
+
+In both cases you should strongly consider employing defence-in-depth measures, like [deploying a Content-Security-Policy](https://scotthelme.co.uk/content-security-policy-an-introduction/) (a browser security feature) so that your page is likely to be safe even if an attacker finds a vulnerability in one of the first lines of defence above.
+
+#### Security of Parsedown Extensions
+
+Safe mode does not necessarily yield safe results when using extensions to Parsedown. Extensions should be evaluated on their own to determine their specific safety against XSS.
+
+### Escaping HTML
+> ⚠️  **WARNING:** This method isn't safe from XSS!
+
+If you wish to escape HTML **in trusted input**, you can use the following:
+```php
+$parsedown = new Parsedown;
+$parsedown->setMarkupEscaped(true);
+```
+
+Beware that this still allows users to insert unsafe scripting vectors, such as links like `[xss](javascript:alert%281%29)`.
 
 ### Questions
 
@@ -54,7 +90,7 @@ It passes most of the CommonMark tests. Most of the tests that don't pass deal w
 
 **Who uses it?**
 
-[phpDocumentor](http://www.phpdoc.org/), [October CMS](http://octobercms.com/), [Bolt CMS](http://bolt.cm/), [Kirby CMS](http://getkirby.com/), [Grav CMS](http://getgrav.org/), [Statamic CMS](http://www.statamic.com/), [Herbie CMS](http://www.getherbie.org/), [RaspberryPi.org](http://www.raspberrypi.org/), [Symfony demo](https://github.com/symfony/symfony-demo) and [more](https://packagist.org/packages/erusev/parsedown/dependents).
+[Laravel Framework](https://laravel.com/), [Bolt CMS](http://bolt.cm/), [Grav CMS](http://getgrav.org/), [Herbie CMS](http://www.getherbie.org/), [Kirby CMS](http://getkirby.com/), [October CMS](http://octobercms.com/), [Pico CMS](http://picocms.org), [Statamic CMS](http://www.statamic.com/), [phpDocumentor](http://www.phpdoc.org/), [RaspberryPi.org](http://www.raspberrypi.org/), [Symfony demo](https://github.com/symfony/symfony-demo) and [more](https://packagist.org/packages/erusev/parsedown/dependents).
 
 **How can I help?**
 

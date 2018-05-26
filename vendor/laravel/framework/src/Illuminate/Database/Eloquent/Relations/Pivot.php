@@ -80,9 +80,11 @@ class Pivot extends Model
      */
     public static function fromRawAttributes(Model $parent, $attributes, $table, $exists = false)
     {
-        $instance = static::fromAttributes($parent, $attributes, $table, $exists);
+        $instance = static::fromAttributes($parent, [], $table, $exists);
 
         $instance->setRawAttributes($attributes, true);
+
+        $instance->timestamps = $instance->hasTimestampAttributes();
 
         return $instance;
     }
@@ -99,9 +101,13 @@ class Pivot extends Model
             return parent::setKeysForSaveQuery($query);
         }
 
-        $query->where($this->foreignKey, $this->getAttribute($this->foreignKey));
+        $query->where($this->foreignKey, $this->getOriginal(
+            $this->foreignKey, $this->getAttribute($this->foreignKey)
+        ));
 
-        return $query->where($this->relatedKey, $this->getAttribute($this->relatedKey));
+        return $query->where($this->relatedKey, $this->getOriginal(
+            $this->relatedKey, $this->getAttribute($this->relatedKey)
+        ));
     }
 
     /**
@@ -126,8 +132,8 @@ class Pivot extends Model
     protected function getDeleteQuery()
     {
         return $this->newQuery()->where([
-            $this->foreignKey => $this->getAttribute($this->foreignKey),
-            $this->relatedKey => $this->getAttribute($this->relatedKey),
+            $this->foreignKey => $this->getOriginal($this->foreignKey, $this->getAttribute($this->foreignKey)),
+            $this->relatedKey => $this->getOriginal($this->relatedKey, $this->getAttribute($this->relatedKey)),
         ]);
     }
 

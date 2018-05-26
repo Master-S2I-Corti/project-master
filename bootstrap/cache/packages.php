@@ -6,6 +6,24 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'intervention/image' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Intervention\\Image\\ImageServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Image' => 'Intervention\\Image\\Facades\\Image',
+    ),
+  ),
+  'laravel/tinker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    ),
+  ),
   'laravelcollective/html' => 
   array (
     'providers' => 
@@ -18,22 +36,11 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
-  'laravel/tinker' => 
+  'stechstudio/laravel-ssh-tunnel' => 
   array (
     'providers' => 
     array (
-      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    ),
-  ),
-  'intervention/image' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Intervention\\Image\\ImageServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Image' => 'Intervention\\Image\\Facades\\Image',
+      0 => 'STS\\Tunneler\\TunnelerServiceProvider',
     ),
   ),
   'mews/captcha' => 
