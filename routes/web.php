@@ -65,7 +65,6 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::post('/gestion/salles/group', 'SalleController@groupStore');
      Route::post('/gestion/search', 'SalleController@search');
     
-});  
 
 Route::middleware(['roles:enseignant,etudiant'])->group(function () {
     Route::get('/edt', 'EDTController@edt');
