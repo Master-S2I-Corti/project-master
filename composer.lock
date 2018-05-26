@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7ac48840cf60f5f76f4aff70a3ab88f2",
-    "content-hash": "a7f42fe7be1d522c93597f796dfc5497",
+    "hash": "1d7b40945a6804e6a3559c4399a1c6d1",
+    "content-hash": "c5cbae406a63334475d4cf6a4ce19109",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1380,7 +1380,7 @@
         },
         {
             "name": "mews/captcha",
-            "version": "2.2.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mewebstudio/captcha.git",
@@ -4923,7 +4923,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mews/captcha": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
