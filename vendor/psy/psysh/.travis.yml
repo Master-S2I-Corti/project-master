@@ -23,10 +23,13 @@ matrix:
 install: travis_retry composer update --no-interaction $COMPOSER_FLAGS
 
 script:
- - vendor/bin/phpunit --verbose
- - '[[ $TRAVIS_PHP_VERSION = 7.2* ]] && make build || true'
+ - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+ - '[[ $TRAVIS_PHP_VERSION = 7.2* ]] && make build -j 4 || true'
 
-before_deploy: make dist
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+before_deploy: make dist -j 4
 
 deploy:
   provider: releases
