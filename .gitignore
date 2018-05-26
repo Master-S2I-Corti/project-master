@@ -8,5 +8,6 @@ npm-debug.log
 yarn-error.log
 .env
 /storage/logs
+/vendor
 /storage/logs/laravel.log
 
