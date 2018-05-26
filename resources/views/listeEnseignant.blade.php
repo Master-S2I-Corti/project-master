@@ -16,7 +16,7 @@
 
         <div class="card">
                 <h3>Recherche d'un enseignant</h3>
-                <form method="post" action="{!! url('annuaire/profs/search') !!}" accept-charset="UTF-8">
+                <form method="post" action="{!! url('annuaire/professeurs/search') !!}" accept-charset="UTF-8">
                     <div class="modal-body">
                             <div class="row">
                             {{ csrf_field() }}
@@ -306,7 +306,7 @@
         var d = c[nbS].options;
         var q = "slct"+nbS;
         //console.log(d[c[nbS].selectedIndex].text);
-        if(d[c[nbS].selectedIndex].text == "chef filliere"){
+        if(d[c[nbS].selectedIndex].text == "Responsable de Filière"){
             var line = "Classe: <select class='classes' name='classes[]'>";                   
                      $("#hiddenDiplome option").each(function()
                     {

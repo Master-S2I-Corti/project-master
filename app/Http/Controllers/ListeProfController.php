@@ -107,6 +107,37 @@ class ListeProfController extends Controller
         return redirect()->action('ListeProfController@index');
     }
     
-
-    
+    public function search(Request $request)
+    {
+        if ( $request->nom != null || $request->prenom != null )
+        {
+            $listesEnseignant = Enseignant::join('Personne','Enseignant.code_professeur','=','Personne.code_professeur')
+                                        ->join('Departement','Enseignant.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->where('Personne.nom','=',$request->nom)
+                                        ->orWhere('Personne.prenom','=',$request->prenom)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
+        }
+        else
+        {
+            //dd($request->all());
+            $listesEnseignant = Enseignant::join('Personne','Enseignant.code_professeur','=','Personne.code_professeur')
+                                        ->join('Departement','Enseignant.id_departement','=','Departement.id_departement')
+                                        ->where('Departement.id_departement','=',$request->departement)
+                                        ->where([
+                                            ['nom','!=',null],
+                                            ['prenom','!=',null]
+                                        ])
+                                        ->paginate(7);
+        }
+        
+        $listeResponsabilite = Responsabilite::get();
+        $listeDepartement = Departement::get();
+        $listeDiplome = Diplome::get();
+        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement','listeDiplome'));
+    }  
 }
