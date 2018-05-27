@@ -1,5 +1,5 @@
 <div id="ajout" class="modal fade" style="min-width: 600px" tabindex="-1" role="dialog">
-    <form method="post" action="{{URL::to("edt/ajout")}}">
+    <form method="post" action="{{URL::to("edt/ajout")}}" id="form-add">
          {{ csrf_field() }}
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -136,6 +136,7 @@
 
 
 @section("script")
+
 <script>
     var i = 0;
     var original = document.getElementById('dateDuplicate');
