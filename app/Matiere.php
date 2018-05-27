@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Matiere extends Model
 {
-    protected $table = 'Matiere';
+    protected $table = 'Element_Constitutif';
     public $timestamps = false;
 
 

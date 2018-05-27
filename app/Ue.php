@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ue extends Model
 {
-    protected $table = 'Ue';
+    protected $table = 'UE';
     public $timestamps = false;
 }
