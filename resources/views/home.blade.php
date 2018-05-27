@@ -14,13 +14,14 @@
     <div class="contrainer jumbotron">
         <div class="w-75 align-content-around d-flex justify-content-center flex-wrap m-auto ">
             @if(Auth::user()->isAdmin())
-                @include("home.admin")
+                <?php echo \App\Http\Controllers\MenuController::menu("Fonctionnalités administrateur", "admin") ?>
             @endif
+
             @if(Auth::user()->isEtudiant())
-                @include("home.etudiant")
+                <?php echo \App\Http\Controllers\MenuController::menu("Fonctionnalités étudiantes", "etudiant") ?>
             @endif
             @if(Auth::user()->isEnseignant())
-                @include("home.enseignant")
+                <?php echo \App\Http\Controllers\MenuController::menu("Fonctionnalités enseignantes", "enseignant") ?>
             @endif
         </div>
     </div>
