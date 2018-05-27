@@ -136,17 +136,6 @@
 
 
 @section("script")
-    <script>
-        $( "#form-add" ).submit(function( event ) {
-            var heure_debut = $(this).find("input[name='heure_debut']").val();
-            var heure_fin = $(this).find("input[name='heure_debut']").val();
-            console.log(heure_fin)
-            if(heure_debut > heure_fin) {
-                alert("Heure début superieur à heure de fin")
-            }
-            event.preventDefault();
-        });
-    </script>
 
 <script>
     var i = 0;
