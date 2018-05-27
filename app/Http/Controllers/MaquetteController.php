@@ -59,9 +59,7 @@ class MaquetteController extends Controller
 
 
 //	print_r($archive);
-        $prof = Enseignant::join('Personne', 'Enseignant.id', 'Personne.id')->
-        select('Enseignant.code_professeur', 'nom', 'prenom')->
-        get('Enseignant.code_professeur', 'nom', 'prenom');
+        $prof = Enseignant::all();
 
         //print_r(addslashes($archive));
         $data = array('archive' => addslashes($archive),

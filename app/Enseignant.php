@@ -58,7 +58,8 @@ class Enseignant extends Personne
             'code_professeur' => $this->code_professeur,
             'personne' => $this->personne,
             'batiment' =>$this->batiment,
-            'etage' => $this->etage
+            'etage' => $this->etage,
+            'est__responsable' => $this->Est_Responsable
          ];
     }
 

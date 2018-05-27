@@ -350,12 +350,12 @@
             $( ".opener" ).on( "click", function(e) {
                 var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
-                var num = 0
+                var num = -1
                 var responsabilité = "Ses Responsabilités :"
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
                 var respo = JSON.parse('<?= json_encode($listeResponsabilite);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
-                    if ( id_personne == personnes[i]['id'])
+                    if ( id_personne == personnes[i].personne.id)
                     {
                         num = i;
                     }
@@ -392,7 +392,7 @@
                 var num = 0;
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>');
                 for (var i = 0; i < personnes.length; i++) {
-                    if ( id_personne == personnes[i]['id'])
+                    if ( id_personne == personnes[i].personne.id)
                     {
                         num = i;
                     }

@@ -358,7 +358,7 @@ function newUe(prof,card)
 	{
 		var optio=document.createElement('option');
 		optio.value=prof[i].code_professeur;
-		optio.text=prof[i].nom+" "+prof[i].prenom;
+		optio.text=prof[i].personne.nom+" "+prof[i].personne.prenom;
 		row.getElementsByClassName('responsable')[0].add(optio);
 		
 	}
