@@ -119,8 +119,9 @@
             $.getJSON("{{URL::to("seances/week/")}}/"+week, function (data) {
                 cours = data;
                 var date = getMonday(new Date("{{$date}}"));
+                
+                document.getElementById('printableArea').style.visibility='hidden';
                 reverse_table(document.getElementById("table_edt"));
-
                 for (var i = 1; i < 7; i++) {
                     var counter = 0;
                     var counter2 = 0;
@@ -163,6 +164,7 @@
                 }
 
                 reverse_table(document.getElementById("table_edt"));
+                document.getElementById('printableArea').style.visibility='visible';
 
             });
         }

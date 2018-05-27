@@ -119,9 +119,22 @@ class EDTController extends Controller
         }
         
          if ($user->isEtudiant()){
-            return Seance::where("code_professeur", $user->code_professeur)->get();
+
+
+            return Seance::join('Participe','Seance.id_seance','=','Participe.id_seance')
+                ->join('Groupe','Participe.code_groupe','=','Groupe.code_groupe')
+                ->join('AppartientGroupe','Groupe.code_groupe','=','AppartientGroupe.code_groupe')
+                ->join('Etudiant','Etudiant.code_etudiant','=','AppartientGroupe.code_etudiant')
+                ->where('Etudiant.code_etudiant','=',$user->code_etudiant)->get();       
+            
+            /*Seance::join('AppartientGroupe','Etudiant.code_etudiant','=','AppartientGroupe.code_etudiant')
+                ->join('Groupe','Groupe.code_groupe','=','AppartientGroupe.code_groupe')
+                ->join('Participe','Participe.code_groupe','=','Groupe.code_groupe')
+                ->join('Seance','Seance.id_seance','=','Participe.id_seance')
+                ->where('Etudiant.id','=',$user->code_etudiant)->get();*/
         }
         
+
         return Seance::all();
     }
     

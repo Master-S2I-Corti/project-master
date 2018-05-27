@@ -91,7 +91,7 @@
                             <div class="col-md-6">
                                     <input required type="time" name="heure_debut" class="form-control"
                                            placeholder="Heure début ex: 08h00"
-                                           min="08:00" max="21:30">
+                                           min="08:00" max="21:30" step="900">
                             </div>
                         </div>
                         <div class="row">
@@ -101,7 +101,7 @@
                             <div class="col-md-6">
                                     <input required type="time" name="heure_fin" class="form-control"
                                            placeholder="Heure fin ex: 18h00"
-                                           min="08:00" max="21:30">
+                                           min="08:00" max="21:30" step="900">
                             </div>
                         </div>
                         <div class="row">

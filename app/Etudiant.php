@@ -37,4 +37,15 @@ class Etudiant extends Personne
     {
         return $this->hasMany('App\Est_diplome_hors_univ','code_etudiant','code_etudiant')->orderBy('obtention', 'asc');
     }
+    
+    public function toArray()
+    {
+        return [
+            'code_etudiant' => $this->code_etudiant,
+            'INE' => $this->ine,
+            'numSecu' =>$this->numSecu,
+            'id_annee' => $this->id_annee,
+            'id' => $this->id
+         ];
+    }
 }
