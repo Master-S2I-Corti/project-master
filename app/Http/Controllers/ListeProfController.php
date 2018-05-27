@@ -22,8 +22,9 @@ class ListeProfController extends Controller
         $listeResponsabilite = Responsabilite::get();
         $listeDepartement = Departement::get();
         $listeDiplome = Diplome::get();
-        
-        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement','listeDiplome'));
+        $listeP = Enseignant::get();
+
+        return view('listeEnseignant', compact('listesEnseignant','listeResponsabilite','listeDepartement','listeDiplome','listeP'));
     }
 
     //Enregistrement d'un nouveau prof
@@ -85,9 +86,17 @@ class ListeProfController extends Controller
     //Enregistrement de la modification du prof 
     public function update( Request $request)
     {
+        //dd($request->all());
         $personne = Personne::findOrFail($request->id);
-        $personne->update(['email' =>$request->email]);
-        return redirect()->action('ListeProfController@index');
+        $enseignant = Enseignant::findOrFail($request->id);
+        $personne->update(['email' =>$request->email,
+                        'tel'=>$request->tel,
+                        'adresse'=>$request->adresse ]);
+        $enseignant->update(['id_departement'=>$request->departement,
+                            'batiment'=>$request->batiment,
+                            'etage'=>$request->etage]);
+       
+        return redirect('annuaire/professeurs')->withOk("L'enseignant a bien été modifié");
     }
 
     //Suppression du prof

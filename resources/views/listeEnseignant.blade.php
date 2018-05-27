@@ -13,6 +13,15 @@
             @endif
         </div>
 
+        @if(session()->has("ok"))
+                <div class="alert alert-success alert-dismissible">
+                        {!! session('ok') !!}
+                </div>
+            @elseif (session()->has("error"))
+                <div class="alert alert-danger alert-dismissible">
+                        {!! session('error') !!}
+                </div>
+            @endif
 
         <div class="card">
                 <h3>Recherche d'un enseignant</h3>
@@ -65,7 +74,6 @@
             <tbody>
             @if ( isset($listesEnseignant))
                 @foreach ( $listesEnseignant as $enseignant)
-
                         <tr>
                                 <th style="color:white">{{$enseignant->id}}</th>
                                 <th  class="opener" data-target="#affichage">{{$enseignant->nom}}</th>
@@ -128,26 +136,30 @@
                 </div>
                 <div class="modal-body">
                         <div class="container">
-                            <form method="post" action="{!! url('updateProf') !!}" accept-charset="UTF-8">
+                            <form method="post" action="{!! url('annuaire/professeurs/updateProf') !!}" accept-charset="UTF-8">
                                 {{ csrf_field() }}
-                                <h1><span id="nom2" name="nom"> P </span> <span id="pre2" name="prenom">P</span></h1>
+                                <h1><span id="nom2" name="nom"> P </span> </h1>
                                 <div class="row">
                                     <div class="col">
-                                        <input id="id2" type="hidden" name="id" value=""/>
-                                        <p> Compétences: </p>
-                                        <p> - Modules en charges : </p>
-                                        <p> - Matières enseignées: </p>
+                                    <input id="id2" type="hidden" name="id" value=""/>
+                                    <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='douvle kek' required/><br/></p>
+                                    <p> Telephone: <input class="form-control form-control-sm" type="text"  name="tel" id="tel2" value='' required/><br /></p>
+                                    <p> Adresse: <input class="form-control form-control-sm" type="text"  name="adresse" id="adresse2" value='' required/><br /></p>
+                                    <button class="btn btn-primary"> Modifier</button>
                                     </div>
                                     <div class="col">
-                                        <p> Professeur pédagogique : </p>
-                                        <p> Email: <input type="text" name="mail" id="mail" value=''/><br/></p>
-                                        <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
-                                        </p>
-                                        <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
+                                    <p> Departement: <select class="form-control form-control-sm" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> <br /></p>
+                                    <p> Batiment: <input class="form-control form-control-sm" type="text"  name="batiment" id="batiment2" value='' required/><br /></p>
+                                    <p> Etage: <input class="form-control form-control-sm" type="text"  name="etage" id="etage2" value='' required/><br /></p>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-primary"> Modifier</button>
                                     </div>
                                 </div>
                             </form>
@@ -347,7 +359,35 @@
             });
 
             $( ".modifier" ).on( "click", function(e) {
-                
+                var elements = e.target.parentElement.parentElement.querySelectorAll("th");
+                var id_personne = elements.item(0).innerHTML;
+                var num = 0;
+                var numP = 0;
+                var profs = JSON.parse('<?= json_encode($listeP->all());  ?>');
+                var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>');
+                for (var i = 0; i < personnes.length; i++) {
+                    if ( id_personne == personnes[i]['id'])
+                    {
+                        num = i;
+                        numP = personnes[i]['code_professeur'];
+                    }
+                }
+
+                for (var i = 0; i < profs.length; i++) {
+                    if ( numP == profs[i]['code_professeur'])
+                    {
+                        numP = i;
+                    }
+                }
+
+                console.log(personnes[num]);
+                document.querySelector("#id2").value = personnes[num]['id'];
+                document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
+                document.querySelector("#email2").value = personnes[num]['email'];
+                document.querySelector("#tel2").value = personnes[num]['tel'];
+                document.querySelector("#adresse2").value = personnes[num]['adresse'];
+                document.querySelector("#batiment2").value = profs[numP]['batiment'];
+                document.querySelector("#etage2").value = profs[numP]['etage'];
                 $( "#modif" ).modal( "show" );
             });
 
