@@ -117,53 +117,8 @@
         </div>
     </div>
 
- <!-- POPUP DE MODIFICATON -->
-    <div id="modif"  class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="nom">Profil de l' Etudiant</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                        <div class="container">
-                            <form method="post" action="{!! url('annuaire/professeurs/updateProf') !!}" accept-charset="UTF-8">
-                                {{ csrf_field() }}
-                                <h1><span id="nom2" name="nom"> P </span> </h1>
-                                <div class="row">
-                                    <div class="col">
-                                    <input id="id2" type="hidden" name="id" value=""/>
-                                    <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='douvle kek' required/><br/></p>
-                                    <p> Telephone: <input class="form-control form-control-sm" type="text"  name="tel" id="tel2" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br /></p>
-                                    <p> Adresse: <input class="form-control form-control-sm" type="text"  name="adresse" id="adresse2" value='' required/><br /></p>
-                                    <button class="btn btn-primary"> Modifier</button>
-                                    </div>
-                                    <div class="col">
-                                    <p> Departement: <select class="form-control form-control-sm" name="departement">
-                                        @if ( isset($listeDepartement))
-                                            @foreach ( $listeDepartement as $departement)
-                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
-                                            @endforeach
-                                        @endif
-                                        </select> <br /></p>
-                                    <p> Batiment: <input class="form-control form-control-sm" type="text"  name="batiment" id="batiment2" value='' required/><br /></p>
-                                    <p> Etage: <input class="form-control form-control-sm" type="text"  name="etage" id="etage2" value='' required/><br /></p>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
  <!-- POPUP D'AJOUT -->
-    <div id="ajout" class="modal fade">
+ <div id="ajout" class="modal fade">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -311,6 +266,53 @@
             </div>
         </div>
     </div>
+ <!-- POPUP DE MODIFICATON -->
+    <div id="modif"  class="modal fade">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nom2">Profil de l' Enseignant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{!! url('annuaire/professeurs/updateProf') !!}" accept-charset="UTF-8">
+                <div class="modal-body">
+                        <div class="container">
+                            
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    <input id="id2" type="hidden" name="id" value=""/>
+                                    <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='douvle kek' required/><br/></p>
+                                    <p> Telephone: <input class="form-control form-control-sm" type="text"  name="tel" id="tel2" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br /></p>
+                                    <p> Adresse: <input class="form-control form-control-sm" type="text"  name="adresse" id="adresse2" value='' required/><br /></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    
+                                    </div>
+                                    <div class="col-md-5">
+                                    <p> Departement: <select class="form-control form-control-sm" name="departement">
+                                        @if ( isset($listeDepartement))
+                                            @foreach ( $listeDepartement as $departement)
+                                                    <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
+                                            @endforeach
+                                        @endif
+                                        </select> <br /></p>
+                                    <p> Batiment: <input class="form-control form-control-sm" type="text"  name="batiment" id="batiment2" value='' required/><br /></p>
+                                    <p> Etage: <input class="form-control form-control-sm" type="text"  name="etage" id="etage2" value='' required/><br /></p>
+                                </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary"> Modifier</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
@@ -373,7 +375,16 @@
                 document.querySelector("#respon").innerHTML = responsabilité;
                 $( "#affichage" ).modal( "show" );
             });
+            $( ".add" ).on( "click", function(e) {
+                $( "#ajout" ).modal( "show" );
+            });
 
+            $( "i#del" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
+                document.getElementById("idS").value = elements.item(0).innerHTML
+                document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
+                $( "#sup" ).modal( "show" );
+            });
             $( "i#modifier" ).on( "click", function(e) {
                 var elements = e.target.parentElement.parentElement.querySelectorAll("td");
                 var id_personne = elements.item(0).innerHTML;
@@ -397,16 +408,7 @@
                 $( "#modif" ).modal( "show" );
             });
 
-            $( ".add" ).on( "click", function(e) {
-                $( "#ajout" ).modal( "show" );
-            });
-
-            $( "i#del" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
-                document.getElementById("idS").value = elements.item(0).innerHTML
-                document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
-                $( "#sup" ).modal( "show" );
-            });
+           
         } );
 
     </script>
