@@ -1,9 +1,0 @@
-
-	/**
-	 * @param $value
-	 * @return $this
-	 */
-	public function {{ function }}($value) {
-		$this->{{ attribute }} = $value;
-		return $this;
-	}

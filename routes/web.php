@@ -28,6 +28,7 @@ Route::middleware(['roles:etudiant'])->group(function () {
 Route::middleware(['roles:enseignant'])->group(function () {
     Route::get('/enseignant/edt', 'EDTController@enseignant');
     Route::post('profil/ajoutIndisponible','ProfilController@ajoutIndisponible');
+    Route::get('/filiere/ens','FiliereController@vueEnseignant');
 });
 
 Route::middleware(['roles:admin'])->group(function () {
@@ -37,6 +38,7 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/add', 'SalleController@add');
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
+    Route::get('/gestion/filiere','FiliereController@vueAdmin');
     Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
