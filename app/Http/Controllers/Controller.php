@@ -23,5 +23,4 @@ class Controller extends BaseController
         return Auth::user()->getPath();
     }
     
-
 }
