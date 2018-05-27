@@ -3,9 +3,6 @@
 @section('css')
 
     <style>
-        .nav-item:nth-child(2) a {
-            color: white !important;
-        }
         .dropdown {
             position: relative;
             display: inline-block;
@@ -42,6 +39,10 @@
         }
         .pg1{
             padding:1px;
+        }
+
+        #svNote {
+            float :right;
         }
     </style>
 @endsection
@@ -106,7 +107,7 @@
 
                         <div class="col-md-3  p-0">
                             <div class="input-group">
-                                <input type="search" id="search" class="form-control" placeholder="Recherche..." aria-label="Search for...">
+                                <input type="search" id="search" class="form-control m-0" placeholder="Recherche..." aria-label="Search for...">
                                 <button class="btn btn-primary d-flex align-content-center" type="button"> <i class="fa fa-search"></i></button>
                             </div>
                         </div>
@@ -133,7 +134,7 @@
                        <div class="col-md-6 errMess"></div>
                         <div class="col-md-6 pg1 pull-right">
                          <!-- <button id="publier" class="btn btn-success d-flex align-items-center pull-right" style="margin-left:5px;">Publier</button> -->
-                           <button id="svNote" class="btn btn-primary d-flex align-items-center pull-right">Enregistrer les modifications</button>
+                           <button id="svNote" class="btn btn-primary">Enregistrer les modifications</button>
                         </div>
                        
                     </div>

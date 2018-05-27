@@ -233,7 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         /*POUR LE PDF*/
-        'PDF'=> Barryvdh\DomPdf\Facade::class
+        'PDF'=> Barryvdh\DomPdf\Facade::class,
 
     ],
 
