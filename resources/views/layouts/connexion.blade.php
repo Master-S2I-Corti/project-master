@@ -13,11 +13,10 @@
 
             <div class="modal-body">
                     {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('identifiant') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
                         <div>
                             <label for="login-input" class="form-control-label"><i class="fa fa-user d-inline fa-lg"></i>Identifiant</label>
-                            <input id="login-input" type="text" placeholder="Identifiant" class="form-control" name="identifiant"
-                                   value="{{ old('identifiant') }}" required autofocus>
+                        <input id="login-input" type="text" placeholder="Identifiant" class="form-control" name="login" value="{{ old('login') }}" required autofocus>
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -25,9 +24,9 @@
                             <label for="password-input" class="form-control-label"><i class="fa d-inline fa-lock fa-lg"></i>Mot de passe</label>
                             <input id="password-input" type="password" class="form-control" placeholder="Mot de passe" name="password"
                                    required>
-                            @if ($errors->has('identifiant'))
+                            @if ($errors->has('login'))
                                 <span class="help-block text-danger">
-                                        <strong>{{ $errors->first('identifiant') }}</strong>
+                                        <strong>{{ $errors->first('login') }}</strong>
                                     </span>
                             @endif
 
