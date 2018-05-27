@@ -161,8 +161,8 @@ class MaquetteController extends Controller
         ->first();*/
 
 
-        $d = DB::table('diplome')->
-        where('diplome.id_diplome', $diplome)->
+        $d = DB::table('Diplome')->
+        where('Diplome.id_diplome', $diplome)->
         first();
 
         if ($d == null)
@@ -172,14 +172,14 @@ class MaquetteController extends Controller
             return "vous n'ete pas responsable de ce diplome";*/
 
         //print_r($dip);
-        $archive = DB::table('Archive_Maquette')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
+        $archive = DB::table('Archive_maquette')->/////recupére toute les année du diplome(dans ma bdd la table diplome est similaire a la table diplome de la bdd du projet)
         select('file', 'annee')->
         where('id_diplome', $diplome)->/////
         get();
 
         $semestre = DB::table('Semestre')
             ->join('Annee', 'Semestre.id_annee', 'Annee.id_annee')
-            ->join('Diplome', 'diplome.id_diplome', 'Annee.id_diplome')
+            ->join('Diplome', 'Diplome.id_diplome', 'Annee.id_diplome')
             ->select('Semestre.id_semestre', 'Semestre.libelle', 'Diplome.id_diplome')
             ->where('Diplome.id_diplome', $diplome)
             ->get();

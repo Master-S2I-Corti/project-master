@@ -173,13 +173,13 @@
                                 <div class="col-md-4">
                                     <p> Fonction :
                                         <select class="form-control form-control-sm" name="fonction">
-                                            <option value="Professeur">Professeur</option>
-                                            <option value="Maitre de Conferences">Maitre de Conférences</option>
-                                            <option value="ATER">ATER</option>
-                                            <option value="1/2 ATER">1/2 ATER</option>
-                                            <option value="PAST">PAST</option>
-                                            <option value="PRAG">PRAG</option>
-                                            <option value="Vacataire">Vacataire</option>
+                                            <option value="1">Professeur</option>
+                                            <option value="2">Maitre de Conférences</option>
+                                            <option value="3">ATER</option>
+                                            <option value="4">1/2 ATER</option>
+                                            <option value="5">PAST</option>
+                                            <option value="6">PRAG</option>
+                                            <option value="7">Vacataire</option>
                                         </select>
                                     </p>
                                     <p> Responsabilité :

@@ -9,6 +9,7 @@ use App\Diplome;
 use App\Departement;
 use App\Est_responsable;
 use App\responsable_diplome;
+use App\Status;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +40,8 @@ class ListeProfController extends Controller
             $search = Personne::orderBy('id', 'desc')->first();
             $loginForYou = $search->login  + 1;
 
+            $status = Status::where('id_status', $request->fonction)->first();
+
             $personne = Personne::firstOrCreate([
                 'login'=>$loginForYou,
                 'nom' => $request->nom,
@@ -61,7 +64,8 @@ class ListeProfController extends Controller
 
             $enseignant = Enseignant::firstOrCreate([
                 'id'=>$personne->id,
-                'type'=>$request->fonction,
+                'type'=>$status->type,
+                'heure' => 0,
                 'id_departement'=>$request->departement
             ]);
             $enseignant = $enseignant->where('id', $personne->id)->first();
