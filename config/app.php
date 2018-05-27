@@ -229,6 +229,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c71e7d597eb7206c9fc27b6e6cb3c6d812c81fc2
     ],
 
 ];

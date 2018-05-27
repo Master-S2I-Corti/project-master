@@ -7,6 +7,7 @@ use App\Seance;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Salle;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 
@@ -14,16 +15,18 @@ use Illuminate\Support\Facades\DB;
 class EDTController extends Controller
 {
     
-    public function etudiant() {
-        return view("edtEtudiant");
+    public function edt() {
+        return self::edtWeek(date ('W'));
     }
-
-
-    public function enseignant() {
-        return view("edtEnseignant");
-    }
-
+       
     
+    public function edtWeek($week) {
+        date_default_timezone_set('Europe/Paris');
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        $date= self::getStartDate($week, date('Y'))[0];
+
+        return view("edt",compact("date", "week"));
+    }
     
 
     function getStartDate($week, $year)
@@ -71,6 +74,27 @@ class EDTController extends Controller
         return null;
 
     }
+    
+    public function supprimer($id){
+        $seance = Seance::findOrFail($id);
+        $seance->delete();
+        return redirect('gestion/edt')->withOk("Séance supprimé avec succès");
+    }
+
+    public function update(Request $request)
+    {
+        $id_salle = Salle::select()->where("type", $request->salle)->first()->id_salle;
+        $seance = Seance::where('id_seance', $request->id_seance)->first();
+        $seance->update(['type' => $request->type, 
+                 'heure_debut' => $request->heure_debut, 
+                 'heure_fin' => $request->heure_fin,
+                 'date_seance' => $request->date,
+                 'remarque' => $request->remarque,
+                 'id_matiere' => $request->matieres, 
+                 'id_salle' => $id_salle, 
+                 'code_professeur' => $request->code_professeur ]);
+        return redirect('gestion/edt')->withOk("Séance modifié avec succès");
+    }
 
     public function ajoutCour(Request $request){
         $id_salle = Salle::select()->where("type", $request->salle)->first()->id_salle;
@@ -85,9 +109,20 @@ class EDTController extends Controller
                  'id_salle' => $id_salle, 
                  'code_professeur' => $request->code_professeur
         ]);
-        return redirect('gestion/edt');
+        return redirect('gestion/edt')->withOk("Séance ajouté avec succès");
+;
     }
+
     public function seanceWeek() {
+        $user = Auth::user();
+        if ($user->isEnseignant()){
+            return Seance::where("code_professeur", $user->code_professeur)->get();
+        }
+        
+         if ($user->isEtudiant()){
+            return Seance::where("code_professeur", $user->code_professeur)->get();
+        }
+        
         return Seance::all();
     }
     

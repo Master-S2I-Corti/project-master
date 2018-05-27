@@ -11,7 +11,13 @@ class Matiere extends Model
 
     public $timestamps = false;
 
-
+     public function toArray()
+    {
+        return [
+            'id_matiere' => $this->id_matiere,
+            'libelle' => $this->libelle
+         ];
+    }
     
 }
 

@@ -196,8 +196,8 @@
                                             <div class="col-md-5">
                                                 <label> 
                                                 Début : 
-                                                <input type="date" name="dateDebut" required>
-                                                <input type="time" name="timeDebut" required>
+                                                <input type="date" class="form-control form-control-sm" name="dateDebut" required>
+                                                <input type="time" class="form-control form-control-sm" name="timeDebut" required>
                                             </label>
                                             </div>
                                             <div class="col-md-1">
@@ -205,8 +205,8 @@
                                             <div class="col-md-5">
                                                <label> 
                                                 Fin : 
-                                                <input type="date" name="dateFin" required>
-                                                <input type="time" name="timeFin" required>
+                                                <input type="date" class="form-control form-control-sm" name="dateFin" required>
+                                                <input type="time" class="form-control form-control-sm" name="timeFin" required>
                                             </label> 
                                             </div>
                                         </div>

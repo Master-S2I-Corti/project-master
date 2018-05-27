@@ -12,7 +12,7 @@ class Enseignant extends Personne
     protected $table = "Enseignant";
 
     protected $fillable = [
-        'id','type','heure'
+        'id','type','heure',"id_departement"
     ];
 
     public $timestamps = false;
@@ -50,6 +50,14 @@ class Enseignant extends Personne
     public function Indisponibilite()
     {
         return $this->hasMany('App\Indisponibilite','code_professeur','code_professeur');
+    }
+    
+     public function toArray()
+    {
+        return [
+            'code_professeur' => $this->code_professeur,
+            'personne' => $this->personne,
+         ];
     }
 
 }

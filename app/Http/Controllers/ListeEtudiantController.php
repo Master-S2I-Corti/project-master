@@ -26,10 +26,10 @@ class ListeEtudiantController extends Controller
 
     //Enregistrement d'un nouveau etudiant
     public function store(Request $request){
-       if  ($request->anneeObt > date("Y") && $request->diplomeObtenu != 0 || $request->anneeObtHors > date("Y") && $request->hors != null)
-       {
-           return redirect('annuaire/etudiants')->withError("La date d'obtention du diplome est incorrect");
-       }
+        if  ($request->anneeObt > date("Y") && $request->diplomeObtenu != 0 || $request->anneeObtHors > date("Y") && $request->hors != null)
+        {
+            return redirect('annuaire/etudiants')->withError("La date d'obtention du diplome est incorrect");
+        }
         $search = Personne::where([
             ['nom', '=', $request->nom],
             ['prenom', '=', $request->prenom],
@@ -62,36 +62,21 @@ class ListeEtudiantController extends Controller
             $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id ,'id_annee'=>$request->diplome]);
             $etudiant = $etudiant->where('id', $personne->id)->first();
             $personne->update(['code_etudiant' =>$etudiant->code_etudiant]);
-            if ( $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y")) {
+            if ( $request->diplomeObtenu != 0  && $request->anneeObt <= date("Y"))
+            {
                 $est_diplome = Est_diplome::firstOrCreate([
-                    'code_etudiant' => $etudiant->code_etudiant,
-                    'id_annee' => $request->diplomeObtenu,
-                    'obtention' => $request->anneeObt
+                    'code_etudiant'=>$etudiant->code_etudiant,
+                    'id_annee'=>$request->diplomeObtenu,
+                    'obtention'=>$request->anneeObt
                 ]);
-
-                $personne->where([
-                    ['nom', '=', $request->nom],
-                    ['prenom', '=', $request->prenom],
-                    ['naissance', '=', $request->naissance],
-                ])->first();
-
-                $etudiant = Etudiant::firstOrCreate(['id' => $personne->id, 'id_annee' => $request->diplome]);
-                $etudiant = $etudiant->where('id', $personne->id)->first();
-                $personne->update(['code_etudiant' => $etudiant->code_etudiant]);
-                if ($request->diplomeObtenu != 0 && $request->anneeObt <= date("Y")) {
-                    $est_diplome = Est_diplome::firstOrCreate([
-                        'code_etudiant' => $etudiant->code_etudiant,
-                        'id_annee' => $request->diplomeObtenu,
-                        'obtention' => $request->anneeObt
-                    ]);
-                }
-                if ($request->anneeObtHors <= date("Y") && $request->hors != null) {
-                    $est_diplome_hors_univ = Est_diplome_hors_univ::firstOrCreate([
-                        'code_etudiant' => $etudiant->code_etudiant,
-                        'libelle' => $request->hors,
-                        'obtention' => $request->anneeObtHors
-                    ]);
-                }
+            }
+            if ($request->anneeObtHors <= date("Y") && $request->hors != null)
+            {
+                $est_diplome_hors_univ = Est_diplome_hors_univ::firstOrCreate([
+                    'code_etudiant'=>$etudiant->code_etudiant,
+                    'libelle'=>$request->hors,
+                    'obtention'=>$request->anneeObtHors
+                ]);
             }
         }
         else
@@ -153,7 +138,7 @@ class ListeEtudiantController extends Controller
 
         for ($i = 1 ; $i <= count($annee) ; $i++ )
         {
-            foreach($diplome as &$value)
+            foreach($diplome as $value)
             {
                 $j = $i -1;
                 if($annee[$j]->id_diplome == $value->id_diplome)
@@ -162,7 +147,6 @@ class ListeEtudiantController extends Controller
                         'id'=>$annee[$j]->id_annee,
                         'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
                     ];
-
                 }
             }
         }
@@ -173,6 +157,7 @@ class ListeEtudiantController extends Controller
             if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
                 while(($data = fgetcsv($handle,1000,",")) !== FALSE){
                     //Gestion du tableau de formation A UTILISER PLUS TARD
+                    //En parler avec Mathieu et nouvelle bdd
                     /*echo "\neleve: ";
                     if ((strpos($data[6], '-'))){
                       $tabFormation = explode('-', $data[6]);
@@ -183,14 +168,13 @@ class ListeEtudiantController extends Controller
                         echo $data[6];
                     }*/
                     $filiere = null;
-                    foreach($listDiplome as &$value)
+                    foreach($listDiplome as $value)
                     {
                         if ($data[0] == $value['libelle'])
                         {
                             $filiere = $value['id'];
                         }
                     }
-
                     $personne = Personne::firstOrCreate([
                         'login' => $data[2],
                         'nom' => $data[2],
@@ -263,12 +247,12 @@ class ListeEtudiantController extends Controller
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
                 ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->whereIn('annee.libelle',$annees)
-                ->whereIn('diplome.niveau',$filiere)
+                ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                ->where('Departement.id_departement','=',$request->departement)
+                ->whereIn('Annee.libelle',$annees)
+                ->whereIn('Diplome.niveau',$filiere)
                 ->where('Personne.nom','=',$request->nom)
                 ->orWhere('Personne.prenom','=',$request->prenom)
                 ->where([
@@ -281,10 +265,10 @@ class ListeEtudiantController extends Controller
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
                 ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
+                ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                ->where('Departement.id_departement','=',$request->departement)
                 ->where('Personne.nom','=',$request->nom)
                 ->orWhere('Personne.prenom','=',$request->prenom)
                 ->where([
@@ -297,12 +281,12 @@ class ListeEtudiantController extends Controller
         {
             $listesEtudiant = Etudiant::with('Est_diplome')
                 ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
-                ->whereIn('annee.libelle',$annees)
-                ->whereIn('diplome.niveau',$filiere)
+                ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                ->where('Departement.id_departement','=',$request->departement)
+                ->whereIn('Annee.libelle',$annees)
+                ->whereIn('Diplome.niveau',$filiere)
                 ->where([
                     ['nom','!=',null],
                     ['prenom','!=',null]
@@ -314,10 +298,10 @@ class ListeEtudiantController extends Controller
             //dd($request->all());
             $listesEtudiant = Etudiant::with('Est_diplome')
                 ->join('Personne','Etudiant.code_etudiant','=','Personne.code_etudiant')
-                ->join('annee','Etudiant.id_annee','=','annee.id_annee')
-                ->join('Diplome','annee.id_diplome','=','Diplome.id_diplome')
-                ->join('departement','diplome.id_departement','=','departement.id_departement')
-                ->where('departement.id_departement','=',$request->departement)
+                ->join('Annee','Etudiant.id_annee','=','Annee.id_annee')
+                ->join('Diplome','Annee.id_diplome','=','Diplome.id_diplome')
+                ->join('Departement','Diplome.id_departement','=','Departement.id_departement')
+                ->where('Departement.id_departement','=',$request->departement)
                 ->where([
                     ['nom','!=',null],
                     ['prenom','!=',null]

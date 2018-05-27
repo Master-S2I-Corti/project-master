@@ -16,7 +16,8 @@
     <script type="text/javascript" src="{{ asset('js/jquery.min.js')}}"></script>
     <script src="{{ asset('js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
-    <script src="https://use.fontawesome.com/1844c64849.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
 
 
     <title>ENT - Université de Corse</title>
@@ -35,14 +36,14 @@
                 </div>
                 <div id="items-menu">
                 @if(Auth::user()->isAdmin())
-                    @include("home.admin_menu")
+                        <?php echo \App\Http\Controllers\MenuController::itemsMenu("Administrateur", "admin") ?>
                 @endif
 
                 @if(Auth::user()->isEtudiant())
-                    @include("home.etudiant_menu")
+                        <?php echo \App\Http\Controllers\MenuController::itemsMenu("Etudiant", "etudiant") ?>
                 @endif
                 @if(Auth::user()->isEnseignant())
-                    @include("home.enseignant_menu")
+                        <?php echo \App\Http\Controllers\MenuController::itemsMenu("Enseignant", "enseignant") ?>
                 @endif
                 </div>
             </div>

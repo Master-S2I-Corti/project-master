@@ -14,7 +14,7 @@ class Departement extends Model
 
     public function ufr()
     {
-        return $this->belongsTo('App\Ufr','id_ufr','id_ufr');
+        return $this->belongsTo('App\UFR','id_ufr','id_ufr');
     }
     
 }

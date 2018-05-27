@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.1.0",
         "fideloper/proxy": "~3.3",
+<<<<<<< HEAD
         "guzzlehttp/guzzle": "^6.3@dev",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
@@ -14,12 +15,19 @@
         "mews/captcha": "dev-master",
         "stechstudio/laravel-ssh-tunnel": "^1.1",
         "true/punycode": "2.0"
+=======
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "~5.0",
+        "mews/captcha": "^2.2",
+        "reliese/laravel": "^0.0.13",
+        "true/punycode": "~2.0"
+>>>>>>> c71e7d597eb7206c9fc27b6e6cb3c6d812c81fc2
     },
     "minimum-stability": "dev",
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "ignasbernotas/laravel-model-generator": "^1.2",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0"
     },
