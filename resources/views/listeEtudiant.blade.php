@@ -218,7 +218,6 @@
                                 <p> Adresse : <input class="form-control form-control-sm" type="text" name="adresse" value='' required/><br/></p>
                             </div>
                             <div class="col-md-2">
-  num = i;
                             </div>
                             <div class="col-md-4">
                                 <p> Numéro de télephone : <input class="form-control form-control-sm" type="tel" name="tel" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br/></p>

@@ -10,9 +10,6 @@ class Diplome extends Model
      * @var array
      */
     protected $table = "Diplome";
-    protected $fillable = [
-        "niveau",
-        "libelle"
-    ];
+    protected $fillable = ["id_diplome","libelle","niveau","maquetteEtat","id_departement"];
 
 }
