@@ -185,7 +185,7 @@
                                     <p> Responsabilité :
                                     <span id='resp'>
                                     <span id='slct0'>
-                                    <select id="slct" class="Responsabilie" name="Responsabilie[]" onchange="getChef(0)">
+                                    <select  id="slct" class="form-control form-control-sm Responsabilie" name="Responsabilie[]" onchange="getChef(0)">
                                             <option value="0">Aucune</option>
                                         @if ( isset($listeResponsabilite))
                                             @foreach ( $listeResponsabilite as $respo)
@@ -202,7 +202,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <p> Département :
-                                            <select class="departement" name="departement">
+                                            <select class="form-control form-control-sm" class="departement" name="departement">
                                             @if ( isset($listeDepartement))
                                                 @foreach ( $listeDepartement as $departement)
                                                         <option value="{{$departement->id_departement}}">{{$departement->libelle}}</option>
@@ -210,7 +210,7 @@
                                             @endif
                                             </select> 
                                             <span type="hidden">
-                                            <select id="hiddenDiplome">
+                                            <select class="form-control form-control-sm" id="hiddenDiplome">
                                             @if ( isset($listeDiplome))
                                                 @foreach ( $listeDiplome as $dip)
                                                         <option value="{{$dip->id_diplome}}">{{$dip->libelle}}</option>
@@ -319,11 +319,12 @@
     <script>
     var nbSelect= 0;
     function getChef(nbS) {
-        var c = document.getElementsByClassName("Responsabilie");
+        var c = document.getElementsByClassName("form-control form-control-sm Responsabilie");
+        console.log(c);
         var d = c[nbS].options;
         var q = "slct"+nbS;
         if(d[c[nbS].selectedIndex].text == "Responsable de Filière"){
-            var line = "Classe: <select class='classes' name='classes[]'>";                   
+            var line = "Classe: <select class='form-control form-control-sm' class='classes' name='classes[]'>";                   
                      $("#hiddenDiplome option").each(function()
                     {
                         line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
@@ -337,7 +338,7 @@
             $( "#btnadd" ).on( "click", function(e) {
                     nbSelect = nbSelect + 1;
                     var newDiv =  document.getElementById("resp");
-                    var line = "<div id='slct"+nbSelect+"'> <select class='Responsabilie' name='Responsabilie[]' onchange='getChef("+nbSelect+")'>";                   
+                    var line = "<div id='slct"+nbSelect+"'> <select class='form-control form-control-sm Responsabilie' name='Responsabilie[]' onchange='getChef("+nbSelect+")'>";                   
                      $("#slct option").each(function()
                     {
                         line += "<option value='"+$(this).val()+"'>"+$(this).text()+"</option>";
