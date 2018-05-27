@@ -1,5 +1,7 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Annee extends Model
@@ -16,4 +18,6 @@ class Annee extends Model
             ["libelle" => "HIDDEN"]
         );
     }
+    public $timestamps = false;
+
 }

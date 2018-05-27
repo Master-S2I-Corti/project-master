@@ -1,5 +1,6 @@
 <?php
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Diplome extends Model
@@ -12,4 +13,5 @@ class Diplome extends Model
     protected $table = "Diplome";
     protected $fillable = ["id_diplome","libelle","niveau","maquetteEtat","id_departement"];
 
+    public $timestamps = false;
 }
