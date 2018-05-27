@@ -72,7 +72,7 @@
                     <h5><b><u>Informations : </u></b></h5>
                     <h5> Type enseignant : {{ $myProfil->Enseignant->Status->type }} </h5>
                     <h5> Heures totales : {{ $myProfil->Enseignant->Status->volumeHoraire }} </h5>
-                    <h5> Heures Effectuer : {{ $myProfil->Enseignant->heure }} </h5>
+                    <h5> Heures Effectuées : {{ $myProfil->Enseignant->heure }} </h5>
                 @endif
             </div>
             <div class="col-4">

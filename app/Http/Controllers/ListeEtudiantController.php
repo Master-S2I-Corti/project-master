@@ -33,16 +33,20 @@ class ListeEtudiantController extends Controller
         $search = Personne::where([
             ['nom', '=', $request->nom],
             ['prenom', '=', $request->prenom],
-            ['naissance', '=', $request->naissance]
+            ['naissance', '=', $request->naissance],
+            ['code_etudiant','!=',null]
         ])->first();
 
         if ($search == null)
         {
+            $search = Personne::orderBy('id', 'desc')->first();
+            $loginForYou = $search->login  + 1;
+
             $personne = Personne::firstOrCreate([
-                'login'=>$request->nom,
+                'login'=>$loginForYou,
                 'nom' => $request->nom,
                 'prenom' => $request->prenom,
-                'email'=>$request->nom .'@webmail.universita.corsica',
+                'email'=>$loginForYou .'@webmail.universita.corsica',
                 'email_sos' => $request->emailSos,
                 'naissance'=> $request->naissance,
                 'password' =>  Hash::make(str_replace("-","",$request->naissance)),

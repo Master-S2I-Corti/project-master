@@ -105,7 +105,7 @@ Route::post('profil/updateProfil','ProfilController@update');
 Route::get('annuaire/etudiants','ListeEtudiantController@index');
 Route::get('annuaire/professeurs','ListeProfController@index');
 
-Route::post('listeProf/search','ListeProfController@search');
+Route::post('annuaire/professeurs/search','ListeProfController@search');
 Route::post('annuaire/etudiants/search','ListeEtudiantController@search');
 
 Route::get('seances/week/{week}', 'EDTController@seanceWeek');
