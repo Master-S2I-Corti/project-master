@@ -42,7 +42,7 @@
                                 
                                 <div class="captcha">
                                     <span id="cap">{!! captcha_img() !!}</span>
-                                    <button type="button" class="btn btn-primary btn-refresh"><i class="fa d-inline fa-refresh"></i></button>
+                                    <button type="button" class="btn btn-primary btn-refresh"><i class="fa d-inline fa-sync-alt"></i></button>
                                 </div>
                         <br>
                                 <input id="captcha" type="text" class="form-control" name="captcha" placeholder="Code captcha">

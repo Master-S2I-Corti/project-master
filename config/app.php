@@ -167,7 +167,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
-//        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,7 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-//        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+
 
     ],
 

@@ -14,16 +14,6 @@
             </li>
             @endif
         @else
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" href="{{URL::to("/edt")}}">Emploi du temps</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{URL::to("/notes")}}">Notes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{URL::to("/annuaire")}}">Annuaire</a>
-            </li>-->
             <li class="nav-item ml-3" id="connexion">
 
                 <div class="dropdown">
@@ -39,7 +29,7 @@
                     <a class="dropdown-item" href="#">
                         <form id="logout-form" action="{{url("/logout")}}" method="POST" class="hide">
                             {{ csrf_field() }}
-                            <button type="submit" class="btn background-none"><i class="icon_left fa fa-sign-out d-inline"></i> @Lang("Déconnexion")</button>
+                            <button type="submit" class="btn background-none"><i class="icon_left fas fa-sign-out-alt d-inline"></i> @Lang("Déconnexion")</button>
                         </form>
                     </a>
                 </div>
