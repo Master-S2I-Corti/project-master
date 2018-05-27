@@ -117,7 +117,7 @@ class ListeEtudiantController extends Controller
         return redirect('annuaire/etudiants')->withOk("L'étudiant a bien été modifié");
     }
 
-    //Suppression du etudiant
+    //Suppression de l'etudiant
     public function destroy(Request $request)
     {
         $personne = Personne::findOrFail($request->id);
@@ -140,66 +140,102 @@ class ListeEtudiantController extends Controller
         $annee = Annee::get();
         $diplome = Diplome::get();
 
-        for ($i = 1 ; $i <= count($annee) ; $i++ )
-        {
-            foreach($diplome as $value)
-            {
-                $j = $i -1;
-                if($annee[$j]->id_diplome == $value->id_diplome)
-                {
-                    $listDiplome[$j] = [
-                        'id'=>$annee[$j]->id_annee,
-                        'libelle'=>$value->libelle.'  '.$annee[$j]->libelle[0]
-                    ];
-                }
-            }
-        }
-
         if(count($request->all()) != 1)
         {
             $info = $request->fichier;
             if(($handle = fopen($info->getRealPath(),"r"))!== FALSE){
                 while(($data = fgetcsv($handle,1000,",")) !== FALSE){
-                    //Gestion du tableau de formation A UTILISER PLUS TARD
-                    //En parler avec Mathieu et nouvelle bdd
-                    /*echo "\neleve: ";
-                    if ((strpos($data[6], '-'))){
-                      $tabFormation = explode('-', $data[6]);
-                      for($n = 0; $n < count($tabFormation); $n++){
-                          echo $tabFormation[$n] . " ";
-                      }
-                    } else {
-                        echo $data[6];
-                    }*/
-                    $filiere = null;
-                    foreach($listDiplome as $value)
-                    {
-                        if ($data[0] == $value['libelle'])
-                        {
-                            $filiere = $value['id'];
+                    $dernierDip = explode(' ', $data[0]);
+                    $nom = $data[1];
+                    $prenom = $data[2];
+                    $emailPerso = $data[3];
+                    $tel = $data[4];
+                    $naissance = $data[5];
+                    $diplomeVise = explode(' ', $data[6]);
+
+                    $dipVlibelle = "";
+                    $dipDlibelle = "";
+                    $co = count($dernierDip);
+                    for($i=0;$i<$co-1;$i++){
+                        if($i>=1){
+                            if($dernierDip[$i] != "1" && $dernierDip[$i] != "2" && $dernierDip[$i] != "3" ){
+                                if($i+1 == $co){
+                                    $dipDlibelle .=  $dernierDip[$i];
+                                } else {
+                                    $dipDlibelle .=  $dernierDip[$i]." ";
+                                }
+                            }
                         }
                     }
-                    $personne = Personne::firstOrCreate([
-                        'login' => $data[2],
-                        'nom' => $data[2],
-                        'prenom' => $data[1],
-                        'email'=>$data[2].'@webmail.universita.corsica',
-                        'email_sos' => $data[3],
-                        'naissance'=> $data[5],
-                        'password' =>  Hash::make(str_replace("-","",$data[5])),
-                        'tel' => $data[4],
-                        'admin' =>0
-                    ]); //'commentaire' => $data[7],
+                    $co = count($diplomeVise);
+                    for($i=0;$i<$co;$i++){
+                        if($i>=1){
+                            if($diplomeVise[$i] != "1" && $diplomeVise[$i] != "2" && $diplomeVise[$i] != "3" ){
+                                if($i+1 == $co){
+                                    $dipVlibelle .= $diplomeVise[$i];
+                                } else {
+                                    $dipVlibelle .= $diplomeVise[$i]. " ";
+                                }
+                            }
+                        }
+                    }
 
+                    $annee = $dernierDip[count($dernierDip) - 1];
 
-                    $personne->where([
-                        ['nom', '=', $data[2]],
-                        ['prenom', '=', $data[1]],
-                        ['naissance', '=', $data[5]],
+                    $personne = Personne::where([
+                        ['nom', '=', $nom],
+                        ['prenom', '=', $prenom],
+                        ['naissance', '=', $naissance]
                     ])->first();
-                    $etudiant = Etudiant::firstOrCreate(['id'=>$personne->id,'id_annee'=>$filiere]);
-                    $etudiant = $etudiant->where('id', $personne->id)->first();
-                    $personne->where('login', $personne['login'])->update(['code_etudiant' =>$etudiant->code_etudiant]);
+
+                    if($personne == null){
+                        $search = Personne::orderBy('id','desc')->first();
+                        $loginForYou = $search->login + 1;
+                        $personne = Personne::firstOrCreate([
+                            'login' =>  $loginForYou,
+                            'nom' => $nom,
+                            'prenom' => $prenom,
+                            'email'=> $loginForYou.'@webmail.universita.corsica',
+                            'email_sos' => $emailPerso,
+                            'naissance'=> $naissance,
+                            'password' =>  Hash::make(str_replace("-","",$naissance)),
+                            'tel' => $tel,
+                            'admin' =>0
+                        ]);
+                    }
+                    $etudiant = Etudiant::where([
+                        ['id','=',$personne->id]
+                    ])->first();
+
+                    if ($etudiant == null){
+                        //l'étudiant existe pas
+                        $etudiant = Etudiant::firstOrCreate(['id' => $personne->id])->orderBy('code_etudiant','desc')->first();
+                        $personne->update(["code_etudiant" => $etudiant->code_etudiant]);
+                    }
+
+                    //Creation du dernier diplome
+                    $dernierDiplome = Est_diplome_hors_univ::firstOrCreate(['code_etudiant'=>$etudiant->code_etudiant,
+                        'libelle'=> $dernierDip[0]." ".$dernierDip[1]." ".$dipDlibelle,
+                        'obtention'=> $annee]);
+                    //recherche du diplome actuel
+                    $lesAnnees = Annee::get();
+                    $id_final = 0;
+                    foreach($lesAnnees as $value){
+
+                        if($diplomeVise[0] == $value->diplome->niveau && $diplomeVise[1] == $value->libelle[0] && $dipVlibelle == $value->diplome->libelle){
+
+                            $id_anneee = Annee::where('libelle',$value->libelle)->get();
+                            foreach($id_anneee as $vaDi)
+                            {
+                                if ($vaDi->diplome->libelle == $dipVlibelle )
+                                {
+                                    $id_final = $vaDi->id_annee;
+                                }
+                            }
+
+                            $etudiant->update(["id_annee" => $id_final]);
+                        }
+                    }
                 }
             }
         }

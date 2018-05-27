@@ -371,7 +371,7 @@
                     }
                 });
                 document.querySelector("#nom").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML
-                document.querySelector("#email").innerHTML = "Email : "+ personnes[num].identity.email
+                document.querySelector("#email").innerHTML = "Email : "+ personnes[num].personne.email
                 document.querySelector("#bureau").innerHTML ="Son Bureau </br> Batiment : " + personnes[num].batiment +"</br> Etage : " + personnes[num].etage;
                 document.querySelector("#respon").innerHTML = responsabilité;
                 $( "#affichage" ).modal( "show" );
@@ -399,11 +399,11 @@
                 }
 
                 console.log(personnes[num]);
-                document.querySelector("#id2").value = personnes[num].identity.id;
+                document.querySelector("#id2").value = personnes[num].personne.id;
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
-                document.querySelector("#email2").value = personnes[num].identity.email;
-                document.querySelector("#tel2").value = personnes[num].identity.tel;
-                document.querySelector("#adresse2").value = personnes[num].identity.adresse;
+                document.querySelector("#email2").value = personnes[num].personne.email;
+                document.querySelector("#tel2").value = personnes[num].personne.tel;
+                document.querySelector("#adresse2").value = personnes[num].personne.adresse;
                 document.querySelector("#batiment2").value = personnes[num].batiment;
                 document.querySelector("#etage2").value = personnes[num].etage;
                 $( "#modif" ).modal( "show" );

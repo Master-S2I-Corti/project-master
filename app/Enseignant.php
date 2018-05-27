@@ -44,7 +44,7 @@ class Enseignant extends Personne
 
     public function Responsable_diplome()
     {
-        return $this->hasMany('App\Responsable_diplome','code_professeur','code_professeur');
+        return $this->hasMany('App\responsable_diplome','code_professeur','code_professeur');
     }
 
     public function Indisponibilite()
@@ -57,6 +57,8 @@ class Enseignant extends Personne
         return [
             'code_professeur' => $this->code_professeur,
             'personne' => $this->personne,
+            'batiment' =>$this->batiment,
+            'etage' => $this->etage
          ];
     }
 

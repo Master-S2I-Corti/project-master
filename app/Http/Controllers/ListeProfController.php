@@ -8,7 +8,7 @@ use App\Responsabilite;
 use App\Diplome;
 use App\Departement;
 use App\Est_responsable;
-use App\Responsable_Diplome;
+use App\responsable_diplome;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,7 +76,7 @@ class ListeProfController extends Controller
                             'code_professeur' => $enseignant->code_professeur,
                             'id_reponsabilite' => $res
                         ]);
-                        $resp_diplome = Responsable_Diplome::firstOrCreate([
+                        $resp_diplome = responsable_diplome::firstOrCreate([
                             'id_diplome' => $request->classes[$classint],
                             'code_professeur' => $enseignant->code_professeur
                         ]);
@@ -105,8 +105,8 @@ class ListeProfController extends Controller
                             'id_reponsabilite' => $res
                         ]);
                         $resp_diplome = Responsable_Diplome::firstOrCreate([
-                            'id_diplome' => $request->classes[$classint],
-                            'code_professeur' => $search->code_professeur
+                            'code_professeur' => $search->code_professeur,
+                            'id_diplome' => $request->classes[$classint]
                         ]);
                         $classint = $classint + 1;
                     } else {
