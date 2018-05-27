@@ -58,8 +58,8 @@
                 <td>'.$row['nbmachine'].'</td>
                 <td>'.$row['type'].'</td>
                 <td>'.$row['logiciel'].'</td>
-                <td><a href="';  echo url("/gestion/salles/edt/{$row['id_salle']}"); echo '"><i class="fa fa-lg fa-pencil-square-o" style="color:black;"></i></a></td>
-                <td><a href="';  echo url("/gestion/salles/del/{$row['id_salle']}"); echo '"><i class="fa fa-lg fa-trash-o" style="color:red;"></i></a></td>
+                <td><a href="';  echo url("/gestion/salles/edt/{$row['id_salle']}"); echo '"><i class="fa fa-lg fa-pencil-alt" style="color:black;"></i></a></td>
+                <td><a href="';  echo url("/gestion/salles/del/{$row['id_salle']}"); echo '"><i class="fa fa-lg fa-trash" style="color:red;"></i></a></td>
               </tr>';
       }   
       ?>

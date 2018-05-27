@@ -2,12 +2,14 @@
 
 @foreach($items as $item)
     <a class="col-md-4" href="{{ URL::to($item->url) }}">
-        <div class="row my-4">
+        <div class="m-2">
+        <div class="row card-modif">
             <div class="col-3"><i class="{{$item->icon}} fa-4x text-dark" ></i></div>
             <div class="col-8">
                 <h4>{{$item->libelle}}</h4>
                 <p>{{$item->details}}</p>
             </div>
+        </div>
         </div>
     </a>
 @endforeach

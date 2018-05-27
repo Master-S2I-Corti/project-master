@@ -2,7 +2,7 @@
 
 
 @foreach($items as $item)
-    <a class="d-flex align-items-center p-3" href="{{ URL::to($item->url) }}">
+    <a class="d-flex align-items-center p-3 {{Request::url() == URL::to($item->url) ? "selected" : ""  }}" href="{{ URL::to($item->url) }}">
         <i class="{{$item->icon}}" ></i>
         <p>{{$item->libelle}}</p>
     </a>
