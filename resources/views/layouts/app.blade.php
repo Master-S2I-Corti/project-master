@@ -83,6 +83,5 @@
 
 </script>
     <script type="text/javascript" src="{{ asset('js/application.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </body>
 </html>

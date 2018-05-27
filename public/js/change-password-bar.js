@@ -15,13 +15,10 @@ password.addEventListener('input', function() {
             
             match = valeur.match(/[0-9]/g);
             var chiffre = match ? match.length : 0;
-            
             match = valeur.match(/[a-z]/g);
             var minuscule = match ? match.length : 0;
-            
             match = valeur.match(/[A-Z]/g);
             var majuscule = match ? match.length : 0;
-    
             match = valeur.match(/[?,;.:!§@#$%^&+-]/g);
             var special = match ? match.length : 0;
             

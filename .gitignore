@@ -10,4 +10,4 @@ yarn-error.log
 /storage/logs
 /vendor/*
 /storage/logs/laravel.log
-
+/bootstrap/*

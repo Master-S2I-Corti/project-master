@@ -35,7 +35,12 @@ class ResetPasswordController extends Controller
     
     protected function resetPassword($user, $password)
     {
-        $user->password = Hash::make($password);
+        $user->password = Hash::make($password, ['rounds' => 12]);
+        
+        if (Hash::needsRehash($user->password)) {
+                $user->password = Hash::make($password, ['rounds' => 12]);
+        }
+        
         $user->setRememberToken(Str::random(60));
         $user->save();
         event(new PasswordReset($user));
