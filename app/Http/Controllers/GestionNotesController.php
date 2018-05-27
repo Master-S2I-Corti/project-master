@@ -87,7 +87,7 @@ class GestionNotesController extends Controller
                             
                             <td>'.$line->coeff.'</td>
                             
-                            <td><i class="fa fa-lg d-inline removeLine dbRemoveEval text-danger fa-trash-o" id="'.$line->id_evaluation.'"></i></td>
+                            <td><i class="fa fa-lg d-inline removeLine dbRemoveEval text-danger fa-trash" id="'.$line->id_evaluation.'"></i></td>
                           
                          </tr>
 
