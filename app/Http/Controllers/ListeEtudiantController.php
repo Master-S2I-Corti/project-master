@@ -33,7 +33,8 @@ class ListeEtudiantController extends Controller
         $search = Personne::where([
                                     ['nom', '=', $request->nom],
                                     ['prenom', '=', $request->prenom],
-                                    ['naissance', '=', $request->naissance]
+                                    ['naissance', '=', $request->naissance],
+                                    ['code_etudiant','!=',null]
                                 ])->first();
 
         if ($search == null)

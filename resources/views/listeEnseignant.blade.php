@@ -12,7 +12,15 @@
                 <button class="add btn btn-primary" >Ajouter un enseignant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>
-
+        @if(session()->has("ok"))
+                <div class="alert alert-success alert-dismissible">
+                        {!! session('ok') !!}
+                </div>
+            @elseif (session()->has("error"))
+                <div class="alert alert-danger alert-dismissible">
+                        {!! session('error') !!}
+                </div>
+            @endif
 
         <div class="card">
                 <h3>Recherche d'un enseignant</h3>
@@ -97,9 +105,9 @@
                     <div class="row">
                         <div class="col">
                             <p id="email"> Email: Aucun </p>
-                            @if(Auth::user()->isAdmin()|| Auth::user()->isEnseignant())
+                            
                             <p id="respon">Responsabilités : Aucun</p>
-                            @endif
+                            
                         </div>
                         <div class="col">
                             <p id="bureau">Bureau : Aucun</p>
@@ -180,20 +188,29 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <p> Email de Secours: <input type="email" class="form-control form-control-sm"  name="emailSos" value='' required/><br/></p>
                                         <p> Adresse : <input type="text" class="form-control form-control-sm" name="adresse" value='' required/><br/></p>
-                                        <p> Code Postal :  <input type="text" class="form-control form-control-sm" name="codePostal" value='' required/><br/></p>
-                                        <p> Ville :  <input type="text" name="ville" class="form-control form-control-sm" value='' required/><br/></p>
                                     </div>
                                     <div class="col-md-2">
 
                                     </div>
                                     <div class="col-md-4">
+                                        <p> Numéro de télephone : <input type="text" class="form-control form-control-sm" name="tel" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br/></p>
                                         
-                                        <p> Numéro de télephone : <input type="text" class="form-control form-control-sm" name="tel" value='' required/><br/></p>
-                                        
-                                        <p> Email de Secours: <input type="email" class="form-control form-control-sm"  name="emailSos" value='' required/><br/></p>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p> Code Postal :  <input  class="form-control form-control-sm" name="codePostal" type="number" value='20000'required/><br/></p>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p> Ville :  <input type="text" name="ville" class="form-control form-control-sm" value='' required/><br/></p>
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="row">
                                     <div class="col-md-4">
                                     <p> Fonction :

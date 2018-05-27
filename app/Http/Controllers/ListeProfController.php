@@ -8,6 +8,7 @@ use App\Responsabilite;
 use App\Diplome;
 use App\Departement;
 use App\Est_responsable;
+use App\Responsable_Diplome;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,58 +27,98 @@ class ListeProfController extends Controller
 
     //Enregistrement d'un nouveau prof
     public function store(Request $request){
-        $personne = Personne::firstOrCreate([
-            'login' => $request->nom,
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'email' =>$request->nom .'@webmail.universita.corsica',
-            'email_sos' => $request->emailSos,
-            'naissance'=> $request->naissance,
-            'password' =>  Hash::make(str_replace("-","",$request->naissance)),
-            'tel' => $request->tel,
-            'adresse' =>$request->adresse,
-            'code_postal' =>$request->codePostal,
-            'ville' =>$request->ville,
-            'admin' =>0
-        ]);
-        $personne->where([
-                            ['nom', '=', $request->nom],
-                            ['prenom', '=', $request->prenom],
-                            ['naissance', '=', $request->naissance],
-                        ])->first();
+            $search = Personne::where([
+                ['nom', '=', $request->nom],
+                ['prenom', '=', $request->prenom],
+                ['naissance', '=', $request->naissance],
+                ['code_professeur','!=',null]
+            ])->first();
 
-        $enseignant = Enseignant::firstOrCreate([
-            'id'=>$personne->id,
-            'type'=>$request->fonction,
-            'id_departement'=>$request->departement
-            ]);
-        $enseignant = $enseignant->where('id', $personne->id)->first();
-        $personne->update(['code_professeur' =>$enseignant->code_professeur]);
+            if ($search == null)
+            {
+                $search = Personne::orderBy('id', 'desc')->first();
+                $loginForYou = $search->login  + 1;
 
-        //Ajout des responsabilités
-        if ($request->Responsabilie[0] != "0"){
-            $classint = 0;
-             foreach($request->Responsabilie as $res){
-            if($res == 3){ // chef de filliere
-                $est_resp = Est_responsable::firstOrCreate([
-                    'code_professeur' => $enseignant->code_professeur,
-                    'id_reponsabilite' => $res,
-                    'id_filliere' => $request->classes[$classint]
-                    ]);
-                    $classint = $classint + 1;
-            } else {
-                $est_resp = Est_responsable::firstOrCreate([
-                    'code_professeur' => $enseignant->code_professeur,
-                    'id_reponsabilite' => $res
+                $personne = Personne::firstOrCreate([
+                    'login'=>$loginForYou,
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'email' =>$loginForYou .'@webmail.universita.corsica',
+                    'email_sos' => $request->emailSos,
+                    'naissance'=> $request->naissance,
+                    'password' =>  Hash::make(str_replace("-","",$request->naissance)),
+                    'tel' => $request->tel,
+                    'adresse' =>$request->adresse,
+                    'code_postal' =>$request->codePostal,
+                    'ville' =>$request->ville,
+                    'admin' =>0
                 ]);
-            }
-        }
-        }
-        
-       
+                $personne->where([
+                                    ['nom', '=', $request->nom],
+                                    ['prenom', '=', $request->prenom],
+                                    ['naissance', '=', $request->naissance],
+                                ])->first();
 
-        return redirect()->action('ListeProfController@index');
-    
+                $enseignant = Enseignant::firstOrCreate([
+                    'id'=>$personne->id,
+                    'type'=>$request->fonction,
+                    'id_departement'=>$request->departement
+                    ]);
+                $enseignant = $enseignant->where('id', $personne->id)->first();
+                $personne->update(['code_professeur' =>$enseignant->code_professeur]);
+
+                //Ajout des responsabilités
+                if ($request->Responsabilie[0] != "0"){
+                    $classint = 0;
+                    foreach($request->Responsabilie as $res){
+                    if($res == 5){ // chef de filliere
+                        $est_resp = Est_responsable::firstOrCreate([
+                            'code_professeur' => $enseignant->code_professeur,
+                            'id_reponsabilite' => $res
+                            ]);
+                            $resp_diplome = Responsable_Diplome::firstOrCreate([
+                                'id_diplome' => $request->classes[$classint],
+                                'code_professeur' => $enseignant->code_professeur
+                                ]);
+                            $classint = $classint + 1;
+                    } else {
+                        $est_resp = Est_responsable::firstOrCreate([
+                            'code_professeur' => $enseignant->code_professeur,
+                            'id_reponsabilite' => $res
+                        ]);
+                    }
+                }
+                }
+            }
+            else
+            {
+                //Changement de fonction
+                $prof = Enseignant::findOrFail($search->id);
+                $prof->update(['type' =>$request->fonction]);
+                //Ajout des responsabilités
+                if ($request->Responsabilie[0] != "0"){
+                    $classint = 0;
+                    foreach($request->Responsabilie as $res){
+                    if($res == 5){ // chef de filliere
+                        $est_resp = Est_responsable::firstOrCreate([
+                            'code_professeur' => $search->code_professeur,
+                            'id_reponsabilite' => $res
+                            ]);
+                            $resp_diplome = Responsable_Diplome::firstOrCreate([
+                                'id_diplome' => $request->classes[$classint],
+                                'code_professeur' => $search->code_professeur
+                                ]);
+                            $classint = $classint + 1;
+                    } else {
+                        $est_resp = Est_responsable::firstOrCreate([
+                            'code_professeur' => $search->code_professeur,
+                            'id_reponsabilite' => $res
+                        ]);
+                    }
+                }
+                }
+            }
+            return redirect('annuaire/professeurs')->withOk("L'enseignant a bien été enregistré");
     }
 
     //Enregistrement de la modification du prof 
@@ -93,16 +134,13 @@ class ListeProfController extends Controller
     {
         $personne = Personne::findOrFail($request->id);
         $personne->update([ 'code_professeur' => null]);
-
         $prof = Enseignant::findOrFail($request->id);
         $prof->update([ 'id' => null]);
-
-        //A vérifier et a discuter
         $responsabilite = Est_responsable::where('code_professeur',$prof->code_professeur)->delete();
-
+        $responsable_diplome = Responsable_Diplome::where('code_professeur',$prof->code_professeur)->delete();
         $personne->delete();
         $prof->delete();
-        return redirect()->action('ListeProfController@index');
+        return redirect('annuaire/professeurs')->withOk("L'enseignant a bien été supprimé");
     }
     
 
