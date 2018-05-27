@@ -8,6 +8,10 @@ class responsable_diplome extends Model
 {
     protected $table = "Responsable_Diplome";
 
+    protected $fillable = [
+        'code_professeur','id_diplome'
+    ];
+
     public $timestamps = false;
 
     public function Diplome()

@@ -105,8 +105,8 @@ class ListeProfController extends Controller
                             'id_reponsabilite' => $res
                             ]);
                             $resp_diplome = Responsable_Diplome::firstOrCreate([
-                                'id_diplome' => $request->classes[$classint],
-                                'code_professeur' => $search->code_professeur
+                                'code_professeur' => $search->code_professeur,
+                                'id_diplome' => $request->classes[$classint]
                                 ]);
                             $classint = $classint + 1;
                     } else {
