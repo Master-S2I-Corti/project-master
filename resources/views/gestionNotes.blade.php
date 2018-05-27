@@ -273,7 +273,7 @@
              
               if(evalDiff!="")
               {
-                $('#cTable').prepend('<tr><td class="w-25"><select class="form-control optE" name="eval[]" id="">'+options+'</select></td> <td class=""><input type="number" name="coeff[]" class="form-control form-control-sm w-25" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash-o text-danger"></i></td></tr>');
+                $('#cTable').prepend('<tr><td class="w-25"><select class="form-control optE" name="eval[]" id="">'+options+'</select></td> <td class=""><input type="number" name="coeff[]" class="form-control form-control-sm w-25" min="0" max="5"> </td> <td><i class="fa fa-lg d-inline removeLine fa-trash text-danger"></i></td></tr>');
               }
 
             });
