@@ -12,10 +12,6 @@
                 <button class="add btn btn-primary" >Ajouter un enseignant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
             @endif
         </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 08878cc19ec01db5a602bc55ec6583c0849576f2
         @if(session()->has("ok"))
                 <div class="alert alert-success alert-dismissible">
                         {!! session('ok') !!}
@@ -140,12 +136,11 @@
                                     <div class="col">
                                     <input id="id2" type="hidden" name="id" value=""/>
                                     <p> Email: <input class="form-control form-control-sm" type="email"  name="email" id="email2" value='douvle kek' required/><br/></p>
-                                    <p> Telephone: <input class="form-control form-control-sm" type="text"  name="tel" id="tel2" value='' required/><br /></p>
+                                    <p> Telephone: <input class="form-control form-control-sm" type="text"  name="tel" id="tel2" placeholder="04 23 45 67 89" value='' required pattern="^0[1-68]([-. ]?[0-9]{2}){4}$"/><br /></p>
                                     <p> Adresse: <input class="form-control form-control-sm" type="text"  name="adresse" id="adresse2" value='' required/><br /></p>
                                     <button class="btn btn-primary"> Modifier</button>
                                     </div>
                                     <div class="col">
-<<<<<<< HEAD
                                     <p> Departement: <select class="form-control form-control-sm" name="departement">
                                         @if ( isset($listeDepartement))
                                             @foreach ( $listeDepartement as $departement)
@@ -155,13 +150,6 @@
                                         </select> <br /></p>
                                     <p> Batiment: <input class="form-control form-control-sm" type="text"  name="batiment" id="batiment2" value='' required/><br /></p>
                                     <p> Etage: <input class="form-control form-control-sm" type="text"  name="etage" id="etage2" value='' required/><br /></p>
-=======
-                                        <p> Professeur pédagogique : </p>
-                                        <p> Email: <input type="text" name="mail" id="email2" value=''/><br/></p>
-                                        <p> Département: <input type="text" name="departement" id="dep2" value=''/><br/>
-                                        </p>
-                                        <p> Bureau N°: <input type="text" name="numbur" id="nb" value=''/><br/> </p></div>
->>>>>>> 08878cc19ec01db5a602bc55ec6583c0849576f2
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -332,7 +320,6 @@
         var c = document.getElementsByClassName("Responsabilie");
         var d = c[nbS].options;
         var q = "slct"+nbS;
-        //console.log(d[c[nbS].selectedIndex].text);
         if(d[c[nbS].selectedIndex].text == "Responsable de Filière"){
             var line = "Classe: <select class='classes' name='classes[]'>";                   
                      $("#hiddenDiplome option").each(function()
@@ -387,53 +374,26 @@
                 $( "#affichage" ).modal( "show" );
             });
 
-<<<<<<< HEAD
-            $( ".modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th");
+            $( "i#modifier" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td");
                 var id_personne = elements.item(0).innerHTML;
                 var num = 0;
-                var numP = 0;
-                var profs = JSON.parse('<?= json_encode($listeP->all());  ?>');
                 var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>');
-=======
-            $( "i#modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
-                var id_personne = elements.item(0).innerHTML
-                var num = 0
-                var personnes = JSON.parse('<?= json_encode($listesEnseignant->all());  ?>')
->>>>>>> 08878cc19ec01db5a602bc55ec6583c0849576f2
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
                         num = i;
-<<<<<<< HEAD
-                        numP = personnes[i]['code_professeur'];
-                    }
-                }
-
-                for (var i = 0; i < profs.length; i++) {
-                    if ( numP == profs[i]['code_professeur'])
-                    {
-                        numP = i;
                     }
                 }
 
                 console.log(personnes[num]);
-                document.querySelector("#id2").value = personnes[num]['id'];
+                document.querySelector("#id2").value = personnes[num].identity.id;
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
-                document.querySelector("#email2").value = personnes[num]['email'];
-                document.querySelector("#tel2").value = personnes[num]['tel'];
-                document.querySelector("#adresse2").value = personnes[num]['adresse'];
-                document.querySelector("#batiment2").value = profs[numP]['batiment'];
-                document.querySelector("#etage2").value = profs[numP]['etage'];
-=======
-                    }
-                }
-                document.getElementById("id2").value = id_personne
-                document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
-                document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.querySelector("#email2").value = personnes[num].identity.email
->>>>>>> 08878cc19ec01db5a602bc55ec6583c0849576f2
+                document.querySelector("#email2").value = personnes[num].identity.email;
+                document.querySelector("#tel2").value = personnes[num].identity.tel;
+                document.querySelector("#adresse2").value = personnes[num].identity.adresse;
+                document.querySelector("#batiment2").value = personnes[num].batiment;
+                document.querySelector("#etage2").value = personnes[num].etage;
                 $( "#modif" ).modal( "show" );
             });
 

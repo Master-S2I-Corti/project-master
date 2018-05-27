@@ -124,7 +124,6 @@ class ListeProfController extends Controller
     //Enregistrement de la modification du prof 
     public function update( Request $request)
     {
-        //dd($request->all());
         $personne = Personne::findOrFail($request->id);
         $enseignant = Enseignant::findOrFail($request->id);
         $personne->update(['email' =>$request->email,
