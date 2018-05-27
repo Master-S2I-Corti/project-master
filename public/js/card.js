@@ -247,7 +247,13 @@ function cardAffiche(archive,prof)
 						
 						cell=mat.insertCell(-1);
 						cell.innerHTML=file[nSem].ues[nUe].matieres[nMat].td;
-						//calc(lasMat);
+						
+						cell=mat.insertCell(-1);
+						cell.innerHTML=+file[nSem].ues[nUe].matieres[nMat].cour + +file[nSem].ues[nUe].matieres[nMat].tp + +file[nSem].ues[nUe].matieres[nMat].td;
+						
+						cell=mat.insertCell(-1);
+						cell.innerHTML=1.5*+file[nSem].ues[nUe].matieres[nMat].cour + +file[nSem].ues[nUe].matieres[nMat].tp + +file[nSem].ues[nUe].matieres[nMat].td;
+						
 					}
 				}
 			
