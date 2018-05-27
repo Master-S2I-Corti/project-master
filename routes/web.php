@@ -46,7 +46,8 @@ Route::middleware(['roles:admin'])->group(function () {
     Route::get('/gestion/salles/gestion', 'SalleController@gestion');
     Route::get('/gestion/salles/groupes', 'SalleController@groupes');
     Route::get('/gestion/filiere','FiliereController@vueAdmin');
-    Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
+	Route::get('/gestion/semestres','MaquetteController@gestion');
+	Route::post('annuaire/etudiants/saveEtudiant','ListeEtudiantController@store');
     Route::post('annuaire/etudiants/updateEtudiant','ListeEtudiantController@update');
     Route::post('annuaire/etudiants/deleteEtudiant','ListeEtudiantController@destroy');
     Route::post('annuaire/etudiants/saveEtudiants','ListeEtudiantController@multipleStore');
@@ -76,6 +77,8 @@ Route::middleware(['roles:admin'])->group(function () {
 Route::middleware(['roles:enseignant,etudiant'])->group(function () {
     Route::get('/edt', 'EDTController@edt');
     Route::get('/edt/{week}', 'EDTController@edtWeek');
+	
+	
 });
 
 Route::middleware(['roles:enseignant,admin'])->group(function () {
@@ -96,9 +99,10 @@ Route::middleware(['roles:enseignant,admin'])->group(function () {
     Route::get('/ue', 'UEController@index');
     Route::get('/salles', 'SalleController@liste');
     Route::post('/searched', 'SalleController@searchEns');
-
+	Route::get('maquette/{diplome}','MaquetteController@index2');
+	Route::post('maquette/save2','MaquetteController@save2')->name('save2');
 });
-
+Route::get('maquette/affichage/{diplome}','MaquetteController@aff');
 Route::get('profil','ProfilController@index');
 Route::post('profil/updateProfil','ProfilController@update');
 

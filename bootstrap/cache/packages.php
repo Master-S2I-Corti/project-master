@@ -1,4 +1,11 @@
 <?php return array (
+  'fideloper/proxy' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 
@@ -8,24 +15,6 @@
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
-    ),
-  ),
-  'mews/captcha' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Mews\\Captcha\\CaptchaServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
-    ),
-  ),
-  'fideloper/proxy' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
   'laravel/tinker' => 
@@ -45,6 +34,17 @@
     array (
       'Form' => 'Collective\\Html\\FormFacade',
       'Html' => 'Collective\\Html\\HtmlFacade',
+    ),
+  ),
+  'mews/captcha' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Mews\\Captcha\\CaptchaServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
     ),
   ),
 );
