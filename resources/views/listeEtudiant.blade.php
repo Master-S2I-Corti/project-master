@@ -19,11 +19,12 @@
                     <div class="col-md">
                             <button class="add btn btn-primary">Ajout d'un étudiant <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
                     </div>
-                    <div class="col-md">
+                    <div class="col-md card">
+                        <h5>Ajout de plusieurs étudiants</h5>
                             <form method="post" action="{!! url('annuaire/etudiants/saveEtudiants') !!}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <input type="file" name="fichier" accept=".csv"/>
-                                <button class="btn btn-primary">Ajout du fichier <i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
+                                <button class="btn btn-primary"><i class="ml-2 d-inline fa fa-plus fa-lg"></i></button>
                             </form>
                     </div>
                 @endif
@@ -84,7 +85,6 @@
         <table class="table table-bordered ">
             <thead>
             <tr>
-                <th></th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Filière</th>
@@ -98,13 +98,13 @@
            @if ( isset($listesEtudiant))
                 @foreach ( $listesEtudiant as $etudiant)
                     <tr>
-                            <th style="color:white">{{$etudiant->id}}</th>
-                            <th  class="opener">{{$etudiant->identity->nom}}</th>
-                            <th  class="opener">{{$etudiant->identity->prenom}}</th>
-                            <th  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
+                            <td hidden >{{$etudiant->id}}</td>
+                            <td  class="opener">{{$etudiant->identity->nom}}</td>
+                            <td  class="opener">{{$etudiant->identity->prenom}}</td>
+                            <td  class="opener">{{$etudiant->annee[0]->diplome->niveau."  ".$etudiant->annee[0]->libelle[0]."  ".$etudiant->annee[0]->diplome->libelle}}</th>
                             @if(Auth::user()->isAdmin())
-                            <th class="modifier" ><i class="fa fa-edit fa-2x"></i></th>
-                            <th class="del"><i class="fa fa-trash fa-2x"  style="color:red"></i></th>
+                            <td><i id="modifier" class="fa fa-edit fa-2x"></i></td>
+                            <td><i id="del"class="fa fa-trash fa-2x"  style="color:red"></i></td>
                             @endif
                     </tr>
                 
@@ -296,7 +296,7 @@
                 </div>
                 <div class="modal-body">
                         <div class="container">
-                            <h4> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet étudiant </span> ?</h4>
+                            <h6> Êtes-vous sûr de supprimer <span id="nomS" name="nom"> cet étudiant </span> ?</h6></br>
                             <div class="row">
                                 <div class="col">
                                     <form method="post" action="{{ url('annuaire/etudiants/deleteEtudiant') }}">
@@ -322,7 +322,7 @@
         $( function() {
             //AFFICHAGE POPUP
             $( ".opener" ).on( "click", function(e) {
-                var elements = e.target.parentElement.querySelectorAll("th")
+                var elements = e.target.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML
                 var num = 0
                 var filiereObtenu = ""
@@ -357,30 +357,21 @@
                 $( "#dialog" ).modal('show');
             });
 
-            $( ".modifier" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+            $( "i#modifier" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 var id_personne = elements.item(0).innerHTML;
-                var name_diplome = elements.item(3).innerHTML;
                 var idIdentity = 0, idDiplome = 0;
                 var personnes = JSON.parse('<?= json_encode($listesEtudiant->all());  ?>')
-                var diplome = JSON.parse('<?= json_encode($listDiplome);  ?>')
                 for (var i = 0; i < personnes.length; i++) {
                     if ( id_personne == personnes[i]['id'])
                     {
                         idIdentity = i;
                     }
                 }
-                diplome.forEach(function (value) {
-                    var libelle = value.diplome.niveau+"  "+value.libelle[0]+"  "+value.diplome.libelle;
-                    if(  name_diplome == libelle)
-                        {
-                            idDiplome = value.id_annee;
-                        }
-                });
                 document.getElementById("id2").value = id_personne
                 document.querySelector("#nom2").innerHTML = elements.item(1).innerHTML
                 document.querySelector("#pre2").innerHTML = elements.item(2).innerHTML
-                document.querySelector("#fil2").value = idDiplome
+                document.querySelector("#fil2").value = personnes[idIdentity].id_annee
                 document.querySelector("#email2").value = personnes[idIdentity].identity.email
                 $( "#modif" ).modal( "show" );
             });
@@ -389,8 +380,8 @@
                 $( "#ajout" ).modal( "show" );
             });
 
-            $( ".del" ).on( "click", function(e) {
-                var elements = e.target.parentElement.parentElement.querySelectorAll("th")
+            $( "i#del" ).on( "click", function(e) {
+                var elements = e.target.parentElement.parentElement.querySelectorAll("td")
                 document.getElementById("idS").value = elements.item(0).innerHTML
                 document.querySelector("#nomS").innerHTML = elements.item(1).innerHTML +" "+elements.item(2).innerHTML;
                 $( "#sup" ).modal( "show" );
