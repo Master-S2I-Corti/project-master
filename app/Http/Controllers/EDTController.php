@@ -98,18 +98,23 @@ class EDTController extends Controller
 
     public function ajoutCour(Request $request){
         $id_salle = Salle::select()->where("type", $request->salle)->first()->id_salle;
-         Seance::create([
-                 'id' => null,
-                 'type' => $request->type, 
-                 'heure_debut' => $request->heure_debut, 
-                 'heure_fin' => $request->heure_fin,
-                 'date_seance' => $request->date,
-                 'remarque' => $request->remarque,
-                 'id_matiere' => $request->matieres, 
-                 'id_salle' => $id_salle, 
-                 'code_professeur' => $request->code_professeur
-        ]);
-        return redirect('gestion/edt')->withOk("Séance ajouté avec succès");
+        if ($request->heure_debut < $request->heure_fin){
+            Seance::create([
+                    'id' => null,
+                    'type' => $request->type, 
+                    'heure_debut' => $request->heure_debut, 
+                    'heure_fin' => $request->heure_fin,
+                    'date_seance' => $request->date,
+                    'remarque' => $request->remarque,
+                    'id_matiere' => $request->matieres, 
+                    'id_salle' => $id_salle, 
+                    'code_professeur' => $request->code_professeur
+           ]);
+           return redirect('gestion/edt')->withOk("Séance ajouté avec succès");
+        }
+        else {
+            return redirect('gestion/edt')->withOk("Echec de l'ajout d'une séance");
+        }
     }
 
     public function seanceWeek() {
@@ -125,13 +130,7 @@ class EDTController extends Controller
                 ->join('Groupe','Participe.code_groupe','=','Groupe.code_groupe')
                 ->join('AppartientGroupe','Groupe.code_groupe','=','AppartientGroupe.code_groupe')
                 ->join('Etudiant','Etudiant.code_etudiant','=','AppartientGroupe.code_etudiant')
-                ->where('Etudiant.code_etudiant','=',$user->code_etudiant)->get();       
-            
-            /*Seance::join('AppartientGroupe','Etudiant.code_etudiant','=','AppartientGroupe.code_etudiant')
-                ->join('Groupe','Groupe.code_groupe','=','AppartientGroupe.code_groupe')
-                ->join('Participe','Participe.code_groupe','=','Groupe.code_groupe')
-                ->join('Seance','Seance.id_seance','=','Participe.id_seance')
-                ->where('Etudiant.id','=',$user->code_etudiant)->get();*/
+                ->where('Etudiant.code_etudiant','=',$user->code_etudiant)->get();
         }
         
 
